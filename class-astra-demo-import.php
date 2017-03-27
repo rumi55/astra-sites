@@ -89,7 +89,7 @@ class Astra_Demo_Import {
 			$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
 			$astra_demo['id']                           = $result['id'];
 			$astra_demo['astra-demo-widgets-data']      = json_decode( $result['astra-demo-widgets-data'] );
-			$astra_demo['astra-demo-customizer-data']   = json_decode( $result['astra-demo-customizer-data'], 1 );
+			$astra_demo['astra-demo-customizer-data']   = $result['astra-demo-customizer-data'];
 			$astra_demo['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
 			$astra_demo['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
 		}

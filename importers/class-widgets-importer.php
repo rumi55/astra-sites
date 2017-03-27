@@ -211,7 +211,7 @@ class Astra_Widget_Importer {
 
 					// Update option with new widget
 					$result = update_option( 'widget_' . $id_base, $single_widget_instances );
-					
+
 					// Assign widget instance to sidebar
 					$sidebars_widgets = get_option( 'sidebars_widgets' ); // which sidebars have which widgets, get fresh every time
 

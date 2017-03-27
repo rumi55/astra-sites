@@ -8,7 +8,7 @@
 class Astra_Customizer_Import {
 
 	/**
-	 * Instance of Astra_Widget_Importer
+	 * Instance of Astra_Customizer_Import
 	 *
 	 * @var Astra_Widget_Importer
 	 */
@@ -24,6 +24,6 @@ class Astra_Customizer_Import {
 	}
 
 	public function import( $data ) {
-		update_option( AST_THEME_SETTINGS, $data );
+		update_option( 'ast-settings', $data );
 	}
 }
