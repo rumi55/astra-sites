@@ -41,6 +41,8 @@ class Astra_Demo_Import {
 		// Load the Importers.
 		require_once ADI_DIR . 'importers/class-widgets-importer.php';
 		require_once ADI_DIR . 'importers/class-customizer-import.php';
+		require_once ADI_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
+		require_once ADI_DIR . 'importers/class-astra-site-options-import.php';
 	}
 
 	public function demo_ajax_import() {
@@ -56,6 +58,21 @@ class Astra_Demo_Import {
 
 		// Import Customizer Settings.
 		$this->import_customizer_Settings( $demo_data['astra-demo-customizer-data'] );
+
+		// Import XML.
+		$this->import_wxr( $demo_data['astra-demo-wxr-path'] );
+
+		// Import WordPress site options.
+		$this->import_site_options( $demo_data['astra-demo-site-options-data'] );
+
+		// Clear Astra Cache.
+		$this->clear_astra_cache();
+	}
+
+	private function clear_astra_cache() {
+		if ( class_exists( 'AST_Minify' ) ) {
+			AST_Minify::clear_assets_cache();
+		}
 	}
 
 	private function import_widgets( $data ) {
@@ -66,6 +83,17 @@ class Astra_Demo_Import {
 	private function import_customizer_Settings( $customizer_data ) {
 		$customizer_import = Astra_Customizer_Import::instance();
 		$customizer_data   = $customizer_import->import( $customizer_data );
+	}
+
+	private function import_wxr( $wxr_url ) {
+		$wxr_importer 	= Astra_WXR_Importer::instance();
+		$xml_path 		= $wxr_importer->download_xml( $wxr_url );
+		$wxr_importer->import_xml( $xml_path['file'] );
+	}
+
+	private function import_site_options( $options ) {
+		$options_importer = Astra_Site_Options_Importer::instance();
+		$options_importer->import_options( $options );
 	}
 
 	public static function get_astra_single_demo( $demo_api_uri ) {
