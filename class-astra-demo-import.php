@@ -65,6 +65,9 @@ class Astra_Demo_Import {
 		// Import WordPress site options.
 		$this->import_site_options( $demo_data['astra-demo-site-options-data'] );
 
+		// Import Enabled Extensions.
+		$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
+
 		// Clear Astra Cache.
 		$this->clear_astra_cache();
 	}
@@ -96,6 +99,12 @@ class Astra_Demo_Import {
 		$options_importer->import_options( $options );
 	}
 
+	private function import_astra_enabled_extension( $saved_extensions ) {
+		if ( is_callable( 'AST_Admin_Helper::update_admin_settings_option' ) ) {
+			AST_Admin_Helper::update_admin_settings_option( '_ast_ext_enabled_extensions', $saved_extensions );
+		}
+	}
+
 	public static function get_astra_single_demo( $demo_api_uri ) {
 
 		// default values.
@@ -120,6 +129,7 @@ class Astra_Demo_Import {
 			$astra_demo['astra-demo-customizer-data']   = $result['astra-demo-customizer-data'];
 			$astra_demo['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
 			$astra_demo['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
+			$astra_demo['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
 		}
 
 		return $astra_demo;
