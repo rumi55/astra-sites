@@ -42,7 +42,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		 				data-demo-id="<?php echo esc_attr( $demo[ 'id' ] ); ?>"
 		 				data-demo-url="<?php echo esc_url( $demo[ 'astra-demo-url' ] ); ?>"
 		 				data-demo-api="<?php echo esc_url( $demo[ 'demo-api' ] ); ?>"
-		 			>Install Demo</a>
+		 			>Import Demo</a>
 		 		</div>
 		 	</div>
 
