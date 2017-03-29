@@ -53,6 +53,9 @@ class Astra_Demo_Import {
 	public function import_demo( $demo_api_uri ) {
 		$demo_data = self::get_astra_single_demo( $demo_api_uri );
 
+		// Import Enabled Extensions.
+		$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
+
 		// Import Widgets data.
 		$this->import_widgets( $demo_data['astra-demo-widgets-data'] );
 
@@ -65,8 +68,8 @@ class Astra_Demo_Import {
 		// Import WordPress site options.
 		$this->import_site_options( $demo_data['astra-demo-site-options-data'] );
 
-		// Import Enabled Extensions.
-		$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
+		// Import Custom 404 extension options.
+		$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
 
 		// Clear Astra Cache.
 		$this->clear_astra_cache();
@@ -105,6 +108,12 @@ class Astra_Demo_Import {
 		}
 	}
 
+	private function import_custom_404_extension_options( $options_404 ) {
+		if ( is_callable( 'AST_Admin_Helper::update_admin_settings_option' ) ) {
+			AST_Admin_Helper::update_admin_settings_option( '_ast_ext_custom_404', $options_404 );
+		}
+	}
+
 	public static function get_astra_single_demo( $demo_api_uri ) {
 
 		// default values.
@@ -130,6 +139,7 @@ class Astra_Demo_Import {
 			$astra_demo['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
 			$astra_demo['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
 			$astra_demo['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
+			$astra_demo['astra-custom-404']     		= $result['astra-custom-404'];
 		}
 
 		return $astra_demo;
