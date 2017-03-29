@@ -164,6 +164,11 @@ class Astra_WXR_Importer {
 				'user-agent' => 'avada-user-agent',
 			) );
 			$response = wp_remote_get( esc_url_raw( $url ), $args );
+
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) != 200 ) {
+				return;
+			}
+
 			$body     = wp_remote_retrieve_body( $response );
 
 			// Try file_get_contents if body is empty.
