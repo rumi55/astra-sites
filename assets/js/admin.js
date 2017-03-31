@@ -1,7 +1,7 @@
-jQuery( document ).on('click', '.theme-screenshot, .more-details, .theme-name', function(event) {
+jQuery( document ).on('click', '.theme-screenshot, .more-details, .theme-name, .install-theme-preview', function(event) {
 	event.preventDefault();
 	
-	$this 	= jQuery( this ).parent( '.theme' );
+	$this 	= jQuery( this ).parents( '.theme' );
 	anchor 	= $this.find('.astra-demo-import');
 	$this.addClass('theme-preview-on');
 
