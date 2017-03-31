@@ -43,6 +43,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		 				data-demo-url="<?php echo esc_url( $demo[ 'astra-demo-url' ] ); ?>"
 		 				data-demo-api="<?php echo esc_url( $demo[ 'demo-api' ] ); ?>"
 		 				data-screenshot="<?php echo esc_url( $demo['featured-image-url'] ); ?>"
+		 				data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
 		 			>Import Demo</a>
 		 		</div>
 		 	</div>
@@ -67,14 +68,13 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 			 				data-demo-id="{{{data.id}}}"
 			 				data-demo-url="{{{data.astra_demo_url}}}"
 			 				data-demo-api="{{{data.demo_api}}}"
+			 				data-demo-name="{{{data.demo_name}}}"
 			 			>Import Demo</a>
 				
 			</div>
 			<div class="wp-full-overlay-sidebar-content">
 				<div class="install-theme-info">
-					<h3 class="theme-name">{{{data.title}}}</h3>
-						<span class="theme-by">
-							By lukecarbis					</span>
+					<h3 class="theme-name">{{{data.demo_name}}}</h3>
 
 						<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
 

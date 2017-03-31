@@ -43,10 +43,11 @@ function renderDemoPreview( anchor ) {
 	apiURL 		= anchor.data('demo-api');
 	demoURL 	= anchor.data('demo-url');
 	screenshot 	= anchor.data('screenshot');
+	demo_name 	= anchor.data('demo-name');
 
 	var template = wp.template('astra-demo-preview');
 
-	templateData = [{id: demoId, astra_demo_url: demoURL, demo_api: apiURL, screenshot: screenshot}]
+	templateData = [{id: demoId, astra_demo_url: demoURL, demo_api: apiURL, screenshot: screenshot, demo_name: demo_name}]
 
 	jQuery( '.wrap' ).append( template( templateData[0] ) );
 	jQuery('.theme-install-overlay').css('display', 'block');
