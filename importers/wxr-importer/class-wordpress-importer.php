@@ -440,11 +440,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$this->processed_terms[ intval( $cat['term_id'] ) ] = $id;
 					}
 				} else {
-						printf( __( 'Failed to import category %s', 'wordpress-importer' ), esc_html( $cat['category_nicename'] ) );
+						// printf( __( 'Failed to import category %s', 'wordpress-importer' ), esc_html( $cat['category_nicename'] ) );
 					if ( defined( 'IMPORT_DEBUG' ) && IMPORT_DEBUG ) {
-						echo ': ' . $id->get_error_message();
+						// echo ': ' . $id->get_error_message();
 					}
-						echo '<br />';
+						// echo '<br />';
 						continue;
 				}
 

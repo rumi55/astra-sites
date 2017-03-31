@@ -19,6 +19,10 @@ class Astra_WXR_Importer {
 			define( 'WP_LOAD_IMPORTERS', true );
 		}
 
+		if ( ! defined( 'IMPORT_DEBUG' ) ) {
+			define( 'IMPORT_DEBUG', false );
+		}
+
 		// Import file location
 		$import_file = ABSPATH . 'wp-admin/includes/import.php';
 
