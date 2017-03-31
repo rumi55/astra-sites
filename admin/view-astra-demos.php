@@ -42,6 +42,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		 				data-demo-id="<?php echo esc_attr( $demo[ 'id' ] ); ?>"
 		 				data-demo-url="<?php echo esc_url( $demo[ 'astra-demo-url' ] ); ?>"
 		 				data-demo-api="<?php echo esc_url( $demo[ 'demo-api' ] ); ?>"
+		 				data-screenshot="<?php echo esc_url( $demo['featured-image-url'] ); ?>"
 		 			>Import Demo</a>
 		 		</div>
 		 	</div>
@@ -53,3 +54,44 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 	</div>
 
 </div>
+
+<script type="text/template" id="tmpl-astra-demo-preview">
+	<div class="theme-install-overlay wp-full-overlay expanded">
+		<div class="wp-full-overlay-sidebar">
+			<div class="wp-full-overlay-header">
+				<button class="close-full-overlay"><span class="screen-reader-text">Close</span></button>
+				<button class="previous-theme"><span class="screen-reader-text">Previous</span></button>
+				<button class="next-theme"><span class="screen-reader-text">Next</span></button>
+
+					<a class="button button-primary hide-if-no-customize astra-demo-import" href="#" 
+			 				data-demo-id="{{{data.id}}}"
+			 				data-demo-url="{{{data.astra_demo_url}}}"
+			 				data-demo-api="{{{data.demo_api}}}"
+			 			>Import Demo</a>
+				
+			</div>
+			<div class="wp-full-overlay-sidebar-content">
+				<div class="install-theme-info">
+					<h3 class="theme-name">{{{data.title}}}</h3>
+						<span class="theme-by">
+							By lukecarbis					</span>
+
+						<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
+
+						<div class="theme-details">
+							
+						</div>
+					</div>
+				</div>
+				<div class="wp-full-overlay-footer">
+					<button type="button" class="collapse-sidebar button" aria-expanded="true" aria-label="Collapse Sidebar">
+						<span class="collapse-sidebar-arrow"></span>
+						<span class="collapse-sidebar-label">Collapse</span>
+					</button>
+				</div>
+			</div>
+			<div class="wp-full-overlay-main">
+			<iframe src="{{{data.astra_demo_url}}}" title="Preview"></iframe>
+		</div>
+	</div>
+</script>

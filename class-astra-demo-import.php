@@ -32,7 +32,7 @@ class Astra_Demo_Import {
 	}
 
 	public function admin_enqueue() {
-		wp_register_script( 'astra-demo-import-admin', ADI_URI . 'assets/js/admin.js', array( 'jquery' ), ADI_VER, true );
+		wp_register_script( 'astra-demo-import-admin', ADI_URI . 'assets/js/admin.js', array( 'jquery', 'wp-util' ), ADI_VER, true );
 	}
 
 	private function includes() {
