@@ -13,6 +13,7 @@ jQuery( document ).on('click', '.close-full-overlay', function(event) {
 	
 	jQuery('.theme-install-overlay').css('display', 'none');
 	jQuery('.theme-install-overlay').remove();
+	jQuery( '.theme-preview-on' ).removeClass('theme-preview-on');
 });
 
 jQuery( document ).on('click', '.next-theme', function(event) {
