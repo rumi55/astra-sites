@@ -51,6 +51,8 @@ function renderDemoPreview( anchor ) {
 
 	templateData = [{id: demoId, astra_demo_url: demoURL, demo_api: apiURL, screenshot: screenshot, demo_name: demo_name, content: content}]
 
+	// delete any earlier fullscreen preview before we render new one.
+	jQuery( '.theme-install-overlay' ).remove();
 	jQuery( '.wrap' ).append( template( templateData[0] ) );
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
