@@ -119,10 +119,9 @@ class Astra_WXR_Importer {
 				// $filename  = $results['file']; // Full path to the file.
 				// $local_url = $results['url'];  // URL to the file in the uploads dir.
 				// $type      = $results['type']; // MIME type of the file.
-
 				return $results;
 			}
-		}
+		}// End if().
 	}
 
 	/**
@@ -134,9 +133,9 @@ class Astra_WXR_Importer {
 	 * This is a re-implementation of the deprecated wp_get_http() function from WP Core,
 	 * but this time using the recommended WP_Http() class and the WordPress filesystem.
 	 *
-	 * @param string $url URL to fetch.
+	 * @param string      $url URL to fetch.
 	 * @param string|bool $file_path Optional. File path to write request to. Default false.
-	 * @param array $args Optional. Arguments to be passed-on to the request.
+	 * @param array       $args Optional. Arguments to be passed-on to the request.
 	 *
 	 * @return bool|string False on failure and string of headers if HEAD request.
 	 */

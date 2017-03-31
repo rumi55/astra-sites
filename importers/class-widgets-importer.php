@@ -74,7 +74,9 @@ class Astra_Widget_Importer {
 			wp_die(
 				esc_html__( 'Import data could not be read. Please try a different file.', 'widget-importer-exporter' ),
 				'',
-				array( 'back_link' => true )
+				array(
+					'back_link' => true,
+				)
 			);
 		}
 
@@ -177,9 +179,7 @@ class Astra_Widget_Importer {
 							break;
 
 						}
-
 					}
-
 				}
 
 				// No failure
@@ -187,7 +187,9 @@ class Astra_Widget_Importer {
 
 					// Add widget instance
 					$single_widget_instances   = get_option( 'widget_' . $id_base ); // all instances for that widget ID base, get fresh every time
-					$single_widget_instances   = ! empty( $single_widget_instances ) ? $single_widget_instances : array( '_multiwidget' => 1 ); // start fresh if have to
+					$single_widget_instances   = ! empty( $single_widget_instances ) ? $single_widget_instances : array(
+						'_multiwidget' => 1,
+					); // start fresh if have to
 					$single_widget_instances[] = $widget; // add it
 
 					// Get the key it was given
@@ -234,7 +236,7 @@ class Astra_Widget_Importer {
 						'widget_id'         => $new_instance_id,
 						'widget_id_old'     => $widget_instance_id,
 						'widget_id_num'     => $new_instance_id_number,
-						'widget_id_num_old' => $instance_id_number
+						'widget_id_num_old' => $instance_id_number,
 					);
 					do_action( 'wie_after_widget_import', $after_widget_import );
 
@@ -246,8 +248,7 @@ class Astra_Widget_Importer {
 						$widget_message_type = 'warning';
 						$widget_message      = esc_html__( 'Imported to Inactive', 'widget-importer-exporter' );
 					}
-
-				}
+				}// End if().
 
 				// Result for widget instance
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['name']         = isset( $available_widgets[ $id_base ]['name'] ) ? $available_widgets[ $id_base ]['name'] : $id_base; // widget name or ID if name not available (not supported by site)
@@ -255,9 +256,8 @@ class Astra_Widget_Importer {
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message_type'] = $widget_message_type;
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message']      = $widget_message;
 
-			}
-
-		}
+			}// End foreach().
+		}// End foreach().
 
 		// Hook after import
 		do_action( 'wie_after_import' );

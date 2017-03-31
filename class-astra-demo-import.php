@@ -34,7 +34,7 @@ class Astra_Demo_Import {
 	public function admin_enqueue() {
 		wp_register_script( 'astra-demo-import-admin', ADI_URI . 'assets/js/admin.js', array(
 			'jquery',
-			'wp-util'
+			'wp-util',
 		), ADI_VER, true );
 	}
 
@@ -129,7 +129,7 @@ class Astra_Demo_Import {
 		);
 
 		$api_args = array(
-			'timeout' => 15
+			'timeout' => 15,
 		);
 
 		$response = wp_remote_get( $demo_api_uri, $api_args );
@@ -153,7 +153,7 @@ class Astra_Demo_Import {
 		$astra_demos = array();
 
 		$api_args = array(
-			'timeout' => 15
+			'timeout' => 15,
 		);
 
 		$response = wp_remote_get( self::get_api_url(), $api_args );

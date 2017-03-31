@@ -20,7 +20,7 @@ class WXR_Parser {
 			if ( ! is_wp_error( $result ) || 'SimpleXML_parse_error' != $result->get_error_code() ) {
 				return $result;
 			}
-		} else if ( extension_loaded( 'xml' ) ) {
+		} elseif ( extension_loaded( 'xml' ) ) {
 			$parser = new WXR_Parser_XML;
 			$result = $parser->parse( $file );
 
@@ -37,7 +37,7 @@ class WXR_Parser {
 				foreach ( $result->get_error_data() as $error ) {
 					echo $error->line . ':' . $error->column . ' ' . esc_html( $error->message ) . "\n";
 				}
-			} else if ( 'XML_parse_error' == $result->get_error_code() ) {
+			} elseif ( 'XML_parse_error' == $result->get_error_code() ) {
 				$error = $result->get_error_data();
 				echo $error[0] . ':' . $error[1] . ' ' . esc_html( $error[2] );
 			}
@@ -116,7 +116,7 @@ class WXR_Parser_SimpleXML {
 				'author_email'        => (string) $a->author_email,
 				'author_display_name' => (string) $a->author_display_name,
 				'author_first_name'   => (string) $a->author_first_name,
-				'author_last_name'    => (string) $a->author_last_name
+				'author_last_name'    => (string) $a->author_last_name,
 			);
 		}
 
@@ -128,13 +128,13 @@ class WXR_Parser_SimpleXML {
 				'category_nicename'    => (string) $t->category_nicename,
 				'category_parent'      => (string) $t->category_parent,
 				'cat_name'             => (string) $t->cat_name,
-				'category_description' => (string) $t->category_description
+				'category_description' => (string) $t->category_description,
 			);
 
 			foreach ( $t->termmeta as $meta ) {
 				$category['termmeta'][] = array(
 					'key'   => (string) $meta->meta_key,
-					'value' => (string) $meta->meta_value
+					'value' => (string) $meta->meta_value,
 				);
 			}
 
@@ -147,13 +147,13 @@ class WXR_Parser_SimpleXML {
 				'term_id'         => (int) $t->term_id,
 				'tag_slug'        => (string) $t->tag_slug,
 				'tag_name'        => (string) $t->tag_name,
-				'tag_description' => (string) $t->tag_description
+				'tag_description' => (string) $t->tag_description,
 			);
 
 			foreach ( $t->termmeta as $meta ) {
 				$tag['termmeta'][] = array(
 					'key'   => (string) $meta->meta_key,
-					'value' => (string) $meta->meta_value
+					'value' => (string) $meta->meta_value,
 				);
 			}
 
@@ -168,13 +168,13 @@ class WXR_Parser_SimpleXML {
 				'slug'             => (string) $t->term_slug,
 				'term_parent'      => (string) $t->term_parent,
 				'term_name'        => (string) $t->term_name,
-				'term_description' => (string) $t->term_description
+				'term_description' => (string) $t->term_description,
 			);
 
 			foreach ( $t->termmeta as $meta ) {
 				$term['termmeta'][] = array(
 					'key'   => (string) $meta->meta_key,
-					'value' => (string) $meta->meta_value
+					'value' => (string) $meta->meta_value,
 				);
 			}
 
@@ -220,7 +220,7 @@ class WXR_Parser_SimpleXML {
 					$post['terms'][] = array(
 						'name'   => (string) $c,
 						'slug'   => (string) $att['nicename'],
-						'domain' => (string) $att['domain']
+						'domain' => (string) $att['domain'],
 					);
 				}
 			}
@@ -228,7 +228,7 @@ class WXR_Parser_SimpleXML {
 			foreach ( $wp->postmeta as $meta ) {
 				$post['postmeta'][] = array(
 					'key'   => (string) $meta->meta_key,
-					'value' => (string) $meta->meta_value
+					'value' => (string) $meta->meta_value,
 				);
 			}
 
@@ -238,7 +238,7 @@ class WXR_Parser_SimpleXML {
 					foreach ( $comment->commentmeta as $m ) {
 						$meta[] = array(
 							'key'   => (string) $m->meta_key,
-							'value' => (string) $m->meta_value
+							'value' => (string) $m->meta_value,
 						);
 					}
 				}
@@ -261,7 +261,7 @@ class WXR_Parser_SimpleXML {
 			}
 
 			$posts[] = $post;
-		}
+		}// End foreach().
 
 		return array(
 			'authors'    => $authors,
@@ -270,7 +270,7 @@ class WXR_Parser_SimpleXML {
 			'tags'       => $tags,
 			'terms'      => $terms,
 			'base_url'   => $base_url,
-			'version'    => $wxr_version
+			'version'    => $wxr_version,
 		);
 	}
 }
@@ -347,7 +347,7 @@ class WXR_Parser_XML {
 			return new WP_Error( 'XML_parse_error', 'There was an error when reading this WXR file', array(
 				$current_line,
 				$current_column,
-				$error_string
+				$error_string,
 			) );
 		}
 		xml_parser_free( $xml );
@@ -363,7 +363,7 @@ class WXR_Parser_XML {
 			'tags'       => $this->tag,
 			'terms'      => $this->term,
 			'base_url'   => $this->base_url,
-			'version'    => $this->wxr_version
+			'version'    => $this->wxr_version,
 		);
 	}
 
@@ -416,7 +416,7 @@ class WXR_Parser_XML {
 			case 'wp:meta_value':
 				$this->in_sub_tag = 'value';
 				break;
-		}
+		}// End switch().
 	}
 
 	function cdata( $parser, $cdata ) {
@@ -443,7 +443,7 @@ class WXR_Parser_XML {
 			case 'wp:commentmeta':
 				$this->sub_data['commentmeta'][] = array(
 					'key'   => $this->sub_data['key'],
-					'value' => $this->sub_data['value']
+					'value' => $this->sub_data['value'],
 				);
 				break;
 			case 'category':
@@ -487,11 +487,11 @@ class WXR_Parser_XML {
 				if ( $this->in_sub_tag ) {
 					$this->sub_data[ $this->in_sub_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
 					$this->in_sub_tag                    = false;
-				} else if ( $this->in_tag ) {
+				} elseif ( $this->in_tag ) {
 					$this->data[ $this->in_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
 					$this->in_tag                = false;
 				}
-		}
+		}// End switch().
 
 		$this->cdata = false;
 	}
@@ -563,10 +563,10 @@ class WXR_Parser_Regex {
 				if ( $in_post ) {
 					$post .= $importline . "\n";
 				}
-			}
+			}// End while().
 
 			$this->fclose( $fp );
-		}
+		}// End if().
 
 		if ( ! $wxr_version ) {
 			return new WP_Error( 'WXR_parse_error', __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'wordpress-importer' ) );
@@ -579,7 +579,7 @@ class WXR_Parser_Regex {
 			'tags'       => $this->tags,
 			'terms'      => $this->terms,
 			'base_url'   => $this->base_url,
-			'version'    => $wxr_version
+			'version'    => $wxr_version,
 		);
 	}
 
