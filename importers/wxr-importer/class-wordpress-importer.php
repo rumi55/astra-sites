@@ -550,11 +550,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$this->processed_terms[ intval( $term['term_id'] ) ] = $id['term_id'];
 					}
 				} else {
-					printf( __( 'Failed to import %1$s %2$s', 'wordpress-importer' ), esc_html( $term['term_taxonomy'] ), esc_html( $term['term_name'] ) );
+					// printf( __( 'Failed to import %1$s %2$s', 'wordpress-importer' ), esc_html( $term['term_taxonomy'] ), esc_html( $term['term_name'] ) );
 					if ( defined( 'IMPORT_DEBUG' ) && IMPORT_DEBUG ) {
-						echo ': ' . $id->get_error_message();
+						// echo ': ' . $id->get_error_message();
 					}
-					echo '<br />';
+					// echo '<br />';
 					continue;
 				}
 
