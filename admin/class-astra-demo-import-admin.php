@@ -21,7 +21,7 @@ class Astra_Demo_Import_Admin {
 
 		$actions['astra-demos'] = array(
 			'label' => __( 'Astra Demos', 'astra-demo-import' ),
-			'show'	=> ! is_network_admin(),
+			'show'  => ! is_network_admin(),
 		);
 
 		return $actions;

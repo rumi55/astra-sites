@@ -32,7 +32,10 @@ class Astra_Demo_Import {
 	}
 
 	public function admin_enqueue() {
-		wp_register_script( 'astra-demo-import-admin', ADI_URI . 'assets/js/admin.js', array( 'jquery', 'wp-util' ), ADI_VER, true );
+		wp_register_script( 'astra-demo-import-admin', ADI_URI . 'assets/js/admin.js', array(
+			'jquery',
+			'wp-util'
+		), ADI_VER, true );
 	}
 
 	private function includes() {
@@ -92,8 +95,8 @@ class Astra_Demo_Import {
 	}
 
 	private function import_wxr( $wxr_url ) {
-		$wxr_importer 	= Astra_WXR_Importer::instance();
-		$xml_path 		= $wxr_importer->download_xml( $wxr_url );
+		$wxr_importer = Astra_WXR_Importer::instance();
+		$xml_path     = $wxr_importer->download_xml( $wxr_url );
 		$wxr_importer->import_xml( $xml_path['file'] );
 	}
 
@@ -139,7 +142,7 @@ class Astra_Demo_Import {
 			$astra_demo['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
 			$astra_demo['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
 			$astra_demo['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
-			$astra_demo['astra-custom-404']     		= $result['astra-custom-404'];
+			$astra_demo['astra-custom-404']             = $result['astra-custom-404'];
 		}
 
 		return $astra_demo;

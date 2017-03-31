@@ -13,10 +13,10 @@ class Astra_Site_Options_Importer {
 	}
 
 	public function import_options( $options ) {
-		$show_on_front 		= $options['show_on_front'];
-		$page_on_front 		= get_page_by_title( $options['page_on_front'] );
-		$page_for_posts 	= get_page_by_title( $options['page_for_posts'] );
-		$registered_menus 	= $options['registered_menus'];
+		$show_on_front    = $options['show_on_front'];
+		$page_on_front    = get_page_by_title( $options['page_on_front'] );
+		$page_for_posts   = get_page_by_title( $options['page_for_posts'] );
+		$registered_menus = $options['registered_menus'];
 
 		// Update site options.
 		update_option( 'show_on_front', $show_on_front );

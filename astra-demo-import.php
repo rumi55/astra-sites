@@ -26,5 +26,5 @@ function adi_init() {
 
 	$importer_api = 'http://multi.sharkz.in/wp-json/wp/v2/astra-demos/';
 	Astra_Demo_Import::instance( $importer_api );
-	
+
 }

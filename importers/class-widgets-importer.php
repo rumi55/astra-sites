@@ -46,7 +46,7 @@ class Astra_Widget_Importer {
 			if ( ! empty( $widget['id_base'] ) && ! isset( $available_widgets[ $widget['id_base'] ] ) ) { // no dupes
 
 				$available_widgets[ $widget['id_base'] ]['id_base'] = $widget['id_base'];
-				$available_widgets[ $widget['id_base'] ]['name'] = $widget['name'];
+				$available_widgets[ $widget['id_base'] ]['name']    = $widget['name'];
 
 			}
 		}
