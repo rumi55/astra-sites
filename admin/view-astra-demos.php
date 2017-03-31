@@ -33,8 +33,8 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 					<img src="<?php echo esc_attr( $demo['featured-image-url'] ) ?>" alt="">
 				</div>
 
-				<a href="<?php echo esc_url( $demo['astra-demo-url'] ) ?>" target="_blank"> <span class="more-details"
-				                                                                                  id="astra-theme-action">Details &amp; Preview</span>
+				<a href="<?php echo esc_url( $demo['astra-demo-url'] ) ?>" target="_blank"> 
+					<span class="more-details" id="astra-theme-action">Details &amp; Preview</span>
 				</a>
 
 				<h2 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ) ?></h2>
