@@ -225,9 +225,13 @@ class Astra_Demo_Import {
 			$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 			foreach ( $result as $key => $category ) {
+				if ( $category['count'] == 0 ) {
+					continue;
+				}
 				$categories[ $key ]['id'] = $category['id'];
 				$categories[ $key ]['name'] = $category['name'];
 				$categories[ $key ]['slug'] = $category['slug'];
+				$categories[ $key ]['count'] = $category['count'];
 				$categories[ $key ]['link-category'] = $category['_links']['self'][0]['href'];
 			}
 
