@@ -104,7 +104,7 @@ jQuery( document ).on('click', '.astra-demo-import', function(event) {
 		return;
 	}
 
-	$this.addClass('updating-message installing').text( 'Importing The Demo' );
+	$this.addClass('updating-message installing').text( 'Importing Demo' );
 	$this.closest( '.theme' ).focus();
 
 	demoId = $this.data('id');
