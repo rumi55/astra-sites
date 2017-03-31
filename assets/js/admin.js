@@ -1,7 +1,7 @@
-jQuery( document ).on('click', '.theme', function(event) {
+jQuery( document ).on('click', '.theme-screenshot, .more-details, .theme-name', function(event) {
 	event.preventDefault();
 	
-	$this 	= jQuery( this );
+	$this 	= jQuery( this ).parent( '.theme' );
 	anchor 	= $this.find('.astra-demo-import');
 	$this.addClass('theme-preview-on');
 
@@ -36,7 +36,6 @@ jQuery( document ).on('click', '.previous-theme', function(event) {
 	prevDemo.addClass( 'theme-preview-on' );
 	anchor = prevDemo.find('.astra-demo-import');
 	renderDemoPreview( anchor );
-	
 });
 
 function renderDemoPreview( anchor ) {
@@ -51,6 +50,29 @@ function renderDemoPreview( anchor ) {
 
 	jQuery( '.wrap' ).append( template( templateData[0] ) );
 	jQuery('.theme-install-overlay').css('display', 'block');
+	checkNextPrevButtons();
+
+	return;
+}
+
+function checkNextPrevButtons() {
+	currentDemo = jQuery( '.theme-preview-on' );
+	nextDemo = currentDemo.nextAll('.theme').length;
+	prevDemo = currentDemo.prevAll('.theme').length;
+	
+	if ( nextDemo == 0 ) {
+		jQuery( '.next-theme' ).addClass('disabled');
+	} else if ( nextDemo != 0 ) {
+		jQuery( '.next-theme' ).removeClass('disabled');
+	}
+
+	if ( prevDemo == 0 ) {
+		jQuery( '.previous-theme' ).addClass('disabled');
+	} else if ( prevDemo != 0 ) {
+		jQuery( '.previous-theme' ).removeClass('disabled');
+	}
+
+	return;
 }
 
 jQuery( document ).on('click', '.collapse-sidebar', function(event) {
