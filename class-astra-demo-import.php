@@ -21,14 +21,26 @@ class Astra_Demo_Import {
 		$this->includes();
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue' ) );
 		add_action( 'wp_ajax_astra-import-demo', array( $this, 'demo_ajax_import' ) );
+		add_action( 'wp_ajax_astra-list-demos', array( $this, 'astra_list_demos' ) );
 	}
 
 	private static function set_api_url( $importer_api ) {
 		self::$api_url = $importer_api;
 	}
 
-	public static function get_api_url() {
-		return self::$api_url;
+	public static function get_api_url( $scope ) {
+
+		if ( $scope == 'all' ) {
+			$url = self::$api_url . 'astra-demos/';
+		} else {
+			$url = self::$api_url . 'astra-demos/?astra-demo-category=' . $scope;
+		}
+
+		return $url;
+	}
+
+	public static function get_taxanomy_api_url() {
+		return self::$api_url . 'astra-demo-category/';
 	}
 
 	public function admin_enqueue() {
@@ -56,6 +68,18 @@ class Astra_Demo_Import {
 
 		$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 		$this->import_demo( $demo_api_uri );
+	}
+
+	public function astra_list_demos() {
+
+		if ( ! current_user_can( 'customize' ) ) {
+			return;
+		}
+
+		$category = isset( $_POST['category'] ) ? esc_attr( $_POST['category'] ) : '';
+		$id = isset( $_POST['id'] ) ? esc_attr( $_POST['id'] ) : '';
+
+		return wp_send_json( self::get_astra_demos( $id ) );
 	}
 
 	public function import_demo( $demo_api_uri ) {
@@ -153,7 +177,9 @@ class Astra_Demo_Import {
 		return $astra_demo;
 	}
 
-	public static function get_all_astra_demos() {
+	public static function get_astra_demos( $scope = 'all' ) {
+
+		$url = self::get_api_url( $scope );
 
 		$astra_demos = array();
 
@@ -161,7 +187,7 @@ class Astra_Demo_Import {
 			'timeout' => 15,
 		);
 
-		$response = wp_remote_get( self::get_api_url(), $api_args );
+		$response = wp_remote_get( $url, $api_args );
 
 		if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$result = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -170,10 +196,10 @@ class Astra_Demo_Import {
 				$astra_demos[ $key ]['id']                 = $demo['id'];
 				$astra_demos[ $key ]['slug']               = $demo['slug'];
 				$astra_demos[ $key ]['date']               = $demo['date'];
-				$astra_demos[ $key ]['astra-demo-url']     = $demo['astra-demo-url'];
+				$astra_demos[ $key ]['astra_demo_url']     = $demo['astra-demo-url'];
 				$astra_demos[ $key ]['title']              = $demo['title']['rendered'];
-				$astra_demos[ $key ]['featured-image-url'] = $demo['featured-image-url'];
-				$astra_demos[ $key ]['demo-api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url() . $demo['id'];
+				$astra_demos[ $key ]['featured_image_url'] = $demo['featured-image-url'];
+				$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url() . $demo['id'];
 				$astra_demos[ $key ]['content']           = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 			}
 
@@ -184,6 +210,33 @@ class Astra_Demo_Import {
 			return $astra_demos;
 		}
 
+	}
+
+	public static function get_demo_categories() {
+		$categories = array();
+
+		$api_args = array(
+			'timeout' => 15,
+		);
+		
+		$response = wp_remote_get( self::get_taxanomy_api_url(), $api_args );
+
+		if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
+			$result = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			foreach ( $result as $key => $category ) {
+				$categories[ $key ]['id'] = $category['id'];
+				$categories[ $key ]['name'] = $category['name'];
+				$categories[ $key ]['slug'] = $category['slug'];
+				$categories[ $key ]['link-category'] = $category['_links']['self'][0]['href'];
+			}
+
+			// Free up memory by unsetting variables that are not required.
+			unset( $result );
+			unset( $response );
+
+			return $categories;
+		}
 	}
 
 }

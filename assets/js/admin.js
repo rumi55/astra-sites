@@ -80,6 +80,60 @@ function checkNextPrevButtons() {
 	return;
 }
 
+jQuery( document ).on('click', '.filter-links li a', function(event) {
+	event.preventDefault();
+	
+	$this = jQuery( this );
+	slug = $this.data( 'sort' );
+	id = $this.data( 'id' );
+
+	if ( slug == 'all' ) {
+		category = 'all';
+	} else {
+		category = slug;
+	}
+
+	jQuery( 'body' ).addClass('loading-content');
+	jQuery( '.theme-browser .theme' ).remove();
+
+	jQuery.ajax({
+		url: ajaxurl,
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			action: 'astra-list-demos',
+			category: category,
+			id: id,
+		},
+	})
+	.done(function(demos) {
+
+		jQuery.each(demos, function(index, demo) {
+			console.log(demo);
+			screenshot = demo.featured_image_url;
+			id = demo.id;
+			astra_demo_url = demo.astra_demo_url;
+			demo_api = demo.demo_api;
+			demo_name = demo.title;
+			content = demo.content;
+
+			templateData = [{id: id, astra_demo_url: astra_demo_url, demo_api: demo_api, screenshot: screenshot, demo_name: demo_name, content: content}]
+
+			var template = wp.template('astra-single-demo');
+			jQuery( '.theme-browser' ).append( template( templateData[0] ) );
+		});
+
+		
+		jQuery( 'body' ).removeClass('loading-content');
+		// $this.removeClass('updating-message installing').text( 'Demo Imported' ).attr('disabled', 'disabled');
+	})
+	.fail(function() {
+		jQuery( 'body' ).removeClass('loading-content');
+		// $this.removeClass('updating-message installing').text( 'Error.' );
+	});
+
+});
+
 jQuery( document ).on('click', '.collapse-sidebar', function(event) {
 	event.preventDefault();
 

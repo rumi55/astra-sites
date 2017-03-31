@@ -24,7 +24,7 @@ add_action( 'plugins_loaded', 'adi_init' );
 
 function adi_init() {
 
-	$importer_api = 'http://multi.sharkz.in/wp-json/wp/v2/astra-demos/';
+	$importer_api = 'http://multi.sharkz.in/wp-json/wp/v2/';
 	Astra_Demo_Import::instance( $importer_api );
 
 }

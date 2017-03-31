@@ -19,21 +19,46 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 
 <div class="wrap">
 
-	<h3 style="margin-bottom: 15px;">Astra Demo Import</h3>
+	<div class="wp-filter hide-if-no-js">
+		<!-- <div class="filter-count">
+			<span class="count theme-count">15</span>
+		</div> -->
+
+		<ul class="filter-links">
+			<li><a href="#" data-sort="all" class="current" data-id="all">All</a></li>
+			<?php
+				foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) {
+					?>
+
+					<li><a href="#" 
+						data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
+						data-id="<?php echo esc_attr( $category['id'] ); ?>"
+						><?php echo esc_attr( $category['name'] ); ?></a></li>
+
+					<?php
+				}
+			?>
+		</ul>
+
+		<div class="search-form"><label class="screen-reader-text" for="wp-filter-search-input">Search Demos</label><input placeholder="Search Demos..." type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search"></div>
+
+	</div>
+
+	<span class="spinner"></span>
 
 	<div class="theme-browser rendered">
 		<?php
 
-		foreach ( Astra_Demo_Import::get_all_astra_demos() as $key => $demo ) {
+		foreach ( Astra_Demo_Import::get_astra_demos() as $key => $demo ) {
 			?>
 
 			<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
 
 				<div class="theme-screenshot">
-					<img src="<?php echo esc_attr( $demo['featured-image-url'] ) ?>" alt="">
+					<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
 				</div>
 
-				<a href="<?php echo esc_url( $demo['astra-demo-url'] ) ?>" target="_blank"> 
+				<a href="<?php echo esc_url( $demo['astra_demo_url'] ) ?>" target="_blank"> 
 					<span class="more-details" id="astra-theme-action">Details &amp; Preview</span>
 				</a>
 
@@ -42,9 +67,9 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 				<div class="theme-actions">
 					<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
 					   data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
-					   data-demo-url="<?php echo esc_url( $demo['astra-demo-url'] ); ?>"
-					   data-demo-api="<?php echo esc_url( $demo['demo-api'] ); ?>"
-					   data-screenshot="<?php echo esc_url( $demo['featured-image-url'] ); ?>"
+					   data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
+					   data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
+					   data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
 					   data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
 					   data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 					>Import</a>
@@ -98,5 +123,35 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		<div class="wp-full-overlay-main">
 			<iframe src="{{{data.astra_demo_url}}}" title="Preview"></iframe>
 		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tmpl-astra-single-demo">
+	<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
+
+		<div class="theme-screenshot">
+			<img src="{{{data.screenshot}}}" alt="">
+		</div>
+
+		<a href="{{{data.astra_demo_url}}}" target="_blank"> 
+			<span class="more-details" id="astra-theme-action">Details &amp; Preview</span>
+		</a>
+
+		<h2 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h2>
+
+		<div class="theme-actions">
+
+			<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
+			   data-demo-id="{{{data.id}}}"
+			   data-demo-url="{{{data.astra_demo_url}}}"
+			   data-demo-api="{{{data.demo_api}}}"
+			   data-demo-name="{{{data.demo_name}}}"
+			   data-screenshot="{{{data.screenshot}}}"
+			   data-content="{{{data.content}}}"
+			>Import</a>
+			<button class="button preview install-theme-preview">Preview</button>
+
+		</div>
+
 	</div>
 </script>
