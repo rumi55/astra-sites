@@ -46,6 +46,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 					   data-demo-api="<?php echo esc_url( $demo['demo-api'] ); ?>"
 					   data-screenshot="<?php echo esc_url( $demo['featured-image-url'] ); ?>"
 					   data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
+					   data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 					>Import</a>
 					<button class="button preview install-theme-preview">Preview</button>
 				</div>
@@ -82,7 +83,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 					<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
 
 					<div class="theme-details">
-
+					{{{data.content}}}
 					</div>
 				</div>
 			</div>

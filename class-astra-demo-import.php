@@ -174,6 +174,7 @@ class Astra_Demo_Import {
 				$astra_demos[ $key ]['title']              = $demo['title']['rendered'];
 				$astra_demos[ $key ]['featured-image-url'] = $demo['featured-image-url'];
 				$astra_demos[ $key ]['demo-api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url() . $demo['id'];
+				$astra_demos[ $key ]['content']           = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 			}
 
 			// Free up memory by unsetting variables that are not required.
