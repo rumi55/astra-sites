@@ -87,6 +87,9 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 	slug = $this.data( 'sort' );
 	id = $this.data( 'id' );
 
+	$this.parent( 'li' ).siblings().find('.current').removeClass('current');
+	$this.addClass('current');
+
 	if ( slug == 'all' ) {
 		category = 'all';
 	} else {
