@@ -49,6 +49,11 @@ class Astra_Demo_Import {
 	}
 
 	public function demo_ajax_import() {
+
+		if ( ! current_user_can( 'customize' ) ) {
+			return;
+		}
+
 		$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 		$this->import_demo( $demo_api_uri );
 	}
