@@ -28,15 +28,18 @@ class Astra_Demo_Import {
 		self::$api_url = $importer_api;
 	}
 
-	public static function get_api_url( $scope ) {
+	public static function get_api_url( $args ) {
 
-		if ( $scope == 'all' ) {
-			$url = self::$api_url . 'astra-demos/';
-		} else {
-			$url = self::$api_url . 'astra-demos/?astra-demo-category=' . $scope;
+		$args->search = isset( $args->search ) ? $args->search : '';
+		$args->id 	  = isset( $args->id ) ? $args->id : '';
+
+		if ( $args->search !== '' ) {
+			return self::$api_url . 'astra-demos/?search=' . $args->search;
+		} elseif ( $args->id != 'all' ) {
+			return self::$api_url . 'astra-demos/?astra-demo-category=' . $args->id;
 		}
 
-		return $url;
+		return self::$api_url . 'astra-demos/';
 	}
 
 	public static function get_taxanomy_api_url() {
@@ -76,10 +79,19 @@ class Astra_Demo_Import {
 			return;
 		}
 
-		$category = isset( $_POST['category'] ) ? esc_attr( $_POST['category'] ) : '';
-		$id = isset( $_POST['id'] ) ? esc_attr( $_POST['id'] ) : '';
+		$args = new stdClass();
+		$args->category = isset( $_POST['category'] ) ? esc_attr( $_POST['category'] ) : '';
+		$args->id 		= isset( $_POST['id'] ) ? esc_attr( $_POST['id'] ) : '';
+		$args->search 	= isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
 
-		return wp_send_json( self::get_astra_demos( $id ) );
+		return wp_send_json( self::get_astra_demos( $args ) );
+	}
+
+	public static function get_astra_all_demos() {
+		$args 		= new stdClass();
+		$args->id 	= 'all';
+
+		return self::get_astra_demos( $args );
 	}
 
 	public function import_demo( $demo_api_uri ) {
@@ -177,9 +189,9 @@ class Astra_Demo_Import {
 		return $astra_demo;
 	}
 
-	public static function get_astra_demos( $scope = 'all' ) {
+	public static function get_astra_demos( $args ) {
 
-		$url = self::get_api_url( $scope );
+		$url = self::get_api_url( $args );
 
 		$astra_demos = array();
 
@@ -199,16 +211,16 @@ class Astra_Demo_Import {
 				$astra_demos[ $key ]['astra_demo_url']     = $demo['astra-demo-url'];
 				$astra_demos[ $key ]['title']              = $demo['title']['rendered'];
 				$astra_demos[ $key ]['featured_image_url'] = $demo['featured-image-url'];
-				$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url() . $demo['id'];
+				$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url( new stdClass() ) . $demo['id'];
 				$astra_demos[ $key ]['content']           = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 			}
 
 			// Free up memory by unsetting variables that are not required.
 			unset( $result );
 			unset( $response );
-
-			return $astra_demos;
 		}
+
+		return $astra_demos;
 
 	}
 
@@ -239,8 +251,9 @@ class Astra_Demo_Import {
 			unset( $result );
 			unset( $response );
 
-			return $categories;
 		}
+
+		return $categories;
 	}
 
 }

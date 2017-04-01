@@ -49,7 +49,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 	<div class="theme-browser rendered">
 		<?php
 
-		foreach ( Astra_Demo_Import::get_astra_demos() as $key => $demo ) {
+		foreach ( Astra_Demo_Import::get_astra_all_demos() as $key => $demo ) {
 			?>
 
 			<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">

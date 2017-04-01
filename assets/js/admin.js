@@ -3,7 +3,7 @@ jQuery( document ).on('click', '.theme-screenshot, .more-details, .theme-name, .
 	
 	$this 	= jQuery( this ).parents( '.theme' );
 	anchor 	= $this.find('.astra-demo-import');
-	$this.addClass('theme-preview-on');
+	$this.addClass('theme-preview-on');	
 
 	renderDemoPreview( anchor );
 });
@@ -98,6 +98,8 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 
 	jQuery( 'body' ).addClass('loading-content');
 	jQuery( '.theme-browser .theme' ).remove();
+	jQuery( '.no-themes' ).remove();
+	jQuery( '#wp-filter-search-input' ).val( '' );
 
 	jQuery.ajax({
 		url: ajaxurl,
@@ -110,32 +112,79 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 		},
 	})
 	.done(function(demos) {
-
-		jQuery.each(demos, function(index, demo) {
-			console.log(demo);
-			screenshot = demo.featured_image_url;
-			id = demo.id;
-			astra_demo_url = demo.astra_demo_url;
-			demo_api = demo.demo_api;
-			demo_name = demo.title;
-			content = demo.content;
-
-			templateData = [{id: id, astra_demo_url: astra_demo_url, demo_api: demo_api, screenshot: screenshot, demo_name: demo_name, content: content}]
-
-			var template = wp.template('astra-single-demo');
-			jQuery( '.theme-browser' ).append( template( templateData[0] ) );
-		});
-
-		
 		jQuery( 'body' ).removeClass('loading-content');
-		// $this.removeClass('updating-message installing').text( 'Demo Imported' ).attr('disabled', 'disabled');
+		renderDemoGrid( demos );
 	})
 	.fail(function() {
 		jQuery( 'body' ).removeClass('loading-content');
-		// $this.removeClass('updating-message installing').text( 'Error.' );
+		jQuery( '.spinner' ).after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
 	});
 
 });
+
+var ref;
+jQuery( document ).on('keyup', '#wp-filter-search-input', function (){
+	$this = jQuery( '#wp-filter-search-input' ).val();
+
+	id = '';
+	if ( $this.length < 2 ) {
+		id = 'all';
+	}
+
+	window.clearTimeout(ref);
+	ref = window.setTimeout( function(){
+		ref = null;
+
+		jQuery( 'body' ).addClass('loading-content');
+		jQuery( '.theme-browser .theme' ).remove();
+		jQuery( '.no-themes' ).remove();
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'astra-list-demos',
+				search: $this,
+				id: id,
+			},
+		})
+		.done(function(demos) {
+			jQuery( '.filter-links li a[data-id="all"]' ).addClass('current');
+			jQuery( '.filter-links li a[data-id="all"]' ).parent( 'li' ).siblings().find('.current').removeClass('current');
+			jQuery( 'body' ).removeClass('loading-content');
+
+			if ( demos.length > 0 ) {
+				renderDemoGrid( demos );
+			} else {
+				jQuery( '.spinner' ).after('<p class="no-themes" style="display:block;">No Demos found, Try a different search.</p>');
+			}
+
+		})
+		.fail(function() {
+			jQuery( 'body' ).removeClass('loading-content');
+			jQuery( '.spinner' ).after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+		});
+
+	} , 500);
+
+});
+
+function renderDemoGrid( demos ) {
+	jQuery.each(demos, function(index, demo) {
+		screenshot = demo.featured_image_url;
+		id = demo.id;
+		astra_demo_url = demo.astra_demo_url;
+		demo_api = demo.demo_api;
+		demo_name = demo.title;
+		content = demo.content;
+
+		templateData = [{id: id, astra_demo_url: astra_demo_url, demo_api: demo_api, screenshot: screenshot, demo_name: demo_name, content: content}]
+
+		var template = wp.template('astra-single-demo');
+		jQuery( '.theme-browser' ).append( template( templateData[0] ) );
+	});
+}
 
 jQuery( document ).on('click', '.collapse-sidebar', function(event) {
 	event.preventDefault();
