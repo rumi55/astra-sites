@@ -47,6 +47,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 	<span class="spinner"></span>
 
 	<div class="theme-browser rendered">
+		<div class="themes wp-clearfix">
 		<?php
 
 		foreach ( Astra_Demo_Import::get_astra_all_demos() as $key => $demo ) {
@@ -81,6 +82,7 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		}
 
 		?>
+		</div>
 	</div>
 
 </div>

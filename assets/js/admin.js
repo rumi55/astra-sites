@@ -182,7 +182,7 @@ function renderDemoGrid( demos ) {
 		templateData = [{id: id, astra_demo_url: astra_demo_url, demo_api: demo_api, screenshot: screenshot, demo_name: demo_name, content: content}]
 
 		var template = wp.template('astra-single-demo');
-		jQuery( '.theme-browser' ).append( template( templateData[0] ) );
+		jQuery( '.themes' ).append( template( templateData[0] ) );
 	});
 }
 
