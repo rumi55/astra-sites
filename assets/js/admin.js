@@ -203,6 +203,7 @@ jQuery( document ).on('keyup', '#wp-filter-search-input', function (){
 	ref = window.setTimeout( function(){
 		ref = null;
 
+		resetPagedCount();
 		jQuery( 'body' ).addClass('loading-content');
 		jQuery( '.theme-browser .theme' ).remove();
 		jQuery( '.no-themes' ).remove();
