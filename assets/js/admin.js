@@ -148,15 +148,15 @@ function checkNextPrevButtons() {
 
 jQuery( document ).on('click', '.filter-links li a', function(event) {
 	event.preventDefault();
-		
-	resetPagedCount();
+	
 	$this = jQuery( this );
-	slug = $this.data( 'sort' );
-	id = $this.data( 'id' );
-	paged = parseInt( jQuery( 'body' ).attr( 'data-astra-demo-paged' ) );
-
 	$this.parent( 'li' ).siblings().find('.current').removeClass('current');
 	$this.addClass('current');
+	slug = $this.data( 'sort' );
+	id = $this.data( 'id' );
+
+	resetPagedCount();
+	paged = parseInt( jQuery( 'body' ).attr( 'data-astra-demo-paged' ) );
 
 	if ( slug == 'all' ) {
 		category = 'all';
