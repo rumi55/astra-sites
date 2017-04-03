@@ -6,6 +6,7 @@ function resetPagedCount() {
 	categoryId = jQuery( '.filter-links li .current' ).data('id');
 	jQuery( 'body' ).attr( 'data-astra-demo-paged', '1' );
 	jQuery( 'body' ).attr( 'data-astra-demo-category', categoryId );
+	jQuery( 'body' ).attr( 'data-astra-demo-search', '' );
 	jQuery( 'body' ).attr( 'data-scrolling', false );
 }
 
@@ -31,7 +32,14 @@ jQuery( document ).scroll(function(event) {
 		jQuery( 'body' ).data( 'scrolling', true );
 		body = jQuery( 'body' );
 		id = body.attr( 'data-astra-demo-category' );
+		search = body.attr( 'data-astra-demo-search' );
 		paged = body.attr( 'data-astra-demo-paged' );
+
+		if ( search !== false ) {
+			id = '';
+		} else {
+			search = '';
+		}
 		
 		jQuery.ajax({
 			url: ajaxurl,
@@ -41,6 +49,7 @@ jQuery( document ).scroll(function(event) {
 				action: 'astra-list-demos',
 				id: id,
 				paged: paged,
+				search: search
 			},
 		})
 		.done(function(demos) {
@@ -198,6 +207,7 @@ jQuery( document ).on('keyup', '#wp-filter-search-input', function (){
 		jQuery( 'body' ).addClass('loading-content');
 		jQuery( '.theme-browser .theme' ).remove();
 		jQuery( '.no-themes' ).remove();
+		jQuery( 'body' ).attr( 'data-astra-demo-search', $this );
 
 		jQuery.ajax({
 			url: ajaxurl,
