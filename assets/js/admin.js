@@ -35,7 +35,7 @@ jQuery( document ).scroll(function(event) {
 		search = body.attr( 'data-astra-demo-search' );
 		paged = body.attr( 'data-astra-demo-paged' );
 
-		if ( search !== false ) {
+		if ( search !== '' ) {
 			id = '';
 		} else {
 			search = '';
@@ -148,7 +148,8 @@ function checkNextPrevButtons() {
 
 jQuery( document ).on('click', '.filter-links li a', function(event) {
 	event.preventDefault();
-	
+		
+	resetPagedCount();
 	$this = jQuery( this );
 	slug = $this.data( 'sort' );
 	id = $this.data( 'id' );
@@ -156,7 +157,6 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 
 	$this.parent( 'li' ).siblings().find('.current').removeClass('current');
 	$this.addClass('current');
-	resetPagedCount();
 
 	if ( slug == 'all' ) {
 		category = 'all';
