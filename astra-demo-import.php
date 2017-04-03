@@ -28,3 +28,10 @@ function adi_init() {
 	Astra_Demo_Import::instance( $importer_api );
 
 }
+
+register_activation_hook( __FILE__, 'astra_demo_import_activate' );
+
+function astra_demo_import_activate() {
+	// Force check graupi bundled products
+	update_site_option( 'bsf_force_check_extensions', true );
+}
