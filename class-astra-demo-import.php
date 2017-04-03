@@ -206,13 +206,18 @@ class Astra_Demo_Import {
 			$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 			foreach ( $result as $key => $demo ) {
-				$astra_demos[ $key ]['id']                 = $demo['id'];
-				$astra_demos[ $key ]['slug']               = $demo['slug'];
-				$astra_demos[ $key ]['date']               = $demo['date'];
-				$astra_demos[ $key ]['astra_demo_url']     = $demo['astra-demo-url'];
-				$astra_demos[ $key ]['title']              = $demo['title']['rendered'];
-				$astra_demos[ $key ]['featured_image_url'] = $demo['featured-image-url'];
-				$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? $demo['_links']['self'][0]['href'] : self::get_api_url( new stdClass() ) . $demo['id'];
+				
+				if ( ! isset( $demo['id'] ) ) {
+					continue;
+				}
+
+				$astra_demos[ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
+				$astra_demos[ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
+				$astra_demos[ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
+				$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-demo-url'] ) ? esc_url( $demo['astra-demo-url'] ) : '';
+				$astra_demos[ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
+				$astra_demos[ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
+				$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? esc_url( $demo['_links']['self'][0]['href'] ) : self::get_api_url( new stdClass() ) . $demo['id'];
 				$astra_demos[ $key ]['content']           = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 			}
 
