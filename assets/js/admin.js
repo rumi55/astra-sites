@@ -21,13 +21,12 @@ function updatedPagedCount() {
 jQuery( document ).scroll(function(event) {
 	var scrollDistance = jQuery(window).scrollTop();
 
-    var themesBottom 	 = Math.abs( jQuery(window).height() - jQuery('.themes').offset().top - jQuery('.themes').height() );
-    themesBottomEary 	 = themesBottom	* 20 / 100;
-    themesBottomLarge 	 = themesBottom	* 70 / 100;
+    var themesBottom	= Math.abs( jQuery(window).height() - jQuery('.themes').offset().top - jQuery('.themes').height() );
+    themesBottom 	 	= themesBottom	* 20 / 100;
 
     ajaxLoading = jQuery( 'body' ).data( 'scrolling' );
 
-    if ( scrollDistance > themesBottomEary && ajaxLoading == false ) {    	
+    if ( scrollDistance > themesBottom && ajaxLoading == false ) {    	
 		updatedPagedCount();
 		jQuery( 'body' ).data( 'scrolling', true );
 		body = jQuery( 'body' );
