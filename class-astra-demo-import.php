@@ -206,7 +206,7 @@ class Astra_Demo_Import {
 			$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 			foreach ( $result as $key => $demo ) {
-				
+
 				if ( ! isset( $demo['id'] ) ) {
 					continue;
 				}

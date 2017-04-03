@@ -24,7 +24,9 @@ class Astra_WXR_Importer {
 	 * @param array $mimes Already supported mime types.
 	 */
 	public function custom_upload_mimes( $mimes ) {
-		$mimes = array_merge( $mimes, array( 'xml' => 'application/xml' ) );
+		$mimes = array_merge( $mimes, array(
+			'xml' => 'application/xml',
+		) );
 
 		return $mimes;
 	}
