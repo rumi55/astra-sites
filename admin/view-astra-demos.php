@@ -27,16 +27,16 @@ wp_enqueue_script( 'astra-demo-import-admin' );
 		<ul class="filter-links">
 			<li><a href="#" data-sort="all" class="current" data-id="all">All</a></li>
 			<?php
-				foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) {
-					?>
+			foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) {
+				?>
 
-					<li><a href="#" 
-						data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
-						data-id="<?php echo esc_attr( $category['id'] ); ?>"
-						><?php echo esc_attr( $category['name'] ); ?></a></li>
+				<li><a href="#" 
+				data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
+				data-id="<?php echo esc_attr( $category['id'] ); ?>"
+				><?php echo esc_attr( $category['name'] ); ?></a></li>
 
-					<?php
-				}
+				<?php
+			}
 			?>
 		</ul>
 

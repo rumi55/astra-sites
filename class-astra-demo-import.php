@@ -231,7 +231,7 @@ class Astra_Demo_Import {
 		$api_args = array(
 			'timeout' => 15,
 		);
-		
+
 		$response = wp_remote_get( self::get_taxanomy_api_url(), $api_args );
 
 		if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
