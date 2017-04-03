@@ -28,18 +28,18 @@ class Astra_Demo_Import {
 		self::$api_url = $importer_api;
 	}
 
-	public static function get_api_url( $args ) {
+	public static function get_api_url( $args, $page = '1' ) {
 
 		$args->search = isset( $args->search ) ? $args->search : '';
 		$args->id 	  = isset( $args->id ) ? $args->id : '';
 
 		if ( $args->search !== '' ) {
-			return self::$api_url . 'astra-demos/?search=' . $args->search;
+			return self::$api_url . 'astra-demos/?search=' . $args->search . '&per_page=15&page=' . $page;
 		} elseif ( $args->id != 'all' ) {
-			return self::$api_url . 'astra-demos/?astra-demo-category=' . $args->id;
+			return self::$api_url . 'astra-demos/?astra-demo-category=' . $args->id . '&per_page=15&page=' . $page;
 		}
 
-		return self::$api_url . 'astra-demos/';
+		return self::$api_url . 'astra-demos/?per_page=15&page=' . $page;
 	}
 
 	public static function get_taxanomy_api_url() {
@@ -83,8 +83,9 @@ class Astra_Demo_Import {
 		$args->category = isset( $_POST['category'] ) ? esc_attr( $_POST['category'] ) : '';
 		$args->id 		= isset( $_POST['id'] ) ? esc_attr( $_POST['id'] ) : '';
 		$args->search 	= isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
+		$paged 	= isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
 
-		return wp_send_json( self::get_astra_demos( $args ) );
+		return wp_send_json( self::get_astra_demos( $args, $paged ) );
 	}
 
 	public static function get_astra_all_demos() {
@@ -189,9 +190,9 @@ class Astra_Demo_Import {
 		return $astra_demo;
 	}
 
-	public static function get_astra_demos( $args ) {
+	public static function get_astra_demos( $args, $paged = '1' ) {
 
-		$url = self::get_api_url( $args );
+		$url = self::get_api_url( $args, $paged );
 
 		$astra_demos = array();
 

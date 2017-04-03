@@ -1,3 +1,60 @@
+jQuery(document).ready(function($) {
+	resetPagedCount();
+});
+
+function resetPagedCount() {
+	categoryId = jQuery( '.filter-links li .current' ).data('id');
+	jQuery( 'body' ).attr( 'data-astra-demo-paged', '1' );
+	jQuery( 'body' ).attr( 'data-astra-demo-category', categoryId );
+	jQuery( 'body' ).attr( 'data-scrolling', false );
+}
+
+function updatedPagedCount() {
+	paged = parseInt( jQuery( 'body' ).attr( 'data-astra-demo-paged' ) );
+	jQuery( 'body' ).attr( 'data-astra-demo-paged', paged + 1 );
+	window.setTimeout(function() {
+		jQuery( 'body' ).data( 'scrolling', false );
+	}, 800);
+}
+
+jQuery( document ).scroll(function(event) {
+	var scrollDistance = jQuery(window).scrollTop();
+
+    var themesBottom 	 = Math.abs( jQuery(window).height() - jQuery('.themes').offset().top - jQuery('.themes').height() );
+    themesBottomEary 	 = themesBottom	* 20 / 100;
+    themesBottomLarge 	 = themesBottom	* 70 / 100;
+
+    ajaxLoading = jQuery( 'body' ).data( 'scrolling' );
+
+    if ( scrollDistance > themesBottomEary && ajaxLoading == false ) {    	
+		updatedPagedCount();
+		jQuery( 'body' ).data( 'scrolling', true );
+		body = jQuery( 'body' );
+		id = body.attr( 'data-astra-demo-category' );
+		paged = body.attr( 'data-astra-demo-paged' );
+		
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'astra-list-demos',
+				id: id,
+				paged: paged,
+			},
+		})
+		.done(function(demos) {
+			jQuery( 'body' ).removeClass('loading-content');
+			renderDemoGrid( demos );
+		})
+		.fail(function() {
+			jQuery( 'body' ).removeClass('loading-content');
+			jQuery( '.spinner' ).after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+		});
+
+    }
+});
+
 jQuery( document ).on('click', '.theme-screenshot, .more-details, .theme-name, .install-theme-preview', function(event) {
 	event.preventDefault();
 	
@@ -86,9 +143,11 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 	$this = jQuery( this );
 	slug = $this.data( 'sort' );
 	id = $this.data( 'id' );
+	paged = parseInt( jQuery( 'body' ).attr( 'data-astra-demo-paged' ) );
 
 	$this.parent( 'li' ).siblings().find('.current').removeClass('current');
 	$this.addClass('current');
+	resetPagedCount();
 
 	if ( slug == 'all' ) {
 		category = 'all';
@@ -109,6 +168,7 @@ jQuery( document ).on('click', '.filter-links li a', function(event) {
 			action: 'astra-list-demos',
 			category: category,
 			id: id,
+			paged: paged,
 		},
 	})
 	.done(function(demos) {
