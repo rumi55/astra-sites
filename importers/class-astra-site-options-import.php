@@ -1,9 +1,34 @@
 <?php
+/**
+ * Customizer Site options importer class.
+ *
+ * @since  1.0.0
+ * @package Astra Addon
+ */
 
-class Astra_Site_Options_Importer {
+defined( 'ABSPATH' ) or exit;
 
+/**
+ * Customizer Site options importer class.
+ *
+ * @since  1.0.0
+ */
+class Astra_Site_Options_Import {
+
+	/**
+	 * Instance of Astra_Site_Options_Importer
+	 *
+	 * @since  1.0.0
+	 * @var (Object) Astra_Site_Options_Importer
+	 */
 	private static $_instance = null;
 
+	/**
+	 * Instanciate Astra_Site_Options_Importer
+	 *
+	 * @since  1.0.0
+	 * @return (Object) Astra_Site_Options_Importer
+	 */
 	public static function instance() {
 		if ( ! isset( self::$_instance ) ) {
 			self::$_instance = new self();
@@ -12,6 +37,13 @@ class Astra_Site_Options_Importer {
 		return self::$_instance;
 	}
 
+	/**
+	 * Import site options.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  (Array) $options Array of site options to be imported from the demo.
+	 */
 	public function import_options( $options ) {
 		$show_on_front    = $options['show_on_front'];
 		$page_on_front    = get_page_by_title( $options['page_on_front'] );

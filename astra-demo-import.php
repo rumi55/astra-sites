@@ -1,37 +1,23 @@
 <?php
 /**
- * Plugin Name:     Astra Demo Import
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     PLUGIN DESCRIPTION HERE
- * Author:          YOUR NAME HERE
- * Author URI:      YOUR SITE HERE
- * Text Domain:     astra-demo-import
- * Domain Path:     /languages
- * Version:         0.1.0
+ * Plugin Name: Astra Demo Import
+ * Plugin URI: http://www.wpastra.com/
+ * Description: Demo Importer
+ * Version: 1.0.0-beta.1
+ * Author: Brainstorm Force
+ * Author URI: http://www.brainstormforce.com
+ * Text Domain: astra-demo-import
  *
- * @package         Astra_Demo_Import
+ * @package Astra Demo Import
  */
 
-defined( 'ABSPATH' ) or exit;
+/**
+ * Set constants.
+ */
+define( 'ASTRA_DEMO_IMPORT_FILE', __FILE__ );
+define( 'ASTRA_DEMO_IMPORT_BASE', plugin_basename( ASTRA_DEMO_IMPORT_FILE ) );
+define( 'ASTRA_DEMO_IMPORT_DIR',  plugin_dir_path( ASTRA_DEMO_IMPORT_FILE ) );
+define( 'ASTRA_DEMO_IMPORT_URI',  plugins_url( '/', ASTRA_DEMO_IMPORT_FILE ) );
+define( 'ASTRA_DEMO_IMPORT_VER',  '1.0.0-beta.1' );
 
-define( 'ADI_DIR', plugin_dir_path( __FILE__ ) );
-define( 'ADI_URI', plugins_url( '/', __FILE__ ) );
-define( 'ADI_VER', '0.1.0' );
-
-require_once ADI_DIR . 'class-astra-demo-import.php';
-
-add_action( 'plugins_loaded', 'adi_init' );
-
-function adi_init() {
-
-	$importer_api = 'http://multi.sharkz.in/wp-json/wp/v2/';
-	Astra_Demo_Import::instance( $importer_api );
-
-}
-
-register_activation_hook( __FILE__, 'astra_demo_import_activate' );
-
-function astra_demo_import_activate() {
-	// Force check graupi bundled products
-	update_site_option( 'bsf_force_check_extensions', true );
-}
+require_once ASTRA_DEMO_IMPORT_DIR . 'classes/class-astra-demo-import.php';

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Widget Data exporter class.
+ *
+ * @package  Astra Addon
+ * @see - https://wordpress.org/plugins/widget-importer-exporter/
+ */
+
+defined( 'ABSPATH' ) or exit;
 
 /**
  * Widget Data exporter class.
@@ -72,7 +80,7 @@ class Astra_Widget_Importer {
 		// If no data or could not decode
 		if ( empty( $data ) || ! is_object( $data ) ) {
 			wp_die(
-				esc_html__( 'Import data could not be read. Please try a different file.', 'widget-importer-exporter' ),
+				esc_html__( 'Import data could not be read. Please try a different file.', 'astra' ),
 				'',
 				array(
 					'back_link' => true,
@@ -116,7 +124,7 @@ class Astra_Widget_Importer {
 				$sidebar_available    = false;
 				$use_sidebar_id       = 'wp_inactive_widgets'; // add to inactive if sidebar does not exist in theme
 				$sidebar_message_type = 'error';
-				$sidebar_message      = esc_html__( 'Widget area does not exist in theme (using Inactive)', 'widget-importer-exporter' );
+				$sidebar_message      = esc_html__( 'Widget area does not exist in theme (using Inactive)', 'astra' );
 			}
 
 			// Result for sidebar
@@ -138,7 +146,7 @@ class Astra_Widget_Importer {
 				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
 					$fail                = true;
 					$widget_message_type = 'error';
-					$widget_message      = esc_html__( 'Site does not support widget', 'widget-importer-exporter' ); // explain why widget not imported
+					$widget_message      = esc_html__( 'Site does not support widget', 'astra' ); // explain why widget not imported
 				}
 
 				// Filter to modify settings object before conversion to array and import
@@ -174,7 +182,7 @@ class Astra_Widget_Importer {
 
 							$fail                = true;
 							$widget_message_type = 'warning';
-							$widget_message      = esc_html__( 'Widget already exists', 'widget-importer-exporter' ); // explain why widget not imported
+							$widget_message      = esc_html__( 'Widget already exists', 'astra' ); // explain why widget not imported
 
 							break;
 
@@ -243,16 +251,16 @@ class Astra_Widget_Importer {
 					// Success message
 					if ( $sidebar_available ) {
 						$widget_message_type = 'success';
-						$widget_message      = esc_html__( 'Imported', 'widget-importer-exporter' );
+						$widget_message      = esc_html__( 'Imported', 'astra' );
 					} else {
 						$widget_message_type = 'warning';
-						$widget_message      = esc_html__( 'Imported to Inactive', 'widget-importer-exporter' );
+						$widget_message      = esc_html__( 'Imported to Inactive', 'astra' );
 					}
 				}// End if().
 
 				// Result for widget instance
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['name']         = isset( $available_widgets[ $id_base ]['name'] ) ? $available_widgets[ $id_base ]['name'] : $id_base; // widget name or ID if name not available (not supported by site)
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : esc_html__( 'No Title', 'widget-importer-exporter' ); // show "No Title" if widget instance is untitled
+				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : esc_html__( 'No Title', 'astra' ); // show "No Title" if widget instance is untitled
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message_type'] = $widget_message_type;
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message']      = $widget_message;
 
