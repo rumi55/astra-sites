@@ -16,3 +16,13 @@
 	max-width: 130px;
     display: inline-block;
 }
+
+.wrap .demo-type.premium {
+    position: absolute;
+    z-index: 1;
+    background: #0073aa;
+    color: white;
+    text-transform: capitalize;
+    padding: 0.5em 1em;
+    border-radius: 3px;
+}

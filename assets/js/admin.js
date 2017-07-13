@@ -149,19 +149,69 @@ jQuery(document).on('click', '.install-now', function (event) {
 	} );
 } );
 
+/**
+ * Click handler for plugin installs in plugin install view.
+ *
+ * @since 4.6.0
+ *
+ * @param {Event} event Event interface.
+ */
+jQuery(document).on('click', '.activate-now', function (event) {
+	event.preventDefault();
+
+	var $button = jQuery( event.target ),
+		$init 	= $button.data( 'init' );
+
+	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
+		return;
+	}
+
+	$button.addClass( 'updating-message' );
+
+	console.log('Slug: ' + $init );
+
+	jQuery.ajax({
+		url: astraDemo.ajaxurl,
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			'action'	: 'astra-required-plugin-activate',
+			'init'		: $init
+		},
+	})
+	.done(function (result) {
+
+		vl( result, true );
+
+		if( result.success ) {
+			$button.removeClass( 'button-primary activate-now updating-message' )
+				.addClass('disabled')
+				.text( wp.updates.l10n.pluginInstalled );
+		}
+
+	})
+	.fail(function () {
+	});
+
+} );
+
 function renderDemoPreview(anchor) {
 	demoId = anchor.data('id');
 	apiURL = anchor.data('demo-api');
+	demoType = anchor.data('demo-type');
 	demoURL = anchor.data('demo-url');
 	screenshot = anchor.data('screenshot');
 	demo_name = anchor.data('demo-name');
 	content = anchor.data('content');
-	requiredPlugins = anchor.data('required-plugins');
+	requiredPlugins = anchor.data('required-plugins') || '';
+
+	console.log('requiredPlugins: ' + requiredPlugins);
 
 	var template = wp.template('astra-demo-preview');
 
 	templateData = [{
 		id: demoId,
+		astra_demo_type: demoType,
 		astra_demo_url: demoURL,
 		demo_api: apiURL,
 		screenshot: screenshot,
@@ -175,6 +225,7 @@ function renderDemoPreview(anchor) {
 	jQuery('#ast-menu-page').append(template(templateData[0]));
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
+
 
 	jQuery( '#plugin-filter' ).html('');
 	jQuery.ajax({
@@ -226,12 +277,18 @@ function renderDemoPreview(anchor) {
 						output += ' 		plugin-card-'+plugin.slug+'"';
 						output += ' 		data-slug="'+plugin.slug+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<a class="button activate-now button-primary"';
-						output += '			href="' + plugin.activateUrl + '"';
-						output += '			data-slug="' + plugin.slug + '"';
-						output += '			data-name="' + plugin.name + '">';
+
+						output += '	<button class="button activate-now button-primary"';
+						output += '		data-init="' + plugin.init + '">';
 						output += 	wp.updates.l10n.activatePlugin;
-						output += '	</a>';
+						output += '	</button>';
+						
+						// output += '	<a class="button activate-now button-primary"';
+						// output += '			href="' + plugin.activateUrl + '"';
+						// output += '			data-slug="' + plugin.slug + '"';
+						// output += '			data-name="' + plugin.name + '">';
+						// output += 	wp.updates.l10n.activatePlugin;
+						// output += '	</a>';
 						output += '</div>';
 
 					jQuery( '#plugin-filter' ).append(output);
@@ -269,6 +326,8 @@ function renderDemoPreview(anchor) {
 			jQuery('body').removeClass('loading-content');
 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
 		});
+
+
 	
 
 	return;

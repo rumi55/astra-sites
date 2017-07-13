@@ -68,6 +68,10 @@ if ( count( $all_demos ) > 0 ) {
 
 					<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
 
+						<?php if( 'premium' === $demo['astra_demo_type'] ) { ?>
+							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
+						<?php } ?>
+
 						<div class="theme-screenshot">
 							<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
 						</div>
@@ -80,6 +84,7 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-actions">
 							<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
 							   data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
+							   data-demo-type="<?php echo esc_url( $demo['astra_demo_type'] ); ?>"
 							   data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
 							   data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
 							   data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
@@ -111,6 +116,7 @@ if ( count( $all_demos ) > 0 ) {
 
 					<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
 					   data-demo-id="{{{data.id}}}"
+					   data-demo-type="{{{data.astra_demo_type}}}"
 					   data-demo-url="{{{data.astra_demo_url}}}"
 					   data-demo-api="{{{data.demo_api}}}"
 					   data-demo-name="{{{data.demo_name}}}"
@@ -167,6 +173,7 @@ if ( count( $all_demos ) > 0 ) {
 
 				<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
 				   data-demo-id="{{{data.id}}}"
+				   data-demo-type="{{{data.astra_demo_type}}}"
 				   data-demo-url="{{{data.astra_demo_url}}}"
 				   data-demo-api="{{{data.demo_api}}}"
 				   data-demo-name="{{{data.demo_name}}}"

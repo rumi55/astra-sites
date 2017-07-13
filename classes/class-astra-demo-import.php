@@ -68,6 +68,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			add_action( 'wp_ajax_astra-import-demo',        				array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'astra_list_demos' ) );
 			add_action( 'wp_ajax_astra-required-plugins',   				array( $this, 'astra_required_plugin' ) );
+			add_action( 'wp_ajax_astra-required-plugin-activate',   				array( $this, 'astra_required_plugin_activate' ) );
 
 			add_action( 'plugin_action_links_' . ASTRA_DEMO_IMPORT_BASE,    array( $this, 'action_links' ) );
 		}
@@ -168,6 +169,38 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-astra-customizer-import.php';
 			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-astra-site-options-import.php';
+		}
+
+		public function astra_required_plugin_activate() {
+
+			if ( ! current_user_can( 'customize' ) ) {
+				return;
+			}
+
+			if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['init'] ) || ! $_POST['init'] ) {
+				wp_send_json_error( array(
+					'success' => false,
+					'message' => __( 'No plugin specified', 'astra-demo-import' ),
+				) );
+			}
+
+			$plugin_init = esc_attr( $_POST['init'] );
+
+			$activate = activate_plugin( $plugin_init, '', false, true );
+
+			if ( is_wp_error( $activate ) ) {
+				wp_send_json_error( array(
+					'success' => false,
+					'message' => $activate->get_error_message(),
+				) );
+			}
+
+			wp_send_json_success( array(
+				'success' => true,
+				'message' => __( 'Plugin Successfully Activated', 'astra-demo-import' ),
+			) );
+
+			wp_die();
 		}
 
 		public function astra_required_plugin() {
@@ -461,6 +494,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 						$astra_demos[ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
 						$astra_demos[ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
 						$astra_demos[ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
+						$astra_demos[ $key ]['astra_demo_type']    = isset( $demo['astra-demo-type'] ) ? sanitize_key( $demo['astra-demo-type'] ) : '';
 						$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-demo-url'] ) ? esc_url( $demo['astra-demo-url'] ) : '';
 						$astra_demos[ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
 						$astra_demos[ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
