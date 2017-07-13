@@ -2,6 +2,14 @@ jQuery(document).ready(function ($) {
 	resetPagedCount();
 });
 
+function vl( data, is_json ) {
+	
+	if( is_json ) {
+		console.log( JSON.stringify( data ) );
+	} else {
+		console.log( data );
+	}
+}
 function resetPagedCount() {
 	categoryId = jQuery('.filter-links li .current').data('id');
 	jQuery('body').attr('data-astra-demo-paged', '1');
@@ -105,6 +113,42 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 	renderDemoPreview(anchor);
 });
 
+/**
+ * Click handler for plugin installs in plugin install view.
+ *
+ * @since 4.6.0
+ *
+ * @param {Event} event Event interface.
+ */
+jQuery(document).on('click', '.install-now', function (event) {
+	event.preventDefault();
+
+	var $button 	= jQuery( event.target ),
+		$document   = jQuery(document);
+
+	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
+		return;
+	}
+
+	if ( wp.updates.shouldRequestFilesystemCredentials && ! wp.updates.ajaxLocked ) {
+		wp.updates.requestFilesystemCredentials( event );
+
+		$document.on( 'credential-modal-cancel', function() {
+			var $message = $( '.install-now.updating-message' );
+
+			$message
+				.removeClass( 'updating-message' )
+				.text( wp.updates.l10n.installNow );
+
+			wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
+		} );
+	}
+
+	wp.updates.installPlugin( {
+		slug: $button.data( 'slug' )
+	} );
+} );
+
 function renderDemoPreview(anchor) {
 	demoId = anchor.data('id');
 	apiURL = anchor.data('demo-api');
@@ -132,7 +176,7 @@ function renderDemoPreview(anchor) {
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
 
-	jQuery( '.required-plugins' ).html('');
+	jQuery( '#plugin-filter' ).html('');
 	jQuery.ajax({
 			url: astraDemo.ajaxurl,
 			type: 'POST',
@@ -142,35 +186,89 @@ function renderDemoPreview(anchor) {
 				'required-plugins': requiredPlugins
 			},
 		})
-			.done(function (plugins) {
+		.done(function (plugins) {
 
-				if ( typeof plugins.inactive === 'undefined' && typeof plugins.notinstalled === 'undefined' ) {
-					return;
-				}
+			/**
+			 * Not Installed
+			 *
+			 * List of not installed required plugins.
+			 */
+			if ( typeof plugins.notinstalled !== 'undefined' ) {
 
-				jQuery( '.required-plugins' ).append('<h4>Required Plugin</h4>');
+				jQuery( plugins.notinstalled ).each(function( index, plugin ) {
 
-				if ( typeof plugins.inactive !== 'undefined' ) {
+					var output  = '<div class="plugin-card ';
+						output += ' 		plugin-card-'+plugin.slug+'"';
+						output += ' 		data-slug="'+plugin.slug+'">';
+						output += '	<span class="title">'+plugin.name+'</span>';
+						output += '	<button class="button install-now"';
+						output += '			data-slug="' + plugin.slug + '"';
+						output += '			data-name="' + plugin.name + '">';
+						output += 	wp.updates.l10n.installNow;
+						output += '	</button>';
+						output += '</div>';
 
-					jQuery( plugins.inactive ).each(function( index, plugin ) {
-						jQuery( '.required-plugins' ).append('<span class="required-plugin activate-plugin" data-action="activate" data-product-id="' + plugin.id + '" data-plugin-init="' + plugin.init + '"> ' + plugin.name + ' </span>');	
-					});
+					jQuery( '#plugin-filter' ).append(output);
 
-				}
+				});
+			}
 
-				if ( typeof plugins.notinstalled !== 'undefined' ) {
+			/**
+			 * Inactive
+			 *
+			 * List of not inactive required plugins.
+			 */
+			if ( typeof plugins.inactive !== 'undefined' ) {
 
-					jQuery( plugins.notinstalled ).each(function( index, plugin ) {
-						jQuery( '.required-plugins' ).append('<span class="required-plugin install-plugin" data-action="install" data-product-id="' + plugin.id + '" data-plugin-init="' + plugin.init + '"> ' + plugin.name + ' </span>');	
-					});
+				jQuery( plugins.inactive ).each(function( index, plugin ) {
 
-				}
+					var output  = '<div class="plugin-card ';
+						output += ' 		plugin-card-'+plugin.slug+'"';
+						output += ' 		data-slug="'+plugin.slug+'">';
+						output += '	<span class="title">'+plugin.name+'</span>';
+						output += '	<a class="button activate-now button-primary"';
+						output += '			href="' + plugin.activateUrl + '"';
+						output += '			data-slug="' + plugin.slug + '"';
+						output += '			data-name="' + plugin.name + '">';
+						output += 	wp.updates.l10n.activatePlugin;
+						output += '	</a>';
+						output += '</div>';
 
-			})
-			.fail(function () {
-				// jQuery('body').removeClass('loading-content');
-				// jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
-			});
+					jQuery( '#plugin-filter' ).append(output);
+
+				});
+			}
+
+			/**
+			 * Active
+			 *
+			 * List of not active required plugins.
+			 */
+			if ( typeof plugins.active !== 'undefined' ) {
+
+				jQuery( plugins.active ).each(function( index, plugin ) {
+
+					var output  = '<div class="plugin-card ';
+						output += ' 		plugin-card-'+plugin.slug+'"';
+						output += ' 		data-slug="'+plugin.slug+'">';
+						output += '	<span class="title">'+plugin.name+'</span>';
+						output += '	<button class="button disabled"';
+						output += '			href="' + plugin.activateUrl + '"';
+						output += '			data-slug="' + plugin.slug + '"';
+						output += '			data-name="' + plugin.name + '">';
+						output += 	wp.updates.l10n.pluginInstalled;
+						output += '	</button>';
+						output += '</div>';
+
+					jQuery( '#plugin-filter' ).append(output);
+
+				});
+			}
+		})
+		.fail(function () {
+			jQuery('body').removeClass('loading-content');
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+		});
 	
 
 	return;
@@ -369,7 +467,6 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 				data: data,
 			}).done(function (response) {
 
-				console.log(response);
 				var plugin_status = response.split('|');
 				var status = plugin_status[ plugin_status.length -1 ];
 				
@@ -426,11 +523,9 @@ jQuery(document).on('pluginsInstallComplete', '.astra-demo-import', function (ev
 		},
 	})
 	.done(function ( demos ) {
-		console.log('demos: ' + demos);
 		$this.removeClass('updating-message installing').text('Demo Imported').attr('disabled', 'disabled');
 	})
 	.fail(function ( demos ) {
-		console.log('demos: ' + JSON.stringify( demos ) );
 		$this.removeClass('updating-message installing').text('Error.');
 	});
 

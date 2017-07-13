@@ -1,0 +1,18 @@
+.astra-demo-import-preview #plugin-filter .plugin-card {
+    float: none;
+    width: 100%;
+    border: none;
+    clear: both;
+    text-align: left;
+    margin: 0 0 1em 0;
+}
+
+.astra-demo-import-preview #plugin-filter .button {
+    float: right;
+    vertical-align: middle;
+}
+
+.astra-demo-import-preview #plugin-filter .title {
+	max-width: 130px;
+    display: inline-block;
+}

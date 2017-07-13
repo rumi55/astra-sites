@@ -12,6 +12,7 @@ $all_demos = Astra_Demo_Import::get_astra_all_demos();
 if ( count( $all_demos ) > 0 ) {
 
 	wp_enqueue_script( 'astra-demo-import-admin' );
+	wp_enqueue_style( 'astra-demo-import-admin' );
 	?>
 
 	<style type="text/css">
@@ -28,7 +29,7 @@ if ( count( $all_demos ) > 0 ) {
 		}
 
 	</style>
-
+	
 	<div class="wrap">
 
 		<div class="wp-filter hide-if-no-js">
@@ -98,9 +99,10 @@ if ( count( $all_demos ) > 0 ) {
 		</div>
 
 	</div>
+	
 
 	<script type="text/template" id="tmpl-astra-demo-preview">
-		<div class="theme-install-overlay wp-full-overlay expanded">
+		<div class="astra-demo-import-preview theme-install-overlay wp-full-overlay expanded">
 			<div class="wp-full-overlay-sidebar">
 				<div class="wp-full-overlay-header">
 					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra' ); ?></span></button>
@@ -126,7 +128,10 @@ if ( count( $all_demos ) > 0 ) {
 						</div>
 
 						<div class="required-plugins">
+							<h4><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h4>
+							<div id="plugin-filter"></div>							
 						</div>
+
 					</div>
 				</div>
 				<div class="wp-full-overlay-footer">
@@ -142,6 +147,8 @@ if ( count( $all_demos ) > 0 ) {
 			</div>
 		</div>
 	</script>
+
+	
 
 	<script type="text/template" id="tmpl-astra-single-demo">
 		<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">

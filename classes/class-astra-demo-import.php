@@ -57,12 +57,13 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 */
 		private function __construct() {
 
-			$importer_api = 'http://wpastra.sharkz.in/wp-json/wp/v2/';
+			$importer_api = 'http://localhost/dev.themes/wp-json/wp/v2/';
 
 			self::set_api_url( $importer_api );
 
 			$this->includes();
 
+			add_action( 'wp_enqueue_scripts',            					array( $this, 'admin_enqueue' ) );
 			add_action( 'admin_enqueue_scripts',            				array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',        				array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'astra_list_demos' ) );
@@ -142,7 +143,10 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			wp_register_script( 'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/js/admin.js', array(
 				'jquery',
 				'wp-util',
+				'updates',
 			), ASTRA_DEMO_IMPORT_VER, true );
+
+			wp_register_style( 'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/css/admin.css', ASTRA_DEMO_IMPORT_VER, true );
 
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
 				'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
@@ -178,14 +182,44 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			foreach ( $required_plugins as $key => $plugin ) {
 
 				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+					
+					// Set active plugin URL.
+					$plugin['activateUrl'] = self::get_plugin_active_url( $plugin['init'] );						
+					
 					$plugins['inactive'][] = $plugin;
+
 				} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
 					$plugins['notinstalled'][] = $plugin;
+				} else {
+					$plugins['active'][] = $plugin;
 				}
 
 			}
 
 			wp_send_json( $plugins );
+		}
+
+		public static function get_plugin_active_url( $plugin_file ) {
+
+			$pagenow = isset( $_POST['pagenow'] ) ? sanitize_key( $_POST['pagenow'] ) : '';
+
+			// If install request is coming from import page, do not return network activation link.
+			$plugins_url = ( 'import' === $pagenow ) ? admin_url( 'plugins.php' ) : network_admin_url( 'plugins.php' );
+
+			if ( current_user_can( 'activate_plugins' ) && is_plugin_inactive( $plugin_file ) ) {
+				return add_query_arg( array(
+					'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $plugin_file ),
+					'action'   => 'activate',
+					'plugin'   => $plugin_file,
+				), $plugins_url );
+			}
+
+			if ( is_multisite() && current_user_can( 'manage_network_plugins' ) && 'import' !== $pagenow ) {
+				return add_query_arg( array( 'networkwide' => 1 ), $status['activateUrl'] );
+			}
+
+			return '';
+
 		}
 
 		/**
