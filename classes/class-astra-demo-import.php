@@ -209,6 +209,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 		public function astra_required_plugin() {
 
+
 			// Verify Nonce.
 			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
 
@@ -226,7 +227,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			$notinstalled = array();
 			$active       = array();
 
-			if( count( $required_plugins ) > 1 ) {
+			if( count( $required_plugins ) > 0 ) {
 				foreach ( $required_plugins as $key => $plugin ) {
 
 					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
@@ -244,7 +245,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 				}
 
 				$success = true;
-				if( count( $notinstalled ) >= 0 && count( $inactive ) >= 0 ) {
+				if( count( $notinstalled ) > 0 && count( $inactive ) > 0 ) {
 					$success = false;
 				}
 				$report['plugins']['inactive']     = $inactive;

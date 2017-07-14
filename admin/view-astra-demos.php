@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) or exit;
 
 // Load demo importer markup.
 $all_demos = Astra_Demo_Import::get_astra_all_demos();
+// vl( $all_demos );
 if ( count( $all_demos ) > 0 ) {
 
 	wp_enqueue_script( 'astra-demo-import-admin' );
@@ -84,7 +85,7 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-actions">
 							<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
 							   data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
-							   data-demo-type="<?php echo esc_url( $demo['astra_demo_type'] ); ?>"
+							   data-demo-type="<?php echo esc_attr( $demo['astra_demo_type'] ); ?>"
 							   data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
 							   data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
 							   data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
@@ -129,8 +130,9 @@ if ( count( $all_demos ) > 0 ) {
 				</div>
 				<div class="wp-full-overlay-sidebar-content">
 					<div class="install-theme-info">
-						<h3 class="theme-name">{{{data.demo_name}}}</h3>
-	
+
+						<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
+						<h3 class="theme-name">{{{data.demo_name}}}</h3>	
 						
 						<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
 
@@ -164,7 +166,8 @@ if ( count( $all_demos ) > 0 ) {
 	<script type="text/template" id="tmpl-astra-single-demo">
 		<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
 	
-			
+			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
+
 			<div class="theme-screenshot">
 				<img src="{{{data.screenshot}}}" alt="">
 			</div>

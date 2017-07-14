@@ -85,7 +85,7 @@ jQuery(document).scroll(function (event) {
 	}
 });
 
-jQuery(document).on('click', '.theme-screenshot, .more-details, .theme-name, .install-theme-preview', function (event) {
+jQuery(document).on('click', '.theme-screenshot, .more-details, .install-theme-preview', function (event) {
 	event.preventDefault();
 
 	$this = jQuery(this).parents('.theme');
@@ -158,19 +158,20 @@ jQuery(document).on('click', '.install-now', function (event) {
 
 	wp.updates.installPlugin( {
 		slug: $button.data( 'slug' ),
-		success: function( response ) {
-
-			vl( response );
-
-			var remaining = parseInt( jQuery('.required-plugins').data('remaining') ) || 0;
-			remaining = remaining - 1;
-
-			jQuery('.required-plugins').data( 'remaining', remaining );
-			vl( remaining );
-		}
 	} );
 
 } );
+
+// jQuery(document).on( 'wp-importer-install-success', function( event, response ) {
+// 	event.preventDefault();
+
+// 	var remaining = parseInt( jQuery('.required-plugins').data('remaining') ) || 0;
+// 		remaining = remaining - 1;
+// 		vl( remaining );
+// 		jQuery('.required-plugins').data('remaining', remaining);
+// 		enable_demo_import_button();
+// });
+
 
 /**
  * Click handler for plugin installs in plugin install view.
@@ -208,6 +209,12 @@ jQuery(document).on('click', '.activate-now', function (event) {
 			$button.removeClass( 'button-primary activate-now updating-message' )
 				.addClass('disabled')
 				.text( wp.updates.l10n.pluginInstalled );
+
+			var remaining = parseInt( jQuery('.required-plugins').data('remaining') ) || 0;
+			remaining = remaining - 1;
+			vl( remaining );
+			jQuery('.required-plugins').data('remaining', remaining);
+			enable_demo_import_button();
 		}
 
 	})
@@ -243,7 +250,7 @@ function renderDemoPreview(anchor) {
 		// vl( 'content' );
 		// vl( content );
 		// vl( 'requiredPlugins' );
-		vl( requiredPlugins.length );
+		// vl( requiredPlugins.length );
 
 
 	var template = wp.template('astra-demo-preview');
@@ -258,7 +265,7 @@ function renderDemoPreview(anchor) {
 		content                 : content,
 		required_plugins_length : requiredPlugins.length,
 		requiredPlugins         : requiredPlugins
-	}]
+	}];
 
 	// delete any earlier fullscreen preview before we render new one.
 	jQuery('.theme-install-overlay').remove();
@@ -267,7 +274,6 @@ function renderDemoPreview(anchor) {
 	jQuery('#ast-menu-page').append(template(templateData[0]));
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
-	
 
 	// or
 	var $pluginsFilter    = jQuery( '#plugin-filter' ),
@@ -276,8 +282,23 @@ function renderDemoPreview(anchor) {
 							required_plugins : requiredPlugins
 						};
 
+	vl( data );
+	vl( requiredPlugins );
 	jQuery('.required-plugins').html('');
+
 	wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
+	// jQuery.ajax({
+	// 		url: astraDemo.ajaxurl,
+	// 		type: 'POST',
+	// 		dataType: 'json',
+	// 		data: {
+	// 			action 			 : 'astra-required-plugins',
+	// 			_ajax_nonce		 : astraDemo._ajax_nonce,
+	// 			required_plugins : requiredPlugins
+	// 		},
+	// 	})
+	// 	.done(function ( result ) {
+
 
 		vl( result );
 		if( result.success ) {
@@ -298,6 +319,7 @@ function renderDemoPreview(anchor) {
 					output += ' 		data-slug="'+plugin.slug+'">';
 					output += '	<span class="title">'+plugin.name+'</span>';
 					output += '	<button class="button install-now"';
+					output += '			data-init="' + plugin.init + '"';
 					output += '			data-slug="' + plugin.slug + '"';
 					output += '			data-name="' + plugin.name + '">';
 					output += 	wp.updates.l10n.installNow;
@@ -610,17 +632,20 @@ jQuery(document).on('keyup', '#wp-filter-search-input', function () {
 
 function renderDemoGrid(demos) {
 	jQuery.each(demos, function (index, demo) {
-		screenshot = demo.featured_image_url;
-		id = demo.id;
-		astra_demo_url = demo.astra_demo_url;
-		demo_api = demo.demo_api;
-		demo_name = demo.title;
-		content = demo.content;
+		
+		id                      = demo.id;
+		content                 = demo.content;
+		demo_api                = demo.demo_api;
+		demo_name               = demo.title;
+		screenshot              = demo.featured_image_url;
+		astra_demo_url          = demo.astra_demo_url;
+		astra_demo_type         = demo.astra_demo_type;
+		requiredPlugins         = demo.required_plugins;
 		required_plugins_length = demo.required_plugins_length;
-		requiredPlugins = demo.required_plugins;
 
 		templateData = [{
 			id: id,
+			astra_demo_type: astra_demo_type,
 			astra_demo_url: astra_demo_url,
 			demo_api: demo_api,
 			screenshot: screenshot,
