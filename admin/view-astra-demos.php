@@ -71,7 +71,7 @@ if ( count( $all_demos ) > 0 ) {
 						<?php if( 'premium' === $demo['astra_demo_type'] ) { ?>
 							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
 						<?php } ?>
-
+	
 						<div class="theme-screenshot">
 							<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
 						</div>
@@ -114,28 +114,33 @@ if ( count( $all_demos ) > 0 ) {
 					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra' ); ?></span></button>
 					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra' ); ?></span></button>
 
-					<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
-					   data-demo-id="{{{data.id}}}"
-					   data-demo-type="{{{data.astra_demo_type}}}"
-					   data-demo-url="{{{data.astra_demo_url}}}"
-					   data-demo-api="{{{data.demo_api}}}"
-					   data-demo-name="{{{data.demo_name}}}"
-					><?php esc_html_e( 'Import Demo', 'astra' ); ?></a>
+					<a class="button hide-if-no-customize astra-demo-import" href="#"
+						disabled="disabled"
+					   	data-demo-id="{{{data.id}}}"
+						data-demo-type="{{{data.astra_demo_type}}}"
+						data-demo-url="{{{data.astra_demo_url}}}"
+						data-demo-api="{{{data.demo_api}}}"
+						data-demo-name="{{{data.demo_name}}}"
+						data-screenshot="{{{data.screenshot}}}"
+						data-content="{{{data.content}}}"
+						data-required-plugins="{{data.required_plugins}}"
+					><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
 
 				</div>
 				<div class="wp-full-overlay-sidebar-content">
 					<div class="install-theme-info">
 						<h3 class="theme-name">{{{data.demo_name}}}</h3>
-
+	
+						
 						<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
 
 						<div class="theme-details">
 							{{{data.content}}}
 						</div>
 
-						<div class="required-plugins">
+						<div class="required-plugins" data-remaining="{{data.required_plugins_length}}">
 							<h4><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h4>
-							<div id="plugin-filter"></div>							
+							<div id="plugin-filter"></div>
 						</div>
 
 					</div>
@@ -158,7 +163,8 @@ if ( count( $all_demos ) > 0 ) {
 
 	<script type="text/template" id="tmpl-astra-single-demo">
 		<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
-
+	
+			
 			<div class="theme-screenshot">
 				<img src="{{{data.screenshot}}}" alt="">
 			</div>
@@ -170,16 +176,15 @@ if ( count( $all_demos ) > 0 ) {
 			<h3 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h3>
 
 			<div class="theme-actions">
-
 				<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
-				   data-demo-id="{{{data.id}}}"
-				   data-demo-type="{{{data.astra_demo_type}}}"
-				   data-demo-url="{{{data.astra_demo_url}}}"
-				   data-demo-api="{{{data.demo_api}}}"
-				   data-demo-name="{{{data.demo_name}}}"
-				   data-screenshot="{{{data.screenshot}}}"
-				   data-content="{{{data.content}}}"
-				   data-required-plugins="{{data.required_plugins}}"
+					data-demo-id="{{{data.id}}}"
+					data-demo-type="{{{data.astra_demo_type}}}"
+					data-demo-url="{{{data.astra_demo_url}}}"
+					data-demo-api="{{{data.demo_api}}}"
+					data-demo-name="{{{data.demo_name}}}"
+					data-screenshot="{{{data.screenshot}}}"
+					data-content="{{{data.content}}}"
+					data-required-plugins="{{data.required_plugins}}"
 				><?php esc_html_e( 'Import', 'astra' ); ?></a>
 				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
 

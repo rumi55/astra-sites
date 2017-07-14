@@ -72,6 +72,14 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			add_action( 'plugin_action_links_' . ASTRA_DEMO_IMPORT_BASE,    array( $this, 'action_links' ) );
 		}
+		function test() {
+
+			// check_ajax_referer( $action, $query_arg, $die );
+			// check_ajax_referer( 'add-meta', '_ajax_nonce-add-meta' );
+			
+			wp_send_json_success( $_POST['_ajax_nonce'] );
+			// wp_send_json_success( $_POST['required_plugins'] );
+		}
 
 		/**
 		 * Show action links on the plugin screen.
@@ -150,7 +158,8 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			wp_register_style( 'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/css/admin.css', ASTRA_DEMO_IMPORT_VER, true );
 
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
-				'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'_ajax_nonce' => wp_create_nonce( 'astra-demo-import' ),
 			));
 
 		}
@@ -172,10 +181,6 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		}
 
 		public function astra_required_plugin_activate() {
-
-			if ( ! current_user_can( 'customize' ) ) {
-				return;
-			}
 
 			if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['init'] ) || ! $_POST['init'] ) {
 				wp_send_json_error( array(
@@ -200,60 +205,82 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 				'message' => __( 'Plugin Successfully Activated', 'astra-demo-import' ),
 			) );
 
-			wp_die();
 		}
 
 		public function astra_required_plugin() {
 
+			// Verify Nonce.
+			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
+
+			$report = array(
+				'success' => false,
+			);
+
 			if ( ! current_user_can( 'customize' ) ) {
-				return;
+				wp_send_json_error( $report );
 			}
 
-			$required_plugins = isset( $_POST['required-plugins'] ) ? $_POST['required-plugins'] : array();
-			$plugins 		  = array();
+			$required_plugins = ( isset( $_POST['required_plugins'] ) ) ? $_POST['required_plugins'] : array();
+			
+			$inactive     = array();
+			$notinstalled = array();
+			$active       = array();
 
-			foreach ( $required_plugins as $key => $plugin ) {
+			if( count( $required_plugins ) > 1 ) {
+				foreach ( $required_plugins as $key => $plugin ) {
 
-				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
-					
-					// Set active plugin URL.
-					$plugin['activateUrl'] = self::get_plugin_active_url( $plugin['init'] );						
-					
-					$plugins['inactive'][] = $plugin;
+					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+						
+						// // Set active plugin URL.
+						// $plugin['activateUrl'] = self::get_plugin_active_url( $plugin['init'] );
 
-				} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
-					$plugins['notinstalled'][] = $plugin;
-				} else {
-					$plugins['active'][] = $plugin;
+						$inactive[] = $plugin;
+
+					} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
+						$notinstalled[] = $plugin;
+					} else {
+						$active[] = $plugin;
+					}
 				}
 
-			}
+				$success = true;
+				if( count( $notinstalled ) >= 0 && count( $inactive ) >= 0 ) {
+					$success = false;
+				}
+				$report['plugins']['inactive']     = $inactive;
+				$report['plugins']['notinstalled'] = $notinstalled;
+				$report['plugins']['active']       = $active;
+				$report['success']                 = $success;
 
-			wp_send_json( $plugins );
+				wp_send_json_success( $report );
+			} else {
+
+				wp_send_json_error( $report );
+			}
 		}
 
-		public static function get_plugin_active_url( $plugin_file ) {
+		// public static function get_plugin_active_url( $plugin_file ) {
 
-			$pagenow = isset( $_POST['pagenow'] ) ? sanitize_key( $_POST['pagenow'] ) : '';
+		// 	$pagenow = isset( $_POST['pagenow'] ) ? sanitize_key( $_POST['pagenow'] ) : '';
 
-			// If install request is coming from import page, do not return network activation link.
-			$plugins_url = ( 'import' === $pagenow ) ? admin_url( 'plugins.php' ) : network_admin_url( 'plugins.php' );
+		// 	// If install request is coming from import page, do not return network activation link.
+		// 	$plugins_url = ( 'import' === $pagenow ) ? admin_url( 'plugins.php' ) : network_admin_url( 'plugins.php' );
 
-			if ( current_user_can( 'activate_plugins' ) && is_plugin_inactive( $plugin_file ) ) {
-				return add_query_arg( array(
-					'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $plugin_file ),
-					'action'   => 'activate',
-					'plugin'   => $plugin_file,
-				), $plugins_url );
-			}
+		// 	if ( current_user_can( 'activate_plugins' ) && is_plugin_inactive( $plugin_file ) ) {
+		// 		return add_query_arg( array(
+		// 			'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $plugin_file ),
+		// 			'action'   => 'activate',
+		// 			'plugin'   => $plugin_file,
+		// 		), $plugins_url );
+		// 	}
 
-			if ( is_multisite() && current_user_can( 'manage_network_plugins' ) && 'import' !== $pagenow ) {
-				return add_query_arg( array( 'networkwide' => 1 ), $status['activateUrl'] );
-			}
+		// 	if ( is_multisite() && current_user_can( 'manage_network_plugins' ) && 'import' !== $pagenow ) {
+		// 		return add_query_arg( array( 'networkwide' => 1 ), $status['activateUrl'] );
+		// 	}
 
-			return '';
+		// 	return '';
 
-		}
+		// }
 
 		/**
 		 * Ajax callback for demo import action.
