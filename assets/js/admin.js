@@ -11,11 +11,26 @@ function vl( data, is_json ) {
 	}
 }
 
+/**
+ * Enable Demo Import Button.
+ */
 function enable_demo_import_button() {
 
-	var remaining = parseInt( jQuery('.required-plugins').data('remaining') ) || 0;
-	console.log('remaining: ' + remaining);
-	if( 0 === remaining ) {
+	// Get initial required plugins count.
+	var remaining = parseInt( jQuery('.astra-demo-import-preview').find('.required-plugins').data('remaining') ) || 0;
+	
+	console.log('before remaining: ' + remaining);
+
+	// Decrease count as per the requested from AJAX.
+	remaining--;
+
+	// Set data attribute.
+	jQuery('.astra-demo-import-preview').find('.required-plugins').attr('data-remaining', remaining);
+
+	console.log('after remaining: ' + remaining);
+
+	// Enable demo import button.
+	if( 0 >= remaining ) {
 		jQuery('.astra-demo-import')
 			.removeAttr('disabled')
 			.addClass('button-primary')
@@ -210,10 +225,7 @@ jQuery(document).on('click', '.activate-now', function (event) {
 				.addClass('disabled')
 				.text( wp.updates.l10n.pluginInstalled );
 
-			var remaining = parseInt( jQuery('.required-plugins').data('remaining') ) || 0;
-			remaining = remaining - 1;
-			vl( remaining );
-			jQuery('.required-plugins').data('remaining', remaining);
+			// Enable Demo Import Button
 			enable_demo_import_button();
 		}
 
@@ -234,24 +246,6 @@ function renderDemoPreview(anchor) {
 		content         = anchor.data('content'),
 		requiredPlugins = anchor.data('required-plugins') || '';
 		requiredPlugins = anchor.data('required-plugins') || '';
-
-		// vl( 'demoId' );
-		// vl( demoId );
-		// vl( 'apiURL' );
-		// vl( apiURL );
-		// vl( 'demoType' );
-		// vl( demoType );
-		// vl( 'demoURL' );
-		// vl( demoURL );
-		// vl( 'screenshot' );
-		// vl( screenshot );
-		// vl( 'demo_name' );
-		// vl( demo_name );
-		// vl( 'content' );
-		// vl( content );
-		// vl( 'requiredPlugins' );
-		// vl( requiredPlugins.length );
-
 
 	var template = wp.template('astra-demo-preview');
 
@@ -282,8 +276,6 @@ function renderDemoPreview(anchor) {
 							required_plugins : requiredPlugins
 						};
 
-	vl( data );
-	vl( requiredPlugins );
 	jQuery('.required-plugins').html('');
 
 	wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
@@ -299,9 +291,12 @@ function renderDemoPreview(anchor) {
 	// 	})
 	// 	.done(function ( result ) {
 
-
-		vl( result );
+		jQuery('.required-plugins').attr('data-remaining', result.remaining);
+		
 		if( result.success ) {
+			jQuery('.required-plugins').attr('data-remaining', '0');
+			
+			// Enable Demo Import Button
 			enable_demo_import_button();
 		}
 
