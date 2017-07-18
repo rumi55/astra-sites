@@ -49,6 +49,11 @@ class Astra_Site_Options_Import {
 		$page_on_front      = get_page_by_title( $options['page_on_front'] );
 		$page_for_posts     = get_page_by_title( $options['page_for_posts'] );
 
+		// Update site options.
+		update_option( 'show_on_front', $show_on_front );
+		update_option( 'page_on_front', $page_on_front->ID );
+		update_option( 'page_for_posts', $page_for_posts->ID );
+
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 	}
 
@@ -60,11 +65,6 @@ class Astra_Site_Options_Import {
 	function set_nav_menu_locations( $nav_menu_locations = array() ) {
 		
 		$menu_locations = array();
-
-		// Update site options.
-		update_option( 'show_on_front', $show_on_front );
-		update_option( 'page_on_front', $page_on_front->ID );
-		update_option( 'page_for_posts', $page_for_posts->ID );
 
 		// Update menu locations.
 		foreach ( $nav_menu_locations as $menu => $value ) {
