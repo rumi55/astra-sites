@@ -158,8 +158,9 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			wp_register_style( 'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/css/admin.css', ASTRA_DEMO_IMPORT_VER, true );
 
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
-				'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
-				'_ajax_nonce' => wp_create_nonce( 'astra-demo-import' ),
+				'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
+				'requiredPluginsCount' => 0,
 			));
 
 		}
@@ -365,7 +366,6 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			// Import Custom 404 extension options.
 			$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
-
 		}
 
 		/**
@@ -596,5 +596,3 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 	Astra_Demo_Import::set_instance();
 
 endif;
-
-

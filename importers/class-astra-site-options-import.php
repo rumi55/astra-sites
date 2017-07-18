@@ -45,10 +45,21 @@ class Astra_Site_Options_Import {
 	 * @param  (Array) $options Array of site options to be imported from the demo.
 	 */
 	public function import_options( $options ) {
-		$show_on_front    = $options['show_on_front'];
-		$page_on_front    = get_page_by_title( $options['page_on_front'] );
-		$page_for_posts   = get_page_by_title( $options['page_for_posts'] );
-		$registered_menus = $options['registered_menus'];
+		$show_on_front      = $options['show_on_front'];
+		$page_on_front      = get_page_by_title( $options['page_on_front'] );
+		$page_for_posts     = get_page_by_title( $options['page_for_posts'] );
+
+		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
+	}
+
+	/**
+	 * In WP nav menu is stored as ( 'menu_location' => 'menu_id' );
+	 * In export we send 'menu_slug' like ( 'menu_location' => 'menu_slug' );
+	 * In import we set 'menu_id' from menu slug like ( 'menu_location' => 'menu_id' );
+	 */
+	function set_nav_menu_locations( $nav_menu_locations = array() ) {
+		
+		$menu_locations = array();
 
 		// Update site options.
 		update_option( 'show_on_front', $show_on_front );
@@ -56,16 +67,16 @@ class Astra_Site_Options_Import {
 		update_option( 'page_for_posts', $page_for_posts->ID );
 
 		// Update menu locations.
-		foreach ( $registered_menus as $menu => $value ) {
+		foreach ( $nav_menu_locations as $menu => $value ) {
 
-			$term = get_term_by( 'name', $value, 'nav_menu' );
+			$term = get_term_by( 'slug', $value, 'nav_menu' );
 
 			if ( is_object( $term ) ) {
-				$registered_menus[ $menu ] = $term->id;
+				$menu_locations[ $menu ] = $term->term_id;
 			}
 		}
 
-		set_theme_mod( 'nav_menu_locations', $registered_menus );
+		set_theme_mod( 'nav_menu_locations', $menu_locations );
 	}
 
 }

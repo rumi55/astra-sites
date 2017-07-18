@@ -140,7 +140,7 @@ if ( count( $all_demos ) > 0 ) {
 							{{{data.content}}}
 						</div>
 
-						<div class="required-plugins" data-remaining="{{data.required_plugins_length}}">
+						<div class="required-plugins">
 							<h4><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h4>
 							<div id="plugin-filter"></div>
 						</div>
