@@ -61,9 +61,12 @@ class Astra_Site_Options_Import {
 	 * In WP nav menu is stored as ( 'menu_location' => 'menu_id' );
 	 * In export we send 'menu_slug' like ( 'menu_location' => 'menu_slug' );
 	 * In import we set 'menu_id' from menu slug like ( 'menu_location' => 'menu_id' );
+	 *
+	 * @since 1.0.0
+	 * @param array $nav_menu_locations Array of nav menu locations.
 	 */
 	function set_nav_menu_locations( $nav_menu_locations = array() ) {
-		
+
 		$menu_locations = array();
 
 		// Update menu locations.

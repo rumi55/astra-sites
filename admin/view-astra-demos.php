@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) or exit;
 
 // Load demo importer markup.
 $all_demos = Astra_Demo_Import::get_astra_all_demos();
-// vl( $all_demos );
+
 if ( count( $all_demos ) > 0 ) {
 
 	wp_enqueue_script( 'astra-demo-import-admin' );

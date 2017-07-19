@@ -8,7 +8,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-if( ! class_exists( 'Astra_Demo_Import' ) ) :
+if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 	/**
 	 * Astra_Demo_Import
@@ -36,9 +36,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param  (String) $importer_api API URL which is used to get the response from.
-		 *
-		 * @return (Object) Astra_Demo_Import.
+		 * @return object Class object.
 		 */
 		public static function set_instance() {
 			if ( ! isset( self::$_instance ) ) {
@@ -52,8 +50,6 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * Constructor.
 		 *
 		 * @since  1.0.0
-		 *
-		 * @param (String) $importer_api API URL which is used to get the response from.
 		 */
 		private function __construct() {
 
@@ -66,19 +62,10 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			add_action( 'wp_enqueue_scripts',            					array( $this, 'admin_enqueue' ) );
 			add_action( 'admin_enqueue_scripts',            				array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',        				array( $this, 'demo_ajax_import' ) );
-			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'astra_list_demos' ) );
-			add_action( 'wp_ajax_astra-required-plugins',   				array( $this, 'astra_required_plugin' ) );
-			add_action( 'wp_ajax_astra-required-plugin-activate',   				array( $this, 'astra_required_plugin_activate' ) );
-
+			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'list_demos' ) );
+			add_action( 'wp_ajax_astra-required-plugins',   				array( $this, 'required_plugin' ) );
+			add_action( 'wp_ajax_astra-required-plugin-activate',   		array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugin_action_links_' . ASTRA_DEMO_IMPORT_BASE,    array( $this, 'action_links' ) );
-		}
-		function test() {
-
-			// check_ajax_referer( $action, $query_arg, $die );
-			// check_ajax_referer( 'add-meta', '_ajax_nonce-add-meta' );
-			
-			wp_send_json_success( $_POST['_ajax_nonce'] );
-			// wp_send_json_success( $_POST['required_plugins'] );
 		}
 
 		/**
@@ -111,12 +98,12 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param  (Object) $args Arguments for selecting correct list of demos.
+		 * @param  object $args Arguments for selecting correct list of demos.
 		 *         args->id        = ID of the demo.
 		 *         $args->search    = Search term used in the demo.
-		 * @param  (string) $page Page number for pagination.
+		 * @param  string $page Page number for pagination.
 		 *
-		 * @return (String) URL that can be queried to return the demos.
+		 * @return string URL that can be queried to return the demos.
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
@@ -125,8 +112,8 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 				'per_page'     => '15',
 
 				// Use this for premium demos.
-				// 'purchase_key' => '123',
-				// 'site_url'     => 'my_site',
+				'purchase_key' => '',
+				'site_url'     => '',
 			);
 
 			$args_search = isset( $args->search ) ? $args->search : '';
@@ -135,8 +122,8 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			// Not Search?
 			if ( '' !== $args_search ) {
 				$request_params['search'] = $args_search;
-			
-			// Not All?
+
+				// Not All?
 			} elseif ( 'all' != $args_id ) {
 				$request_params['astra-demo-category'] = $args_id;
 			}
@@ -201,7 +188,12 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-astra-site-options-import.php';
 		}
 
-		public function astra_required_plugin_activate() {
+		/**
+		 * Required Plugin Activate
+		 *
+		 * @since 1.0.0
+		 */
+		public function required_plugin_activate() {
 
 			if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['init'] ) || ! $_POST['init'] ) {
 				wp_send_json_error( array(
@@ -228,7 +220,13 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 		}
 
-		public function astra_required_plugin() {
+		/**
+		 * Required Plugin
+		 *
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function required_plugin() {
 
 			// Verify Nonce.
 			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
@@ -243,18 +241,15 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			}
 
 			$required_plugins = ( isset( $_POST['required_plugins'] ) ) ? $_POST['required_plugins'] : array();
-			
+
 			$inactive     = array();
 			$notinstalled = array();
 			$active       = array();
 
-			if( count( $required_plugins ) > 0 ) {
+			if ( count( $required_plugins ) > 0 ) {
 				foreach ( $required_plugins as $key => $plugin ) {
 
 					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
-						
-						// // Set active plugin URL.
-						// $plugin['activateUrl'] = self::get_plugin_active_url( $plugin['init'] );
 
 						$inactive[] = $plugin;
 
@@ -268,7 +263,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 				$remaining = count( $notinstalled ) + count( $inactive );
 
 				$success = true;
-				if( count( $notinstalled ) > 0 || count( $inactive ) > 0 ) {
+				if ( count( $notinstalled ) > 0 || count( $inactive ) > 0 ) {
 					$success = false;
 				}
 
@@ -285,29 +280,6 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 			}
 		}
 
-		// public static function get_plugin_active_url( $plugin_file ) {
-
-		// 	$pagenow = isset( $_POST['pagenow'] ) ? sanitize_key( $_POST['pagenow'] ) : '';
-
-		// 	// If install request is coming from import page, do not return network activation link.
-		// 	$plugins_url = ( 'import' === $pagenow ) ? admin_url( 'plugins.php' ) : network_admin_url( 'plugins.php' );
-
-		// 	if ( current_user_can( 'activate_plugins' ) && is_plugin_inactive( $plugin_file ) ) {
-		// 		return add_query_arg( array(
-		// 			'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $plugin_file ),
-		// 			'action'   => 'activate',
-		// 			'plugin'   => $plugin_file,
-		// 		), $plugins_url );
-		// 	}
-
-		// 	if ( is_multisite() && current_user_can( 'manage_network_plugins' ) && 'import' !== $pagenow ) {
-		// 		return add_query_arg( array( 'networkwide' => 1 ), $status['activateUrl'] );
-		// 	}
-
-		// 	return '';
-
-		// }
-
 		/**
 		 * Ajax callback for demo import action.
 		 *
@@ -321,6 +293,8 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 			$this->import_demo( $demo_api_uri );
+
+			wp_die();
 		}
 
 		/**
@@ -329,7 +303,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * @since  1.0.0
 		 * @return (JSON) Json response retreived from the API.
 		 */
-		public function astra_list_demos() {
+		public function list_demos() {
 
 			if ( ! current_user_can( 'customize' ) ) {
 				return;
@@ -521,9 +495,6 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		public static function get_astra_demos( $args, $paged = '1' ) {
 
 			$url = self::get_api_url( $args, $paged );
-
-			// vl( $url );
-			// exit();
 
 			$astra_demos = array();
 
