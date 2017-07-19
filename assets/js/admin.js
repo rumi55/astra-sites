@@ -43,7 +43,7 @@ function enable_demo_import_button( type = 'free' ) {
 				.addClass('go-pro')
 				.removeClass('astra-demo-import')
 				.attr('target', '_blank')
-				.attr('href', 'https://wpastra.com/pro/')
+				.attr('href', astraDemo.getProURL )
 				.text( 'Get Pro' )
 				.prepend('<i class="dashicons dashicons-external"></i>');
 	}
@@ -806,7 +806,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			.text('View Site')
 			.attr('target', '_blank')
 			.prepend('<i class="dashicons dashicons-external"></i>')
-			.attr('href', astraDemo.site_url );
+			.attr('href', astraDemo.siteURL );
 	})
 	.fail(function ( demos ) {
 		$this.removeClass('updating-message installing').text('Error.');

@@ -177,7 +177,8 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
 				'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
-				'site_url' 			   => site_url(),
+				'siteURL'              => site_url(),
+				'getProURL'            => 'https://wpastra.com/pro/',
 				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
 				'requiredPluginsCount' => 0,
 			));
