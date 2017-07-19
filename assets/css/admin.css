@@ -1,28 +1,81 @@
+.wrap .demo-type {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    padding: 0.5em 1em;
+    top: -0.5em;
+    left: -0.5em;
+    text-transform: uppercase;
+}
+.wrap .demo-type.premium {
+    background: #0073aa;
+}
+.wrap .demo-type.free {
+    display: none;
+}
+
+.theme {
+    position: relative;
+}
+.wrap .astra-demo-import-preview .demo-type.premium {
+    display: block;
+    display: none;
+    position: relative;
+    margin: 0.5em 0em 1em 0em;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.astra-demo-import-preview .theme-screenshot {
+    width: 100%;
+}
+
+/**
+ * Required Plugins
+ */
 .required-plugins .plugin-card {
     float: none;
     width: 100%;
     border: none;
-    clear: both;
-    text-align: left;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.8em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.required-plugins .spinner {
+    float: none;
 }
 
-.required-plugins .button {
-    float: right;
+.required-plugins {
+    text-align: center;
+}
+
+/**
+ * Read more link
+ */
+.wp-core-ui .button.theme-details-read-more {
+    display: none;
+    margin-top: 0.5em;
+}
+
+/*.theme-details {
+    height: 57px;
+}*/
+
+/**
+ * Go pro.
+ */
+.wp-core-ui .go-pro.button[disabled] {
+    background-color: #fcb92c !important;
+    color: white !important;
+    box-shadow: 1px 0 #eab23a !important;
+    text-shadow: 1px 0 #6b4e13 !important;
+    border-color: #e2a932 !important;
+    cursor: pointer;
+}
+.wp-core-ui .view-site .dashicons,
+.wp-core-ui .go-pro .dashicons {
+    font-size: 1rem;
     vertical-align: middle;
-}
-
-.required-plugins .title {
-	max-width: 130px;
-    display: inline-block;
-}
-
-.wrap .demo-type.premium {
-    position: absolute;
-    z-index: 1;
-    background: #0073aa;
-    color: white;
-    text-transform: capitalize;
-    padding: 0.5em 1em;
-    border-radius: 3px;
 }

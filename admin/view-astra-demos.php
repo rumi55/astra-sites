@@ -67,12 +67,18 @@ if ( count( $all_demos ) > 0 ) {
 				foreach ( $all_demos as $key => $demo ) {
 					?>
 
-					<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
+					<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+						data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
+						data-demo-type="<?php echo esc_attr( $demo['astra_demo_type'] ); ?>"
+						data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
+						data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
+						data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
+						data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
+						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
+						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
 
-						<?php if( 'premium' === $demo['astra_demo_type'] ) { ?>
-							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
-						<?php } ?>
-	
+						<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
+					
 						<div class="theme-screenshot">
 							<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
 						</div>
@@ -83,16 +89,6 @@ if ( count( $all_demos ) > 0 ) {
 
 						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ) ?></h3>
 						<div class="theme-actions">
-							<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
-							   data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
-							   data-demo-type="<?php echo esc_attr( $demo['astra_demo_type'] ); ?>"
-							   data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
-							   data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
-							   data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
-							   data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
-							   data-content="<?php echo esc_attr( $demo['content'] ); ?>"
-							   data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>"
-							><?php esc_html_e( 'Import', 'astra' ); ?></a>
 							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
 						</div>
 					</div>
@@ -110,22 +106,19 @@ if ( count( $all_demos ) > 0 ) {
 	<script type="text/template" id="tmpl-astra-demo-preview">
 		<div class="astra-demo-import-preview theme-install-overlay wp-full-overlay expanded">
 			<div class="wp-full-overlay-sidebar">
-				<div class="wp-full-overlay-header">
-					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra' ); ?></span></button>
-					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra' ); ?></span></button>
-					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra' ); ?></span></button>
-
-					<a class="button hide-if-no-customize astra-demo-import" href="#"
-						disabled="disabled"
-					   	data-demo-id="{{{data.id}}}"
+				<div class="wp-full-overlay-header"
+						data-demo-id="{{{data.id}}}"
 						data-demo-type="{{{data.astra_demo_type}}}"
 						data-demo-url="{{{data.astra_demo_url}}}"
 						data-demo-api="{{{data.demo_api}}}"
 						data-demo-name="{{{data.demo_name}}}"
 						data-screenshot="{{{data.screenshot}}}"
 						data-content="{{{data.content}}}"
-						data-required-plugins="{{data.required_plugins}}"
-					><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
+						data-required-plugins="{{data.required_plugins}}">
+					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra' ); ?></span></button>
+					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra' ); ?></span></button>
+					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra' ); ?></span></button>
+					<a class="button hide-if-no-customize astra-demo-import" href="#" disabled="disabled"><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
 
 				</div>
 				<div class="wp-full-overlay-sidebar-content">
@@ -139,10 +132,11 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-details">
 							{{{data.content}}}
 						</div>
+						<button class="button theme-details-read-more"><?php _e( 'Read more', 'astra-demo-import' ); ?></button>
 
-						<div class="required-plugins">
-							<h4><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h4>
-							<div id="plugin-filter"></div>
+						<div class="required-plugins-wrap">
+							<h3><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h3>
+							<div class="required-plugins"></div>
 						</div>
 
 					</div>
@@ -164,7 +158,15 @@ if ( count( $all_demos ) > 0 ) {
 	
 
 	<script type="text/template" id="tmpl-astra-single-demo">
-		<div class="theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name">
+		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+			data-demo-id="{{{data.id}}}"
+			data-demo-type="{{{data.astra_demo_type}}}"
+			data-demo-url="{{{data.astra_demo_url}}}"
+			data-demo-api="{{{data.demo_api}}}"
+			data-demo-name="{{{data.demo_name}}}"
+			data-screenshot="{{{data.screenshot}}}"
+			data-content="{{{data.content}}}"
+			data-required-plugins="{{data.required_plugins}}">
 	
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
@@ -179,16 +181,6 @@ if ( count( $all_demos ) > 0 ) {
 			<h3 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h3>
 
 			<div class="theme-actions">
-				<a class="button button-primary hide-if-no-customize astra-demo-import" href="#"
-					data-demo-id="{{{data.id}}}"
-					data-demo-type="{{{data.astra_demo_type}}}"
-					data-demo-url="{{{data.astra_demo_url}}}"
-					data-demo-api="{{{data.demo_api}}}"
-					data-demo-name="{{{data.demo_name}}}"
-					data-screenshot="{{{data.screenshot}}}"
-					data-content="{{{data.content}}}"
-					data-required-plugins="{{data.required_plugins}}"
-				><?php esc_html_e( 'Import', 'astra' ); ?></a>
 				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
 
 			</div>

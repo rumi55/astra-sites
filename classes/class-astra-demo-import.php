@@ -120,16 +120,34 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
-			$args->search = isset( $args->search ) ? $args->search : '';
-			$args->id     = isset( $args->id ) ? $args->id : '';
+			$request_params = array(
+				'page'         => $page,
+				'per_page'     => '15',
 
-			if ( '' !== $args->search ) {
-				return self::$api_url . 'astra-demos/?search=' . $args->search . '&per_page=15&page=' . $page;
-			} elseif ( 'all' != $args->id ) {
-				return self::$api_url . 'astra-demos/?astra-demo-category=' . $args->id . '&per_page=15&page=' . $page;
+				// Use this for premium demos.
+				// 'purchase_key' => '123',
+				// 'site_url'     => 'my_site',
+			);
+
+			$args_search = isset( $args->search ) ? $args->search : '';
+			$args_id     = isset( $args->id ) ? $args->id : '';
+
+			// Not Search?
+			if ( '' !== $args_search ) {
+				$request_params['search'] = $args_search;
+			
+			// Not All?
+			} elseif ( 'all' != $args_id ) {
+				$request_params['astra-demo-category'] = $args_id;
 			}
 
-			return self::$api_url . 'astra-demos/?per_page=15&page=' . $page;
+			// Generate URL.
+			$params = array();
+			foreach ( $request_params as $key => $val ) {
+				$params[] = $key . '=' . urlencode( $val );
+			}
+
+			return self::$api_url . 'astra-demos/?' . implode( '&', $params );
 		}
 
 		/**
@@ -159,6 +177,7 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
 				'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'site_url' 			   => site_url(),
 				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
 				'requiredPluginsCount' => 0,
 			));
@@ -501,6 +520,9 @@ if( ! class_exists( 'Astra_Demo_Import' ) ) :
 		public static function get_astra_demos( $args, $paged = '1' ) {
 
 			$url = self::get_api_url( $args, $paged );
+
+			// vl( $url );
+			// exit();
 
 			$astra_demos = array();
 
