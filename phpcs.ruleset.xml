@@ -10,5 +10,4 @@
 	<exclude-pattern>*/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
 	<exclude-pattern>*/importers/wxr-importer/class-logger.php</exclude-pattern>
 	<exclude-pattern>*/importers/class-widgets-importer.php</exclude-pattern>
-	<exclude-pattern>*/admin/bsf-core/*</exclude-pattern>
 </ruleset>
