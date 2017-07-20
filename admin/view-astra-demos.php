@@ -168,7 +168,7 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-details">
 							{{{data.content}}}
 						</div>
-						<button class="button theme-details-read-more"><?php _e( 'Read more', 'astra-demo-import' ); ?></button>
+						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-demo-import' ); ?> &hellip;</a>
 
 						<div class="required-plugins-wrap">
 							<h3><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h3>

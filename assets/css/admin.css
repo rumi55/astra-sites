@@ -67,9 +67,13 @@
 /**
  * Read more link
  */
-.wp-core-ui .button.theme-details-read-more {
+.wp-core-ui .theme-details-read-more:focus,
+.wp-core-ui .theme-details-read-more:hover {
+    outline: none;
+    box-shadow: none;
+}
+.wp-core-ui .theme-details-read-more {
     display: none;
-    margin-top: 0.5em;
 }
 
 /*.theme-details {
