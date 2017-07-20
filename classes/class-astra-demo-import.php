@@ -209,6 +209,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 					'DescCollapse'  => __( 'Hide', 'astra-demo-import' ),
 					'responseError' => __( 'There was a problem receiving a response from server.', 'astra-demo-import' ),
 					'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-demo-import' ),
+					'importWarning' => __( 'Your existing site settings will be updated. Do you want to proceed?', 'astra-demo-import' ),
 				),
 			));
 

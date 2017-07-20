@@ -770,8 +770,8 @@ jQuery(document).on('click', '.collapse-sidebar', function (event) {
 jQuery(document).on('click', '.astra-demo-import', function (event) {
 	event.preventDefault();
 
-	$this = jQuery(this);
-	var disabled = $this.attr('data-import');
+	var $this 	 = jQuery(this),
+		disabled = $this.attr('data-import');
 
 	if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
@@ -781,6 +781,11 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			jQuery('.required-plugins-wrap h3').css({'background-color':''});
 		}, 800);
 
+		return;
+	}
+
+	// Proceed?
+	if( ! confirm( astraDemo.strings.importWarning ) ) {
 		return;
 	}
 
