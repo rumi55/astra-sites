@@ -198,12 +198,17 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			wp_localize_script( 'astra-demo-import-admin', 'astraDemo', array(
 				'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'siteURL'              => site_url(),
+				'getProText'           => __( 'Get Pro', 'astra-demo-import' ),
 				'getProURL'            => 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-demo-import&utm_medium=',
 				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
 				'requiredPluginsCount' => 0,
-				'strings' => array(
-					'DescExpand'   => __( 'Read more', 'astra-demo-import' ) . '&hellip;',
-					'DescCollapse' => __( 'Hide', 'astra-demo-import' ),
+				'strings'              => array(
+					'btnActive'     => __( 'Active', 'astra-demo-import' ),
+					'importDemo'    => __( 'Import Demo', 'astra-demo-import' ),
+					'DescExpand'    => __( 'Read more', 'astra-demo-import' ) . '&hellip;',
+					'DescCollapse'  => __( 'Hide', 'astra-demo-import' ),
+					'responseError' => __( 'There was a problem receiving a response from server.', 'astra-demo-import' ),
+					'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-demo-import' ),
 				),
 			));
 

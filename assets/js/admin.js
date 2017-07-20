@@ -32,10 +32,7 @@ function enable_demo_import_button( type = 'free' ) {
 			jQuery('.astra-demo-import')
 				.removeAttr('data-import')
 				.addClass('button-primary')
-				.text( 'Import Demo' );
-			// jQuery('.wp-full-overlay-header').append('<button class="astra-demo-import button button-primary">Import Demo</button>');
-		// } else {
-		// 	jQuery('.wp-full-overlay-header').append('<button class="astra-demo-import button button-primary">Install Plugins</button>');
+				.text( astraDemo.strings.importDemo );
 		}
 	} else {
 
@@ -46,7 +43,7 @@ function enable_demo_import_button( type = 'free' ) {
 				.removeClass('astra-demo-import')
 				.attr('target', '_blank')
 				.attr('href', astraDemo.getProURL + demo_slug )
-				.text( 'Get Pro' )
+				.text( astraDemo.getProText )
 				.prepend('<i class="dashicons dashicons-external"></i>');
 	}
 }
@@ -109,7 +106,7 @@ jQuery(document).scroll(function (event) {
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
 			});
 
 	}
@@ -462,7 +459,7 @@ function renderDemoPreview(anchor) {
 						output += '	<button class="button disabled"';
 						output += '			data-slug="' + plugin.slug + '"';
 						output += '			data-name="' + plugin.name + '">';
-						output += 'Active';
+						output += astraDemo.strings.btnActive;
 						// output += 	wp.updates.l10n.pluginInstalled;
 						output += '	</button>';
 						output += '</div>';
@@ -709,13 +706,13 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 				if (demos.length > 0) {
 					renderDemoGrid(demos);
 				} else {
-					jQuery('.spinner').after('<p class="no-themes" style="display:block;">No Demos found, Try a different search.</p>');
+					jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
 				}
 
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
 			});
 
 	}, 500);
