@@ -196,7 +196,9 @@ if ( count( $all_demos ) > 0 ) {
 	// Load demo importer welcome.
 } else {
 	?>
-	<p class="no-themes" style="display:block;"><?php esc_html_e( 'No Demos found, Open support ticket.', 'astra' ); ?></p>
+	<p class="no-themes" style="display:block;">
+		<?php printf( __( 'No Demos found, Open <a href="%s" target="_blank">support ticket</a>.', 'astra-demo-import' ) , esc_url( 'https://wpastra.com/support/' ) ); ?>
+	</p>
 	<?php
 }// End if().
 
