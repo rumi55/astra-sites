@@ -52,6 +52,35 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * @since  1.0.0
 		 */
 		private function __construct() {
+			add_action( 'admin_notices',	array( $this, 'admin_notices' ) );
+		}
+
+		/**
+		 * Admin Notices
+		 *
+		 * @since 1.0.0
+		 * @return void
+		 */
+		function admin_notices( ) {
+
+			if ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) {
+
+				$plugin = get_plugin_data( ASTRA_DEMO_IMPORT_DIR . 'astra-demo-import.php' );
+
+				?>
+				<div class="notice notice-error ast-active-notice is-dismissible">
+					<p>
+						<?php printf(
+							/* translators: 1: plugin name, 2: theme.php file*/
+							__( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra' ),
+							$plugin['Name'],
+							esc_url( admin_url( 'themes.php' ) )
+						); ?>
+					</p>
+				</div>
+				<?php
+				return;
+			}
 
 			$importer_api = 'http://localhost/dev.themes/wp-json/wp/v2/';
 
