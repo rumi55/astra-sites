@@ -66,12 +66,12 @@ if ( count( $all_demos ) > 0 ) {
 						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
 
-						<?php if( 'premium' === $demo['astra_demo_type'] ) { ?>
+						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
 							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
 						<?php } ?>
 					
 						<div class="theme-screenshot">
-							<?php if( ! empty( $demo['featured_image_url'] ) ) { ?>
+							<?php if ( ! empty( $demo['featured_image_url'] ) ) { ?>
 								<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
 							<?php } ?>
 						</div>
@@ -203,7 +203,10 @@ if ( count( $all_demos ) > 0 ) {
 } else {
 	?>
 	<p class="no-themes" style="display:block;">
-		<?php printf( __( 'No Demos found, Open <a href="%s" target="_blank">support ticket</a>.', 'astra-demo-import' ) , esc_url( 'https://wpastra.com/support/' ) ); ?>
+		<?php
+		/* translators: %s is a Astra support page link */
+		printf( __( 'No Demos found, Open <a href="%s" target="_blank">support ticket</a>.', 'astra-demo-import' ) , esc_url( 'https://wpastra.com/support/' ) );
+		?>
 	</p>
 	<?php
 }// End if().
