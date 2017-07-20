@@ -39,7 +39,7 @@ function enable_demo_import_button( type = 'free' ) {
 		var demo_slug = jQuery('.wp-full-overlay-header').attr('data-demo-slug');
 
 		jQuery('.astra-demo-import')
-				.addClass('go-pro')
+				.addClass('go-pro button-primary')
 				.removeClass('astra-demo-import')
 				.attr('target', '_blank')
 				.attr('href', astraDemo.getProURL + demo_slug )
@@ -234,7 +234,7 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		if( result.success ) {
 			$button.removeClass( 'button-primary activate-now updating-message' )
 				.addClass('disabled')
-				.text( wp.updates.l10n.pluginInstalled );
+				.text( astraDemo.strings.btnActive );
 
 			// Enable Demo Import Button
 			enable_demo_import_button();
