@@ -201,6 +201,10 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				'getProURL'            => 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-demo-import&utm_medium=',
 				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
 				'requiredPluginsCount' => 0,
+				'strings' => array(
+					'DescExpand'   => __( 'Read more', 'astra-demo-import' ) . '&hellip;',
+					'DescCollapse' => __( 'Hide', 'astra-demo-import' ),
+				),
 			));
 
 		}

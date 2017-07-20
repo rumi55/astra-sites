@@ -339,12 +339,13 @@ function renderDemoPreview(anchor) {
 				desc.animate({ height: 57 },
 					300, function() {
 					descBtn.removeClass('open');
+					descBtn.html( astraDemo.strings.DescExpand );
 				});
-				
 			} else {
 				desc.animate({ height: descHeight },
 					300, function() {
 					descBtn.addClass('open');
+					descBtn.html( astraDemo.strings.DescCollapse );
 				});
 			}
 
