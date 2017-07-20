@@ -778,9 +778,9 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	if (typeof disabled !== 'undefined' && disabled !== false) {
 
 		// Highlight required plugins list.
-		jQuery('.plugin-card').css('background-color', 'rgba(255, 235, 59, 0.5)');
+		jQuery('.required-plugins-wrap h3').css({'background-color':'rgba(255, 235, 59, 0.5)'});
 		setTimeout(function() {
-			jQuery('.plugin-card').css('background-color', '');
+			jQuery('.required-plugins-wrap h3').css({'background-color':''});
 		}, 800);
 
 		return;
