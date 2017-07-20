@@ -39,11 +39,13 @@ function enable_demo_import_button( type = 'free' ) {
 		}
 	} else {
 
+		var demo_slug = jQuery('.wp-full-overlay-header').attr('data-demo-slug');
+
 		jQuery('.astra-demo-import')
 				.addClass('go-pro')
 				.removeClass('astra-demo-import')
 				.attr('target', '_blank')
-				.attr('href', astraDemo.getProURL )
+				.attr('href', astraDemo.getProURL + demo_slug )
 				.text( 'Get Pro' )
 				.prepend('<i class="dashicons dashicons-external"></i>');
 	}
@@ -288,6 +290,7 @@ function renderDemoPreview(anchor) {
 		demoURL         = anchor.data('demo-url'),
 		screenshot      = anchor.data('screenshot'),
 		demo_name       = anchor.data('demo-name'),
+		demo_slug       = anchor.data('demo-slug'),
 		content         = anchor.data('content'),
 		requiredPlugins = anchor.data('required-plugins') || '';
 
@@ -302,6 +305,7 @@ function renderDemoPreview(anchor) {
 		demo_api                : apiURL,
 		screenshot              : screenshot,
 		demo_name               : demo_name,
+		slug               		: demo_slug,
 		content                 : content,
 		requiredPlugins         : requiredPlugins
 	}];
@@ -724,6 +728,7 @@ function renderDemoGrid(demos) {
 		content                 = demo.content;
 		demo_api                = demo.demo_api;
 		demo_name               = demo.title;
+		demo_slug               = demo.slug;
 		screenshot              = demo.featured_image_url;
 		astra_demo_url          = demo.astra_demo_url;
 		astra_demo_type         = demo.astra_demo_type;
@@ -736,6 +741,7 @@ function renderDemoGrid(demos) {
 			demo_api: demo_api,
 			screenshot: screenshot,
 			demo_name: demo_name,
+			slug: demo_slug,
 			content: content,
 			required_plugins: requiredPlugins
 		}]
