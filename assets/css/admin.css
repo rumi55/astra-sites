@@ -39,6 +39,10 @@
     text-align: center;
 }
 
+.theme-details-read-more.open {
+    margin: 0.5em 0 0 0;
+}
+
 .astra-demo-import-preview .theme-screenshot {
     width: 100%;
 }
@@ -67,6 +71,21 @@
 .required-plugins-wrap h3 {
     margin: 1em 0 0.5em 0;
     padding: 0.5em 0;
+}
+
+.expanded .wp-full-overlay-footer {
+    height: 100px;
+}
+
+.wp-full-overlay-footer .view-site,
+.wp-full-overlay-footer .go-pro,
+.wp-full-overlay-footer .astra-demo-import {
+    width: 100%;
+    text-align: center;
+}
+
+.wp-full-overlay-footer .installing:before {
+    vertical-align: text-bottom;
 }
 
 /**

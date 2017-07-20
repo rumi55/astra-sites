@@ -30,7 +30,7 @@ function enable_demo_import_button( type = 'free' ) {
 		if( 0 >= remaining ) {
 
 			jQuery('.astra-demo-import')
-				.removeAttr('disabled')
+				.removeAttr('data-import')
 				.addClass('button-primary')
 				.text( 'Import Demo' );
 			// jQuery('.wp-full-overlay-header').append('<button class="astra-demo-import button button-primary">Import Demo</button>');
@@ -462,7 +462,7 @@ function renderDemoPreview(anchor) {
 						output += '	<button class="button disabled"';
 						output += '			data-slug="' + plugin.slug + '"';
 						output += '			data-name="' + plugin.name + '">';
-						output += 'Activated';
+						output += 'Active';
 						// output += 	wp.updates.l10n.pluginInstalled;
 						output += '	</button>';
 						output += '</div>';
@@ -774,9 +774,9 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	event.preventDefault();
 
 	$this = jQuery(this);
-	var disabled = $this.attr('disabled');
+	var disabled = $this.attr('data-import');
 
-	if (typeof disabled !== 'undefined' && disabled !== false) {
+	if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
 		// Highlight required plugins list.
 		jQuery('.required-plugins-wrap h3').css({'background-color':'rgba(255, 235, 59, 0.5)'});
@@ -787,7 +787,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		return;
 	}
 
-	$this.attr('disabled', 'disabled')
+	jQuery('.astra-demo-import').attr('data-import', 'disabled')
 		.addClass('updating-message installing')
 		.text('Importing Demo');
 
@@ -813,8 +813,8 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 
 		vl( demos );
 
-		$this.removeClass('updating-message installing')
-			.removeAttr('disabled')
+		jQuery('.astra-demo-import').removeClass('updating-message installing')
+			.removeAttr('data-import')
 			.addClass('view-site')
 			.removeClass('astra-demo-import')
 			.text('View Site')
@@ -823,7 +823,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			.attr('href', astraDemo.siteURL );
 	})
 	.fail(function ( demos ) {
-		$this.removeClass('updating-message installing').text('Error.');
+		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
 	});
 
 	// vl( 'here 1' );

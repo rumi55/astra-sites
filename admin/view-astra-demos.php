@@ -155,7 +155,7 @@ if ( count( $all_demos ) > 0 ) {
 					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra' ); ?></span></button>
 					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra' ); ?></span></button>
 					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra' ); ?></span></button>
-					<a class="button hide-if-no-customize astra-demo-import" href="#" disabled="disabled"><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
+					<a class="button hide-if-no-customize astra-demo-import" href="#" data-import="disabled"><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
 
 				</div>
 				<div class="wp-full-overlay-sidebar-content">
@@ -177,10 +177,13 @@ if ( count( $all_demos ) > 0 ) {
 							<h3><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h3>
 							<div class="required-plugins"></div>
 						</div>
-
 					</div>
 				</div>
+
 				<div class="wp-full-overlay-footer">
+					<a class="button button-hero hide-if-no-customize astra-demo-import" href="#" data-import="disabled">
+						<?php esc_html_e( 'Install Plugins', 'astra' ); ?>							
+					</a>
 					<button type="button" class="collapse-sidebar button" aria-expanded="true"
 							aria-label="Collapse Sidebar">
 						<span class="collapse-sidebar-arrow"></span>
