@@ -12,25 +12,16 @@ $all_demos = Astra_Demo_Import::get_astra_all_demos();
 
 if ( count( $all_demos ) > 0 ) {
 
+	// Enqueue scripts.
 	wp_enqueue_script( 'astra-demo-import-admin' );
 	wp_enqueue_style( 'astra-demo-import-admin' );
+
+	/**
+	 * Initial Demo List
+	 *
+	 * Generated though PHP
+	 */
 	?>
-
-	<style type="text/css">
-		.theme-browser .theme.focus .theme-actions,
-		.theme-browser .theme:focus .theme-actions,
-		.theme-browser .theme:hover .theme-actions {
-			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-			opacity: 1
-		}
-		.theme-browser .theme .theme-screenshot:after {
-			content: "";
-			display: block;
-			padding-top: 66.66666%
-		}
-
-	</style>
-	
 	<div class="wrap">
 
 		<div class="wp-filter hide-if-no-js">
@@ -74,6 +65,7 @@ if ( count( $all_demos ) > 0 ) {
 						data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
 						data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
 						data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
+						data-demo-slug="<?php echo esc_attr( $demo['slug'] ); ?>"
 						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
 
@@ -102,7 +94,50 @@ if ( count( $all_demos ) > 0 ) {
 
 	</div>
 	
+	<?php
+	/**
+	 * Regenerated Demo List
+	 *
+	 * Generated though JS after search demo, filter demo etc.
+	 */
+	?>
+	<script type="text/template" id="tmpl-astra-single-demo">
+		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+			data-demo-id="{{{data.id}}}"
+			data-demo-type="{{{data.astra_demo_type}}}"
+			data-demo-url="{{{data.astra_demo_url}}}"
+			data-demo-api="{{{data.demo_api}}}"
+			data-demo-name="{{{data.demo_name}}}"
+			data-demo-slug="{{{data.slug}}}"
+			data-screenshot="{{{data.screenshot}}}"
+			data-content="{{{data.content}}}"
+			data-required-plugins="{{data.required_plugins}}">
+	
+			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
+			<div class="theme-screenshot">
+				<img src="{{{data.screenshot}}}" alt="">
+			</div>
+
+			<a href="{{{data.astra_demo_url}}}" target="_blank">
+				<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra' ); ?></span>
+			</a>
+
+			<h3 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h3>
+
+			<div class="theme-actions">
+				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
+
+			</div>
+
+		</div>
+	</script>
+
+	<?php
+	/**
+	 * Single Demo Preview
+	 */
+	?>
 	<script type="text/template" id="tmpl-astra-demo-preview">
 		<div class="astra-demo-import-preview theme-install-overlay wp-full-overlay expanded">
 			<div class="wp-full-overlay-sidebar">
@@ -112,6 +147,7 @@ if ( count( $all_demos ) > 0 ) {
 						data-demo-url="{{{data.astra_demo_url}}}"
 						data-demo-api="{{{data.demo_api}}}"
 						data-demo-name="{{{data.demo_name}}}"
+						data-demo-slug="{{{data.slug}}}"
 						data-screenshot="{{{data.screenshot}}}"
 						data-content="{{{data.content}}}"
 						data-required-plugins="{{data.required_plugins}}">
@@ -152,39 +188,6 @@ if ( count( $all_demos ) > 0 ) {
 			<div class="wp-full-overlay-main">
 				<iframe src="{{{data.astra_demo_url}}}" title="<?php esc_attr_e( 'Preview', 'astra' ); ?>"></iframe>
 			</div>
-		</div>
-	</script>
-
-	
-
-	<script type="text/template" id="tmpl-astra-single-demo">
-		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
-			data-demo-id="{{{data.id}}}"
-			data-demo-type="{{{data.astra_demo_type}}}"
-			data-demo-url="{{{data.astra_demo_url}}}"
-			data-demo-api="{{{data.demo_api}}}"
-			data-demo-name="{{{data.demo_name}}}"
-			data-screenshot="{{{data.screenshot}}}"
-			data-content="{{{data.content}}}"
-			data-required-plugins="{{data.required_plugins}}">
-	
-			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
-
-			<div class="theme-screenshot">
-				<img src="{{{data.screenshot}}}" alt="">
-			</div>
-
-			<a href="{{{data.astra_demo_url}}}" target="_blank">
-				<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra' ); ?></span>
-			</a>
-
-			<h3 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h3>
-
-			<div class="theme-actions">
-				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
-
-			</div>
-
 		</div>
 	</script>
 

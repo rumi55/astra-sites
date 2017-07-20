@@ -1,3 +1,15 @@
+.theme-browser .theme.focus .theme-actions,
+.theme-browser .theme:focus .theme-actions,
+.theme-browser .theme:hover .theme-actions {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 1
+}
+.theme-browser .theme .theme-screenshot:after {
+    content: "";
+    display: block;
+    padding-top: 66.66666%
+}
+
 .wrap .demo-type {
     position: absolute;
     z-index: 1;
