@@ -776,6 +776,13 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	var disabled = $this.attr('disabled');
 
 	if (typeof disabled !== 'undefined' && disabled !== false) {
+
+		// Highlight required plugins list.
+		jQuery('.plugin-card').css('background-color', 'rgba(255, 235, 59, 0.5)');
+		setTimeout(function() {
+			jQuery('.plugin-card').css('background-color', '');
+		}, 800);
+
 		return;
 	}
 
