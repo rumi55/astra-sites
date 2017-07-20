@@ -52,7 +52,21 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * @since  1.0.0
 		 */
 		private function __construct() {
-			add_action( 'admin_notices',	array( $this, 'admin_notices' ) );
+
+			add_action( 'admin_notices',									array( $this, 'admin_notices' ) );
+
+			$importer_api = 'http://localhost/dev.themes/wp-json/wp/v2/';
+
+			self::set_api_url( $importer_api );
+
+			$this->includes();
+
+			add_action( 'wp_enqueue_scripts',            					array( $this, 'admin_enqueue' ) );
+			add_action( 'admin_enqueue_scripts',            				array( $this, 'admin_enqueue' ) );
+			add_action( 'wp_ajax_astra-import-demo',        				array( $this, 'demo_ajax_import' ) );
+			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'list_demos' ) );
+			add_action( 'wp_ajax_astra-required-plugins',   				array( $this, 'required_plugin' ) );
+			add_action( 'wp_ajax_astra-required-plugin-activate',   		array( $this, 'required_plugin_activate' ) );
 		}
 
 		/**
@@ -82,18 +96,6 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				return;
 			}
 
-			$importer_api = 'http://localhost/dev.themes/wp-json/wp/v2/';
-
-			self::set_api_url( $importer_api );
-
-			$this->includes();
-
-			add_action( 'wp_enqueue_scripts',            					array( $this, 'admin_enqueue' ) );
-			add_action( 'admin_enqueue_scripts',            				array( $this, 'admin_enqueue' ) );
-			add_action( 'wp_ajax_astra-import-demo',        				array( $this, 'demo_ajax_import' ) );
-			add_action( 'wp_ajax_astra-list-demos',         				array( $this, 'list_demos' ) );
-			add_action( 'wp_ajax_astra-required-plugins',   				array( $this, 'required_plugin' ) );
-			add_action( 'wp_ajax_astra-required-plugin-activate',   		array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugin_action_links_' . ASTRA_DEMO_IMPORT_BASE,    array( $this, 'action_links' ) );
 		}
 
