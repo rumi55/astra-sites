@@ -55,9 +55,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			add_action( 'admin_notices',									array( $this, 'admin_notices' ) );
 
-			$importer_api = 'http://localhost/dev.themes/wp-json/wp/v2/';
-
-			self::set_api_url( $importer_api );
+			self::set_api_url();
 
 			$this->includes();
 
@@ -117,11 +115,15 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * Setter for $api_url
 		 *
 		 * @since  1.0.0
-		 *
-		 * @param (String) $importer_api API URL which is used to get the response from.
 		 */
-		private static function set_api_url( $importer_api ) {
-			self::$api_url = $importer_api;
+		private static function set_api_url() {
+
+			if( defined( 'ASTRA_DEMO_API_URL' ) && ! empty( ASTRA_DEMO_API_URL ) ) {
+				self::$api_url = ASTRA_DEMO_API_URL;
+			} else {
+				self::$api_url = 'http://multi.sharkz.in/wp-json/wp/v2/';
+			}
+			
 		}
 
 		/**
