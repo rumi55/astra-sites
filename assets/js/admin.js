@@ -196,10 +196,6 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 		.addClass('activate-now button-primary')
 		.text( astraDemo.strings.btnActivate )
 
-	// // Enable Demo Import Button
-	// astraDemo.requiredPluginsCount--;
-	// enable_demo_import_button();
-
 	// NOTE: Initially return.
 	// To avoid the default WP Plugin active class.
 	return;
@@ -254,39 +250,6 @@ jQuery(document).on('click', '.activate-now', function (event) {
 	});
 
 } );
-
-// jQuery(document).on('click', '.theme-details-read-more', function (event) {
-
-// 	var self = jQuery(this);
-
-// 	var maxHeight = jQuery('.theme-details').outerHeight();
-
-
-// 	vl( jQuery('.theme-details').outerHeight() );
-
-// 	jQuery('.theme-details').animate({ height: 57 });
-
-// 	vl( 'toggled' );
-
-// 	if( self.hasClass('open') ) {
-// 		vl( 'open' );
-// 		jQuery('.theme-details').animate({ height: 57 },
-// 			1000, function() {
-// 			self.removeClass('open');
-// 		});
-// 		// jQuery('.theme-details').css('height',57);
-		
-// 	} else {
-// 		vl( 'closed' );
-// 		jQuery('.theme-details').animate({ height: maxHeight },
-// 			1000, function() {
-// 			self.addClass('open');
-// 		});
-// 		// jQuery('.theme-details').css('height','100%');
-// 	}
-
-	
-// });
 
 function renderDemoPreview(anchor) {
 
@@ -372,23 +335,7 @@ function renderDemoPreview(anchor) {
 		wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
 
 			jQuery('.required-plugins').html('');
-		// jQuery.ajax({
-		// 		url: astraDemo.ajaxurl,
-		// 		type: 'POST',
-		// 		dataType: 'json',
-		// 		data: {
-		// 			action 			 : 'astra-required-plugins',
-		// 			_ajax_nonce		 : astraDemo._ajax_nonce,
-		// 			required_plugins : requiredPlugins
-		// 		},
-		// 	})
-		// 	.done(function ( result ) {
 
-			if( result.success ) {
-			}
-				
-			// Set required plugin count.
-			
 			// Enable Demo Import Button
 			astraDemo.requiredPluginsCount = result.remaining;
 			enable_demo_import_button();
@@ -415,7 +362,6 @@ function renderDemoPreview(anchor) {
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
-					// $pluginsFilter.html(output);
 
 				});
 			}
@@ -438,16 +384,9 @@ function renderDemoPreview(anchor) {
 						output += '		data-init="' + plugin.init + '">';
 						output += 	wp.updates.l10n.activatePlugin;
 						output += '	</button>';
-						
-						// output += '	<a class="button activate-now button-primary"';
-						// output += '			data-slug="' + plugin.slug + '"';
-						// output += '			data-name="' + plugin.name + '">';
-						// output += 	wp.updates.l10n.activatePlugin;
-						// output += '	</a>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
-					// $pluginsFilter.html(output);
 
 				});
 			}
@@ -469,12 +408,10 @@ function renderDemoPreview(anchor) {
 						output += '			data-slug="' + plugin.slug + '"';
 						output += '			data-name="' + plugin.name + '">';
 						output += astraDemo.strings.btnActive;
-						// output += 	wp.updates.l10n.pluginInstalled;
 						output += '	</button>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
-					// $pluginsFilter.html(output);
 
 				});
 			}
@@ -486,127 +423,6 @@ function renderDemoPreview(anchor) {
 		enable_demo_import_button( demoType );
 		jQuery('.required-plugins-wrap').remove();
 	}
-
-	// Generate a new password.
-	// wp.ajax.post( 'generate-password' )
-	// 	.done( function( data ) {
-	// 		vl( data );
-	// 	} );
-
-	// vl( 'requiredPlugins' );
-	// vl( requiredPlugins );
-
-	// if ( typeof requiredPlugins !== 'undefined' && typeof requiredPlugins !== '' ) {
-	// 	// vl( 'process' );
-	// 	// jQuery( '#plugin-filter' ).html('');
-	// 	jQuery.ajax({
-	// 			url: astraDemo.ajaxurl,
-	// 			type: 'POST',
-	// 			dataType: 'json',
-	// 			data: {
-	// 				action: 'astra-required-plugins',
-	// 				'required-plugins': requiredPlugins
-	// 			},
-	// 		})
-	// 		.done(function (plugins) {
-
-	// 			/**
-	// 			 * Not Installed
-	// 			 *
-	// 			 * List of not installed required plugins.
-	// 			 */
-	// 			if ( typeof plugins.notinstalled !== 'undefined' ) {
-
-	// 				jQuery('.astra-demo-import').addClass('disabled').removeClass('astra-demo-import button-primary');
-
-	// 				jQuery( plugins.notinstalled ).each(function( index, plugin ) {
-
-	// 					var output  = '<div class="plugin-card ';
-	// 						output += ' 		plugin-card-'+plugin.slug+'"';
-	// 						output += ' 		data-slug="'+plugin.slug+'">';
-	// 						output += '	<span class="title">'+plugin.name+'</span>';
-	// 						output += '	<button class="button install-now"';
-	// 						output += '			data-slug="' + plugin.slug + '"';
-	// 						output += '			data-name="' + plugin.name + '">';
-	// 						output += 	wp.updates.l10n.installNow;
-	// 						output += '	</button>';
-	// 						output += '</div>';
-
-	// 					jQuery( '#plugin-filter' ).html(output);
-
-	// 				});
-	// 			}
-
-	// 			/**
-	// 			 * Inactive
-	// 			 *
-	// 			 * List of not inactive required plugins.
-	// 			 */
-	// 			if ( typeof plugins.inactive !== 'undefined' ) {
-
-	// 				console.log('Okay: ');
-
-	// 				jQuery('.astra-demo-import').addClass('disabled').removeClass('button-primary');
-
-	// 				jQuery( plugins.inactive ).each(function( index, plugin ) {
-
-	// 					var output  = '<div class="plugin-card ';
-	// 						output += ' 		plugin-card-'+plugin.slug+'"';
-	// 						output += ' 		data-slug="'+plugin.slug+'">';
-	// 						output += '	<span class="title">'+plugin.name+'</span>';
-
-	// 						output += '	<button class="button activate-now button-primary"';
-	// 						output += '		data-init="' + plugin.init + '">';
-	// 						output += 	wp.updates.l10n.activatePlugin;
-	// 						output += '	</button>';
-							
-	// 						// output += '	<a class="button activate-now button-primary"';
-	// 						// output += '			data-slug="' + plugin.slug + '"';
-	// 						// output += '			data-name="' + plugin.name + '">';
-	// 						// output += 	wp.updates.l10n.activatePlugin;
-	// 						// output += '	</a>';
-	// 						output += '</div>';
-
-	// 					jQuery( '#plugin-filter' ).html(output);
-
-	// 				});
-	// 			}
-
-	// 			/**
-	// 			 * Active
-	// 			 *
-	// 			 * List of not active required plugins.
-	// 			 */
-	// 			if ( typeof plugins.active !== 'undefined' ) {
-
-	// 				jQuery( plugins.active ).each(function( index, plugin ) {
-
-	// 					var output  = '<div class="plugin-card ';
-	// 						output += ' 		plugin-card-'+plugin.slug+'"';
-	// 						output += ' 		data-slug="'+plugin.slug+'">';
-	// 						output += '	<span class="title">'+plugin.name+'</span>';
-	// 						output += '	<button class="button disabled"';
-	// 						output += '			data-slug="' + plugin.slug + '"';
-	// 						output += '			data-name="' + plugin.name + '">';
-	// 						output += 	wp.updates.l10n.pluginInstalled;
-	// 						output += '	</button>';
-	// 						output += '</div>';
-
-	// 					jQuery( '#plugin-filter' ).html(output);
-
-	// 				});
-	// 			}
-	// 		})
-	// 		.fail(function () {
-	// 			jQuery('body').removeClass('loading-content');
-	// 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
-	// 		});
-	// } else {
-	// 	vl( 'fail' );
-	// }
-
-
-	
 
 	return;
 }
@@ -830,122 +646,4 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
 	});
 
-	// vl( 'here 1' );
-
-	// $this     = jQuery(this);
-	// $disabled = jQuery(this).data('href') || '#';
-	
-	// if( $this.hasClass('go-pro') || $this.hasClass('view-site') ) {
-	// 	return;
-	// }
-
-	// requiredPlugins = jQuery('.required-plugin');
-
-	// vl( 'requiredPluginsCount: ' + requiredPluginsCount );
-
-	// var requiredPluginsCount = requiredPlugins.length;
-	// if (requiredPluginsCount == 0) {
-	// 	jQuery($this).trigger('pluginsInstallComplete');
-	// 	return;
-	// }
-
-	// jQuery( 'body' ).attr( 'data-required-plugins', requiredPluginsCount );
-
-	// requiredPlugins.each(function (index, el) {
-
-	// 	setTimeout(function () {
-
-	// 		var productId = jQuery(el).data('product-id');
-	// 		var action = jQuery(el).data('action');
-	// 		var init = jQuery(el).data('plugin-init');
-
-	// 		var data = {
-	// 			'action': 'bsf_' + action,
-	// 			'product_id': productId,
-	// 			'init': init,
-	// 			'bundled': true
-	// 		};
-
-	// 		// Install/Activate the required plugins.
-	// 		jQuery.ajax({
-	// 			url: astraDemo.ajaxurl,
-	// 			type: 'POST',
-	// 			data: data,
-	// 		}).done(function (response) {
-
-	// 			var plugin_status = response.split('|');
-	// 			var status = plugin_status[ plugin_status.length -1 ];
-				
-	// 			// Add error message if FTP credentials are required for installing the extensions.
-	// 			if (/Connection Type/i.test( response )) {
-	// 				is_ftp = true;
-	// 			}
-
-	// 			jQuery($this).trigger('pluginInstalled');
-
-	// 		});
-
-	// 	}, index * 1500);
-
-	// });
-
 });
-
-// jQuery(document).on('pluginInstalled', '.astra-demo-import', function (event) {
-// 	$this = jQuery(this);
-// 	requiredPlugins = parseInt( jQuery( 'body' ).attr( 'data-required-plugins' ) );
-
-// 	var newRequiredPlugins = requiredPlugins - 1;
-// 	jQuery( 'body' ).attr('data-required-plugins', newRequiredPlugins);
-// 	if ( newRequiredPlugins == 0 ) {
-// 		jQuery($this).trigger('pluginsInstallComplete');	
-// 	}
-	
-// });
-
-// jQuery(document).on('pluginsInstallComplete', '.astra-demo-import', function (event) {
-// 	event.preventDefault();
-
-// 	vl( 'here 2' );
-
-// 	$this = jQuery(this);
-// 	var disabled = $this.attr('disabled');
-
-// 	if (typeof disabled !== 'undefined' && disabled !== false) {
-// 		return;
-// 	}
-
-// 	$this.addClass('updating-message installing').text('Importing Demo');
-// 	$this.closest('.theme').focus();
-
-// 	demoId = $this.data('id');
-// 	apiURL = $this.data('demo-api');
-
-// 	vl( 'apiURL' );
-// 	vl( apiURL );
-// 	return;
-
-// 	jQuery.ajax({
-// 		url: astraDemo.ajaxurl,
-// 		type: 'POST',
-// 		dataType: 'json',
-// 		data: {
-// 			action: 'astra-import-demo',
-// 			api_url: apiURL
-// 		},
-// 	})
-// 	.done(function ( demos ) {
-
-// 		$this.removeClass('updating-message installing')
-// 			.addClass('view-site')
-// 			.removeClass('astra-demo-import')
-// 			.text('View Site')
-// 			.attr('target', '_blank')
-// 			.prepend('<i class="dashicons dashicons-external"></i>')
-// 			.attr('href', 'https://wpastra.com/pro/');
-// 	})
-// 	.fail(function ( demos ) {
-// 		$this.removeClass('updating-message installing').text('Error.');
-// 	});
-
-// });
