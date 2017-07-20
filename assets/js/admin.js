@@ -670,7 +670,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 });
 
 var ref;
-jQuery(document).on('keyup', '#wp-filter-search-input', function () {
+jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 	$this = jQuery('#wp-filter-search-input').val();
 
 	id = '';
