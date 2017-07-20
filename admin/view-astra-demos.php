@@ -27,19 +27,18 @@ if ( count( $all_demos ) > 0 ) {
 		<div class="wp-filter hide-if-no-js">
 
 			<ul class="filter-links">
+				
 				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra' ); ?></a></li>
-				<?php
-				foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) {
-					?>
-
-					<li><a href="#"
+				
+				<?php foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) { ?>
+					<li>
+						<a href="#"
 						   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
-						   data-id="<?php echo esc_attr( $category['id'] ); ?>"
-						><?php echo esc_attr( $category['name'] ); ?></a></li>
-
-					<?php
-				}
-				?>
+						   data-id="<?php echo esc_attr( $category['id'] ); ?>">
+							<?php echo esc_attr( $category['name'] ); ?>
+						</a>
+					</li>
+				<?php } ?>
 			</ul>
 
 			<div class="search-form">
@@ -53,10 +52,8 @@ if ( count( $all_demos ) > 0 ) {
 
 		<div class="theme-browser rendered">
 			<div class="themes wp-clearfix">
-				<?php
-
-				foreach ( $all_demos as $key => $demo ) {
-					?>
+				
+				<?php foreach ( $all_demos as $key => $demo ) { ?>
 
 					<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
 						data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
@@ -69,10 +66,14 @@ if ( count( $all_demos ) > 0 ) {
 						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
 
-						<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
+						<?php if( 'premium' === $demo['astra_demo_type'] ) { ?>
+							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
+						<?php } ?>
 					
 						<div class="theme-screenshot">
-							<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
+							<?php if( ! empty( $demo['featured_image_url'] ) ) { ?>
+								<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
+							<?php } ?>
 						</div>
 
 						<a href="<?php echo esc_url( $demo['astra_demo_url'] ) ?>" target="_blank">
@@ -85,10 +86,8 @@ if ( count( $all_demos ) > 0 ) {
 						</div>
 					</div>
 
-					<?php
-				}
+				<?php } ?>
 
-				?>
 			</div>
 		</div>
 
@@ -116,7 +115,9 @@ if ( count( $all_demos ) > 0 ) {
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
 			<div class="theme-screenshot">
-				<img src="{{{data.screenshot}}}" alt="">
+				<# if ( data.screenshot.length ) { #>
+					<img src="{{{data.screenshot}}}" alt="">
+				<# } #>
 			</div>
 
 			<a href="{{{data.astra_demo_url}}}" target="_blank">
@@ -163,7 +164,9 @@ if ( count( $all_demos ) > 0 ) {
 						<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 						<h3 class="theme-name">{{{data.demo_name}}}</h3>	
 						
-						<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
+						<# if ( data.screenshot.length ) { #>
+							<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
+						<# } #>
 
 						<div class="theme-details">
 							{{{data.content}}}
