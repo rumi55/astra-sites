@@ -92,3 +92,10 @@
     font-size: 1rem;
     vertical-align: middle;
 }
+
+/**
+ * Errors
+ */
+.plugin-card.plugin-card-update-failed {
+    display: block;
+}
