@@ -26,12 +26,6 @@
     display: none;
 }
 
-.install-theme-info .theme-name {
-    font-size: 24px;
-    font-weight: 100;
-    line-height: 1.3;
-}
-
 .theme {
     position: relative;
 }
@@ -70,7 +64,7 @@
     float: none;
 }
 
-.required-plugins-wrap h3 {
+.required-plugins-wrap h4 {
     margin: 1em 0 0.5em 0;
     padding: 0.5em 0;
 }
