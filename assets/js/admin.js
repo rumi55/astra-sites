@@ -196,32 +196,33 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 		.addClass('updating-message')
 		.html( astraDemo.strings.btnActivating );
 
-	jQuery.ajax({
-			url: astraDemo.ajaxurl,
-			type: 'POST',
-			dataType: 'json',
-			data: {
-				'action'	: 'astra-required-plugin-activate',
-				'init'		: $init
-			},
-		})
-		.done(function (result) {
+	setTimeout( function() {
 
-			if( result.success ) {
-				$message.removeClass( 'button-primary activate-now updating-message' )
-					.attr('disabled', 'disabled')
-					.addClass('disabled')
-					.text( astraDemo.strings.btnActive );
+		jQuery.ajax({
+				url: astraDemo.ajaxurl,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					'action'	: 'astra-required-plugin-activate',
+					'init'		: $init
+				},
+			})
+			.done(function (result) {
 
-				// Enable Demo Import Button
-				astraDemo.requiredPluginsCount--;
-				enable_demo_import_button();
-			}
-		});
+				if( result.success ) {
+					$message.removeClass( 'button-primary activate-now updating-message' )
+						.attr('disabled', 'disabled')
+						.addClass('disabled')
+						.text( astraDemo.strings.btnActive );
 
-	// NOTE: Initially return.
-	// To avoid the default WP Plugin active class.
-	return '';
+					// Enable Demo Import Button
+					astraDemo.requiredPluginsCount--;
+					enable_demo_import_button();
+				}
+			});
+
+	}, 1000 );
+
 });
 
 
