@@ -210,7 +210,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 					'DescCollapse'  => __( 'Hide', 'astra-demo-import' ),
 					'responseError' => __( 'There was a problem receiving a response from server.', 'astra-demo-import' ),
 					'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-demo-import' ),
-					'importWarning' => __( 'Your existing site settings will be updated. Do you want to proceed?', 'astra-demo-import' ),
+					'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is strongly recommended to run Demo Import on a fresh WordPress installation.\n\n2. If you have any existing pages, posts, menus & other data, it will be overwritten.\n\n3. Some copyrighted images won't be imported. Instead they will be replaced with placeholders.", 'astra-demo-import' ),
 				),
 			));
 
