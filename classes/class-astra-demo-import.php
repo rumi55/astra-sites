@@ -203,7 +203,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
 				'requiredPluginsCount' => 0,
 				'strings'              => array(
-					'btnActivate'   => __( 'Activate', 'astra-demo-import' ),
+					'btnActivating' => __( 'Activating', 'astra-demo-import' ) . '&hellip;',
 					'btnActive'     => __( 'Active', 'astra-demo-import' ),
 					'importDemo'    => __( 'Import Demo', 'astra-demo-import' ),
 					'DescExpand'    => __( 'Read more', 'astra-demo-import' ) . '&hellip;',

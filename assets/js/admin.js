@@ -172,7 +172,7 @@ jQuery(document).on('click', '.install-now', function (event) {
 	}
 
 	wp.updates.installPlugin( {
-		slug: $button.data( 'slug' ),
+		slug: $button.data( 'slug' )
 	} );
 
 } );
@@ -183,13 +183,38 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 	var $message = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
 
 	// Transform the 'Install' button into an 'Activate' button.
+	var $init = $message.data('init');
+
 	$message.removeClass( 'install-now installed button-disabled updated-message' )
-		.addClass('activate-now button-primary')
-		.text( astraDemo.strings.btnActivate )
+		.addClass('updating-message')
+		.html( astraDemo.strings.btnActivating );
+
+	jQuery.ajax({
+			url: astraDemo.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				'action'	: 'astra-required-plugin-activate',
+				'init'		: $init
+			},
+		})
+		.done(function (result) {
+
+			if( result.success ) {
+				$message.removeClass( 'button-primary activate-now updating-message' )
+					.attr('disabled', 'disabled')
+					.addClass('disabled')
+					.text( astraDemo.strings.btnActive );
+
+				// Enable Demo Import Button
+				astraDemo.requiredPluginsCount--;
+				enable_demo_import_button();
+			}
+		});
 
 	// NOTE: Initially return.
 	// To avoid the default WP Plugin active class.
-	return;
+	return '';
 });
 
 
