@@ -278,7 +278,8 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
 
 			$report = array(
-				'success' => false
+				'success'   => false,
+				'remaining' => '0',
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
@@ -305,7 +306,8 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 					}
 				}
 
-				$success = true;
+				$remaining = count( $notinstalled ) + count( $inactive );
+				$success   = true;
 				if ( count( $notinstalled ) > 0 || count( $inactive ) > 0 ) {
 					$success = false;
 				}
@@ -314,6 +316,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				$report['plugins']['notinstalled'] = $notinstalled;
 				$report['plugins']['active']       = $active;
 				$report['success']                 = $success;
+				$report['remaining']               = $remaining;
 
 				wp_send_json_success( $report );
 			} else {
