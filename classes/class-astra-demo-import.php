@@ -494,18 +494,22 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 *
 		 * @param  (String) $demo_api_uri API URL of a demo.
 		 *
-		 * @return (Array) $astra_demo demo data for the demo.
+		 * @return (Array) $astra_demo_data demo data for the demo.
 		 */
 		public static function get_astra_single_demo( $demo_api_uri ) {
 
 			// default values.
-			$astra_demo = array(
-				'id'                           => '',
-				'astra-demo-widgets-data'      => '',
-				'astra-demo-customizer-data'   => '',
-				'astra-demo-site-options-data' => '',
-				'astra-demo-wxr-path'          => '',
-			);
+			$remote_args = array();
+			$defaults    = array(
+								'id'                           => '',
+								'astra-demo-widgets-data'      => '',
+								'astra-demo-customizer-data'   => '',
+								'astra-demo-site-options-data' => '',
+								'astra-demo-wxr-path'          => '',
+								'astra-enabled-extensions'     => '',
+								'astra-custom-404'             => '',
+								'required-plugins'             => '',
+							);
 
 			$api_args = array(
 				'timeout' => 15,
@@ -515,17 +519,18 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
-				$astra_demo['id']                           = $result['id'];
-				$astra_demo['astra-demo-widgets-data']      = json_decode( $result['astra-demo-widgets-data'] );
-				$astra_demo['astra-demo-customizer-data']   = $result['astra-demo-customizer-data'];
-				$astra_demo['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
-				$astra_demo['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
-				$astra_demo['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
-				$astra_demo['astra-custom-404']             = $result['astra-custom-404'];
-				$astra_demo['required-plugins']             = $result['required-plugins'];
+				$remote_args['id']                           = $result['id'];
+				$remote_args['astra-demo-widgets-data']      = json_decode( $result['astra-demo-widgets-data'] );
+				$remote_args['astra-demo-customizer-data']   = $result['astra-demo-customizer-data'];
+				$remote_args['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
+				$remote_args['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
+				$remote_args['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
+				$remote_args['astra-custom-404']             = $result['astra-custom-404'];
+				$remote_args['required-plugins']             = $result['required-plugins'];
 			}
 
-			return $astra_demo;
+			// Merge remote demo and defaults.
+			return wp_parse_args( $remote_args, $defaults );
 		}
 
 		/**
