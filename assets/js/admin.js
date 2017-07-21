@@ -317,11 +317,11 @@ function renderDemoPreview(anchor) {
 								required_plugins : requiredPlugins
 							};
 
-		jQuery('.required-plugins').html('<span class="spinner is-active"></span>');
+		jQuery('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
 
 		wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
 
-			jQuery('.required-plugins').html('');
+			jQuery('.required-plugins').removeClass('loading').html('');
 
 			// Enable Demo Import Button
 			astraDemo.requiredPluginsCount = result.remaining;

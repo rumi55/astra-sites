@@ -50,6 +50,9 @@
 /**
  * Required Plugins
  */
+.required-plugins.loading {
+    text-align: center;
+}
 .required-plugins .plugin-card {
     float: none;
     width: 100%;
