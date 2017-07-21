@@ -242,14 +242,14 @@ jQuery(document).on('click', '.activate-now', function (event) {
 
 function renderDemoPreview(anchor) {
 
-	var demoId          = anchor.data('id'),
-		apiURL          = anchor.data('demo-api'),
-		demoType        = anchor.data('demo-type'),
-		demoURL         = anchor.data('demo-url'),
-		screenshot      = anchor.data('screenshot'),
-		demo_name       = anchor.data('demo-name'),
-		demo_slug       = anchor.data('demo-slug'),
-		content         = anchor.data('content'),
+	var demoId          = anchor.data('id') || '',
+		apiURL          = anchor.data('demo-api') || '',
+		demoType        = anchor.data('demo-type') || '',
+		demoURL         = anchor.data('demo-url') || '',
+		screenshot      = anchor.data('screenshot') || '',
+		demo_name       = anchor.data('demo-name') || '',
+		demo_slug       = anchor.data('demo-slug') || '',
+		content         = anchor.data('content') || '',
 		requiredPlugins = anchor.data('required-plugins') || '';
 
 	var template = wp.template('astra-demo-preview');
@@ -280,7 +280,7 @@ function renderDemoPreview(anchor) {
 	var descHeight = parseInt( desc.outerHeight() );
 	var descBtn    = jQuery('.theme-details-read-more');
 
-	if( descHeight >= 55 ) {
+	if( 'free' === demoType && descHeight >= 55 ) {
 
 		// Show button.
 		descBtn.css( 'display', 'inline-block' );
