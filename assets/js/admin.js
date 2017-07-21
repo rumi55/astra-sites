@@ -2,15 +2,6 @@ jQuery(document).ready(function ($) {
 	resetPagedCount();
 });
 
-function vl( data, is_json ) {
-	
-	if( is_json ) {
-		console.log( JSON.stringify( data ) );
-	} else {
-		console.log( data );
-	}
-}
-
 /**
  * Enable Demo Import Button.
  */
@@ -221,8 +212,6 @@ jQuery(document).on('click', '.activate-now', function (event) {
 
 	$button.addClass( 'updating-message' );
 
-	console.log('Slug: ' + $init );
-
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
 		type: 'POST',
@@ -262,8 +251,6 @@ function renderDemoPreview(anchor) {
 		demo_slug       = anchor.data('demo-slug'),
 		content         = anchor.data('content'),
 		requiredPlugins = anchor.data('required-plugins') || '';
-
-	vl( demoType );
 
 	var template = wp.template('astra-demo-preview');
 
