@@ -611,10 +611,11 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
 		// Highlight required plugins list.
-		jQuery('.required-plugins-wrap h4').css({'background-color':'rgba(255, 235, 59, 0.5)'});
+		var pluginTitle = jQuery('.required-plugins-wrap h4');
+		pluginTitle.css({'background-color':'rgba(255, 235, 59, 0.20)'});
 		setTimeout(function() {
-			jQuery('.required-plugins-wrap h4').css({'background-color':''});
-		}, 800);
+			pluginTitle.css({'background-color':''});
+		}, 1000);
 
 		return;
 	}

@@ -67,11 +67,6 @@
     float: none;
 }
 
-.required-plugins-wrap h4 {
-    margin: 1em 0 0.5em 0;
-    padding: 0.5em 0;
-}
-
 .expanded .wp-full-overlay-footer {
     height: 100px;
 }
@@ -85,6 +80,12 @@
 
 .wp-full-overlay-footer .installing:before {
     vertical-align: text-bottom;
+}
+
+.required-plugins-wrap h4 {
+    margin: 1em 0 0.5em 0;
+    padding: 0.5em 0;
+    transition: all ease 0.3s;
 }
 
 /**
