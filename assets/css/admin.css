@@ -53,12 +53,15 @@
 .required-plugins.loading {
     text-align: center;
 }
+.required-plugins button {
+    float: right;
+}
 .required-plugins .plugin-card {
     float: none;
     width: 100%;
     border: none;
     margin: 0 0 0.8em 0;
-    display: flex;
+    display: inline-block;
     justify-content: space-between;
     align-items: center;
     transition: background ease 0.8s;
@@ -124,6 +127,6 @@
 /**
  * Errors
  */
-.plugin-card.plugin-card-update-failed {
-    display: block;
+.plugin-card-update-failed .notice {
+    margin-top: 1.5em;
 }

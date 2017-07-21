@@ -177,6 +177,16 @@ jQuery(document).on('click', '.install-now', function (event) {
 
 } );
 
+jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
+
+	var $message = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
+
+	$message.removeClass( 'button-disabled' )
+		.addClass( 'button-primary' )
+		.html( wp.updates.l10n.installNow );
+
+});
+
 jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 	event.preventDefault();
 
