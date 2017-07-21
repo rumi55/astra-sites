@@ -39,7 +39,7 @@ function enable_demo_import_button( type = 'free' ) {
 				.attr('target', '_blank')
 				.attr('href', astraDemo.getProURL + demo_slug )
 				.text( astraDemo.getProText )
-				.prepend('<i class="dashicons dashicons-external"></i>');
+				.append('<i class="dashicons dashicons-external"></i>');
 	}
 }
 
@@ -639,7 +639,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			.removeClass('astra-demo-import')
 			.text('View Site')
 			.attr('target', '_blank')
-			.prepend('<i class="dashicons dashicons-external"></i>')
+			.append('<i class="dashicons dashicons-external"></i>')
 			.attr('href', astraDemo.siteURL );
 	})
 	.fail(function ( demos ) {
