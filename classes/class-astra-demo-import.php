@@ -154,7 +154,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			if ( '' !== $args_search ) {
 				$request_params['search'] = $args_search;
 
-			// Not All?
+				// Not All?
 			} elseif ( 'all' != $args_id ) {
 				$request_params['astra-demo-category'] = $args_id;
 			}
