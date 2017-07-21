@@ -8,11 +8,11 @@
 defined( 'ABSPATH' ) or exit;
 
 // Load demo importer markup.
-$all_demos = Astra_Demos::get_astra_all_demos();
+$all_demos = Astra_Sites::get_astra_all_demos();
 
 // Enqueue scripts.
-wp_enqueue_script( 'astra-demos-admin' );
-wp_enqueue_style( 'astra-demos-admin' );
+wp_enqueue_script( 'astra-sites-admin' );
+wp_enqueue_style( 'astra-sites-admin' );
 
 if ( count( $all_demos ) > 0 ) {
 
@@ -28,9 +28,9 @@ if ( count( $all_demos ) > 0 ) {
 
 			<ul class="filter-links">
 				
-				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra' ); ?></a></li>
+				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
 				
-				<?php foreach ( Astra_Demos::get_demo_categories() as $key => $category ) { ?>
+				<?php foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
 					<li>
 						<a href="#"
 						   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
@@ -42,8 +42,8 @@ if ( count( $all_demos ) > 0 ) {
 			</ul>
 
 			<div class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Demos', 'astra' ); ?></label>
-				<input placeholder="<?php esc_attr_e( 'Search Demos...', 'astra' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Sites', 'astra-sites' ); ?></label>
+				<input placeholder="<?php esc_attr_e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 			</div>
 
 		</div>
@@ -77,12 +77,12 @@ if ( count( $all_demos ) > 0 ) {
 						</div>
 
 						<a href="<?php echo esc_url( $demo['astra_demo_url'] ); ?>" target="_blank">
-							<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra' ); ?></span>
+							<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?></span>
 						</a>
 
 						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ); ?></h3>
 						<div class="theme-actions">
-							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
+							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
 						</div>
 					</div>
 
@@ -121,13 +121,13 @@ if ( count( $all_demos ) > 0 ) {
 			</div>
 
 			<a href="{{{data.astra_demo_url}}}" target="_blank">
-				<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra' ); ?></span>
+				<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?></span>
 			</a>
 
 			<h3 class="theme-name" id="astra-theme-name">{{{data.demo_name}}}</h3>
 
 			<div class="theme-actions">
-				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
+				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
 
 			</div>
 
@@ -140,7 +140,7 @@ if ( count( $all_demos ) > 0 ) {
 	 */
 	?>
 	<script type="text/template" id="tmpl-astra-demo-preview">
-		<div class="astra-demos-preview theme-install-overlay wp-full-overlay expanded">
+		<div class="astra-sites-preview theme-install-overlay wp-full-overlay expanded">
 			<div class="wp-full-overlay-sidebar">
 				<div class="wp-full-overlay-header"
 						data-demo-id="{{{data.id}}}"
@@ -152,10 +152,10 @@ if ( count( $all_demos ) > 0 ) {
 						data-screenshot="{{{data.screenshot}}}"
 						data-content="{{{data.content}}}"
 						data-required-plugins="{{data.required_plugins}}">
-					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra' ); ?></span></button>
-					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra' ); ?></span></button>
-					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra' ); ?></span></button>
-					<a class="button hide-if-no-customize astra-demo-import" href="#" data-import="disabled"><?php esc_html_e( 'Install Plugins', 'astra' ); ?></a>
+					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra-sites' ); ?></span></button>
+					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra-sites' ); ?></span></button>
+					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra-sites' ); ?></span></button>
+					<a class="button hide-if-no-customize astra-demo-import" href="#" data-import="disabled"><?php esc_html_e( 'Install Plugins', 'astra-sites' ); ?></a>
 
 				</div>
 				<div class="wp-full-overlay-sidebar-content">
@@ -171,10 +171,10 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-details">
 							{{{data.content}}}
 						</div>
-						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-demos' ); ?> &hellip;</a>
+						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-sites' ); ?> &hellip;</a>
 
 						<div class="required-plugins-wrap">
-							<h4><?php _e( 'Required Plugin', 'astra-demos' ); ?> </h4>
+							<h4><?php _e( 'Required Plugin', 'astra-sites' ); ?> </h4>
 							<div class="required-plugins"></div>
 						</div>
 					</div>
@@ -182,17 +182,17 @@ if ( count( $all_demos ) > 0 ) {
 
 				<div class="wp-full-overlay-footer">
 					<a class="button button-hero hide-if-no-customize astra-demo-import" href="#" data-import="disabled">
-						<?php esc_html_e( 'Install Plugins', 'astra' ); ?>							
+						<?php esc_html_e( 'Install Plugins', 'astra-sites' ); ?>							
 					</a>
 					<button type="button" class="collapse-sidebar button" aria-expanded="true"
 							aria-label="Collapse Sidebar">
 						<span class="collapse-sidebar-arrow"></span>
-						<span class="collapse-sidebar-label"><?php esc_html_e( 'Collapse', 'astra' ); ?></span>
+						<span class="collapse-sidebar-label"><?php esc_html_e( 'Collapse', 'astra-sites' ); ?></span>
 					</button>
 				</div>
 			</div>
 			<div class="wp-full-overlay-main">
-				<iframe src="{{{data.astra_demo_url}}}" title="<?php esc_attr_e( 'Preview', 'astra' ); ?>"></iframe>
+				<iframe src="{{{data.astra_demo_url}}}" title="<?php esc_attr_e( 'Preview', 'astra-sites' ); ?>"></iframe>
 			</div>
 		</div>
 	</script>
@@ -206,14 +206,14 @@ if ( count( $all_demos ) > 0 ) {
 			<?php
 
 			/* translators: %1$s & %2$s are a Demo API URL */
-			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-demos' ) , esc_url( Astra_Demos::$api_url ), esc_url( Astra_Demos::$api_url ) );
+			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-sites' ) , esc_url( Astra_Sites::$api_url ), esc_url( Astra_Sites::$api_url ) );
 
-			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-demos' );
+			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-sites' );
 
-			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demos' );
+			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
 
 			/* translators: %1$s is a support link */
-			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-demos' ), esc_url( 'https://wpastra.com/support/' ) );
+			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
 			?>			
 		</div>
 	</p>
