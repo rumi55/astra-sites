@@ -11,6 +11,73 @@ function vl( data, is_json ) {
 	}
 }
 
+function bulkPluginUpdate( plugins ) {
+	var plugins = [
+			{
+				// plugin : 'contact-form-7/wp-contact-form-7.php',
+				slug   : 'contact-form-7',
+			},
+			{
+				// plugin : 'debug-bar-console/debug-bar-console.php',
+				slug   : 'debug-bar-console',
+			},
+			{
+				// plugin : 'reset-astra-customizer/class-astra-theme-customizer-reset.php',
+				slug   : 'reset-astra-customizer',
+			},
+		];
+	jQuery.each( plugins, function(index, single_plugin) {
+		vl( single_plugin.plugin );
+		vl( single_plugin.slug );
+
+		// Add it to the queue.
+		// @see wp-admin/js/updates.js
+		wp.updates.queue.push( {
+			action: 'install-plugin', // Required action.
+			data:   {
+				// plugin: single_plugin.plugin, 	// $itemRow.data( 'plugin' ),
+				slug:   single_plugin.slug 		// $itemRow.data( 'slug' )
+			}
+		} );
+	});
+
+	wp.updates.queueChecker();
+	vl( plugins );
+}
+
+jQuery(document).on('wp-plugin-installing', function (event, args) {
+	event.preventDefault();
+
+	var $card    = jQuery( '.plugin-card-' + args.slug );
+
+	$card.find('.dashicons').remove();
+
+	$card.append('<span class="spinner is-active"></span>');
+
+});
+
+jQuery(document).on( 'wp-plugin-install-success', function( event, args ) {
+	event.preventDefault();
+
+	var $card    = jQuery( '.plugin-card-' + args.slug );
+
+	$card.find('.spinner').remove();
+
+	$card.append('<span class="dashicons-yes dashicons"></span>');
+
+	// var $message = jQuery( '.plugin-card-' + args.slug ).find( '.install-now' );
+
+	// // Transform the 'Install' button into an 'Activate' button.
+	// $message.removeClass( 'install-now installed button-disabled updated-message' )
+	// 	.addClass('activate-now button-primary')
+	// 	.text( astraDemo.strings.btnActivate )
+
+	// NOTE: Initially return.
+	// To avoid the default WP Plugin active class.
+	return;
+});
+
+
 /**
  * Enable Demo Import Button.
  */
@@ -186,21 +253,6 @@ jQuery(document).on('click', '.install-now', function (event) {
 
 } );
 
-jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
-	event.preventDefault();
-
-	var $message = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
-
-	// Transform the 'Install' button into an 'Activate' button.
-	$message.removeClass( 'install-now installed button-disabled updated-message' )
-		.addClass('activate-now button-primary')
-		.text( astraDemo.strings.btnActivate )
-
-	// NOTE: Initially return.
-	// To avoid the default WP Plugin active class.
-	return;
-});
-
 
 /**
  * Click handler for plugin installs in plugin install view.
@@ -353,12 +405,13 @@ function renderDemoPreview(anchor) {
 						output += ' 		plugin-card-'+plugin.slug+'"';
 						output += ' 		data-slug="'+plugin.slug+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<button class="button install-now"';
-						output += '			data-init="' + plugin.init + '"';
-						output += '			data-slug="' + plugin.slug + '"';
-						output += '			data-name="' + plugin.name + '">';
-						output += 	wp.updates.l10n.installNow;
-						output += '	</button>';
+						output += '	<span class="dashicons-no dashicons"></span>';
+						// output += '	<button class="button install-now"';
+						// output += '			data-init="' + plugin.init + '"';
+						// output += '			data-slug="' + plugin.slug + '"';
+						// output += '			data-name="' + plugin.name + '">';
+						// output += 	wp.updates.l10n.installNow;
+						// output += '	</button>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
@@ -379,11 +432,11 @@ function renderDemoPreview(anchor) {
 						output += ' 		plugin-card-'+plugin.slug+'"';
 						output += ' 		data-slug="'+plugin.slug+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-
-						output += '	<button class="button activate-now button-primary"';
-						output += '		data-init="' + plugin.init + '">';
-						output += 	wp.updates.l10n.activatePlugin;
-						output += '	</button>';
+						output += '	<span class="dashicons-no dashicons"></span>';
+						// output += '	<button class="button activate-now button-primary"';
+						// output += '		data-init="' + plugin.init + '">';
+						// output += 	wp.updates.l10n.activatePlugin;
+						// output += '	</button>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
@@ -404,11 +457,12 @@ function renderDemoPreview(anchor) {
 						output += ' 		plugin-card-'+plugin.slug+'"';
 						output += ' 		data-slug="'+plugin.slug+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<button class="button disabled"';
-						output += '			data-slug="' + plugin.slug + '"';
-						output += '			data-name="' + plugin.name + '">';
-						output += astraDemo.strings.btnActive;
-						output += '	</button>';
+						output += '	<span class="dashicons-yes dashicons"></span>';
+						// output += '	<button class="button disabled"';
+						// output += '			data-slug="' + plugin.slug + '"';
+						// output += '			data-name="' + plugin.name + '">';
+						// output += astraDemo.strings.btnActive;
+						// output += '	</button>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
@@ -603,6 +657,12 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		setTimeout(function() {
 			jQuery('.required-plugins-wrap h4').css({'background-color':''});
 		}, 800);
+
+		/**
+		 * Process Bulk Plugin Install & Activate
+		 */
+		bulkPluginUpdate( plugins );
+		
 
 		return;
 	}
