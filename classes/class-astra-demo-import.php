@@ -154,7 +154,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			if ( '' !== $args_search ) {
 				$request_params['search'] = $args_search;
 
-			// Not All?
+				// Not All?
 			} elseif ( 'all' != $args_id ) {
 				$request_params['astra-demo-category'] = $args_id;
 			}
@@ -278,7 +278,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
 
 			$report = array(
-				'success' => false
+				'success' => false,
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
