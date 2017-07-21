@@ -100,6 +100,7 @@
     box-shadow: none;
 }
 .wp-core-ui .theme-details-read-more {
+    margin: 10px 0;
     display: none;
 }
 
