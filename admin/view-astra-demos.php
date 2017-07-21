@@ -67,20 +67,20 @@ if ( count( $all_demos ) > 0 ) {
 						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
 
 						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
-							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ) ?>"><?php echo esc_attr( $demo['astra_demo_type'] ) ?></span>
+							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ); ?>"><?php echo esc_attr( $demo['astra_demo_type'] ); ?></span>
 						<?php } ?>
 					
 						<div class="theme-screenshot">
 							<?php if ( ! empty( $demo['featured_image_url'] ) ) { ?>
-								<img src="<?php echo esc_attr( $demo['featured_image_url'] ) ?>" alt="">
+								<img src="<?php echo esc_attr( $demo['featured_image_url'] ); ?>" alt="">
 							<?php } ?>
 						</div>
 
-						<a href="<?php echo esc_url( $demo['astra_demo_url'] ) ?>" target="_blank">
+						<a href="<?php echo esc_url( $demo['astra_demo_url'] ); ?>" target="_blank">
 							<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra' ); ?></span>
 						</a>
 
-						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ) ?></h3>
+						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ); ?></h3>
 						<div class="theme-actions">
 							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra' ); ?></button>
 						</div>

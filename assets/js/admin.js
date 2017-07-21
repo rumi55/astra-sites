@@ -102,7 +102,6 @@ jQuery(document).on('click', '.theme-screenshot, .more-details, .install-theme-p
 	event.preventDefault();
 
 	$this = jQuery(this).parents('.theme');
-	// anchor = $this.find('.astra-demo-import');
 	$this.addClass('theme-preview-on');
 
 	renderDemoPreview($this);
@@ -123,7 +122,6 @@ jQuery(document).on('click', '.next-theme', function (event) {
 	nextDemo = currentDemo.nextAll('.theme');
 	nextDemo.addClass('theme-preview-on');
 
-	// anchor = nextDemo.find('.astra-demo-import');
 	renderDemoPreview( nextDemo );
 
 });
@@ -136,7 +134,6 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 	prevDemo = currentDemo.prevAll('.theme');
 	prevDemo.addClass('theme-preview-on');
 	
-	// anchor = prevDemo.find('.astra-demo-import');
 	renderDemoPreview(prevDemo);
 });
 
