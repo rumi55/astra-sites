@@ -8,11 +8,11 @@
 defined( 'ABSPATH' ) or exit;
 
 // Load demo importer markup.
-$all_demos = Astra_Demo_Import::get_astra_all_demos();
+$all_demos = Astra_Demos::get_astra_all_demos();
 
 // Enqueue scripts.
-wp_enqueue_script( 'astra-demo-import-admin' );
-wp_enqueue_style( 'astra-demo-import-admin' );
+wp_enqueue_script( 'astra-demos-admin' );
+wp_enqueue_style( 'astra-demos-admin' );
 
 if ( count( $all_demos ) > 0 ) {
 
@@ -30,7 +30,7 @@ if ( count( $all_demos ) > 0 ) {
 				
 				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra' ); ?></a></li>
 				
-				<?php foreach ( Astra_Demo_Import::get_demo_categories() as $key => $category ) { ?>
+				<?php foreach ( Astra_Demos::get_demo_categories() as $key => $category ) { ?>
 					<li>
 						<a href="#"
 						   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
@@ -140,7 +140,7 @@ if ( count( $all_demos ) > 0 ) {
 	 */
 	?>
 	<script type="text/template" id="tmpl-astra-demo-preview">
-		<div class="astra-demo-import-preview theme-install-overlay wp-full-overlay expanded">
+		<div class="astra-demos-preview theme-install-overlay wp-full-overlay expanded">
 			<div class="wp-full-overlay-sidebar">
 				<div class="wp-full-overlay-header"
 						data-demo-id="{{{data.id}}}"
@@ -171,10 +171,10 @@ if ( count( $all_demos ) > 0 ) {
 						<div class="theme-details">
 							{{{data.content}}}
 						</div>
-						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-demo-import' ); ?> &hellip;</a>
+						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-demos' ); ?> &hellip;</a>
 
 						<div class="required-plugins-wrap">
-							<h4><?php _e( 'Required Plugin', 'astra-demo-import' ); ?> </h4>
+							<h4><?php _e( 'Required Plugin', 'astra-demos' ); ?> </h4>
 							<div class="required-plugins"></div>
 						</div>
 					</div>
@@ -206,14 +206,14 @@ if ( count( $all_demos ) > 0 ) {
 			<?php
 
 			/* translators: %1$s & %2$s are a Demo API URL */
-			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-demo-import' ) , esc_url( Astra_Demo_Import::$api_url ), esc_url( Astra_Demo_Import::$api_url ) );
+			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-demos' ) , esc_url( Astra_Demos::$api_url ), esc_url( Astra_Demos::$api_url ) );
 
-			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-demo-import' );
+			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-demos' );
 
-			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demo-import' );
+			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demos' );
 
 			/* translators: %1$s is a support link */
-			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-demo-import' ), esc_url( 'https://wpastra.com/support/' ) );
+			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-demos' ), esc_url( 'https://wpastra.com/support/' ) );
 			?>			
 		</div>
 	</p>

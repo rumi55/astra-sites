@@ -1,19 +1,19 @@
 <?php
 /**
- * Class Astra Demo Importer
+ * Astra Demos
  *
  * @since  1.0.0
- * @package Astra Addon
+ * @package Astra Demos
  */
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( 'Astra_Demo_Import' ) ) :
+if ( ! class_exists( 'Astra_Demos' ) ) :
 
 	/**
-	 * Astra_Demo_Import
+	 * Astra_Demos
 	 */
-	class Astra_Demo_Import {
+	class Astra_Demos {
 
 		/**
 		 * API URL which is used to get the response from.
@@ -24,15 +24,15 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		public static $api_url;
 
 		/**
-		 * Instance of Astra_Demo_Import
+		 * Instance of Astra_Demos
 		 *
 		 * @since  1.0.0
-		 * @var (Object) Astra_Demo_Import
+		 * @var (Object) Astra_Demos
 		 */
 		private static $_instance = null;
 
 		/**
-		 * Instance of Astra_Demo_Import.
+		 * Instance of Astra_Demos.
 		 *
 		 * @since  1.0.0
 		 *
@@ -81,9 +81,9 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 					<p>
 						<?php
 						printf(
-							/* translators: 1: plugin name, 2: theme.php file*/
-							__( 'Astra Theme needs to be active for you to use currently installed "Astra Demo Import" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra' ),
-							esc_url( admin_url( 'themes.php' ) )
+							/* translators: 1: theme.php file*/
+							__( 'Astra Theme needs to be active for you to use currently installed "Astra Demos" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra' ),
+							esc_url( admin_url( 'themes.php?theme=astra' ) )
 						);
 						?>
 					</p>
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				return;
 			}
 
-			add_action( 'plugin_action_links_' . ASTRA_DEMO_IMPORT_BASE,    array( $this, 'action_links' ) );
+			add_action( 'plugin_action_links_' . ASTRA_DEMOS_BASE,    array( $this, 'action_links' ) );
 		}
 
 		/**
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-demos' ) . '" aria-label="' . esc_attr__( 'Import Demos', 'astra-demo-import' ) . '">' . esc_html__( 'Import Demos', 'astra-demo-import' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-demos' ) . '" aria-label="' . esc_attr__( 'Import Demos', 'astra-demos' ) . '">' . esc_html__( 'Import Demos', 'astra-demos' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -180,32 +180,32 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		public function admin_enqueue() {
 
 			wp_register_script(
-				'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/js/admin.js', array(
+				'astra-demos-admin', ASTRA_DEMOS_URI . 'assets/js/admin.js', array(
 					'jquery',
 					'wp-util',
 					'updates',
-				), ASTRA_DEMO_IMPORT_VER, true
+				), ASTRA_DEMOS_VER, true
 			);
 
-			wp_register_style( 'astra-demo-import-admin', ASTRA_DEMO_IMPORT_URI . 'assets/css/admin.css', ASTRA_DEMO_IMPORT_VER, true );
+			wp_register_style( 'astra-demos-admin', ASTRA_DEMOS_URI . 'assets/css/admin.css', ASTRA_DEMOS_VER, true );
 
 			wp_localize_script(
-				'astra-demo-import-admin', 'astraDemo', array(
+				'astra-demos-admin', 'astraDemo', array(
 					'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'              => site_url(),
-					'getProText'           => __( 'Get Pro', 'astra-demo-import' ),
-					'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-demo-import&utm_medium=' ),
-					'_ajax_nonce'          => wp_create_nonce( 'astra-demo-import' ),
+					'getProText'           => __( 'Get Pro', 'astra-demos' ),
+					'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-demos&utm_medium=' ),
+					'_ajax_nonce'          => wp_create_nonce( 'astra-demos' ),
 					'requiredPluginsCount' => 0,
 					'strings'              => array(
-						'btnActivating' => __( 'Activating', 'astra-demo-import' ) . '&hellip;',
-						'btnActive'     => __( 'Active', 'astra-demo-import' ),
-						'importDemo'    => __( 'Import Demo', 'astra-demo-import' ),
-						'DescExpand'    => __( 'Read more', 'astra-demo-import' ) . '&hellip;',
-						'DescCollapse'  => __( 'Hide', 'astra-demo-import' ),
-						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-demo-import' ),
-						'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-demo-import' ),
-						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is strongly recommended to run Demo Import on a fresh WordPress installation.\n\n2. If you have any existing pages, posts, menus & other data, it will be overwritten.\n\n3. Some copyrighted images won't be imported. Instead they will be replaced with placeholders.", 'astra-demo-import' ),
+						'btnActivating' => __( 'Activating', 'astra-demos' ) . '&hellip;',
+						'btnActive'     => __( 'Active', 'astra-demos' ),
+						'importDemo'    => __( 'Import Demo', 'astra-demos' ),
+						'DescExpand'    => __( 'Read more', 'astra-demos' ) . '&hellip;',
+						'DescCollapse'  => __( 'Hide', 'astra-demos' ),
+						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-demos' ),
+						'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-demos' ),
+						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is strongly recommended to run Demo Import on a fresh WordPress installation.\n\n2. If you have any existing pages, posts, menus & other data, it will be overwritten.\n\n3. Some copyrighted images won't be imported. Instead they will be replaced with placeholders.", 'astra-demos' ),
 					),
 				)
 			);
@@ -219,13 +219,13 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 */
 		private function includes() {
 
-			require_once ASTRA_DEMO_IMPORT_DIR . 'admin/class-astra-demo-import-admin.php';
+			require_once ASTRA_DEMOS_DIR . 'admin/class-astra-demos-admin.php';
 
 			// Load the Importers.
-			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-widgets-importer.php';
-			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-astra-customizer-import.php';
-			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
-			require_once ASTRA_DEMO_IMPORT_DIR . 'importers/class-astra-site-options-import.php';
+			require_once ASTRA_DEMOS_DIR . 'importers/class-widgets-importer.php';
+			require_once ASTRA_DEMOS_DIR . 'importers/class-astra-customizer-import.php';
+			require_once ASTRA_DEMOS_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
+			require_once ASTRA_DEMOS_DIR . 'importers/class-astra-site-options-import.php';
 		}
 
 		/**
@@ -239,7 +239,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				wp_send_json_error(
 					array(
 						'success' => false,
-						'message' => __( 'No plugin specified', 'astra-demo-import' ),
+						'message' => __( 'No plugin specified', 'astra-demos' ),
 					)
 				);
 			}
@@ -260,7 +260,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			wp_send_json_success(
 				array(
 					'success' => true,
-					'message' => __( 'Plugin Successfully Activated', 'astra-demo-import' ),
+					'message' => __( 'Plugin Successfully Activated', 'astra-demos' ),
 				)
 			);
 
@@ -275,7 +275,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		public function required_plugin() {
 
 			// Verify Nonce.
-			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
+			check_ajax_referer( 'astra-demos', '_ajax_nonce' );
 
 			$report = array(
 				'success'   => false,
@@ -637,7 +637,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 	/**
 	 * Kicking this off by calling 'set_instance()' method
 	 */
-	Astra_Demo_Import::set_instance();
+	Astra_Demos::set_instance();
 
 endif;
 
