@@ -21,7 +21,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 * @since  1.0.0
 		 * @var (String) URL
 		 */
-		private static $api_url;
+		public static $api_url;
 
 		/**
 		 * Instance of Astra_Demo_Import
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 *
 		 * @since  1.0.0
 		 */
-		private static function set_api_url() {
+		public static function set_api_url() {
 
 			if ( defined( 'ASTRA_DEMO_API_URL' ) ) {
 				self::$api_url = ASTRA_DEMO_API_URL;

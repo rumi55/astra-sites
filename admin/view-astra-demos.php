@@ -10,11 +10,11 @@ defined( 'ABSPATH' ) or exit;
 // Load demo importer markup.
 $all_demos = Astra_Demo_Import::get_astra_all_demos();
 
-if ( count( $all_demos ) > 0 ) {
+// Enqueue scripts.
+wp_enqueue_script( 'astra-demo-import-admin' );
+wp_enqueue_style( 'astra-demo-import-admin' );
 
-	// Enqueue scripts.
-	wp_enqueue_script( 'astra-demo-import-admin' );
-	wp_enqueue_style( 'astra-demo-import-admin' );
+if ( count( $all_demos ) > 0 ) {
 
 	/**
 	 * Initial Demo List
@@ -202,11 +202,22 @@ if ( count( $all_demos ) > 0 ) {
 	// Load demo importer welcome.
 } else {
 	?>
-	<p class="no-themes" style="display:block;">
-		<?php
-		/* translators: %s is a Astra support page link */
-		printf( __( 'No Demos found, Open <a href="%s" target="_blank">support ticket</a>.', 'astra-demo-import' ) , esc_url( 'https://wpastra.com/support/' ) );
-		?>
+		<div class="no-themes">
+			<?php
+
+			/* translators: %1$s & %2$s are a Demo API URL */
+			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from from  your site.</p>', 'astra-demo-import' ) , esc_url( Astra_Demo_Import::$api_url ), esc_url( Astra_Demo_Import::$api_url ) );
+
+			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-demo-import' );
+
+			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demo-import' );
+
+			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demo-import' );
+
+			/* translators: %1$s is a support link */
+			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal, and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-demo-import' ), esc_url( 'https://wpastra.com/support/' ) );
+			?>			
+		</div>
 	</p>
 	<?php
 }// End if().

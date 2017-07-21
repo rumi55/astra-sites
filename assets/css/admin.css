@@ -127,3 +127,15 @@
 .plugin-card-update-failed .notice {
     margin-top: 1.5em;
 }
+
+.no-themes {
+    margin-top: 40px;
+}
+
+.no-themes p {
+    font-size: 15px;
+}
+
+.no-themes .left-margin {
+    margin-left: 30px;
+}
