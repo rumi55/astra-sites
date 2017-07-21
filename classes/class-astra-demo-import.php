@@ -120,7 +120,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		 */
 		private static function set_api_url() {
 
-			if ( defined( 'ASTRA_DEMO_API_URL' ) && ! empty( ASTRA_DEMO_API_URL ) ) {
+			if ( defined( 'ASTRA_DEMO_API_URL' ) ) {
 				self::$api_url = ASTRA_DEMO_API_URL;
 			} else {
 				self::$api_url = 'http://multi.sharkz.in/wp-json/wp/v2/';
