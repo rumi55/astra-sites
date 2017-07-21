@@ -60,7 +60,7 @@ class Astra_Demos_Admin {
 	public function menu( $actions ) {
 
 		$actions['astra-demos'] = array(
-			'label' => __( 'Astra Demos', 'astra-demos' ),
+			'label' => __( 'Astra Sites', 'astra-demos' ),
 			'show'  => ! is_network_admin(),
 		);
 
@@ -68,7 +68,7 @@ class Astra_Demos_Admin {
 	}
 
 	/**
-	 * View Astra Demos
+	 * View Astra Sites
 	 *
 	 * @since  1.0.0
 	 */

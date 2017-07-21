@@ -1,9 +1,9 @@
 <?php
 /**
- * Astra Demos
+ * Astra Sites
  *
  * @since  1.0.0
- * @package Astra Demos
+ * @package Astra Sites
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Astra_Demos' ) ) :
 						<?php
 						printf(
 							/* translators: 1: theme.php file*/
-							__( 'Astra Theme needs to be active for you to use currently installed "Astra Demos" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra' ),
+							__( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra' ),
 							esc_url( admin_url( 'themes.php?theme=astra' ) )
 						);
 						?>

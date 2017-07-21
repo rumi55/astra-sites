@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Astra Demos
+ * Plugin Name: Astra Sites
  * Plugin URI: http://www.wpastra.com/pro/
  * Description: Import demos build with Astra theme.
  * Version: 1.0.0
@@ -8,7 +8,7 @@
  * Author URI: http://www.brainstormforce.com
  * Text Domain: astra-demos
  *
- * @package Astra Demos
+ * @package Astra Sites
  */
 
 /**
