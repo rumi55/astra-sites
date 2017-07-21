@@ -76,17 +76,13 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 		function admin_notices() {
 
 			if ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) {
-
-				$plugin = get_plugin_data( ASTRA_DEMO_IMPORT_DIR . 'astra-demo-import.php' );
-
 				?>
 				<div class="notice notice-error ast-active-notice is-dismissible">
 					<p>
 						<?php
 						printf(
 							/* translators: 1: plugin name, 2: theme.php file*/
-							__( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra' ),
-							$plugin['Name'],
+							__( 'Astra Theme needs to be active for you to use currently installed "Astra Demo Import" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra' ),
 							esc_url( admin_url( 'themes.php' ) )
 						);
 						?>
@@ -282,8 +278,7 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 			check_ajax_referer( 'astra-demo-import', '_ajax_nonce' );
 
 			$report = array(
-				'success'   => false,
-				'remaining' => '0',
+				'success' => false
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
@@ -310,8 +305,6 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 					}
 				}
 
-				$remaining = count( $notinstalled ) + count( $inactive );
-
 				$success = true;
 				if ( count( $notinstalled ) > 0 || count( $inactive ) > 0 ) {
 					$success = false;
@@ -320,7 +313,6 @@ if ( ! class_exists( 'Astra_Demo_Import' ) ) :
 				$report['plugins']['inactive']     = $inactive;
 				$report['plugins']['notinstalled'] = $notinstalled;
 				$report['plugins']['active']       = $active;
-				$report['remaining']               = $remaining;
 				$report['success']                 = $success;
 
 				wp_send_json_success( $report );
