@@ -61,10 +61,13 @@
     width: 100%;
     border: none;
     margin: 0 0 0.8em 0;
-    display: inline-block;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background ease 0.8s;
+}
+.required-plugins .plugin-card.plugin-card-update-failed {
+    flex-wrap: wrap;
 }
 .required-plugins .spinner {
     float: none;
