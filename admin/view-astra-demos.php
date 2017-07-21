@@ -14,7 +14,7 @@ $all_demos = Astra_Demo_Import::get_astra_all_demos();
 wp_enqueue_script( 'astra-demo-import-admin' );
 wp_enqueue_style( 'astra-demo-import-admin' );
 
-if ( count( $all_demos ) > 0 ) {
+if ( count( $all_demos ) < 0 ) {
 
 	/**
 	 * Initial Demo List
@@ -209,8 +209,6 @@ if ( count( $all_demos ) > 0 ) {
 			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from from  your site.</p>', 'astra-demo-import' ) , esc_url( Astra_Demo_Import::$api_url ), esc_url( Astra_Demo_Import::$api_url ) );
 
 			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-demo-import' );
-
-			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demo-import' );
 
 			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-demo-import' );
 
