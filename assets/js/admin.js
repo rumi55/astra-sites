@@ -196,7 +196,10 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 		.addClass('updating-message')
 		.html( astraDemo.strings.btnActivating );
 
-	jQuery.ajax({
+	// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
+	setTimeout( function() {
+
+		jQuery.ajax({
 			url: astraDemo.ajaxurl,
 			type: 'POST',
 			dataType: 'json',
@@ -209,19 +212,18 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 
 			if( result.success ) {
 				$message.removeClass( 'button-primary activate-now updating-message' )
-					.attr('disabled', 'disabled')
-					.addClass('disabled')
-					.text( astraDemo.strings.btnActive );
+				.attr('disabled', 'disabled')
+				.addClass('disabled')
+				.text( astraDemo.strings.btnActive );
 
-				// Enable Demo Import Button
-				astraDemo.requiredPluginsCount--;
-				enable_demo_import_button();
-			}
-		});
+			// Enable Demo Import Button
+			astraDemo.requiredPluginsCount--;
+			enable_demo_import_button();
+		}
+	});
 
-	// NOTE: Initially return.
-	// To avoid the default WP Plugin active class.
-	return '';
+	}, 1000 );
+
 });
 
 
