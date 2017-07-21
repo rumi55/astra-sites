@@ -29,7 +29,7 @@
 .theme {
     position: relative;
 }
-.wrap .astra-demo-import-preview .demo-type.premium {
+.wrap .astra-sites-preview .demo-type.premium {
     display: block;
     display: none;
     position: relative;
@@ -43,7 +43,7 @@
     margin: 0.5em 0 0 0;
 }
 
-.astra-demo-import-preview .theme-screenshot {
+.astra-sites-preview .theme-screenshot {
     width: 100%;
 }
 

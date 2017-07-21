@@ -80,7 +80,7 @@ jQuery(document).scroll(function (event) {
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				action: 'astra-list-demos',
+				action: 'astra-list-sites',
 				id: id,
 				paged: paged,
 				search: search
@@ -496,7 +496,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			action: 'astra-list-demos',
+			action: 'astra-list-sites',
 			category: category,
 			id: id,
 			paged: paged,
@@ -537,7 +537,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				action: 'astra-list-demos',
+				action: 'astra-list-sites',
 				search: $this,
 				id: id,
 			},
@@ -640,7 +640,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 
 	$this.closest('.theme').focus();
 	
-	var $theme = $this.closest('.wp-full-overlay-header');
+	var $theme = $this.closest('.astra-sites-preview').find('.wp-full-overlay-header');
 
 	var apiURL = $theme.data('demo-api') || '';
 
@@ -659,7 +659,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			.removeAttr('data-import')
 			.addClass('view-site')
 			.removeClass('astra-demo-import')
-			.text('View Site')
+			.text( astraDemo.strings.viewSite )
 			.attr('target', '_blank')
 			.append('<i class="dashicons dashicons-external"></i>')
 			.attr('href', astraDemo.siteURL );
