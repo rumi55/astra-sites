@@ -278,52 +278,38 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Verify Nonce.
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
-			$report = array(
-				'success'   => false,
-				'remaining' => '0',
+			$response = array(
+				'active'       => '',
+				'inactive'     => '',
+				'notinstalled' => '',
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( $report );
+				wp_send_json_error( $response );
 			}
 
 			$required_plugins = ( isset( $_POST['required_plugins'] ) ) ? $_POST['required_plugins'] : array();
 
-			$inactive     = array();
-			$notinstalled = array();
-			$active       = array();
-
 			if ( count( $required_plugins ) > 0 ) {
 				foreach ( $required_plugins as $key => $plugin ) {
 
+					// Inactive plugins.
 					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+						$response['inactive'][] = $plugin;
 
-						$inactive[] = $plugin;
-
+					// Not Installed plugins.
 					} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
-						$notinstalled[] = $plugin;
+						$response['notinstalled'][] = $plugin;
+
+					// Active plugins.
 					} else {
-						$active[] = $plugin;
+						$response['active'][] = $plugin;
 					}
 				}
-
-				$remaining = count( $notinstalled ) + count( $inactive );
-				$success   = true;
-				if ( count( $notinstalled ) > 0 || count( $inactive ) > 0 ) {
-					$success = false;
-				}
-
-				$report['plugins']['inactive']     = $inactive;
-				$report['plugins']['notinstalled'] = $notinstalled;
-				$report['plugins']['active']       = $active;
-				$report['success']                 = $success;
-				$report['remaining']               = $remaining;
-
-				wp_send_json_success( $report );
-			} else {
-
-				wp_send_json_error( $report );
 			}
+
+			// Send response.
+			wp_send_json_success( $response );
 		}
 
 		/**

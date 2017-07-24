@@ -353,22 +353,28 @@ function renderDemoPreview(anchor) {
 
 		jQuery('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
 
-		wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
+		wp.ajax.post( 'astra-required-plugins', data ).done( function( response ) {
 
+			// Remove loader.
 			jQuery('.required-plugins').removeClass('loading').html('');
 
-			// Enable Demo Import Button
-			astraDemo.requiredPluginsCount = result.remaining;
-			enable_demo_import_button();
+			/**
+			 * Count remaining plugins.
+			 * @type number
+			 */
+			var remaining_plugins = 0;
 
 			/**
 			 * Not Installed
 			 *
 			 * List of not installed required plugins.
 			 */
-			if ( typeof result.plugins.notinstalled !== 'undefined' ) {
+			if ( typeof response.notinstalled !== 'undefined' ) {
 
-				jQuery( result.plugins.notinstalled ).each(function( index, plugin ) {
+				// Add not have installed plugins count.
+				remaining_plugins += parseInt( response.notinstalled.length );
+
+				jQuery( response.notinstalled ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
@@ -392,9 +398,12 @@ function renderDemoPreview(anchor) {
 			 *
 			 * List of not inactive required plugins.
 			 */
-			if ( typeof result.plugins.inactive !== 'undefined' ) {
+			if ( typeof response.inactive !== 'undefined' ) {
 
-				jQuery( result.plugins.inactive ).each(function( index, plugin ) {
+				// Add inactive plugins count.
+				remaining_plugins += parseInt( response.inactive.length );
+
+				jQuery( response.inactive ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
@@ -417,9 +426,9 @@ function renderDemoPreview(anchor) {
 			 *
 			 * List of not active required plugins.
 			 */
-			if ( typeof result.plugins.active !== 'undefined' ) {
+			if ( typeof response.active !== 'undefined' ) {
 
-				jQuery( result.plugins.active ).each(function( index, plugin ) {
+				jQuery( response.active ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
@@ -436,6 +445,14 @@ function renderDemoPreview(anchor) {
 
 				});
 			}
+
+			/**
+			 * Enable Demo Import Button
+			 * @type number
+			 */
+			astraDemo.requiredPluginsCount = remaining_plugins;
+			enable_demo_import_button();
+
 		} );
 
 	} else {
