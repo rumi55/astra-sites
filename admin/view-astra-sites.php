@@ -214,8 +214,9 @@ if ( count( $all_demos ) > 0 ) {
 
 			/* translators: %1$s is a support link */
 			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
-			?>			
-		</div>
+			?>
+			
+					</div>
 	</p>
 	<?php
 }// End if().
