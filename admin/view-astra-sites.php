@@ -27,9 +27,9 @@ if ( count( $all_demos ) > 0 ) {
 		<div class="wp-filter hide-if-no-js">
 
 			<ul class="filter-links">
-				
+
 				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
-				
+
 				<?php foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
 					<li>
 						<a href="#"
@@ -52,7 +52,7 @@ if ( count( $all_demos ) > 0 ) {
 
 		<div class="theme-browser rendered">
 			<div class="themes wp-clearfix">
-				
+
 				<?php foreach ( $all_demos as $key => $demo ) { ?>
 
 					<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
@@ -69,7 +69,7 @@ if ( count( $all_demos ) > 0 ) {
 						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
 							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ); ?>"><?php echo esc_attr( $demo['astra_demo_type'] ); ?></span>
 						<?php } ?>
-					
+
 						<div class="theme-screenshot">
 							<?php if ( ! empty( $demo['featured_image_url'] ) ) { ?>
 								<img src="<?php echo esc_attr( $demo['featured_image_url'] ); ?>" alt="">
@@ -92,7 +92,7 @@ if ( count( $all_demos ) > 0 ) {
 		</div>
 
 	</div>
-	
+
 	<?php
 	/**
 	 * Regenerated Demo List
@@ -111,7 +111,7 @@ if ( count( $all_demos ) > 0 ) {
 			data-screenshot="{{{data.screenshot}}}"
 			data-content="{{{data.content}}}"
 			data-required-plugins="{{data.required_plugins}}">
-	
+
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
 			<div class="theme-screenshot">
@@ -162,8 +162,8 @@ if ( count( $all_demos ) > 0 ) {
 					<div class="install-theme-info">
 
 						<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
-						<h3 class="theme-name">{{{data.demo_name}}}</h3>	
-						
+						<h3 class="theme-name">{{{data.demo_name}}}</h3>
+
 						<# if ( data.screenshot.length ) { #>
 							<img class="theme-screenshot" src="{{{data.screenshot}}}" alt="">
 						<# } #>
@@ -174,16 +174,18 @@ if ( count( $all_demos ) > 0 ) {
 						<a href="#" class="theme-details-read-more"><?php _e( 'Read more', 'astra-sites' ); ?> &hellip;</a>
 
 						<div class="required-plugins-wrap">
-							<h4><?php _e( 'Required Plugin', 'astra-sites' ); ?> </h4>
+							<h4><?php _e( 'Required Plugins', 'astra-sites' ); ?> </h4>
 							<div class="required-plugins"></div>
 						</div>
 					</div>
 				</div>
 
 				<div class="wp-full-overlay-footer">
-					<a class="button button-hero hide-if-no-customize astra-demo-import" href="#" data-import="disabled">
-						<?php esc_html_e( 'Install Plugins', 'astra-sites' ); ?>							
-					</a>
+					<div class="footer-import-button-wrap">
+						<a class="button button-hero hide-if-no-customize astra-demo-import" href="#" data-import="disabled">
+							<?php esc_html_e( 'Install Plugins', 'astra-sites' ); ?>
+						</a>
+					</div>
 					<button type="button" class="collapse-sidebar button" aria-expanded="true"
 							aria-label="Collapse Sidebar">
 						<span class="collapse-sidebar-arrow"></span>
@@ -215,7 +217,7 @@ if ( count( $all_demos ) > 0 ) {
 			/* translators: %1$s is a support link */
 			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
 			?>
-			
+
 					</div>
 	</p>
 	<?php

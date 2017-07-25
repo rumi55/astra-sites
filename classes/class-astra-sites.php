@@ -198,7 +198,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 					'requiredPluginsCount' => 0,
 					'strings'              => array(
-						'viewSite'      => __( 'View Site', 'astra-sites' ),
+						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'     => __( 'Active', 'astra-sites' ),
 						'importDemo'    => __( 'Import Demo', 'astra-sites' ),
