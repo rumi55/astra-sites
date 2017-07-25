@@ -156,10 +156,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 				// Not All?
 			} elseif ( 'all' != $args_id ) {
-				$request_params['astra-demo-category'] = $args_id;
+				$request_params['astra-site-category'] = $args_id;
 			}
 
-			return add_query_arg( $request_params, self::$api_url . 'astra-demos' );
+			return add_query_arg( $request_params, self::$api_url . 'astra-sites' );
 		}
 
 		/**
@@ -169,7 +169,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @return (String) URL that can be queried to return the demos.
 		 */
 		public static function get_taxanomy_api_url() {
-			return self::$api_url . 'astra-demo-category/';
+			return self::$api_url . 'astra-site-category/';
 		}
 
 		/**
@@ -393,16 +393,16 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
 
 			// Import Widgets data.
-			$this->import_widgets( $demo_data['astra-demo-widgets-data'] );
+			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
 
 			// Import Customizer Settings.
-			$this->import_customizer_settings( $demo_data['astra-demo-customizer-data'] );
+			$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 
 			// Import XML.
 			$this->import_wxr( $demo_data['astra-demo-wxr-path'] );
 
 			// Import WordPress site options.
-			$this->import_site_options( $demo_data['astra-demo-site-options-data'] );
+			$this->import_site_options( $demo_data['astra-site-options-data'] );
 
 			// Import Custom 404 extension options.
 			$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
@@ -504,9 +504,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$remote_args = array();
 			$defaults    = array(
 				'id'                           => '',
-				'astra-demo-widgets-data'      => '',
-				'astra-demo-customizer-data'   => '',
-				'astra-demo-site-options-data' => '',
+				'astra-site-widgets-data'      => '',
+				'astra-site-customizer-data'   => '',
+				'astra-site-options-data' => '',
 				'astra-demo-wxr-path'          => '',
 				'astra-enabled-extensions'     => '',
 				'astra-custom-404'             => '',
@@ -522,9 +522,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
 				$remote_args['id']                           = $result['id'];
-				$remote_args['astra-demo-widgets-data']      = json_decode( $result['astra-demo-widgets-data'] );
-				$remote_args['astra-demo-customizer-data']   = $result['astra-demo-customizer-data'];
-				$remote_args['astra-demo-site-options-data'] = $result['astra-demo-site-options-data'];
+				$remote_args['astra-site-widgets-data']      = json_decode( $result['astra-site-widgets-data'] );
+				$remote_args['astra-site-customizer-data']   = $result['astra-site-customizer-data'];
+				$remote_args['astra-site-options-data'] = $result['astra-site-options-data'];
 				$remote_args['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
 				$remote_args['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
 				$remote_args['astra-custom-404']             = $result['astra-custom-404'];
@@ -571,8 +571,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						$astra_demos[ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
 						$astra_demos[ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
 						$astra_demos[ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
-						$astra_demos[ $key ]['astra_demo_type']    = isset( $demo['astra-demo-type'] ) ? sanitize_key( $demo['astra-demo-type'] ) : '';
-						$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-demo-url'] ) ? esc_url( $demo['astra-demo-url'] ) : '';
+						$astra_demos[ $key ]['astra_demo_type']    = isset( $demo['astra-site-type'] ) ? sanitize_key( $demo['astra-site-type'] ) : '';
+						$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-site-url'] ) ? esc_url( $demo['astra-site-url'] ) : '';
 						$astra_demos[ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
 						$astra_demos[ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
 						$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? esc_url( $demo['_links']['self'][0]['href'] ) : self::get_api_url( new stdClass() ) . $demo['id'];
@@ -607,6 +607,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			if ( ! is_wp_error( $response ) || 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
+
+				if( array_key_exists( 'code', $result ) && 'rest_no_route' === $result['code'] ) {
+					return $categories;
+				}
 
 				// If is array then proceed
 				// Else skip it.
