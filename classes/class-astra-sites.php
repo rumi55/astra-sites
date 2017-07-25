@@ -103,7 +103,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-sites' ) . '" aria-label="' . esc_attr__( 'Import Sites', 'astra-sites' ) . '">' . esc_html__( 'Import Sites', 'astra-sites' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -116,11 +116,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function set_api_url() {
 
-			if ( defined( 'ASTRA_DEMO_API_URL' ) ) {
-				self::$api_url = ASTRA_DEMO_API_URL;
-			} else {
-				self::$api_url = 'http://multi.sharkz.in/wp-json/wp/v2/';
-			}
+			self::$api_url = apply_filters( 'astra_demo_api_url', 'http://multi.sharkz.in/wp-json/wp/v2/' );
 
 		}
 
