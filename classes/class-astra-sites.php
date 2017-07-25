@@ -297,11 +297,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
 						$response['inactive'][] = $plugin;
 
-					// Not Installed plugins.
+						// Not Installed plugins.
 					} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
 						$response['notinstalled'][] = $plugin;
 
-					// Active plugins.
+						// Active plugins.
 					} else {
 						$response['active'][] = $plugin;
 					}
