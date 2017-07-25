@@ -7,12 +7,14 @@
 
 defined( 'ABSPATH' ) or exit;
 
-// Load demo importer markup.
-$all_demos = Astra_Sites::get_astra_all_demos();
-
 // Enqueue scripts.
 wp_enqueue_script( 'astra-sites-admin' );
 wp_enqueue_style( 'astra-sites-admin' );
+
+// Load demo importer markup.
+$all_demos = Astra_Sites::get_astra_all_demos();
+
+do_action( 'astra_sites_before_site_grid', $all_demos );
 
 if ( count( $all_demos ) > 0 ) {
 
@@ -223,4 +225,4 @@ if ( count( $all_demos ) > 0 ) {
 	<?php
 }// End if().
 
-
+do_action( 'astra_sites_after_site_grid', $all_demos );
