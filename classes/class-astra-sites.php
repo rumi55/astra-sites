@@ -608,7 +608,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( ! is_wp_error( $response ) || 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
-				if( array_key_exists( 'code', $result ) && 'rest_no_route' === $result['code'] ) {
+				if ( array_key_exists( 'code', $result ) && 'rest_no_route' === $result['code'] ) {
 					return $categories;
 				}
 
