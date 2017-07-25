@@ -399,7 +399,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 
 			// Import XML.
-			$this->import_wxr( $demo_data['astra-demo-wxr-path'] );
+			$this->import_wxr( $demo_data['astra-site-wxr-path'] );
 
 			// Import WordPress site options.
 			$this->import_site_options( $demo_data['astra-site-options-data'] );
@@ -507,7 +507,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra-site-widgets-data'      => '',
 				'astra-site-customizer-data'   => '',
 				'astra-site-options-data' => '',
-				'astra-demo-wxr-path'          => '',
+				'astra-site-wxr-path'          => '',
 				'astra-enabled-extensions'     => '',
 				'astra-custom-404'             => '',
 				'required-plugins'             => '',
@@ -525,7 +525,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				$remote_args['astra-site-widgets-data']      = json_decode( $result['astra-site-widgets-data'] );
 				$remote_args['astra-site-customizer-data']   = $result['astra-site-customizer-data'];
 				$remote_args['astra-site-options-data'] = $result['astra-site-options-data'];
-				$remote_args['astra-demo-wxr-path']          = $result['astra-demo-wxr-path'];
+				$remote_args['astra-site-wxr-path']          = $result['astra-site-wxr-path'];
 				$remote_args['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
 				$remote_args['astra-custom-404']             = $result['astra-custom-404'];
 				$remote_args['required-plugins']             = $result['required-plugins'];
