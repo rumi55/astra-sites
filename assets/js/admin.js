@@ -37,7 +37,7 @@ function enable_demo_import_button( type = 'free' ) {
 function resetPagedCount() {
 	categoryId = jQuery('.filter-links li .current').data('id');
 	jQuery('body').attr('data-astra-demo-paged', '1');
-	jQuery('body').attr('data-astra-demo-category', categoryId);
+	jQuery('body').attr('data-astra-site-category', categoryId);
 	jQuery('body').attr('data-astra-demo-search', '');
 	jQuery('body').attr('data-scrolling', false);
 	jQuery('body').attr( 'data-required-plugins', 0 )
@@ -63,7 +63,7 @@ jQuery(document).scroll(function (event) {
 		updatedPagedCount();
 		jQuery('body').data('scrolling', true);
 		body = jQuery('body');
-		id = body.attr('data-astra-demo-category');
+		id = body.attr('data-astra-site-category');
 		search = body.attr('data-astra-demo-search');
 		paged = body.attr('data-astra-demo-paged');
 
@@ -133,7 +133,7 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 	currentDemo.removeClass('theme-preview-on');
 	prevDemo = currentDemo.prevAll('.theme');
 	prevDemo.addClass('theme-preview-on');
-	
+
 	renderDemoPreview(prevDemo);
 });
 
@@ -565,7 +565,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 function renderDemoGrid(demos) {
 	jQuery.each(demos, function (index, demo) {
-		
+
 		id                      = demo.id;
 		content                 = demo.content;
 		demo_api                = demo.demo_api;
@@ -639,7 +639,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		.text('Importing Demo');
 
 	$this.closest('.theme').focus();
-	
+
 	var $theme = $this.closest('.astra-sites-preview').find('.wp-full-overlay-header');
 
 	var apiURL = $theme.data('demo-api') || '';
