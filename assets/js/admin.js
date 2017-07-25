@@ -244,7 +244,8 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		return;
 	}
 
-	$button.addClass( 'updating-message' );
+	$button.addClass( 'updating-message' )
+		.html( astraDemo.strings.btnActivating );		
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
