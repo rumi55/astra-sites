@@ -12,21 +12,21 @@ defined( 'ABSPATH' ) or exit;
  *
  * @since 1.0.0
  */
-class Astra_Demos_Admin {
+class Astra_Sites_Admin {
 
 	/**
-	 * Instance of Astra_Demos_Admin
+	 * Instance of Astra_Sites_Admin
 	 *
 	 * @since  1.0.0
-	 * @var Astra_Demos_Admin
+	 * @var Astra_Sites_Admin
 	 */
 	private static $_instance = null;
 
 	/**
-	 * Instanciate Astra_Demos_Admin
+	 * Instanciate Astra_Sites_Admin
 	 *
 	 * @since  1.0.0
-	 * @return (Object) Astra_Demos_Admin
+	 * @return (Object) Astra_Sites_Admin
 	 */
 	public static function instance() {
 		if ( ! isset( self::$_instance ) ) {
@@ -44,7 +44,7 @@ class Astra_Demos_Admin {
 	private function __construct() {
 
 		add_filter( 'astra_menu_options',            array( $this, 'menu' ) );
-		add_action( 'astra_menu_astra_demos_action', array( $this, 'view_demos' ) );
+		add_action( 'astra_menu_astra_sites_action', array( $this, 'view_demos' ) );
 
 	}
 
@@ -59,8 +59,8 @@ class Astra_Demos_Admin {
 	 */
 	public function menu( $actions ) {
 
-		$actions['astra-demos'] = array(
-			'label' => __( 'Astra Demos', 'astra-demos' ),
+		$actions['astra-sites'] = array(
+			'label' => __( 'Astra Sites', 'astra-sites' ),
 			'show'  => ! is_network_admin(),
 		);
 
@@ -68,15 +68,15 @@ class Astra_Demos_Admin {
 	}
 
 	/**
-	 * View Astra Demos
+	 * View Astra Sites
 	 *
 	 * @since  1.0.0
 	 */
 	public function view_demos() {
 
-		include ASTRA_DEMOS_DIR . 'admin/view-astra-demos.php';
+		include ASTRA_SITES_DIR . 'admin/view-astra-sites.php';
 	}
 
 }
 
-Astra_Demos_Admin::instance();
+Astra_Sites_Admin::instance();
