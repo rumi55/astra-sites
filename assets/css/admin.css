@@ -105,6 +105,7 @@
 .wp-core-ui .theme-details-read-more {
     margin: 10px 0;
     display: none;
+    text-decoration: none;
 }
 
 /**
@@ -141,4 +142,21 @@
 
 .no-themes .left-margin {
     margin-left: 30px;
+}
+
+/**
+ *
+ */
+.astra-sites-preview .wp-full-overlay-sidebar-content {
+    bottom: 100px;
+}
+
+.footer-import-button-wrap {
+    display: inline-block;
+    width: 100%;
+}
+
+.footer-import-button-wrap .button {
+    width: calc(100% - 1em);
+    margin: 0.5em;
 }
