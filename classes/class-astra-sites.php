@@ -116,7 +116,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function set_api_url() {
 
-			self::$api_url = apply_filters( 'astra_demo_api_url', 'http://multi.sharkz.in/wp-json/wp/v2/' );
+			self::$api_url = apply_filters( 'astra_demo_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
 
 		}
 
