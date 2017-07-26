@@ -135,7 +135,7 @@ class Astra_Site_Options_Import {
 			// Move the temporary file into the uploads directory
 			$results = wp_handle_sideload( $file, $overrides );
 
-			if ( empty( $results['error'] ) ) {
+			if ( ! in_array( 'error', $results ) ) {
 
 				// Set attachment data.
 				$attachment = array(
