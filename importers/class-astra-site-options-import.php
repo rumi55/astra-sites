@@ -45,14 +45,16 @@ class Astra_Site_Options_Import {
 	 * @param  (Array) $options Array of site options to be imported from the demo.
 	 */
 	public function import_options( $options ) {
-		$show_on_front      = $options['show_on_front'];
-		$page_on_front      = get_page_by_title( $options['page_on_front'] );
-		$page_for_posts     = get_page_by_title( $options['page_for_posts'] );
+		$show_on_front             = $options['show_on_front'];
+		$page_on_front             = get_page_by_title( $options['page_on_front'] );
+		$page_for_posts            = get_page_by_title( $options['page_for_posts'] );
+		$siteorigin_widgets_active = $options['siteorigin_widgets_active'];
 
 		// Update site options.
 		update_option( 'show_on_front', $show_on_front );
 		update_option( 'page_on_front', $page_on_front->ID );
 		update_option( 'page_for_posts', $page_for_posts->ID );
+		update_option( 'siteorigin_widgets_active', $siteorigin_widgets_active  );
 
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 	}

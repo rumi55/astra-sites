@@ -371,11 +371,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$demo_data = self::get_astra_single_demo( $demo_api_uri );
 
-			echo '<pre>';
-			print_r( $demo_data['astra-site-widgets-data'] );
-			echo '</pre>';
-			wp_die();
-
 			// Import Enabled Extensions.
 			$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
 
