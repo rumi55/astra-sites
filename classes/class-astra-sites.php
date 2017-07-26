@@ -197,7 +197,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'     => __( 'Active', 'astra-sites' ),
-						'importDemo'    => __( 'Import Demo', 'astra-sites' ),
+						'importDemo'    => __( 'Import This Site', 'astra-sites' ),
 						'DescExpand'    => __( 'Read more', 'astra-sites' ) . '&hellip;',
 						'DescCollapse'  => __( 'Hide', 'astra-sites' ),
 						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
