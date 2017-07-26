@@ -6,7 +6,7 @@
  * @package Astra Sites Server
  */
 
-if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
+if ( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 
 	/**
 	 * Astra_Sites_Server_Helper
@@ -19,6 +19,7 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 		 * Instance
 		 *
 		 * @access private
+		 * @var object Instance
 		 * @since 1.0.0
 		 */
 		private static $instance;
@@ -29,7 +30,7 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 		 * @since 1.0.0
 		 * @return object initialized object of class.
 		 */
-		public static function get_instance(){
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -48,7 +49,7 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 		 * Download File Into Uploads Directory
 		 *
 		 * @param  string $file Download File URL.
-		 * @return array 		Downloaded file data.
+		 * @return array        Downloaded file data.
 		 */
 		public static function download_file( $file = '' ) {
 
@@ -61,14 +62,14 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 			$temp_file = download_url( $file, $timeout_seconds );
 
 			// WP Error.
-			if( is_wp_error( $temp_file ) ) {
+			if ( is_wp_error( $temp_file ) ) {
 				return array(
 					'success' => false,
 					'data'    => $temp_file->get_error_message(),
 				);
 			}
 
-			// Array based on $_FILE as seen in PHP file uploads
+			// Array based on $_FILE as seen in PHP file uploads.
 			$file_args = array(
 				'name'     => basename( $file ),
 				'tmp_name' => $temp_file,
@@ -82,11 +83,11 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 				// fields that would normally be present as
 				// we downloaded the file from a remote server, so there
 				// will be no form fields
-				// Default is true
+				// Default is true.
 				'test_form' => false,
 
-				// Setting this to false lets WordPress allow empty files, not recommended
-				// Default is true
+				// Setting this to false lets WordPress allow empty files, not recommended.
+				// Default is true.
 				'test_size' => true,
 
 				// A properly uploaded file will pass this test. There should be no reason to override this one.
@@ -94,7 +95,7 @@ if( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 
 			);
 
-			// Move the temporary file into the uploads directory
+			// Move the temporary file into the uploads directory.
 			$results = wp_handle_sideload( $file_args, $overrides );
 
 			if ( in_array( 'error', $results ) ) {

@@ -110,7 +110,7 @@ class Astra_WXR_Importer {
 		$response = Astra_Sites_Server_Helper::download_file( $url );
 
 		// Is Success?
-		if( $response['success'] ) {
+		if ( $response['success'] ) {
 			return $response['data'];
 		}
 
