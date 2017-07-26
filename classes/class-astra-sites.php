@@ -189,7 +189,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra-sites-admin', 'astraDemo', array(
 					'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'              => site_url(),
-					'getProText'           => __( 'Get Pro', 'astra-sites' ),
+					'getProText'           => __( 'Purchase', 'astra-sites' ),
 					'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
 					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 					'requiredPluginsCount' => 0,
