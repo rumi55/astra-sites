@@ -96,60 +96,25 @@ class Astra_Site_Options_Import {
 	 */
 	function insert_logo( $image_url = '' ) {
 
-		// Gives us access to the download_url() and wp_handle_sideload() functions.
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		// Download Site Logo Image.
+		$response = Astra_Sites_Helper::download_file( $image_url );
 
-		$timeout_seconds = 5;
+		// Is Success?
+		if ( $response['success'] ) {
 
-		// Download file to temp dir.
-		$temp_file = download_url( $image_url, $timeout_seconds );
-
-		if ( ! is_wp_error( $temp_file ) ) {
-
-			// Array based on $_FILE as seen in PHP file uploads
-			$file = array(
-				'name'     => basename( $image_url ),
-				'tmp_name' => $temp_file,
-				'error'    => 0,
-				'size'     => filesize( $temp_file ),
+			// Set attachment data.
+			$attachment = array(
+				'post_mime_type' => $response['data']['type'],
+				'post_title'     => sanitize_file_name( basename( $image_url ) ),
+				'post_content'   => '',
+				'post_status'    => 'inherit',
 			);
 
-			$overrides = array(
+			// Create the attachment.
+			$attach_id = wp_insert_attachment( $attachment, $response['data']['file'] );
 
-				// Tells WordPress to not look for the POST form
-				// fields that would normally be present as
-				// we downloaded the file from a remote server, so there
-				// will be no form fields
-				// Default is true
-				'test_form' => false,
+			set_theme_mod( 'custom_logo', $attach_id );
+		}
 
-				// Setting this to false lets WordPress allow empty files, not recommended
-				// Default is true
-				'test_size' => true,
-
-				// A properly uploaded file will pass this test. There should be no reason to override this one.
-				'test_upload' => true,
-
-			);
-
-			// Move the temporary file into the uploads directory
-			$results = wp_handle_sideload( $file, $overrides );
-
-			if ( ! in_array( 'error', $results ) ) {
-
-				// Set attachment data.
-				$attachment = array(
-					'post_mime_type' => $results['type'],
-					'post_title'     => sanitize_file_name( basename( $image_url ) ),
-					'post_content'   => '',
-					'post_status'    => 'inherit',
-				);
-
-				// Create the attachment.
-				$attach_id = wp_insert_attachment( $attachment, $results['file'] );
-
-				set_theme_mod( 'custom_logo', $attach_id );
-			}
-		}// End if().
 	}
 }
