@@ -109,7 +109,7 @@ class Astra_Site_Options_Import {
 				'name'     => basename( $image_url ),
 				'tmp_name' => $temp_file,
 				'error'    => 0,
-				'size'     => filesize($temp_file),
+				'size'     => filesize( $temp_file ),
 			);
 
 			$overrides = array(
@@ -138,7 +138,7 @@ class Astra_Site_Options_Import {
 				// Set attachment data.
 				$attachment = array(
 					'post_mime_type' => $results['type'],
-					'post_title'     => sanitize_file_name( basename($image_url) ),
+					'post_title'     => sanitize_file_name( basename( $image_url ) ),
 					'post_content'   => '',
 					'post_status'    => 'inherit',
 				);
@@ -148,7 +148,6 @@ class Astra_Site_Options_Import {
 
 				set_theme_mod( 'custom_logo', $attach_id );
 			}
-
 		}// End if().
 	}
 }
