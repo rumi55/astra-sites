@@ -189,7 +189,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra-sites-admin', 'astraDemo', array(
 					'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'              => site_url(),
-					'getProText'           => __( 'Get Pro', 'astra-sites' ),
+					'getProText'           => __( 'Purchase', 'astra-sites' ),
 					'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
 					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 					'requiredPluginsCount' => 0,
@@ -197,12 +197,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'     => __( 'Active', 'astra-sites' ),
-						'importDemo'    => __( 'Import Demo', 'astra-sites' ),
+						'importDemo'    => __( 'Import This Site', 'astra-sites' ),
 						'DescExpand'    => __( 'Read more', 'astra-sites' ) . '&hellip;',
 						'DescCollapse'  => __( 'Hide', 'astra-sites' ),
 						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
 						'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-sites' ),
-						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is strongly recommended to run Demo Import on a fresh WordPress installation.\n\n2. If you have any existing pages, posts, menus & other data, it will be overwritten.\n\n3. Some copyrighted images won't be imported. Instead they will be replaced with placeholders.", 'astra-sites' ),
+						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
 					),
 				)
 			);
