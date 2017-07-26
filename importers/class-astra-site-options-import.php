@@ -54,7 +54,7 @@ class Astra_Site_Options_Import {
 		update_option( 'show_on_front', $show_on_front );
 		update_option( 'page_on_front', $page_on_front->ID );
 		update_option( 'page_for_posts', $page_for_posts->ID );
-		update_option( 'siteorigin_widgets_active', $siteorigin_widgets_active  );
+		update_option( 'siteorigin_widgets_active', $siteorigin_widgets_active );
 
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 	}
