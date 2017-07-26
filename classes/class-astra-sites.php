@@ -275,9 +275,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			$response = array(
-				'active'       => '',
-				'inactive'     => '',
-				'notinstalled' => '',
+				'active'       => array(),
+				'inactive'     => array(),
+				'notinstalled' => array(),
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
