@@ -219,7 +219,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-admin.php';
 
 			// Load the Importers.
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-sites-server-helper.php';
+			require_once ASTRA_SITES_DIR . 'importers/class-astra-sites-helper.php';
 			require_once ASTRA_SITES_DIR . 'importers/class-widgets-importer.php';
 			require_once ASTRA_SITES_DIR . 'importers/class-astra-customizer-import.php';
 			require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';

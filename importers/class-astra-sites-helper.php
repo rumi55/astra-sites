@@ -98,7 +98,7 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 			// Move the temporary file into the uploads directory.
 			$results = wp_handle_sideload( $file_args, $overrides );
 
-			if ( in_array( 'error', $results ) ) {
+			if ( isset( $results['error'] ) ) {
 				return array(
 					'success' => false,
 					'data'    => $results,
