@@ -97,7 +97,7 @@ class Astra_Site_Options_Import {
 	function insert_logo( $image_url = '' ) {
 
 		// Download Site Logo Image.
-		$response = Astra_Sites_Server_Helper::download_file( $image_url );
+		$response = Astra_Sites_Helper::download_file( $image_url );
 
 		// Is Success?
 		if ( $response['success'] ) {

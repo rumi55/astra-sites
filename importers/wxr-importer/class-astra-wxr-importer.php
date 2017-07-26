@@ -107,7 +107,7 @@ class Astra_WXR_Importer {
 	public function download_xml( $url ) {
 
 		// Download XML file.
-		$response = Astra_Sites_Server_Helper::download_file( $url );
+		$response = Astra_Sites_Helper::download_file( $url );
 
 		// Is Success?
 		if ( $response['success'] ) {

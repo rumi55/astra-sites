@@ -1,19 +1,19 @@
 <?php
 /**
- * Astra Site Server Helper
+ * Astra Site Helper
  *
  * @since  1.0.0
- * @package Astra Sites Server
+ * @package Astra Sites
  */
 
-if ( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
+if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 
 	/**
-	 * Astra_Sites_Server_Helper
+	 * Astra_Sites_Helper
 	 *
 	 * @since 1.0.0
 	 */
-	class Astra_Sites_Server_Helper {
+	class Astra_Sites_Helper {
 
 		/**
 		 * Instance
@@ -117,6 +117,6 @@ if ( ! class_exists( 'Astra_Sites_Server_Helper' ) ) :
 	/**
 	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Server_Helper::get_instance();
+	Astra_Sites_Helper::get_instance();
 
 endif;
