@@ -98,7 +98,12 @@ jQuery(document).scroll(function (event) {
 	}
 });
 
-jQuery(document).on('click', '.theme-screenshot, .more-details, .install-theme-preview', function (event) {
+/**
+ * Individual Site Preview
+ *
+ * On click on image, more link & preview button.
+ */
+jQuery(document).on('click', '.theme-browser .theme-screenshot, .theme-browser .more-details, .theme-browser .install-theme-preview', function (event) {
 	event.preventDefault();
 
 	$this = jQuery(this).parents('.theme');
@@ -245,7 +250,7 @@ jQuery(document).on('click', '.activate-now', function (event) {
 	}
 
 	$button.addClass( 'updating-message' )
-		.html( astraDemo.strings.btnActivating );		
+		.html( astraDemo.strings.btnActivating );
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
