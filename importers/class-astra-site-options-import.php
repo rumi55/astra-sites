@@ -94,36 +94,61 @@ class Astra_Site_Options_Import {
 	 */
 	function insert_logo( $image_url = '' ) {
 
-		$upload_dir = wp_upload_dir();                      // Set upload folder.
-		$image_data = file_get_contents( $image_url );      // Get image data.
-		$filename   = basename( $image_url );               // Create image file name.
+		// Gives us access to the download_url() and wp_handle_sideload() functions.
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 
-		// Check folder permission and define file location.
-		if ( wp_mkdir_p( $upload_dir['path'] ) ) {
-			$file = $upload_dir['path'] . '/' . $filename;
-		} else {
-			$file = $upload_dir['basedir'] . '/' . $filename;
-		}
+		$timeout_seconds = 5;
 
-		// Create the image  file on the server.
-		file_put_contents( $file, $image_data );
+		// Download file to temp dir.
+		$temp_file = download_url( $image_url, $timeout_seconds );
 
-		// Check image file type.
-		$wp_filetype = wp_check_filetype( $filename, null );
+		if ( ! is_wp_error( $temp_file ) ) {
 
-		// Set attachment data.
-		$attachment = array(
-			'post_mime_type' => $wp_filetype['type'],
-			'post_title'     => sanitize_file_name( $filename ),
-			'post_content'   => '',
-			'post_status'    => 'inherit',
-		);
+			// Array based on $_FILE as seen in PHP file uploads
+			$file = array(
+				'name'     => basename( $image_url ),
+				'tmp_name' => $temp_file,
+				'error'    => 0,
+				'size'     => filesize($temp_file),
+			);
 
-		// Create the attachment.
-		$attach_id = wp_insert_attachment( $attachment, $file );
+			$overrides = array(
 
-		set_theme_mod( 'custom_logo', $attach_id );
+				// Tells WordPress to not look for the POST form
+				// fields that would normally be present as
+				// we downloaded the file from a remote server, so there
+				// will be no form fields
+				// Default is true
+				'test_form' => false,
 
+				// Setting this to false lets WordPress allow empty files, not recommended
+				// Default is true
+				'test_size' => true,
+
+				// A properly uploaded file will pass this test. There should be no reason to override this one.
+				'test_upload' => true,
+
+			);
+
+			// Move the temporary file into the uploads directory
+			$results = wp_handle_sideload( $file, $overrides );
+
+			if ( empty( $results['error'] ) ) {
+
+				// Set attachment data.
+				$attachment = array(
+					'post_mime_type' => $results['type'],
+					'post_title'     => sanitize_file_name( basename($image_url) ),
+					'post_content'   => '',
+					'post_status'    => 'inherit',
+				);
+
+				// Create the attachment.
+				$attach_id = wp_insert_attachment( $attachment, $results['file'] );
+
+				set_theme_mod( 'custom_logo', $attach_id );
+			}
+
+		}// End if().
 	}
-
 }
