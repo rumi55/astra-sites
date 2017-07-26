@@ -1,5 +1,5 @@
 # Astra Sites #
-**Contributors:** brainstormforce  
+**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://wpastra.com/pro/  
 **Tags:** demo  
 **Requires at least:** 4.4  
