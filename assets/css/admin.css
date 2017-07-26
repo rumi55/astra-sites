@@ -152,11 +152,9 @@
 }
 
 .footer-import-button-wrap {
-    display: inline-block;
-    width: 100%;
+    padding: 10px 20px;
 }
 
 .footer-import-button-wrap .button {
-    width: calc(100% - 1em);
-    margin: 0.5em;
+    margin: 0;
 }
