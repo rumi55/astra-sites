@@ -64,29 +64,35 @@ class Astra_Site_Options_Import {
 		}
 
 		if( class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
-			vl( 'yes' );
+			// vl( 'yes' );
 
-			self::$default_active_widgets = $options['siteorigin_widgets_active'];
+			self::$default_active_widgets = $options['available_widgets'];
+			// vl( self::$default_active_widgets );
 
-			// foreach ( $options['siteorigin_widgets_active'] as $key => $value) {
-			// 	if( 1 == $value || '1' == $value ) {
-			// 		$temp[$key] = true;
-			// 	} else {
-			// 		$temp[$key] = false;
-			// 	}
-			// }
-			wp_cache_flush();
-			// Siteorigin Widgets
-			$active_widgets = wp_cache_get( 'active_widgets', 'siteorigin_widgets' );
-			vl( $active_widgets );
-			vl( $temp );
-			vl( get_option( 'siteorigin_widgets_active', '' ) );
-			SiteOrigin_Widgets_Bundle::$default_active_widgets = $temp;
-			wp_cache_add( 'active_widgets', $temp, 'siteorigin_widgets' );
-			update_option( 'siteorigin_widgets_active', $temp );
-			add_filter( 'siteorigin_widgets_default_active', array( $this, 'set_default_widgets' ) );
-			// create the initial single
-			$ob = new SiteOrigin_Widgets_Bundle();
+			// // foreach ( $options['siteorigin_widgets_active'] as $key => $value) {
+			// // 	if( 1 == $value || '1' == $value ) {
+			// // 		$temp[$key] = true;
+			// // 	} else {
+			// // 		$temp[$key] = false;
+			// // 	}
+			// // }
+			// wp_cache_flush();
+			// // Siteorigin Widgets
+			// $active_widgets = wp_cache_get( 'active_widgets', 'siteorigin_widgets' );
+			// vl( $active_widgets );
+			// vl( $temp );
+			// vl( get_option( 'siteorigin_widgets_active', '' ) );
+			// SiteOrigin_Widgets_Bundle::$default_active_widgets = $temp;
+			// wp_cache_add( 'active_widgets', $temp, 'siteorigin_widgets' );
+			// update_option( 'siteorigin_widgets_active', $temp );
+			// add_filter( 'siteorigin_widgets_default_active', array( $this, 'set_default_widgets' ) );
+			// // create the initial single
+			// $ob = new SiteOrigin_Widgets_Bundle();
+
+			add_filter( 'wie_available_widgets', array( $this, 'available_widgets' ), 8 );
+			update_option( 'siteorigin_widgets_active', $options['siteorigin_widgets_active'] );
+			wp_cache_delete( 'active_widgets', 'siteorigin_widgets' );
+
 			// $ob::single();
 			// $ob = new WP_Customize_Widgets();
 			// $ob->customize_controls_init();
@@ -101,6 +107,38 @@ class Astra_Site_Options_Import {
 		// Insert Logo.
 		$this->insert_logo( $options['custom_logo'] );
 	}
+
+	function available_widgets( $defaults = array() ) {
+
+		vl( 'BEFORE' );
+		vl( $defaults );
+
+		$merged = wp_parse_args( self::$default_active_widgets, $defaults );
+		vl( 'MERGED' );
+		vl( $merged );
+
+		return $merged;
+
+	}
+
+	// apply_filters( 'wie_available_widgets', $available_widgets );
+
+	// vl( $available_widgets );
+	// $available_widgets['sow-social-media-buttons'] = array(
+	//        'id_base' => 'sow-social-media-buttons',
+	//        'name' => 'SiteOrigin Social Media Buttons',
+	//    );
+	// $available_widgets['sow-features'] = array(
+	//        'id_base' => 'sow-features',
+	//        'name' => 'SiteOrigin Features',
+	//    );
+	// $available_widgets['sow-cta'] = array(
+	//        'id_base' => 'sow-cta',
+	//        'name' => 'SiteOrigin Call-to-action',
+	//    );
+
+	// vl( $available_widgets );
+	// wp_die();
 
 	function set_default_widgets( $defaults = array() ) {
 

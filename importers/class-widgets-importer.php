@@ -47,9 +47,9 @@ class Astra_Widget_Importer {
 
 		$widget_controls = $wp_registered_widget_controls;
 
-		vl( '-----------------------------------------------' );
-		vl( $widget_controls );
-		wp_die();
+		// vl( '-----------------------------------------------' );
+		// vl( $widget_controls );
+		// wp_die();
 
 		$available_widgets = array();
 
@@ -62,6 +62,9 @@ class Astra_Widget_Importer {
 
 			}
 		}
+
+		vl( 'AFTER' );
+		vl( $available_widgets );
 
 		return apply_filters( 'wie_available_widgets', $available_widgets );
 	}
@@ -79,7 +82,7 @@ class Astra_Widget_Importer {
 	function import_widgets_data( $data ) {
 
 		global $wp_registered_sidebars;
-		vl( $wp_registered_sidebars );
+		// vl( $wp_registered_sidebars );
 
 		// Have valid data?
 		// If no data or could not decode
@@ -99,7 +102,7 @@ class Astra_Widget_Importer {
 
 		// Get all available widgets site supports
 		$available_widgets = $this->wie_available_widgets();
-		vl( $available_widgets );
+
 		// $available_widgets['sow-social-media-buttons'] = array(
 	 //        'id_base' => 'sow-social-media-buttons',
 	 //        'name' => 'SiteOrigin Social Media Buttons',
@@ -139,13 +142,13 @@ class Astra_Widget_Importer {
 			// Check if sidebar is available on this site
 			// Otherwise add widgets to inactive, and say so
 			if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
-				vl( $sidebar_id . ' = TRUE ' );
+				// vl( $sidebar_id . ' = TRUE ' );
 				$sidebar_available    = true;
 				$use_sidebar_id       = $sidebar_id;
 				$sidebar_message_type = 'success';
 				$sidebar_message      = '';
 			} else {
-				vl( $sidebar_id . ' = FALSE ' );
+				// vl( $sidebar_id . ' = FALSE ' );
 				$sidebar_available    = false;
 				$use_sidebar_id       = 'wp_inactive_widgets'; // add to inactive if sidebar does not exist in theme
 				$sidebar_message_type = 'error';
@@ -186,10 +189,10 @@ class Astra_Widget_Importer {
 				// It is probably much more likely that arrays are used than objects, however
 				$widget = json_decode( wp_json_encode( $widget ), true );
 
-				vl( '$id_base' );
-				vl( $id_base );
-				vl( '$widget' );
-				vl( $widget );
+				// vl( '$id_base' );
+				// vl( $id_base );
+				// vl( '$widget' );
+				// vl( $widget );
 
 				// Filter to modify settings array
 				// This is preferred over the older wie_widget_settings filter above
@@ -301,7 +304,7 @@ class Astra_Widget_Importer {
 		// Hook after import
 		do_action( 'wie_after_import' );
 
-		vl( $results );
+		// vl( $results );
 
 		// Return results
 		return apply_filters( 'wie_import_results', $results );
