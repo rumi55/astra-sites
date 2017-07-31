@@ -21,3 +21,15 @@ define( 'ASTRA_SITES_DIR',  plugin_dir_path( ASTRA_SITES_FILE ) );
 define( 'ASTRA_SITES_URI',  plugins_url( '/', ASTRA_SITES_FILE ) );
 
 require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
+
+// add_action( 'init', function() {
+
+// 	vl( SiteOrigin_Widgets_Bundle::$default_active_widgets );
+// 	// global $wp_registered_sidebars;
+// 	// // vl( $wp_registered_sidebars );
+// 	// var_dump( get_theme_mod( 'custom_css_post_id', '' ) );
+
+// 	// $styles = wp_get_custom_css();
+// 	// echo strip_tags( $styles );
+// 	wp_die();
+// } );

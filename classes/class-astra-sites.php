@@ -375,9 +375,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Import Enabled Extensions.
 			$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
 
-			// Import Widgets data.
-			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
-
 			// Import Customizer Settings.
 			$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 
@@ -389,6 +386,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			// Import Custom 404 extension options.
 			$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
+
+			// Import Widgets data.
+			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
 		}
 
 		/**

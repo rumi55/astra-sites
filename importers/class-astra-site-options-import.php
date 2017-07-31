@@ -15,6 +15,8 @@ defined( 'ABSPATH' ) or exit;
  */
 class Astra_Site_Options_Import {
 
+	static $default_active_widgets = array();
+
 	/**
 	 * Instance of Astra_Site_Options_Importer
 	 *
@@ -61,14 +63,57 @@ class Astra_Site_Options_Import {
 			update_option( 'page_for_posts', $page_for_posts->ID );
 		}
 
-		// Siteorigin Widgets
-		update_option( 'siteorigin_widgets_active', $options['siteorigin_widgets_active'] );
+		if( class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
+			vl( 'yes' );
+
+			self::$default_active_widgets = $options['siteorigin_widgets_active'];
+
+			// foreach ( $options['siteorigin_widgets_active'] as $key => $value) {
+			// 	if( 1 == $value || '1' == $value ) {
+			// 		$temp[$key] = true;
+			// 	} else {
+			// 		$temp[$key] = false;
+			// 	}
+			// }
+			wp_cache_flush();
+			// Siteorigin Widgets
+			$active_widgets = wp_cache_get( 'active_widgets', 'siteorigin_widgets' );
+			vl( $active_widgets );
+			vl( $temp );
+			vl( get_option( 'siteorigin_widgets_active', '' ) );
+			SiteOrigin_Widgets_Bundle::$default_active_widgets = $temp;
+			wp_cache_add( 'active_widgets', $temp, 'siteorigin_widgets' );
+			update_option( 'siteorigin_widgets_active', $temp );
+			add_filter( 'siteorigin_widgets_default_active', array( $this, 'set_default_widgets' ) );
+			// create the initial single
+			$ob = new SiteOrigin_Widgets_Bundle();
+			// $ob::single();
+			// $ob = new WP_Customize_Widgets();
+			// $ob->customize_controls_init();
+
+		} else {
+			vl( 'no' );
+		}
 
 		// Nav Menu Locations.
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 
 		// Insert Logo.
 		$this->insert_logo( $options['custom_logo'] );
+	}
+
+	function set_default_widgets( $defaults = array() ) {
+
+		return wp_parse_args( self::$default_active_widgets, $defaults );
+		// static $default_active_widgets = array(
+		// 	'button' => true,
+		// 	'google-map' => true,
+		// 	'image' => true,
+		// 	'slider' => true,
+		// 	'post-carousel' => true,
+		// 	'editor' => true,
+		// );
+		// ;
 	}
 
 	/**
