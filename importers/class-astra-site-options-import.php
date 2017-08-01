@@ -47,25 +47,35 @@ class Astra_Site_Options_Import {
 	public function import_options( $options ) {
 
 		// Show on Front.
-		update_option( 'show_on_front', $options['show_on_front'] );
+		if ( isset( $options['show_on_front'] ) ) {
+			update_option( 'show_on_front', $options['show_on_front'] );
+		}
 
 		// Page on Front.
-		$page_on_front = get_page_by_title( $options['page_on_front'] );
-		if ( is_object( $page_on_front ) ) {
-			update_option( 'page_on_front', $page_on_front->ID );
+		if ( isset( $options['page_on_front'] ) ) {
+			$page_on_front = get_page_by_title( $options['page_on_front'] );
+			if ( is_object( $page_on_front ) ) {
+				update_option( 'page_on_front', $page_on_front->ID );
+			}
 		}
 
 		// Page for Posts.
-		$page_for_posts = get_page_by_title( $options['page_for_posts'] );
-		if ( is_object( $page_for_posts ) ) {
-			update_option( 'page_for_posts', $page_for_posts->ID );
+		if ( isset( $options['page_for_posts'] ) ) {
+			$page_for_posts = get_page_by_title( $options['page_for_posts'] );
+			if ( is_object( $page_for_posts ) ) {
+				update_option( 'page_for_posts', $page_for_posts->ID );
+			}
 		}
 
 		// Nav Menu Locations.
-		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
+		if ( isset( $options['nav_menu_locations'] ) ) {
+			$this->set_nav_menu_locations( $options['nav_menu_locations'] );
+		}
 
 		// Insert Logo.
-		$this->insert_logo( $options['custom_logo'] );
+		if ( isset( $options['custom_logo'] ) ) {
+			$this->insert_logo( $options['custom_logo'] );
+		}
 	}
 
 	/**
