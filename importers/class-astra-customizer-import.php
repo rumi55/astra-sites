@@ -48,12 +48,12 @@ class Astra_Customizer_Import {
 	public function import( $options ) {
 
 		// Update Astra Theme customizer settings.
-		if( isset( $options['astra-settings'] ) ) {
+		if ( isset( $options['astra-settings'] ) ) {
 			update_option( 'astra-settings', $options['astra-settings'] );
 		}
 
 		// Add Custom CSS.
-		if( isset( $options['custom-css'] ) ) {
+		if ( isset( $options['custom-css'] ) ) {
 			wp_update_custom_css_post( $options['custom-css'] );
 		}
 

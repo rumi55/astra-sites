@@ -511,7 +511,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
 
-				if( ! isset( $result['code'] ) ) {
+				if ( ! isset( $result['code'] ) ) {
 					$remote_args['id']                           = $result['id'];
 					$remote_args['astra-site-widgets-data']      = json_decode( $result['astra-site-widgets-data'] );
 					$remote_args['astra-site-customizer-data']   = $result['astra-site-customizer-data'];
