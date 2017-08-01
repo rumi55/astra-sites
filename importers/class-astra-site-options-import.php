@@ -61,9 +61,6 @@ class Astra_Site_Options_Import {
 			update_option( 'page_for_posts', $page_for_posts->ID );
 		}
 
-		// Siteorigin Widgets.
-		update_option( 'siteorigin_widgets_active', $options['siteorigin_widgets_active'] );
-
 		// Nav Menu Locations.
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 
