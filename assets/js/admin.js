@@ -250,6 +250,9 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		return;
 	}
 
+	$button.addClass('updating-message button-primary')
+		.html( astraDemo.strings.btnActivating );
+
 	var siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
 
 	jQuery.ajax({
