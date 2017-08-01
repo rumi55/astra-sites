@@ -43,9 +43,15 @@ class Astra_Customizer_Import {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  (Array) $data customizer options from the demo.
+	 * @param  (Array) $options customizer options from the demo.
 	 */
-	public function import( $data ) {
-		update_option( 'astra-settings', $data );
+	public function import( $options ) {
+
+		// Update Astra Theme customizer settings.
+		update_option( 'astra-settings', $options['astra-settings'] );
+
+		// Add Custom CSS.
+		wp_update_custom_css_post( $options['custom-css'] );
+
 	}
 }
