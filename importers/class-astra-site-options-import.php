@@ -45,19 +45,26 @@ class Astra_Site_Options_Import {
 	 * @param  (Array) $options Array of site options to be imported from the demo.
 	 */
 	public function import_options( $options ) {
-		$show_on_front             = $options['show_on_front'];
-		$page_on_front             = get_page_by_title( $options['page_on_front'] );
-		$page_for_posts            = get_page_by_title( $options['page_for_posts'] );
-		$siteorigin_widgets_active = $options['siteorigin_widgets_active'];
 
-		// Update site options.
-		update_option( 'show_on_front', $show_on_front );
-		update_option( 'page_on_front', $page_on_front->ID );
-		update_option( 'page_for_posts', $page_for_posts->ID );
-		update_option( 'siteorigin_widgets_active', $siteorigin_widgets_active );
+		// Show on Front.
+		update_option( 'show_on_front', $options['show_on_front'] );
 
+		// Page on Front.
+		$page_on_front = get_page_by_title( $options['page_on_front'] );
+		if ( is_object( $page_on_front ) ) {
+			update_option( 'page_on_front', $page_on_front->ID );
+		}
+
+		// Page for Posts.
+		$page_for_posts = get_page_by_title( $options['page_for_posts'] );
+		if ( is_object( $page_for_posts ) ) {
+			update_option( 'page_for_posts', $page_for_posts->ID );
+		}
+
+		// Nav Menu Locations.
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
 
+		// Insert Logo.
 		$this->insert_logo( $options['custom_logo'] );
 	}
 
@@ -74,16 +81,19 @@ class Astra_Site_Options_Import {
 		$menu_locations = array();
 
 		// Update menu locations.
-		foreach ( $nav_menu_locations as $menu => $value ) {
+		if ( isset( $nav_menu_locations ) ) {
 
-			$term = get_term_by( 'slug', $value, 'nav_menu' );
+			foreach ( $nav_menu_locations as $menu => $value ) {
 
-			if ( is_object( $term ) ) {
-				$menu_locations[ $menu ] = $term->term_id;
+				$term = get_term_by( 'slug', $value, 'nav_menu' );
+
+				if ( is_object( $term ) ) {
+					$menu_locations[ $menu ] = $term->term_id;
+				}
 			}
-		}
 
-		set_theme_mod( 'nav_menu_locations', $menu_locations );
+			set_theme_mod( 'nav_menu_locations', $menu_locations );
+		}
 	}
 
 

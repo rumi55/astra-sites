@@ -67,6 +67,7 @@ if ( count( $all_demos ) > 0 ) {
 						data-demo-slug="<?php echo esc_attr( $demo['slug'] ); ?>"
 						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
 						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
+						<input type="hidden" class="astra-site-options" value="<?php echo esc_attr( $demo['astra_site_options'] ); ?>" >
 
 						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
 							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ); ?>"><?php echo esc_attr( $demo['astra_demo_type'] ); ?></span>
@@ -113,6 +114,7 @@ if ( count( $all_demos ) > 0 ) {
 			data-screenshot="{{{data.screenshot}}}"
 			data-content="{{{data.content}}}"
 			data-required-plugins="{{data.required_plugins}}">
+			<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
 
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
@@ -154,6 +156,7 @@ if ( count( $all_demos ) > 0 ) {
 						data-screenshot="{{{data.screenshot}}}"
 						data-content="{{{data.content}}}"
 						data-required-plugins="{{data.required_plugins}}">
+					<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
 					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra-sites' ); ?></span></button>
 					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra-sites' ); ?></span></button>
 					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra-sites' ); ?></span></button>
