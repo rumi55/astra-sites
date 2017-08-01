@@ -33,3 +33,9 @@ require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
 // 	// echo strip_tags( $styles );
 // 	wp_die();
 // } );
+
+// add_action( 'init', function() {
+// 	// delete_option( 'siteorigin_widgets_active' );
+// 	vl( get_option( 'siteorigin_widgets_active' ) );
+// 	wp_die();
+// } );

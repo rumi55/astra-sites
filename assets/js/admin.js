@@ -152,6 +152,35 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 jQuery(document).on('click', '.install-now', function (event) {
 	event.preventDefault();
 
+	// var $siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
+
+	// $init        = '';
+	// $siteOptions = jQuery.parseJSON( $siteOptions );
+
+	// console.log('$siteOptions: ' + $siteOptions);
+
+	// jQuery.ajax({
+	// 	url: astraDemo.ajaxurl,
+	// 	type: 'POST',
+	// 	dataType: 'json',
+	// 	data: {
+	// 		'action'			 : 'astra-required-plugin-activate',
+	// 		'init'				 : $init,
+	// 		'astra-site-options' : $siteOptions,
+	// 	},
+	// })
+	// .done(function (result) {
+
+
+	// 	console.log('result: ' + result);
+	// 	console.log('result: ' + JSON.stringify( result ) );
+	// });
+
+	// return;
+
+
+
+
 	var $button 	= jQuery( event.target ),
 		$document   = jQuery(document);
 
@@ -192,10 +221,16 @@ jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
 jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 	event.preventDefault();
 
-	var $message = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
+	var $message     = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
+	var $siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
 
 	// Transform the 'Install' button into an 'Activate' button.
 	var $init = $message.data('init');
+
+	// $siteOptions = jQuery.parseJSON( $siteOptions );
+
+	console.log('$init: ' + $init);
+	console.log('$siteOptions: ' + $siteOptions);
 
 	$message.removeClass( 'install-now installed button-disabled updated-message' )
 		.addClass('updating-message')
@@ -210,10 +245,15 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 			dataType: 'json',
 			data: {
 				'action'	: 'astra-required-plugin-activate',
-				'init'		: $init
+				'init'		: $init,
+				'options'	: $siteOptions,
 			},
 		})
 		.done(function (result) {
+
+
+			console.log('result: ' + result);
+			console.log('result: ' + JSON.stringify( result ) );
 
 			if( result.success ) {
 				$message.removeClass( 'button-primary activate-now updating-message' )
@@ -249,19 +289,29 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		return;
 	}
 
-	$button.addClass( 'updating-message' )
-		.html( astraDemo.strings.btnActivating );
+	// $button.addClass( 'updating-message' )
+	// 	.html( astraDemo.strings.btnActivating );
+
+	var siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
+
+	// var siteOptions = '[{"custom_logo":"","show_on_front":"posts","page_on_front":"","page_for_posts":"","siteorigin_widgets_active":{"button":true,"google-map":false,"image":false,"slider":false,"post-carousel":false,"editor":true,"contact":false,"cta":false,"headline":false,"layout-slider":false,"hero":false,"icon":false,"price-table":false,"image-grid":false,"simple-masonry":false,"video":false,"social-media-buttons":false,"taxonomy":false,"testimonial":false,"features":true},"nav_menu_locations":[]}]';
+	// var siteOptions = '{"slug":"so-widgets-bundle","init":"so-widgets-bundle\/so-widgets-bundle.php","name":"SiteOrigin Widgets Bundle"}';
+	// siteOptions = jQuery.parseJSON( siteOptions );
+
+	console.log('siteOptions: ' + siteOptions);
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
 		type: 'POST',
-		dataType: 'json',
 		data: {
 			'action'	: 'astra-required-plugin-activate',
-			'init'		: $init
+			'init'		: $init,
+			'options' 	: siteOptions,
 		},
 	})
 	.done(function (result) {
+		console.log('result: ' + result);
+		console.log('result: ' + JSON.stringify( result ) );
 
 		if( result.success ) {
 			$button.removeClass( 'button-primary activate-now updating-message' )
@@ -282,15 +332,16 @@ jQuery(document).on('click', '.activate-now', function (event) {
 
 function renderDemoPreview(anchor) {
 
-	var demoId          = anchor.data('id') || '',
-		apiURL          = anchor.data('demo-api') || '',
-		demoType        = anchor.data('demo-type') || '',
-		demoURL         = anchor.data('demo-url') || '',
-		screenshot      = anchor.data('screenshot') || '',
-		demo_name       = anchor.data('demo-name') || '',
-		demo_slug       = anchor.data('demo-slug') || '',
-		content         = anchor.data('content') || '',
-		requiredPlugins = anchor.data('required-plugins') || '';
+	var demoId           = anchor.data('id') || '',
+		apiURL           = anchor.data('demo-api') || '',
+		demoType         = anchor.data('demo-type') || '',
+		demoURL          = anchor.data('demo-url') || '',
+		screenshot       = anchor.data('screenshot') || '',
+		demo_name        = anchor.data('demo-name') || '',
+		demo_slug        = anchor.data('demo-slug') || '',
+		content          = anchor.data('content') || '',
+		requiredPlugins  = anchor.data('required-plugins') || '',
+		astraSiteOptions = anchor.find('.astra-site-options').val() || '';
 
 	var template = wp.template('astra-demo-preview');
 
@@ -303,7 +354,8 @@ function renderDemoPreview(anchor) {
 		demo_name               : demo_name,
 		slug               		: demo_slug,
 		content                 : content,
-		requiredPlugins         : requiredPlugins
+		requiredPlugins         : requiredPlugins,
+		astra_site_options      : astraSiteOptions,
 	}];
 
 	// Initial set count.
@@ -589,15 +641,16 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 function renderDemoGrid(demos) {
 	jQuery.each(demos, function (index, demo) {
 
-		id                      = demo.id;
-		content                 = demo.content;
-		demo_api                = demo.demo_api;
-		demo_name               = demo.title;
-		demo_slug               = demo.slug;
-		screenshot              = demo.featured_image_url;
-		astra_demo_url          = demo.astra_demo_url;
-		astra_demo_type         = demo.astra_demo_type;
-		requiredPlugins         = demo.required_plugins;
+		id               = demo.id;
+		content          = demo.content;
+		demo_api         = demo.demo_api;
+		demo_name        = demo.title;
+		demo_slug        = demo.slug;
+		screenshot       = demo.featured_image_url;
+		astra_demo_url   = demo.astra_demo_url;
+		astra_demo_type  = demo.astra_demo_type;
+		requiredPlugins  = demo.required_plugins;
+		astraSiteOptions = demo.astra_site_options || '';
 
 		templateData = [{
 			id: id,
@@ -608,7 +661,8 @@ function renderDemoGrid(demos) {
 			demo_name: demo_name,
 			slug: demo_slug,
 			content: content,
-			required_plugins: requiredPlugins
+			required_plugins: requiredPlugins,
+			astra_site_options: astraSiteOptions
 		}]
 
 		var template = wp.template('astra-single-demo');
