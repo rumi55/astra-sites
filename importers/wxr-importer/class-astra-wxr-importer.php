@@ -54,9 +54,11 @@ class Astra_WXR_Importer {
 	 * @param array $mimes Already supported mime types.
 	 */
 	public function custom_upload_mimes( $mimes ) {
-		$mimes = array_merge( $mimes, array(
-			'xml' => 'application/xml',
-		) );
+		$mimes = array_merge(
+			$mimes, array(
+				'xml' => 'application/xml',
+			)
+		);
 
 		return $mimes;
 	}
@@ -71,8 +73,8 @@ class Astra_WXR_Importer {
 			defined( 'WP_LOAD_IMPORTERS' ) || define( 'WP_LOAD_IMPORTERS', true );
 			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
 		}
-		require_once ASTRA_DEMO_IMPORT_DIR . 'importers/wxr-importer/class-wxr-importer.php';
-		require_once ASTRA_DEMO_IMPORT_DIR . 'importers/wxr-importer/class-logger.php';
+		require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-wxr-importer.php';
+		require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-logger.php';
 	}
 
 	/**
@@ -103,50 +105,15 @@ class Astra_WXR_Importer {
 	 * @return (Array)      Attachment array of the downloaded xml file.
 	 */
 	public function download_xml( $url ) {
-		// Gives us access to the download_url() and wp_handle_sideload() functions.
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 
-		$timeout_seconds = 5;
+		// Download XML file.
+		$response = Astra_Sites_Helper::download_file( $url );
 
-		// Download file to temp dir.
-		$temp_file = download_url( $url, $timeout_seconds );
+		// Is Success?
+		if ( $response['success'] ) {
+			return $response['data'];
+		}
 
-		if ( ! is_wp_error( $temp_file ) ) {
-
-			// Array based on $_FILE as seen in PHP file uploads.
-			$file = array(
-				'name'     => basename( $url ), // ex: wp-header-logo.png.
-				'type'     => 'image/png',
-				'tmp_name' => $temp_file,
-				'error'    => 0,
-				'size'     => filesize( $temp_file ),
-			);
-
-			$overrides = array(
-
-				/*
-				 * Tells WordPress to not look for the POST form fields that would
-				 * normally be present, default is true, we downloaded the file from
-				 * a remote server, so there will be no form fields.
-				 */
-				'test_form'   => false,
-
-				// Setting this to false lets WordPress allow empty files, not recommended.
-				'test_size'   => true,
-
-				// A properly uploaded file will pass this test. There should be no reason to override this one.
-				'test_upload' => true,
-			);
-
-			// Move the temporary file into the uploads directory.
-			$results = wp_handle_sideload( $file, $overrides );
-
-			if ( ! empty( $results['error'] ) ) {
-				// Insert any error handling here.
-			} else {
-				return $results;
-			}
-		}// End if().
 	}
 
 }

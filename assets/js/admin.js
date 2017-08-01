@@ -1,48 +1,147 @@
+
+
 jQuery(document).ready(function ($) {
 	resetPagedCount();
-});
 
-function vl( data, is_json ) {
-	
+function vl( data, is_json = false ) {
 	if( is_json ) {
-		console.log( JSON.stringify( data ) );
+		console.log( 'data', JSON.stringify( data ) );
 	} else {
-		console.log( data );
+		console.log( 'data', data );
 	}
 }
 
-function bulkPluginUpdate( plugins ) {
-	var plugins = [
-			{
-				// plugin : 'contact-form-7/wp-contact-form-7.php',
-				slug   : 'contact-form-7',
-			},
-			{
-				// plugin : 'debug-bar-console/debug-bar-console.php',
-				slug   : 'debug-bar-console',
-			},
-			{
-				// plugin : 'reset-astra-customizer/class-astra-theme-customizer-reset.php',
-				slug   : 'reset-astra-customizer',
-			},
-		];
-	jQuery.each( plugins, function(index, single_plugin) {
-		vl( single_plugin.plugin );
-		vl( single_plugin.slug );
-
-		// Add it to the queue.
-		// @see wp-admin/js/updates.js
-		wp.updates.queue.push( {
-			action: 'install-plugin', // Required action.
-			data:   {
-				// plugin: single_plugin.plugin, 	// $itemRow.data( 'plugin' ),
-				slug:   single_plugin.slug 		// $itemRow.data( 'slug' )
-			}
-		} );
+function removePluginFromList( removeItem, pluginsList ) {
+	return jQuery.grep(pluginsList, function( value ) {
+		return value.slug != removeItem;
 	});
+}
 
-	wp.updates.queueChecker();
-	vl( plugins );
+/**
+ * AJAX Request Queue
+ *
+ * - add()
+ * - remove()
+ * - run()
+ * - stop()
+ *
+ * @since 1.2.0.8
+ */
+var AstraSitesAjaxQueue = (function() {
+
+	var requests = [];
+
+	return {
+
+		/**
+		 * Add AJAX request
+		 *
+		 * @since 1.2.0.8
+		 */
+		add:  function(opt) {
+		    requests.push(opt);
+		},
+
+		/**
+		 * Remove AJAX request
+		 *
+		 * @since 1.2.0.8
+		 */
+		remove:  function(opt) {
+		    if( jQuery.inArray(opt, requests) > -1 )
+		        requests.splice($.inArray(opt, requests), 1);
+		},
+
+		/**
+		 * Run / Process AJAX request
+		 *
+		 * @since 1.2.0.8
+		 */
+		run: function() {
+		    var self = this,
+		        oriSuc;
+
+		    if( requests.length ) {
+		        oriSuc = requests[0].complete;
+
+		        requests[0].complete = function() {
+		             if( typeof(oriSuc) === 'function' ) oriSuc();
+		             requests.shift();
+		             self.run.apply(self, []);
+		        };
+
+		        jQuery.ajax(requests[0]);
+
+		    } else {
+
+		      self.tid = setTimeout(function() {
+		         self.run.apply(self, []);
+		      }, 1000);
+		    }
+		},
+
+		/**
+		 * Stop AJAX request
+		 *
+		 * @since 1.2.0.8
+		 */
+		stop:  function() {
+
+		    requests = [];
+		    clearTimeout(this.tid);
+		}
+	};
+
+}());
+
+function bulkPluginUpdate() {
+
+	// // var d_plugins = [
+	// // 		{
+	// // 			// plugin : 'contact-form-7/wp-contact-form-7.php',
+	// // 			slug   : 'contact-form-7',
+	// // 		},
+	// // 		{
+	// // 			// plugin : 'debug-bar-console/debug-bar-console.php',
+	// // 			slug   : 'debug-bar-console',
+	// // 		},
+	// // 	];
+	// // console.log('d_plugins: ' + JSON.stringify( d_plugins ) );
+	// // console.log('plugins: ' + JSON.stringify( plugins ) );
+	// // return;
+
+	vl( astraDemo.requiredPlugins );
+	vl( astraDemo.requiredPlugins, true );
+
+	var notinstalled = astraDemo.requiredPlugins.notinstalled || '';
+	vl( notinstalled );
+
+
+	if( notinstalled.length ) {
+
+		vl( notinstalled, true );
+
+		jQuery.each( notinstalled, function(index, single_plugin) {
+			vl( single_plugin.slug );
+
+
+			// Add it to the queue.
+			// @see wp-admin/js/updates.js
+			wp.updates.queue.push( {
+				action: 'install-plugin', // Required action.
+				data:   {
+					// plugin: single_plugin.plugin, 	// $itemRow.data( 'plugin' ),
+					slug:   single_plugin.slug 		// $itemRow.data( 'slug' )
+				}
+			} );
+		});
+
+		wp.updates.queueChecker();
+
+	} else {
+		activateAllPlugins();
+	}
+
 }
 
 jQuery(document).on('wp-plugin-installing', function (event, args) {
@@ -59,23 +158,120 @@ jQuery(document).on('wp-plugin-installing', function (event, args) {
 jQuery(document).on( 'wp-plugin-install-success', function( event, args ) {
 	event.preventDefault();
 
-	var $card    = jQuery( '.plugin-card-' + args.slug );
+	// Transform the 'Install' button into an 'Activate' button.
+	var $card = jQuery( '.plugin-card-' + args.slug ),
+		$init = $card.data('init');
 
-	$card.find('.spinner').remove();
+	vl( 'init' );
+	vl( $init );
 
-	$card.append('<span class="dashicons-yes dashicons"></span>');
+	var pluginsList = astraDemo.requiredPlugins.notinstalled;
+	astraDemo.requiredPlugins.notinstalled = removePluginFromList( args.slug, pluginsList );
 
-	// var $message = jQuery( '.plugin-card-' + args.slug ).find( '.install-now' );
+	vl( 'after install' );
+	vl( astraDemo.requiredPlugins, true );
 
-	// // Transform the 'Install' button into an 'Activate' button.
-	// $message.removeClass( 'install-now installed button-disabled updated-message' )
-	// 	.addClass('activate-now button-primary')
-	// 	.text( astraDemo.strings.btnActivate )
+	// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
+	setTimeout( function() {
 
-	// NOTE: Initially return.
-	// To avoid the default WP Plugin active class.
-	return;
+		jQuery.ajax({
+			url: astraDemo.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				'action'	: 'astra-required-plugin-activate',
+				'init'		: $init
+			},
+		})
+		.done(function (result) {
+
+			if( result.success ) {
+
+				$card.find('.spinner').remove();
+				$card.append('<span class="dashicons-yes dashicons"></span>');
+
+				vl( 'after activate' );
+				vl( astraDemo.requiredPlugins, true );
+
+				var pluginsList = astraDemo.requiredPlugins.inactive;
+				astraDemo.requiredPlugins.inactive = removePluginFromList( args.slug, pluginsList );
+
+				// Enable Demo Import Button
+				astraDemo.requiredPluginsCount--;
+				enable_demo_import_button();
+
+				activateAllPlugins();
+			}
+		});
+
+	}, 1000 );
+
+
+
+
+
+
 });
+
+function activateAllPlugins() {
+	var remainingPlugins = astraDemo.requiredPlugins.inactive;
+
+	vl( remainingPlugins, true );
+
+	if( remainingPlugins.length ) {
+
+		vl( remainingPlugins, true );
+
+		/**
+		 * Process of cloud templates - (download, remove & fetch)
+		 */
+		AstraSitesAjaxQueue.run();
+
+		jQuery.each( remainingPlugins, function(index, single_plugin) {
+			vl( single_plugin.init );
+
+			vl( 'before activate' );
+			vl( astraDemo.requiredPlugins, true );
+
+			var $card    = jQuery( '.plugin-card-' + single_plugin.slug );
+			$card.find('.dashicons').remove();
+			$card.append('<span class="spinner is-active"></span>');
+
+			// jQuery.ajax({
+			AstraSitesAjaxQueue.add({
+				url: astraDemo.ajaxurl,
+				type: 'POST',
+				// dataType: 'json',
+				data: {
+					'action'	: 'astra-required-plugin-activate',
+					'init'		: single_plugin.init
+				},
+				success: function( result ){
+					vl( result, true );
+
+					if( result.success ) {
+
+						$card.find('.spinner').remove();
+						$card.append('<span class="dashicons-yes dashicons"></span>');
+
+						vl( 'after activate' );
+						vl( astraDemo.requiredPlugins, true );
+
+						var pluginsList = astraDemo.requiredPlugins.inactive;
+						astraDemo.requiredPlugins.inactive = removePluginFromList( single_plugin.slug, pluginsList );
+
+						// Enable Demo Import Button
+						astraDemo.requiredPluginsCount--;
+						enable_demo_import_button();
+					}
+				}
+			});
+
+		});
+
+
+	}
+}
 
 
 /**
@@ -113,7 +309,7 @@ function enable_demo_import_button( type = 'free' ) {
 function resetPagedCount() {
 	categoryId = jQuery('.filter-links li .current').data('id');
 	jQuery('body').attr('data-astra-demo-paged', '1');
-	jQuery('body').attr('data-astra-demo-category', categoryId);
+	jQuery('body').attr('data-astra-site-category', categoryId);
 	jQuery('body').attr('data-astra-demo-search', '');
 	jQuery('body').attr('data-scrolling', false);
 	jQuery('body').attr( 'data-required-plugins', 0 )
@@ -139,7 +335,7 @@ jQuery(document).scroll(function (event) {
 		updatedPagedCount();
 		jQuery('body').data('scrolling', true);
 		body = jQuery('body');
-		id = body.attr('data-astra-demo-category');
+		id = body.attr('data-astra-site-category');
 		search = body.attr('data-astra-demo-search');
 		paged = body.attr('data-astra-demo-paged');
 
@@ -156,7 +352,7 @@ jQuery(document).scroll(function (event) {
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				action: 'astra-list-demos',
+				action: 'astra-list-sites',
 				id: id,
 				paged: paged,
 				search: search
@@ -174,11 +370,15 @@ jQuery(document).scroll(function (event) {
 	}
 });
 
-jQuery(document).on('click', '.theme-screenshot, .more-details, .install-theme-preview', function (event) {
+/**
+ * Individual Site Preview
+ *
+ * On click on image, more link & preview button.
+ */
+jQuery(document).on('click', '.theme-browser .theme-screenshot, .theme-browser .more-details, .theme-browser .install-theme-preview', function (event) {
 	event.preventDefault();
 
 	$this = jQuery(this).parents('.theme');
-	// anchor = $this.find('.astra-demo-import');
 	$this.addClass('theme-preview-on');
 
 	renderDemoPreview($this);
@@ -199,7 +399,6 @@ jQuery(document).on('click', '.next-theme', function (event) {
 	nextDemo = currentDemo.nextAll('.theme');
 	nextDemo.addClass('theme-preview-on');
 
-	// anchor = nextDemo.find('.astra-demo-import');
 	renderDemoPreview( nextDemo );
 
 });
@@ -211,8 +410,7 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 	currentDemo.removeClass('theme-preview-on');
 	prevDemo = currentDemo.prevAll('.theme');
 	prevDemo.addClass('theme-preview-on');
-	
-	// anchor = prevDemo.find('.astra-demo-import');
+
 	renderDemoPreview(prevDemo);
 });
 
@@ -248,10 +446,61 @@ jQuery(document).on('click', '.install-now', function (event) {
 	}
 
 	wp.updates.installPlugin( {
-		slug: $button.data( 'slug' ),
+		slug: $button.data( 'slug' )
 	} );
 
 } );
+
+jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
+
+	var $card = jQuery( '.plugin-card-' + response.slug );
+
+	$card.find('.spinner').remove();
+	$card.find('.title').after('<span class="dashicons-no dashicons"></span>');
+
+});
+
+// jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
+// 	event.preventDefault();
+
+// 	var $message = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
+
+// 	// Transform the 'Install' button into an 'Activate' button.
+// 	var $init = $message.data('init');
+
+// 	$message.removeClass( 'install-now installed button-disabled updated-message' )
+// 		.addClass('updating-message')
+// 		.html( astraDemo.strings.btnActivating );
+
+// 	// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
+// 	setTimeout( function() {
+
+// 		jQuery.ajax({
+// 			url: astraDemo.ajaxurl,
+// 			type: 'POST',
+// 			dataType: 'json',
+// 			data: {
+// 				'action'	: 'astra-required-plugin-activate',
+// 				'init'		: $init
+// 			},
+// 		})
+// 		.done(function (result) {
+
+// 			if( result.success ) {
+// 				$message.removeClass( 'button-primary activate-now updating-message' )
+// 				.attr('disabled', 'disabled')
+// 				.addClass('disabled')
+// 				.text( astraDemo.strings.btnActive );
+
+// 			// Enable Demo Import Button
+// 			astraDemo.requiredPluginsCount--;
+// 			enable_demo_import_button();
+// 		}
+// 	});
+
+// 	}, 1000 );
+
+// });
 
 
 /**
@@ -271,9 +520,8 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		return;
 	}
 
-	$button.addClass( 'updating-message' );
-
-	console.log('Slug: ' + $init );
+	$button.addClass( 'updating-message' )
+		.html( astraDemo.strings.btnActivating );
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
@@ -305,17 +553,17 @@ jQuery(document).on('click', '.activate-now', function (event) {
 
 function renderDemoPreview(anchor) {
 
-	var demoId          = anchor.data('id'),
-		apiURL          = anchor.data('demo-api'),
-		demoType        = anchor.data('demo-type'),
-		demoURL         = anchor.data('demo-url'),
-		screenshot      = anchor.data('screenshot'),
-		demo_name       = anchor.data('demo-name'),
-		demo_slug       = anchor.data('demo-slug'),
-		content         = anchor.data('content'),
+	var demoId          = anchor.data('id') || '',
+		apiURL          = anchor.data('demo-api') || '',
+		demoType        = anchor.data('demo-type') || '',
+		demoURL         = anchor.data('demo-url') || '',
+		screenshot      = anchor.data('screenshot') || '',
+		demo_name       = anchor.data('demo-name') || '',
+		demo_slug       = anchor.data('demo-slug') || '',
+		content         = anchor.data('content') || '',
 		requiredPlugins = anchor.data('required-plugins') || '';
 
-	vl( demoType );
+	// requiredPlugins = jQuery.parseJSON( requiredPlugins );
 
 	var template = wp.template('astra-demo-preview');
 
@@ -328,7 +576,7 @@ function renderDemoPreview(anchor) {
 		demo_name               : demo_name,
 		slug               		: demo_slug,
 		content                 : content,
-		requiredPlugins         : requiredPlugins
+		required_plugins        : JSON.stringify(requiredPlugins)
 	}];
 
 	// Initial set count.
@@ -345,7 +593,7 @@ function renderDemoPreview(anchor) {
 	var descHeight = parseInt( desc.outerHeight() );
 	var descBtn    = jQuery('.theme-details-read-more');
 
-	if( descHeight >= 55 ) {
+	if( 'free' === demoType && descHeight >= 55 ) {
 
 		// Show button.
 		descBtn.css( 'display', 'inline-block' );
@@ -382,36 +630,47 @@ function renderDemoPreview(anchor) {
 								required_plugins : requiredPlugins
 							};
 
-		jQuery('.required-plugins').html('<span class="spinner is-active"></span>');
+		jQuery('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
 
-		wp.ajax.post( 'astra-required-plugins', data ).done( function( result ) {
+		wp.ajax.post( 'astra-required-plugins', data ).done( function( response ) {
 
-			jQuery('.required-plugins').html('');
+			// Remove loader.
+			jQuery('.required-plugins').removeClass('loading').html('');
 
-			// Enable Demo Import Button
-			astraDemo.requiredPluginsCount = result.remaining;
-			enable_demo_import_button();
+			// console.log('response.notinstalled: ' + response.notinstalled);
+			// console.log('response.inactive: ' + response.inactive);
+			// console.log('response.active: ' + response.active);
+
+			/**
+			 * Count remaining plugins.
+			 * @type number
+			 */
+			var remaining_plugins = 0;
 
 			/**
 			 * Not Installed
 			 *
 			 * List of not installed required plugins.
 			 */
-			if ( typeof result.plugins.notinstalled !== 'undefined' ) {
+			if ( typeof response.notinstalled !== 'undefined' ) {
 
-				jQuery( result.plugins.notinstalled ).each(function( index, plugin ) {
+				// Add not have installed plugins count.
+				remaining_plugins += parseInt( response.notinstalled.length );
+
+				jQuery( response.notinstalled ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
-						output += ' 		data-slug="'+plugin.slug+'">';
+						output += ' 		data-slug="'+plugin.slug+'"';
+						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<span class="dashicons-no dashicons"></span>';
 						// output += '	<button class="button install-now"';
 						// output += '			data-init="' + plugin.init + '"';
 						// output += '			data-slug="' + plugin.slug + '"';
 						// output += '			data-name="' + plugin.name + '">';
 						// output += 	wp.updates.l10n.installNow;
 						// output += '	</button>';
+						output += '	<span class="dashicons-no dashicons"></span>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
@@ -424,19 +683,24 @@ function renderDemoPreview(anchor) {
 			 *
 			 * List of not inactive required plugins.
 			 */
-			if ( typeof result.plugins.inactive !== 'undefined' ) {
+			if ( typeof response.inactive !== 'undefined' ) {
 
-				jQuery( result.plugins.inactive ).each(function( index, plugin ) {
+				// Add inactive plugins count.
+				remaining_plugins += parseInt( response.inactive.length );
+
+				jQuery( response.inactive ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
-						output += ' 		data-slug="'+plugin.slug+'">';
+						output += ' 		data-slug="'+plugin.slug+'"';
+						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<span class="dashicons-no dashicons"></span>';
+
 						// output += '	<button class="button activate-now button-primary"';
 						// output += '		data-init="' + plugin.init + '">';
 						// output += 	wp.updates.l10n.activatePlugin;
 						// output += '	</button>';
+						output += '	<span class="dashicons-no dashicons"></span>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
@@ -449,26 +713,36 @@ function renderDemoPreview(anchor) {
 			 *
 			 * List of not active required plugins.
 			 */
-			if ( typeof result.plugins.active !== 'undefined' ) {
+			if ( typeof response.active !== 'undefined' ) {
 
-				jQuery( result.plugins.active ).each(function( index, plugin ) {
+				jQuery( response.active ).each(function( index, plugin ) {
 
 					var output  = '<div class="plugin-card ';
 						output += ' 		plugin-card-'+plugin.slug+'"';
-						output += ' 		data-slug="'+plugin.slug+'">';
+						output += ' 		data-slug="'+plugin.slug+'"';
+						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
-						output += '	<span class="dashicons-yes dashicons"></span>';
 						// output += '	<button class="button disabled"';
 						// output += '			data-slug="' + plugin.slug + '"';
 						// output += '			data-name="' + plugin.name + '">';
 						// output += astraDemo.strings.btnActive;
 						// output += '	</button>';
+						output += '	<span class="dashicons-yes dashicons"></span>';
 						output += '</div>';
 
 					jQuery('.required-plugins').append(output);
 
 				});
 			}
+
+			/**
+			 * Enable Demo Import Button
+			 * @type number
+			 */
+			astraDemo.requiredPluginsCount = remaining_plugins;
+			astraDemo.requiredPlugins = response;
+			enable_demo_import_button();
+
 		} );
 
 	} else {
@@ -529,7 +803,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			action: 'astra-list-demos',
+			action: 'astra-list-sites',
 			category: category,
 			id: id,
 			paged: paged,
@@ -570,7 +844,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				action: 'astra-list-demos',
+				action: 'astra-list-sites',
 				search: $this,
 				id: id,
 			},
@@ -598,7 +872,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 function renderDemoGrid(demos) {
 	jQuery.each(demos, function (index, demo) {
-		
+
 		id                      = demo.id;
 		content                 = demo.content;
 		demo_api                = demo.demo_api;
@@ -647,22 +921,26 @@ jQuery(document).on('click', '.collapse-sidebar', function (event) {
 jQuery(document).on('click', '.astra-demo-import', function (event) {
 	event.preventDefault();
 
-	var $this 	 = jQuery(this),
-		disabled = $this.attr('data-import');
+	var $this 	= jQuery(this),
+		$theme  = $this.closest('.astra-sites-preview').find('.wp-full-overlay-header'),
+		apiURL  = $theme.data('demo-api') || '',
+		plugins = $theme.data('required-plugins');
+
+	var disabled = $this.attr('data-import');
 
 	if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
-		// Highlight required plugins list.
-		jQuery('.required-plugins-wrap h4').css({'background-color':'rgba(255, 235, 59, 0.5)'});
-		setTimeout(function() {
-			jQuery('.required-plugins-wrap h4').css({'background-color':''});
-		}, 800);
+		// // Highlight required plugins list.
+		// var pluginTitle = jQuery('.required-plugins-wrap h4');
+		// pluginTitle.css({'background-color':'rgba(255, 235, 59, 0.20)'});
+		// setTimeout(function() {
+		// 	pluginTitle.css({'background-color':''});
+		// }, 1000);
 
 		/**
 		 * Process Bulk Plugin Install & Activate
 		 */
-		bulkPluginUpdate( plugins );
-		
+		bulkPluginUpdate();
 
 		return;
 	}
@@ -677,10 +955,8 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		.text('Importing Demo');
 
 	$this.closest('.theme').focus();
-	
-	var $theme = $this.closest('.wp-full-overlay-header');
 
-	var apiURL = $theme.data('demo-api') || '';
+
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
@@ -697,7 +973,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 			.removeAttr('data-import')
 			.addClass('view-site')
 			.removeClass('astra-demo-import')
-			.text('View Site')
+			.text( astraDemo.strings.viewSite )
 			.attr('target', '_blank')
 			.append('<i class="dashicons dashicons-external"></i>')
 			.attr('href', astraDemo.siteURL );
@@ -705,5 +981,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	.fail(function ( demos ) {
 		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
 	});
+
+});
 
 });

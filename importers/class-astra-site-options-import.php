@@ -45,16 +45,20 @@ class Astra_Site_Options_Import {
 	 * @param  (Array) $options Array of site options to be imported from the demo.
 	 */
 	public function import_options( $options ) {
-		$show_on_front      = $options['show_on_front'];
-		$page_on_front      = get_page_by_title( $options['page_on_front'] );
-		$page_for_posts     = get_page_by_title( $options['page_for_posts'] );
+		$show_on_front             = $options['show_on_front'];
+		$page_on_front             = get_page_by_title( $options['page_on_front'] );
+		$page_for_posts            = get_page_by_title( $options['page_for_posts'] );
+		$siteorigin_widgets_active = $options['siteorigin_widgets_active'];
 
 		// Update site options.
 		update_option( 'show_on_front', $show_on_front );
 		update_option( 'page_on_front', $page_on_front->ID );
 		update_option( 'page_for_posts', $page_for_posts->ID );
+		update_option( 'siteorigin_widgets_active', $siteorigin_widgets_active );
 
 		$this->set_nav_menu_locations( $options['nav_menu_locations'] );
+
+		$this->insert_logo( $options['custom_logo'] );
 	}
 
 	/**
@@ -82,4 +86,35 @@ class Astra_Site_Options_Import {
 		set_theme_mod( 'nav_menu_locations', $menu_locations );
 	}
 
+
+	/**
+	 * Insert Logo By URL
+	 *
+	 * @since 1.0.0
+	 * @param  string $image_url Logo URL.
+	 * @return void
+	 */
+	function insert_logo( $image_url = '' ) {
+
+		// Download Site Logo Image.
+		$response = Astra_Sites_Helper::download_file( $image_url );
+
+		// Is Success?
+		if ( $response['success'] ) {
+
+			// Set attachment data.
+			$attachment = array(
+				'post_mime_type' => $response['data']['type'],
+				'post_title'     => sanitize_file_name( basename( $image_url ) ),
+				'post_content'   => '',
+				'post_status'    => 'inherit',
+			);
+
+			// Create the attachment.
+			$attach_id = wp_insert_attachment( $attachment, $response['data']['file'] );
+
+			set_theme_mod( 'custom_logo', $attach_id );
+		}
+
+	}
 }
