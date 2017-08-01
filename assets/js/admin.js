@@ -152,35 +152,6 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 jQuery(document).on('click', '.install-now', function (event) {
 	event.preventDefault();
 
-	// var $siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
-
-	// $init        = '';
-	// $siteOptions = jQuery.parseJSON( $siteOptions );
-
-	// console.log('$siteOptions: ' + $siteOptions);
-
-	// jQuery.ajax({
-	// 	url: astraDemo.ajaxurl,
-	// 	type: 'POST',
-	// 	dataType: 'json',
-	// 	data: {
-	// 		'action'			 : 'astra-required-plugin-activate',
-	// 		'init'				 : $init,
-	// 		'astra-site-options' : $siteOptions,
-	// 	},
-	// })
-	// .done(function (result) {
-
-
-	// 	console.log('result: ' + result);
-	// 	console.log('result: ' + JSON.stringify( result ) );
-	// });
-
-	// return;
-
-
-
-
 	var $button 	= jQuery( event.target ),
 		$document   = jQuery(document);
 
@@ -227,8 +198,6 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 	// Transform the 'Install' button into an 'Activate' button.
 	var $init = $message.data('init');
 
-	// $siteOptions = jQuery.parseJSON( $siteOptions );
-
 	console.log('$init: ' + $init);
 	console.log('$siteOptions: ' + $siteOptions);
 
@@ -242,7 +211,6 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 		jQuery.ajax({
 			url: astraDemo.ajaxurl,
 			type: 'POST',
-			dataType: 'json',
 			data: {
 				'action'	: 'astra-required-plugin-activate',
 				'init'		: $init,
@@ -250,10 +218,6 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 			},
 		})
 		.done(function (result) {
-
-
-			console.log('result: ' + result);
-			console.log('result: ' + JSON.stringify( result ) );
 
 			if( result.success ) {
 				$message.removeClass( 'button-primary activate-now updating-message' )
@@ -289,16 +253,7 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		return;
 	}
 
-	// $button.addClass( 'updating-message' )
-	// 	.html( astraDemo.strings.btnActivating );
-
 	var siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
-
-	// var siteOptions = '[{"custom_logo":"","show_on_front":"posts","page_on_front":"","page_for_posts":"","siteorigin_widgets_active":{"button":true,"google-map":false,"image":false,"slider":false,"post-carousel":false,"editor":true,"contact":false,"cta":false,"headline":false,"layout-slider":false,"hero":false,"icon":false,"price-table":false,"image-grid":false,"simple-masonry":false,"video":false,"social-media-buttons":false,"taxonomy":false,"testimonial":false,"features":true},"nav_menu_locations":[]}]';
-	// var siteOptions = '{"slug":"so-widgets-bundle","init":"so-widgets-bundle\/so-widgets-bundle.php","name":"SiteOrigin Widgets Bundle"}';
-	// siteOptions = jQuery.parseJSON( siteOptions );
-
-	console.log('siteOptions: ' + siteOptions);
 
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
@@ -310,8 +265,6 @@ jQuery(document).on('click', '.activate-now', function (event) {
 		},
 	})
 	.done(function (result) {
-		console.log('result: ' + result);
-		console.log('result: ' + JSON.stringify( result ) );
 
 		if( result.success ) {
 			$button.removeClass( 'button-primary activate-now updating-message' )
