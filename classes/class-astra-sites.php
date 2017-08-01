@@ -383,11 +383,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Import Customizer Settings.
 			$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 
-			// Import WordPress site options.
-			$this->import_site_options( $demo_data['astra-site-options-data'] );
-
 			// Import XML.
 			$this->import_wxr( $demo_data['astra-site-wxr-path'] );
+
+			// Import WordPress site options.
+			$this->import_site_options( $demo_data['astra-site-options-data'] );
 
 			// Import Custom 404 extension options.
 			$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
