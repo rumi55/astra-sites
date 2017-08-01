@@ -113,7 +113,6 @@ class Astra_Widget_Importer {
 				continue;
 			}
 
-
 			// Check if sidebar is available on this site
 			// Otherwise add widgets to inactive, and say so
 			if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
@@ -190,7 +189,6 @@ class Astra_Widget_Importer {
 						}
 					}
 				}
-
 
 				// No failure
 				if ( ! $fail ) {

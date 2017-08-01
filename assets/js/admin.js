@@ -198,9 +198,6 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
 	// Transform the 'Install' button into an 'Activate' button.
 	var $init = $message.data('init');
 
-	console.log('$init: ' + $init);
-	console.log('$siteOptions: ' + $siteOptions);
-
 	$message.removeClass( 'install-now installed button-disabled updated-message' )
 		.addClass('updating-message')
 		.html( astraDemo.strings.btnActivating );
