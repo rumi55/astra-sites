@@ -51,17 +51,17 @@ class Astra_Site_Options_Import {
 
 		// Page on Front.
 		$page_on_front = get_page_by_title( $options['page_on_front'] );
-		if( is_object( $page_on_front ) ) {
+		if ( is_object( $page_on_front ) ) {
 			update_option( 'page_on_front', $page_on_front->ID );
 		}
 
 		// Page for Posts.
 		$page_for_posts = get_page_by_title( $options['page_for_posts'] );
-		if( is_object( $page_for_posts ) ) {
+		if ( is_object( $page_for_posts ) ) {
 			update_option( 'page_for_posts', $page_for_posts->ID );
 		}
 
-		// Siteorigin Widgets
+		// Siteorigin Widgets.
 		update_option( 'siteorigin_widgets_active', $options['siteorigin_widgets_active'] );
 
 		// Nav Menu Locations.
@@ -84,7 +84,7 @@ class Astra_Site_Options_Import {
 		$menu_locations = array();
 
 		// Update menu locations.
-		if( isset( $nav_menu_locations ) ) {
+		if ( isset( $nav_menu_locations ) ) {
 
 			foreach ( $nav_menu_locations as $menu => $value ) {
 
