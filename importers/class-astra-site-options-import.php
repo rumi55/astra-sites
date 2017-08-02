@@ -76,6 +76,17 @@ class Astra_Site_Options_Import {
 		if ( isset( $options['custom_logo'] ) ) {
 			$this->insert_logo( $options['custom_logo'] );
 		}
+
+		// Elementor Options.
+		if ( isset( $options['elementor_scheme_color'] ) ) {
+			update_option( 'elementor_scheme_color', $options['elementor_scheme_color'] );
+		}
+		if ( isset( $options['elementor_scheme_color-picker'] ) ) {
+			update_option( 'elementor_scheme_color-picker', $options['elementor_scheme_color-picker'] );
+		}
+		if ( isset( $options['elementor_scheme_typography'] ) ) {
+			update_option( 'elementor_scheme_typography', $options['elementor_scheme_typography'] );
+		}
 	}
 
 	/**
