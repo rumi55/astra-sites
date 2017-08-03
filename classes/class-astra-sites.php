@@ -300,7 +300,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 			 * And
 		 			 * Is Pro Version Installed?
 					 */
-					if( self::pro_plugin_exist( $plugin['init'] ) ) {
+					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
+					if( $plugin_pro ) {
 
 						// Pro - Active.
 						if( is_plugin_active( $plugin_pro['init'] ) ) {
