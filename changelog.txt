@@ -1,0 +1,5 @@
+v1.0.1
+# Enhancement: Avoided Lite Plugin version if Pro version is Installed. Now added support for Beaver Builder Plugin (Lite Version).
+
+v1.0.0
+# Initial release
