@@ -362,6 +362,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'init' => 'bb-plugin/fl-builder.php',
 					'name' => 'Beaver Builder Plugin (Agency Version)',
 				),
+				'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
+					'slug' => 'bb-ultimate-addon',
+					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
+					'name' => 'Ultimate Addon for Beaver Builder',
+				),
 			);
 
 		    if( isset( $plugins[ $lite_version ] ) ) {
