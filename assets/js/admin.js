@@ -5,9 +5,9 @@ jQuery(document).ready(function ($) {
 
 function vl( data, is_json = false ) {
 	if( is_json ) {
-		console.log( 'data', JSON.stringify( data ) );
+		console.log( JSON.stringify( data ) );
 	} else {
-		console.log( 'data', data );
+		console.log( data );
 	}
 }
 
@@ -94,7 +94,7 @@ var AstraSitesAjaxQueue = (function() {
 
 }());
 
-function bulkPluginUpdate() {
+function bulkPluginInstallActivate() {
 
 	// // var d_plugins = [
 	// // 		{
@@ -110,18 +110,22 @@ function bulkPluginUpdate() {
 	// // console.log('plugins: ' + JSON.stringify( plugins ) );
 	// // return;
 
+	if( 0 === astraDemo.requiredPlugins.length ) {
+		return;
+	}
+
 	vl( astraDemo.requiredPlugins );
 	vl( astraDemo.requiredPlugins, true );
 
 	var notinstalled = astraDemo.requiredPlugins.notinstalled || '';
 	vl( notinstalled );
 
-
-	if( notinstalled.length ) {
+	if( 'undefined' !== notinstalled && notinstalled.length ) {
 
 		vl( notinstalled, true );
 
 		jQuery.each( notinstalled, function(index, single_plugin) {
+			vl( 'single_plugin.slug' );
 			vl( single_plugin.slug );
 
 
@@ -138,10 +142,9 @@ function bulkPluginUpdate() {
 
 		wp.updates.queueChecker();
 
-	} else {
-		activateAllPlugins();
 	}
 
+	activateAllPlugins();
 }
 
 jQuery(document).on('wp-plugin-installing', function (event, args) {
@@ -457,6 +460,8 @@ jQuery(document).on('click', '.install-now', function (event) {
 } );
 
 jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
+
+	vl( 'here' );
 
 	var $card = jQuery( '.plugin-card-' + response.slug );
 
@@ -970,7 +975,7 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 		/**
 		 * Process Bulk Plugin Install & Activate
 		 */
-		bulkPluginUpdate();
+		bulkPluginInstallActivate();
 
 		return;
 	}
