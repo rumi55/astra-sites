@@ -1,0 +1,8 @@
+v1.0.1
+# Added: Elementor plugin options support.
+# Added: Customizer CSS support.
+# Fix: Siteorigin plugin widget activation issues.
+# Enhancement: Astra sites API call validated before import.
+
+v1.0.0
+# Initial release
