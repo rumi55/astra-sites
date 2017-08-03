@@ -297,21 +297,20 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 					/**
 					 * Has Pro Version Support?
-		 			 * And
-		 			 * Is Pro Version Installed?
+					  * And
+					  * Is Pro Version Installed?
 					 */
 					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
-					if( $plugin_pro ) {
+					if ( $plugin_pro ) {
 
 						// Pro - Active.
-						if( is_plugin_active( $plugin_pro['init'] ) ) {
+						if ( is_plugin_active( $plugin_pro['init'] ) ) {
 							$response['active'][] = $plugin_pro;
 
-						// Pro - Inactive.
+							// Pro - Inactive.
 						} else {
 							$response['inactive'][] = $plugin_pro;
 						}
-
 					} else {
 
 						// Lite - Installed but Inactive.
@@ -319,12 +318,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 							$response['inactive'][] = $plugin;
 
-						// Lite - Not Installed.
+							// Lite - Not Installed.
 						} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
 
 							$response['notinstalled'][] = $plugin;
 
-						// Lite - Active.
+							// Lite - Active.
 						} else {
 							$response['active'][] = $plugin;
 						}
@@ -355,7 +354,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function pro_plugin_exist( $lite_version = '' ) {
 
-			// Lite init => Pro init
+			// Lite init => Pro init.
 			$plugins = array(
 				'beaver-builder-lite-version/fl-builder.php' => array(
 					'slug' => 'bb-plugin',
@@ -369,15 +368,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				),
 			);
 
-		    if( isset( $plugins[ $lite_version ] ) ) {
+			if ( isset( $plugins[ $lite_version ] ) ) {
 
-		    	// Pro plugin directory exist?
-		    	if( file_exists( WP_PLUGIN_DIR . '/' . $plugins[ $lite_version ]['init'] ) ) {
-	    			return $plugins[ $lite_version ];
-		    	}
-	    	}
+				// Pro plugin directory exist?
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugins[ $lite_version ]['init'] ) ) {
+					return $plugins[ $lite_version ];
+				}
+			}
 
-		    return false;
+			return false;
 		}
 
 		/**
