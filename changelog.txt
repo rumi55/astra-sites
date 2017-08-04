@@ -1,9 +1,9 @@
-v1.0.1 - unreleased
+v1.0.1 - 04-Aug-2017
 # New: Added Elementor plugin options support.
 # New: Added Customizer CSS support.
-# Fix: Siteorigin plugin widget activation issues.
 # Enhancement: Avoided Lite Plugin version if Pro version is Installed. Now added support for Beaver Builder Plugin (Lite Version).
 # Enhancement: Astra sites API call validated before import.
+# Fix: Siteorigin plugin widget not activating and working.
 
 v1.0.0
 # Initial release
