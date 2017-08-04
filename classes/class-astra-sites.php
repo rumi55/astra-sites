@@ -65,6 +65,16 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
+			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+		}
+
+		/**
+		 * Loads textdomain for the plugin.
+		 *
+		 * @since 1.0.1
+		 */
+		function load_textdomain() {
+			load_plugin_textdomain( 'astra-sites' );
 		}
 
 		/**
