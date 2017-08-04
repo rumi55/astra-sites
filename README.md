@@ -1,10 +1,10 @@
 # Astra Sites #
 **Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://wpastra.com/pro/  
-**Tags:** demo  
+**Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.0  
+**Stable tag:** 1.0.1  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -22,5 +22,14 @@ Import Astra sites with just one click.
 
 ## Changelog ##
 
-### 1.0 ###
-* Initial Release
+v1.0.1 - 04-Aug-2017
+# New: Added Elementor plugin options support.
+# New: Added Customizer CSS support.
+# Enhancement: Avoided Lite Plugin version if Pro version is Installed. Now added support for Beaver Builder Plugin (Lite Version).
+# Enhancement: Astra sites API call validated before import.
+# Enhancement: Site logo imported from Astra sites.
+# Fix: Bug where widgets created with SiteOrigin plugin were not being imported.
+
+v1.0.0
+# Initial release
+
