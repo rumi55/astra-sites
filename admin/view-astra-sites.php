@@ -180,4 +180,4 @@ do_action( 'astra_sites_before_site_grid' );
 
 	<?php
 
-do_action( 'astra_sites_after_site_grid' );
+	do_action( 'astra_sites_after_site_grid' );
