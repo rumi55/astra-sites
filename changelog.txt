@@ -1,3 +1,6 @@
+v1.0.2 unreleased
+# Enhancement: Listing Astra sites though AJAX API call.
+
 v1.0.1
 # Added: Elementor plugin options support.
 # Added: Customizer CSS support.
