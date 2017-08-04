@@ -128,7 +128,7 @@ function bulkPluginInstallActivate() {
 jQuery(document).on('wp-plugin-installing', function (event, args) {
 	event.preventDefault();
 
-	var $card    = jQuery( '.plugin-card-' + args.slug );
+	var $card = jQuery( '.plugin-card-' + args.slug );
 
 	// Remove icon.
 	$card.find('.dashicons').remove();
@@ -210,9 +210,8 @@ function activateAllPlugins() {
 			var $card    	 = jQuery( '.plugin-card-' + single_plugin.slug ),
 				$siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
 
-			$card
-				.find('.dashicons').remove()
-				.append('<span class="spinner is-active"></span>');
+			$card.append('<span class="spinner is-active"></span>');
+			$card.find('.dashicons').remove();
 
 			AstraSitesAjaxQueue.add({
 				url: astraDemo.ajaxurl,
@@ -226,14 +225,13 @@ function activateAllPlugins() {
 
 					if( result.success ) {
 
-						$card
-							.find('.spinner').remove()
-							.append('<span class="dashicons-yes dashicons"></span>');
+						$card.append('<span class="dashicons-yes dashicons"></span>');
+						$card.find('.spinner').remove();
 
 						var pluginsList = astraDemo.requiredPlugins.inactive;
 
 						// Reset Plugin Queue.
-						astraDemo.requiredPlugins.inactive = removePluginFromList( single_plugin.slug, pluginsList );
+						astraDemo.requiredPlugins.inactive = removePluginFromQueue( single_plugin.slug, pluginsList );
 
 						// Enable Demo Import Button
 						astraDemo.requiredPluginsCount--;
@@ -405,52 +403,14 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 });
 
 /**
- * Click handler for plugin installs in plugin install view.
- *
- * @since 4.6.0
- *
- * @param {Event} event Event interface.
- */
-jQuery(document).on('click', '.install-now', function (event) {
-	event.preventDefault();
-
-	var $button 	= jQuery( event.target ),
-		$document   = jQuery(document);
-
-	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
-		return;
-	}
-
-	if ( wp.updates.shouldRequestFilesystemCredentials && ! wp.updates.ajaxLocked ) {
-		wp.updates.requestFilesystemCredentials( event );
-
-		$document.on( 'credential-modal-cancel', function() {
-			var $message = $( '.install-now.updating-message' );
-
-			$message
-				.removeClass( 'updating-message' )
-				.text( wp.updates.l10n.installNow );
-
-			wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
-		} );
-	}
-
-	wp.updates.installPlugin( {
-		slug: $button.data( 'slug' )
-	} );
-
-} );
-
-/**
  * Plugin Installation Error.
  */
 jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
 
 	var $card = jQuery( '.plugin-card-' + response.slug );
 
-	$card
-		.find('.spinner').remove()
-		.find('.title').after('<span class="dashicons-no dashicons"></span>');
+	$card.find('.spinner').remove();
+	$card.find('.title').after('<span class="dashicons-no dashicons"></span>');
 
 });
 
