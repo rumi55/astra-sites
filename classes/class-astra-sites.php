@@ -353,20 +353,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		}
 
 		/**
-		 * Get the list of demos.
-		 *
-		 * @since  1.0.0
-		 * @see  admin/view-astra-sites.php
-		 * @return (Array) Demos.
-		 */
-		public static function get_astra_all_demos() {
-			$args     = new stdClass();
-			$args->id = 'all';
-
-			return self::get_astra_demos( $args );
-		}
-
-		/**
 		 * Import the demo.
 		 *
 		 * @since  1.0.0

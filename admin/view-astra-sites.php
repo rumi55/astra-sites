@@ -11,12 +11,7 @@ defined( 'ABSPATH' ) or exit;
 wp_enqueue_script( 'astra-sites-admin' );
 wp_enqueue_style( 'astra-sites-admin' );
 
-// Load demo importer markup.
-$all_demos = Astra_Sites::get_astra_all_demos();
-
-do_action( 'astra_sites_before_site_grid', $all_demos );
-
-if ( count( $all_demos ) > 0 ) {
+do_action( 'astra_sites_before_site_grid' );
 
 	/**
 	 * Initial Demo List
@@ -53,45 +48,7 @@ if ( count( $all_demos ) > 0 ) {
 		<span class="spinner"></span>
 
 		<div class="theme-browser rendered">
-			<div class="themes wp-clearfix">
-
-				<?php foreach ( $all_demos as $key => $demo ) { ?>
-
-					<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
-						data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
-						data-demo-type="<?php echo esc_attr( $demo['astra_demo_type'] ); ?>"
-						data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
-						data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
-						data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
-						data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
-						data-demo-slug="<?php echo esc_attr( $demo['slug'] ); ?>"
-						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
-						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
-						<input type="hidden" class="astra-site-options" value="<?php echo esc_attr( $demo['astra_site_options'] ); ?>" >
-
-						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
-							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ); ?>"><?php echo esc_attr( $demo['astra_demo_type'] ); ?></span>
-						<?php } ?>
-
-						<div class="theme-screenshot">
-							<?php if ( ! empty( $demo['featured_image_url'] ) ) { ?>
-								<img src="<?php echo esc_attr( $demo['featured_image_url'] ); ?>" alt="">
-							<?php } ?>
-						</div>
-
-						<a href="<?php echo esc_url( $demo['astra_demo_url'] ); ?>" target="_blank">
-							<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?></span>
-						</a>
-
-						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ); ?></h3>
-						<div class="theme-actions">
-							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
-						</div>
-					</div>
-
-				<?php } ?>
-
-			</div>
+			<div class="themes wp-clearfix"></div>
 		</div>
 
 	</div>
@@ -204,11 +161,7 @@ if ( count( $all_demos ) > 0 ) {
 		</div>
 	</script>
 
-	<?php
-
-	// Load demo importer welcome.
-} else {
-	?>
+	<script type="text/template" id="tmpl-astra-no-demos">
 		<div class="no-themes">
 			<?php
 
@@ -222,10 +175,9 @@ if ( count( $all_demos ) > 0 ) {
 			/* translators: %1$s is a support link */
 			printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
 			?>
+		</div>
+	</script>
 
-					</div>
-	</p>
 	<?php
-}// End if().
 
-do_action( 'astra_sites_after_site_grid', $all_demos );
+do_action( 'astra_sites_after_site_grid' );
