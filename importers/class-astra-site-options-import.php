@@ -147,11 +147,11 @@ class Astra_Site_Options_Import {
 	 * Update Bulk Options.
 	 *
 	 * @since 1.0.2
-	 * @param  array  $options Option array with values.
+	 * @param  array $options Option array with values.
 	 * @return void
 	 */
 	function update_options( $options = array() ) {
-		if( is_array( $options ) ) {
+		if ( is_array( $options ) ) {
 			foreach ( $options as $key => $value ) {
 				update_option( $key, $value );
 			}
