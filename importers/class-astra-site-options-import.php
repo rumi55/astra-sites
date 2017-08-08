@@ -38,7 +38,46 @@ class Astra_Site_Options_Import {
 	}
 
 	/**
+	 * Site Options
+	 *
+	 * @since 1.0.2
+	 *
+	 * @return array 	List of defined array.
+	 */
+	private static function site_options() {
+		return array(
+			'custom_logo',
+			'nav_menu_locations',
+			'show_on_front',
+			'page_on_front',
+			'page_for_posts',
+
+			// Plugin Name: SiteOrigin Widgets Bundle
+			'siteorigin_widgets_active',
+
+			// Plugin Name: Elementor
+			'elementor_container_width',
+			'elementor_cpt_support',
+			'elementor_css_print_method',
+			'elementor_default_generic_fonts',
+			'elementor_disable_color_schemes',
+			'elementor_disable_typography_schemes',
+			'elementor_editor_break_lines',
+			'elementor_exclude_user_roles',
+			'elementor_global_image_lightbox',
+			'elementor_page_title_selector',
+			'elementor_scheme_color',
+			'elementor_scheme_color-picker',
+			'elementor_scheme_typography',
+			'elementor_space_between_widgets',
+			'elementor_stretched_section_container',
+		);
+	}
+
+	/**
 	 * Import site options.
+	 *
+	 * @since  1.0.2	Updated option if exist in defined option array 'site_options()'.
 	 *
 	 * @since  1.0.0
 	 *
@@ -46,40 +85,52 @@ class Astra_Site_Options_Import {
 	 */
 	public function import_options( $options ) {
 
-		// Show on Front.
-		if ( isset( $options['show_on_front'] ) ) {
-			update_option( 'show_on_front', $options['show_on_front'] );
-		}
+		foreach ( $options as $option_name => $option_value ) {
 
-		// Page on Front.
-		if ( isset( $options['page_on_front'] ) ) {
-			$page_on_front = get_page_by_title( $options['page_on_front'] );
-			if ( is_object( $page_on_front ) ) {
-				update_option( 'page_on_front', $page_on_front->ID );
+			// Is option exist in defined array site_options()?
+			if( in_array( $option_name, self::site_options() ) ) {
+
+				switch ( $option_name ) {
+
+					// page on front.
+					// page on front.
+					case 'page_for_posts':
+					case 'page_on_front':
+							$this->update_page_id_by_option_value( $option_name, $option_value );
+						break;
+
+					// nav menu locations.
+					case 'nav_menu_locations':
+							$this->set_nav_menu_locations( $option_value );
+						break;
+
+					// insert logo.
+					case 'custom_logo':
+							$this->insert_logo( $option_value );
+						break;
+
+					default:
+							update_option( $option_name, $option_value );
+						break;
+				}
 			}
 		}
 
-		// Page for Posts.
-		if ( isset( $options['page_for_posts'] ) ) {
-			$page_for_posts = get_page_by_title( $options['page_for_posts'] );
-			if ( is_object( $page_for_posts ) ) {
-				update_option( 'page_for_posts', $page_for_posts->ID );
-			}
-		}
+	}
 
-		// Nav Menu Locations.
-		if ( isset( $options['nav_menu_locations'] ) ) {
-			$this->set_nav_menu_locations( $options['nav_menu_locations'] );
-		}
-
-		// Insert Logo.
-		if ( isset( $options['custom_logo'] ) ) {
-			$this->insert_logo( $options['custom_logo'] );
-		}
-
-		// Elementor Options.
-		if ( isset( $options['elementor'] ) ) {
-			$this->update_options( $options['elementor'] );
+	/**
+	 * Update Page ID
+	 *
+	 * @since 1.0.2
+	 *
+	 * @param  string $option_name 	Option name.
+	 * @param  mixed $option_value Option value.
+	 * @return void
+	 */
+	function update_page_id_by_option_value( $option_name, $option_value ) {
+		$page = get_page_by_title( $option_value );
+		if ( is_object( $page ) ) {
+			update_option( $option_name, $page->ID );
 		}
 	}
 
@@ -141,20 +192,5 @@ class Astra_Site_Options_Import {
 			set_theme_mod( 'custom_logo', $attach_id );
 		}
 
-	}
-
-	/**
-	 * Update Bulk Options.
-	 *
-	 * @since 1.0.2
-	 * @param  array $options Option array with values.
-	 * @return void
-	 */
-	function update_options( $options = array() ) {
-		if ( is_array( $options ) ) {
-			foreach ( $options as $key => $value ) {
-				update_option( $key, $value );
-			}
-		}
 	}
 }
