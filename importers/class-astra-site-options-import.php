@@ -78,14 +78,8 @@ class Astra_Site_Options_Import {
 		}
 
 		// Elementor Options.
-		if ( isset( $options['elementor_scheme_color'] ) ) {
-			update_option( 'elementor_scheme_color', $options['elementor_scheme_color'] );
-		}
-		if ( isset( $options['elementor_scheme_color-picker'] ) ) {
-			update_option( 'elementor_scheme_color-picker', $options['elementor_scheme_color-picker'] );
-		}
-		if ( isset( $options['elementor_scheme_typography'] ) ) {
-			update_option( 'elementor_scheme_typography', $options['elementor_scheme_typography'] );
+		if ( isset( $options['elementor'] ) ) {
+			$this->update_options( $options['elementor'] );
 		}
 	}
 
@@ -147,5 +141,20 @@ class Astra_Site_Options_Import {
 			set_theme_mod( 'custom_logo', $attach_id );
 		}
 
+	}
+
+	/**
+	 * Update Bulk Options.
+	 *
+	 * @since 1.0.2
+	 * @param  array  $options Option array with values.
+	 * @return void
+	 */
+	function update_options( $options = array() ) {
+		if( is_array( $options ) ) {
+			foreach ( $options as $key => $value ) {
+				update_option( $key, $value );
+			}
+		}
 	}
 }
