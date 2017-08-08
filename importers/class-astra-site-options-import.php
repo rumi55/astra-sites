@@ -42,7 +42,7 @@ class Astra_Site_Options_Import {
 	 *
 	 * @since 1.0.2
 	 *
-	 * @return array 	List of defined array.
+	 * @return array    List of defined array.
 	 */
 	private static function site_options() {
 		return array(
@@ -52,10 +52,10 @@ class Astra_Site_Options_Import {
 			'page_on_front',
 			'page_for_posts',
 
-			// Plugin Name: SiteOrigin Widgets Bundle
+			// Plugin Name: SiteOrigin Widgets Bundle.
 			'siteorigin_widgets_active',
 
-			// Plugin Name: Elementor
+			// Plugin Name: Elementor.
 			'elementor_container_width',
 			'elementor_cpt_support',
 			'elementor_css_print_method',
@@ -77,7 +77,7 @@ class Astra_Site_Options_Import {
 	/**
 	 * Import site options.
 	 *
-	 * @since  1.0.2	Updated option if exist in defined option array 'site_options()'.
+	 * @since  1.0.2    Updated option if exist in defined option array 'site_options()'.
 	 *
 	 * @since  1.0.0
 	 *
@@ -88,7 +88,7 @@ class Astra_Site_Options_Import {
 		foreach ( $options as $option_name => $option_value ) {
 
 			// Is option exist in defined array site_options()?
-			if( in_array( $option_name, self::site_options() ) ) {
+			if ( in_array( $option_name, self::site_options() ) ) {
 
 				switch ( $option_name ) {
 
@@ -123,8 +123,8 @@ class Astra_Site_Options_Import {
 	 *
 	 * @since 1.0.2
 	 *
-	 * @param  string $option_name 	Option name.
-	 * @param  mixed $option_value Option value.
+	 * @param  string $option_name  Option name.
+	 * @param  mixed  $option_value Option value.
 	 * @return void
 	 */
 	function update_page_id_by_option_value( $option_name, $option_value ) {
