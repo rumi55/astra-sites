@@ -204,6 +204,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 					'requiredPluginsCount' => 0,
 					'strings'              => array(
+						'importFailed'  => __( 'Please try again.', 'astra-sites' ),
 						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'     => __( 'Active', 'astra-sites' ),
@@ -403,7 +404,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 			$this->import_demo( $demo_api_uri );
 
-			wp_die();
+			wp_send_json_success( 'success' );
 		}
 
 		/**

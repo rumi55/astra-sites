@@ -723,14 +723,21 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	})
 	.done(function ( demos ) {
 
-		jQuery('.astra-demo-import').removeClass('updating-message installing')
-			.removeAttr('data-import')
-			.addClass('view-site')
-			.removeClass('astra-demo-import')
-			.text( astraDemo.strings.viewSite )
-			.attr('target', '_blank')
-			.append('<i class="dashicons dashicons-external"></i>')
-			.attr('href', astraDemo.siteURL );
+		if( demos.success ) {
+			jQuery('.astra-demo-import').removeClass('updating-message installing')
+				.removeAttr('data-import')
+				.addClass('view-site')
+				.removeClass('astra-demo-import')
+				.text( astraDemo.strings.viewSite )
+				.attr('target', '_blank')
+				.append('<i class="dashicons dashicons-external"></i>')
+				.attr('href', astraDemo.siteURL );
+		} else {
+			jQuery('.astra-demo-import')
+				.removeClass('updating-message installing')
+				.text( astraDemo.strings.importFailed );
+		}
+
 	})
 	.fail(function ( demos ) {
 		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
