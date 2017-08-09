@@ -1,6 +1,44 @@
 jQuery(document).ready(function ($) {
 	resetPagedCount();
+
+	initial_load_demos();
 });
+
+function initial_load_demos() {
+
+	jQuery('body').addClass('loading-content');
+
+	jQuery.ajax({
+		url: astraDemo.ajaxurl,
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			action   : 'astra-list-sites',
+			category : 'all',
+			id       : 'all',
+			paged    : '1',
+		},
+	})
+	.done(function (demos) {
+		jQuery('body').removeClass('loading-content');
+
+		// Has sites?
+		if( demos.length ) {
+			renderDemoGrid( demos );
+
+		// Something is wrong in API request.
+		} else {
+			var template = wp.template('astra-no-demos');
+
+			jQuery('.themes').append( template );
+		}
+	})
+	.fail(function () {
+		jQuery('body').removeClass('loading-content');
+		jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
+	});
+}
+
 
 /**
  * Enable Demo Import Button.
@@ -536,7 +574,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		})
 		.fail(function () {
 			jQuery('body').removeClass('loading-content');
-			jQuery('.spinner').after('<p class="no-themes" style="display:block;">There was a problem receiving a response from server.</p>');
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
 		});
 
 });
