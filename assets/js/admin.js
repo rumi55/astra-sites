@@ -162,7 +162,7 @@ jQuery(document).on('click', '.next-theme', function (event) {
 	event.preventDefault();
 	currentDemo = jQuery('.theme-preview-on')
 	currentDemo.removeClass('theme-preview-on');
-	nextDemo = currentDemo.nextAll('.theme');
+	nextDemo = currentDemo.next('.theme');
 	nextDemo.addClass('theme-preview-on');
 
 	renderDemoPreview( nextDemo );
@@ -174,7 +174,7 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 
 	currentDemo = jQuery('.theme-preview-on');
 	currentDemo.removeClass('theme-preview-on');
-	prevDemo = currentDemo.prevAll('.theme');
+	prevDemo = currentDemo.prev('.theme');
 	prevDemo.addClass('theme-preview-on');
 
 	renderDemoPreview(prevDemo);
