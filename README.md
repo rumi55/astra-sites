@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import
 **Requires at least:** 4.4
 **Tested up to:** 4.8.1
-**Stable tag:** 1.0.1
+**Stable tag:** 1.0.2
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,10 @@ Use this imported site as a base for your project and don't waste time starting 
 1. Use the Appearance->Astra-> Astra Sites to select the page to be displayed as header and footer.
 
 ## Changelog ##
+
+v1.0.2 - 09-Aug-2017
+# Fix: Listing appropriate next and previous Astra sites.
+# Enhancement: Listing Astra sites though AJAX API call.
 
 v1.0.1 - 04-Aug-2017
 * New: Added Elementor plugin options support.
