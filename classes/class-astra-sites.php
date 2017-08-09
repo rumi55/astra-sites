@@ -65,6 +65,16 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
+			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+		}
+
+		/**
+		 * Loads textdomain for the plugin.
+		 *
+		 * @since 1.0.1
+		 */
+		function load_textdomain() {
+			load_plugin_textdomain( 'astra-sites' );
 		}
 
 		/**
@@ -296,23 +306,88 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( count( $required_plugins ) > 0 ) {
 				foreach ( $required_plugins as $key => $plugin ) {
 
-					// Inactive plugins.
-					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
-						$response['inactive'][] = $plugin;
+					/**
+					 * Has Pro Version Support?
+					  * And
+					  * Is Pro Version Installed?
+					 */
+					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
+					if ( $plugin_pro ) {
 
-						// Not Installed plugins.
-					} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
-						$response['notinstalled'][] = $plugin;
+						// Pro - Active.
+						if ( is_plugin_active( $plugin_pro['init'] ) ) {
+							$response['active'][] = $plugin_pro;
 
-						// Active plugins.
+							// Pro - Inactive.
+						} else {
+							$response['inactive'][] = $plugin_pro;
+						}
 					} else {
-						$response['active'][] = $plugin;
+
+						// Lite - Installed but Inactive.
+						if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+
+							$response['inactive'][] = $plugin;
+
+							// Lite - Not Installed.
+						} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
+
+							$response['notinstalled'][] = $plugin;
+
+							// Lite - Active.
+						} else {
+							$response['active'][] = $plugin;
+						}
 					}
 				}
 			}
 
 			// Send response.
 			wp_send_json_success( $response );
+		}
+
+		/**
+		 * Has Pro Version Support?
+		 * And
+		 * Is Pro Version Installed?
+		 *
+		 * Check Pro plugin version exist of requested plugin lite version.
+		 *
+		 * Eg. If plugin 'BB Lite Version' required to import demo. Then we check the 'BB Agency Version' is exist?
+		 * If yes then we only 'Activate' Agency Version. [We couldn't install agency version.]
+		 * Else we 'Activate' or 'Install' Lite Version.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param  string $lite_version Lite version init file.
+		 * @return mixed               Return false if not installed or not supported by us
+		 *                                    else return 'Pro' version details.
+		 */
+		public static function pro_plugin_exist( $lite_version = '' ) {
+
+			// Lite init => Pro init.
+			$plugins = array(
+				'beaver-builder-lite-version/fl-builder.php' => array(
+					'slug' => 'bb-plugin',
+					'init' => 'bb-plugin/fl-builder.php',
+					'name' => 'Beaver Builder Plugin (Agency Version)',
+				),
+				'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
+					'slug' => 'bb-ultimate-addon',
+					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
+					'name' => 'Ultimate Addon for Beaver Builder',
+				),
+			);
+
+			if ( isset( $plugins[ $lite_version ] ) ) {
+
+				// Pro plugin directory exist?
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugins[ $lite_version ]['init'] ) ) {
+					return $plugins[ $lite_version ];
+				}
+			}
+
+			return false;
 		}
 
 		/**
@@ -351,20 +426,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$paged          = isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
 
 			return wp_send_json( self::get_astra_demos( $args, $paged ) );
-		}
-
-		/**
-		 * Get the list of demos.
-		 *
-		 * @since  1.0.0
-		 * @see  admin/view-astra-sites.php
-		 * @return (Array) Demos.
-		 */
-		public static function get_astra_all_demos() {
-			$args     = new stdClass();
-			$args->id = 'all';
-
-			return self::get_astra_demos( $args );
 		}
 
 		/**
@@ -639,4 +700,3 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 	Astra_Sites::set_instance();
 
 endif;
-

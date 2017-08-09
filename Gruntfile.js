@@ -13,7 +13,16 @@ module.exports = function( grunt ) {
 			},
 			target: {
 				files: {
-					src: [ '*.php', '**/*.php', '!node_modules/**', '!php-tests/**', '!bin/**' ]
+					src: [
+						'*.php',
+						'**/*.php',
+						'!node_modules/**',
+						'!php-tests/**',
+						'!bin/**',
+						'!importers/class-widgets-importer.php',
+						'!importers/wxr-importer/class-logger.php',
+						'!importers/wxr-importer/class-wxr-importer.php'
+					]
 				}
 			}
 		},
