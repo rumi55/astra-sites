@@ -23,8 +23,8 @@ Import Astra sites with just one click.
 == Changelog ==
 
 v1.0.2 - 09-Aug-2017
-# Fix: Listing appropriate next and previous Astra sites.
-# Enhancement: Listing Astra sites though AJAX API call.
+* Fix: Listing appropriate next and previous Astra sites.
+* Enhancement: Listing Astra sites though AJAX API call.
 
 v1.0.1 - 04-Aug-2017
 * New: Added Elementor plugin options support.
