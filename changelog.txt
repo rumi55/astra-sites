@@ -1,5 +1,5 @@
-v1.0.2 unreleased
-# Fix: Invalid site listing while click on Next & Previous links.
+v1.0.2 - 09-Aug-2017
+# Fix: Listing appropriate next and previous Astra sites.
 # Enhancement: Listing Astra sites though AJAX API call.
 
 v1.0.1

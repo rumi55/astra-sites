@@ -204,15 +204,18 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 					'requiredPluginsCount' => 0,
 					'strings'              => array(
-						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
-						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
-						'btnActive'     => __( 'Active', 'astra-sites' ),
-						'importDemo'    => __( 'Import This Site', 'astra-sites' ),
-						'DescExpand'    => __( 'Read more', 'astra-sites' ) . '&hellip;',
-						'DescCollapse'  => __( 'Hide', 'astra-sites' ),
-						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
-						'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-sites' ),
-						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
+						'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
+						'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
+						'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
+						'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
+						'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
+						'btnActive'            => __( 'Active', 'astra-sites' ),
+						'importDemo'           => __( 'Import This Site', 'astra-sites' ),
+						'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
+						'DescCollapse'         => __( 'Hide', 'astra-sites' ),
+						'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
+						'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
+						'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
 					),
 				)
 			);
@@ -403,7 +406,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 			$this->import_demo( $demo_api_uri );
 
-			wp_die();
+			wp_send_json_success( 'success' );
 		}
 
 		/**
