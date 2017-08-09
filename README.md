@@ -1,26 +1,18 @@
 # Astra Sites #
-**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)
-**Donate link:** https://wpastra.com/pro/
-**Tags:** demo, theme demos, one click import
-**Requires at least:** 4.4
-**Tested up to:** 4.8.1
-**Stable tag:** 1.0.2
-**License:** GPLv2 or later
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html
+**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
+**Donate link:** https://wpastra.com/pro/  
+**Tags:** demo, theme demos, one click import  
+**Requires at least:** 4.4  
+**Tested up to:** 4.8.1  
+**Stable tag:** 1.0.2  
+**License:** GPLv2 or later  
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
 Import Astra sites with just one click.
 
 ## Description ##
 
-This plugin is an add-on for the Astra WordPress Theme. It offers a library of ready sites that can be imported for your website easily. Here is how it works:
-
-1. Browse through the library of ready sites right from your WordPress backend.
-2. Pick a site you like.
-3. Install required plugins in one click
-4. Import the site data.
-5. Done!
-
-Use this imported site as a base for your project and don't waste time starting from scratch.
+Import Astra sites with just one click.
 
 ## Installation ##
 
@@ -31,8 +23,8 @@ Use this imported site as a base for your project and don't waste time starting 
 ## Changelog ##
 
 v1.0.2 - 09-Aug-2017
-# Fix: Listing appropriate next and previous Astra sites.
-# Enhancement: Listing Astra sites though AJAX API call.
+* Fix: Listing appropriate next and previous Astra sites.
+* Enhancement: Listing Astra sites though AJAX API call.
 
 v1.0.1 - 04-Aug-2017
 * New: Added Elementor plugin options support.
