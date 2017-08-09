@@ -1,5 +1,5 @@
 v1.0.2 unreleased
-# Fix: Fix: Invalid site showing while click on Next & Previous links.
+# Fix: Invalid site listing while click on Next & Previous links.
 # Enhancement: Listing Astra sites though AJAX API call.
 
 v1.0.1
