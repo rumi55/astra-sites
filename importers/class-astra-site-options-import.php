@@ -115,7 +115,6 @@ class Astra_Site_Options_Import {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -127,7 +126,7 @@ class Astra_Site_Options_Import {
 	 * @param  mixed  $option_value Option value.
 	 * @return void
 	 */
-	function update_page_id_by_option_value( $option_name, $option_value ) {
+	private function update_page_id_by_option_value( $option_name, $option_value ) {
 		$page = get_page_by_title( $option_value );
 		if ( is_object( $page ) ) {
 			update_option( $option_name, $page->ID );
@@ -142,7 +141,7 @@ class Astra_Site_Options_Import {
 	 * @since 1.0.0
 	 * @param array $nav_menu_locations Array of nav menu locations.
 	 */
-	function set_nav_menu_locations( $nav_menu_locations = array() ) {
+	private function set_nav_menu_locations( $nav_menu_locations = array() ) {
 
 		$menu_locations = array();
 
@@ -170,7 +169,7 @@ class Astra_Site_Options_Import {
 	 * @param  string $image_url Logo URL.
 	 * @return void
 	 */
-	function insert_logo( $image_url = '' ) {
+	private function insert_logo( $image_url = '' ) {
 
 		// Download Site Logo Image.
 		$response = Astra_Sites_Helper::download_file( $image_url );
