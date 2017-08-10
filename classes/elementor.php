@@ -1,5 +1,5 @@
 <?php
-namespace Elementor;
+
 
 /**
  * MY CLASS NAME
@@ -48,6 +48,7 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 			// add_action( 'shutdown', array( $this, 'close' ) );
 			// add_action( 'admin_init', array( $this, 'get_attachments' ) );
 			add_action( 'admin_notices', array( $this, 'test' ) );
+			// add_action( 'wp_head', array( $this, 'test' ) );
 		}
 		function close() {
 		}
@@ -55,9 +56,54 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 			// vl( get_post_meta( get_the_id() ) );
 			// vl( get_post_meta( get_the_id(), '_elementor_data' ) );
 			// vl( get_post_meta( get_the_id(), '_elementor_page_settings', true ) );
+			// $data = array();
 			$data = get_post_meta( get_the_id(), '_elementor_data', true );
-			$data = json_decode( $data );
+			$data = json_decode( $data, true );
 			vl( $data );
+
+			wp_die();
+
+			if ( is_wp_error( $data ) ) {
+				return $data;
+			}
+
+			// TODO: since 1.5.0 to content container named `content` instead of `data`.
+			// if ( ! empty( $data['data'] ) ) {
+			// 	$data['content'] = $data['data'];
+			// 	unset( $data['data'] );
+			// }
+
+			$source_base = new Elementor\TemplateLibrary\Source_Remote();
+
+			$data[0]['settings'] = $source_base->replace_elements_ids( $data[0]['settings'] );
+
+			vl( $data[0]['settings'] );
+
+			die();
+
+
+			$data['content'] = $source_base->process_export_import_content( $data['content'], 'on_import' );
+			// vl( $data['content'] );
+
+			// if ( ! empty( $args['page_settings'] ) && ! empty( $data['page_settings'] ) ) {
+			// 	$page = new Page( [
+			// 		'settings' => $data['page_settings'],
+			// 	] );
+
+			// 	$page_settings_data = $source_base->process_element_export_import_content( $page, 'on_import' );
+			// 	$data['page_settings'] = $page_settings_data['settings'];
+			// }
+
+// vl( json_decode( get_post_meta( get_the_id(), '_elementor_data', true ), 1) );
+// vl( json_decode( get_post_meta( get_the_id(), '_elementor_data', true ), 1 ) );
+
+// vl( $data );
+
+
+			$json_value = wp_slash( wp_json_encode( $data ) );
+			vl( $json_value );
+			// vl( get_post_meta( get_the_id(), '_elementor_data', true ) );
+			// $is_meta_updated = update_metadata( 'post', get_the_id(), '_elementor_data', $json_value );
 		}
 
 		public function get_attachments() {

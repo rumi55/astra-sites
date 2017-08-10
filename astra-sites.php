@@ -20,8 +20,12 @@ define( 'ASTRA_SITES_BASE', plugin_basename( ASTRA_SITES_FILE ) );
 define( 'ASTRA_SITES_DIR',  plugin_dir_path( ASTRA_SITES_FILE ) );
 define( 'ASTRA_SITES_URI',  plugins_url( '/', ASTRA_SITES_FILE ) );
 
-require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
-require_once ASTRA_SITES_DIR . 'classes/elementor.php';
+
+
+add_action( 'plugins_loaded', function() {
+	require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
+	require_once ASTRA_SITES_DIR . 'classes/elementor.php';
+} );
 
 // add_action( 'admin_init', function() {
 
