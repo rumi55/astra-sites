@@ -22,6 +22,17 @@ This plugin is an add-on for the Astra WordPress Theme. It offers a library of r
 
 Use this imported site as a base for your project and don't waste time starting from scratch.
 
+Some of the currently available sites for import:
+
+https://sites.wpastra.com/gardener-free/
+https://sites.wpastra.com/hotel-free/
+https://sites.wpastra.com/agency-free/
+https://sites.wpastra.com/restaurant-free/
+https://sites.wpastra.com/construction-free/
+https://sites.wpastra.com/makeup-artist-free/
+https://sites.wpastra.com/electrician-free
+https://sites.wpastra.com/law-free/
+
 ## Installation ##
 
 1. Upload the plugin files to the `/wp-content/plugins/astra-sites` directory, or install the plugin through the WordPress plugins screen directly.
