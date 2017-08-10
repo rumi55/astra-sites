@@ -54,14 +54,14 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 		}
 		public function test() {
 			// vl( get_post_meta( get_the_id() ) );
+			// wp_die();
 			// vl( get_post_meta( get_the_id(), '_elementor_data' ) );
 			// vl( get_post_meta( get_the_id(), '_elementor_page_settings', true ) );
 			// $data = array();
 			$data = get_post_meta( get_the_id(), '_elementor_data', true );
-			$data = json_decode( $data, true );
 			vl( $data );
+			$data = json_decode( $data, true );
 
-			wp_die();
 
 			if ( is_wp_error( $data ) ) {
 				return $data;
@@ -75,14 +75,14 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 
 			$source_base = new Elementor\TemplateLibrary\Source_Remote();
 
-			$data[0]['settings'] = $source_base->replace_elements_ids( $data[0]['settings'] );
+			$data = $source_base->replace_elements_ids( $data );
+			$data = $source_base->process_export_import_content( $data, 'on_import' );
 
-			vl( $data[0]['settings'] );
+			// $data = wp_slash( wp_json_encode( $data ) );
+			// vl( $data );
+			// wp_die();
 
-			die();
 
-
-			$data['content'] = $source_base->process_export_import_content( $data['content'], 'on_import' );
 			// vl( $data['content'] );
 
 			// if ( ! empty( $args['page_settings'] ) && ! empty( $data['page_settings'] ) ) {
@@ -101,7 +101,13 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 
 
 			$json_value = wp_slash( wp_json_encode( $data ) );
-			vl( $json_value );
+			// vl( $json_value );
+
+			// CHECK IS JSON_DECODE?
+			// $data = json_decode( $data, true );
+			// vl( $data );
+
+			// update_post_meta( get_the_id(), '_elementor_data', $data );
 			// vl( get_post_meta( get_the_id(), '_elementor_data', true ) );
 			// $is_meta_updated = update_metadata( 'post', get_the_id(), '_elementor_data', $json_value );
 		}
