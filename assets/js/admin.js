@@ -732,23 +732,19 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 				.attr('target', '_blank')
 				.append('<i class="dashicons dashicons-external"></i>')
 				.attr('href', astraDemo.siteURL );
-		} else {
-
-			jQuery('.astra-demo-import').removeClass('updating-message installing')
-				.removeAttr('data-import')
-				.addClass('view-site')
-				.removeClass('astra-demo-import')
-				.attr('target', '_blank')
-				.attr('href', astraDemo.strings.importFailedURL );
-
-			jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
-			jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
-
 		}
 
 	})
 	.fail(function ( demos ) {
-		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
+		jQuery('.astra-demo-import').removeClass('updating-message installing')
+			.removeAttr('data-import')
+			.addClass('view-site')
+			.removeClass('astra-demo-import')
+			.attr('target', '_blank')
+			.attr('href', astraDemo.strings.importFailedURL );
+
+		jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
+		jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
 	});
 
 });
