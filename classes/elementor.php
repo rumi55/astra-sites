@@ -44,7 +44,20 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 		 * @since 1.0.0
 		 */
 		public function __construct() {
-			add_action( 'admin_init', array( $this, 'get_attachments' ) );
+
+			// add_action( 'shutdown', array( $this, 'close' ) );
+			// add_action( 'admin_init', array( $this, 'get_attachments' ) );
+			add_action( 'admin_notices', array( $this, 'test' ) );
+		}
+		function close() {
+		}
+		public function test() {
+			// vl( get_post_meta( get_the_id() ) );
+			// vl( get_post_meta( get_the_id(), '_elementor_data' ) );
+			// vl( get_post_meta( get_the_id(), '_elementor_page_settings', true ) );
+			$data = get_post_meta( get_the_id(), '_elementor_data', true );
+			$data = json_decode( $data );
+			vl( $data );
 		}
 
 		public function get_attachments() {
@@ -60,9 +73,9 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 					'url'  => $attachment->guid,
 				);
 				$settings = Plugin::$instance->templates_manager->get_import_images_instance()->import( $settings );
-				// vl( $settings );
+				vl( $settings );
 			}
-			// wp_die( );
+			wp_die( );
 		}
 
 
@@ -71,7 +84,7 @@ if( ! class_exists( 'TestMeElemenotr' ) ) :
 	/**
 	 * Kicking this off by calling 'set_instance()' method
 	 */
-	// TestMeElemenotr::set_instance();
+	TestMeElemenotr::set_instance();
 
 endif;
 
