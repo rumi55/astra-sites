@@ -4,7 +4,7 @@ Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
-v1.0.3 - unreleased
+v1.0.3 - 11-Aug-2017
 * Fix: Avoided Astra users from site import process.
 
 v1.0.2 - 09-Aug-2017
