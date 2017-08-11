@@ -52,6 +52,7 @@ class Astra_WXR_Importer {
 	/**
 	 * Pre-process user data.
 	 *
+	 * @since 1.0.3
 	 * @param array $data User data. (Return empty to skip.)
 	 * @param array $meta Meta data.
 	 */
