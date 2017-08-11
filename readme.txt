@@ -4,7 +4,7 @@ Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ This plugin is an add-on for the Astra WordPress Theme. It offers a library of r
 1. Browse through the library of ready sites right from your WordPress backend.
 2. Pick a site you like.
 3. Install required plugins in one click
-4. Import the site data. 
+4. Import the site data.
 5. Done!
 
 Use this imported site as a base for your project and don't waste time starting from scratch.
@@ -45,6 +45,9 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 == Changelog ==
+
+v1.0.3 - 11-Aug-2017
+* Fix: Avoided Astra users from site import process.
 
 v1.0.2 - 09-Aug-2017
 * Fix: Listing appropriate next and previous Astra sites.
