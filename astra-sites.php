@@ -3,7 +3,7 @@
  * Plugin Name: Astra Sites
  * Plugin URI: http://www.wpastra.com/pro/
  * Description: Import sites build with Astra theme.
- * Version: 1.0.1
+ * Version: 1.0.3
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
  * Text Domain: astra-sites
@@ -14,7 +14,7 @@
 /**
  * Set constants.
  */
-define( 'ASTRA_SITES_VER',  '1.0.1' );
+define( 'ASTRA_SITES_VER',  '1.0.3' );
 define( 'ASTRA_SITES_FILE', __FILE__ );
 define( 'ASTRA_SITES_BASE', plugin_basename( ASTRA_SITES_FILE ) );
 define( 'ASTRA_SITES_DIR',  plugin_dir_path( ASTRA_SITES_FILE ) );

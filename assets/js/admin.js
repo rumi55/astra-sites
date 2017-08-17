@@ -162,7 +162,7 @@ jQuery(document).on('click', '.next-theme', function (event) {
 	event.preventDefault();
 	currentDemo = jQuery('.theme-preview-on')
 	currentDemo.removeClass('theme-preview-on');
-	nextDemo = currentDemo.nextAll('.theme');
+	nextDemo = currentDemo.next('.theme');
 	nextDemo.addClass('theme-preview-on');
 
 	renderDemoPreview( nextDemo );
@@ -174,7 +174,7 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 
 	currentDemo = jQuery('.theme-preview-on');
 	currentDemo.removeClass('theme-preview-on');
-	prevDemo = currentDemo.prevAll('.theme');
+	prevDemo = currentDemo.prev('.theme');
 	prevDemo.addClass('theme-preview-on');
 
 	renderDemoPreview(prevDemo);
@@ -723,17 +723,28 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	})
 	.done(function ( demos ) {
 
+		if( demos.success ) {
+			jQuery('.astra-demo-import').removeClass('updating-message installing')
+				.removeAttr('data-import')
+				.addClass('view-site')
+				.removeClass('astra-demo-import')
+				.text( astraDemo.strings.viewSite )
+				.attr('target', '_blank')
+				.append('<i class="dashicons dashicons-external"></i>')
+				.attr('href', astraDemo.siteURL );
+		}
+
+	})
+	.fail(function ( demos ) {
 		jQuery('.astra-demo-import').removeClass('updating-message installing')
 			.removeAttr('data-import')
 			.addClass('view-site')
 			.removeClass('astra-demo-import')
-			.text( astraDemo.strings.viewSite )
 			.attr('target', '_blank')
-			.append('<i class="dashicons dashicons-external"></i>')
-			.attr('href', astraDemo.siteURL );
-	})
-	.fail(function ( demos ) {
-		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
+			.attr('href', astraDemo.strings.importFailedURL );
+
+		jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
+		jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
 	});
 
 });

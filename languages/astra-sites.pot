@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Astra Sites package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites 1.0.0\n"
+"Project-Id-Version: Astra Sites 1.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-08-04 10:06:45+00:00\n"
+"POT-Creation-Date: 2017-08-11 06:34:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,76 +28,75 @@ msgstr ""
 msgid "Astra Sites"
 msgstr ""
 
-#: admin/view-astra-sites.php:33
+#: admin/view-astra-sites.php:28
 msgid "All"
 msgstr ""
 
-#: admin/view-astra-sites.php:47
+#: admin/view-astra-sites.php:42
 msgid "Search Sites"
 msgstr ""
 
-#: admin/view-astra-sites.php:48
+#: admin/view-astra-sites.php:43
 msgid "Search Sites..."
 msgstr ""
 
-#: admin/view-astra-sites.php:83 admin/view-astra-sites.php:128
+#: admin/view-astra-sites.php:85
 msgid "Details &amp; Preview"
 msgstr ""
 
-#: admin/view-astra-sites.php:88 admin/view-astra-sites.php:134
-#: admin/view-astra-sites.php:202
+#: admin/view-astra-sites.php:91 admin/view-astra-sites.php:159
 msgid "Preview"
 msgstr ""
 
-#: admin/view-astra-sites.php:160
+#: admin/view-astra-sites.php:117
 msgid "Close"
 msgstr ""
 
-#: admin/view-astra-sites.php:161
+#: admin/view-astra-sites.php:118
 msgid "Previous"
 msgstr ""
 
-#: admin/view-astra-sites.php:162
+#: admin/view-astra-sites.php:119
 msgid "Next"
 msgstr ""
 
-#: admin/view-astra-sites.php:163 admin/view-astra-sites.php:191
+#: admin/view-astra-sites.php:120 admin/view-astra-sites.php:148
 msgid "Install Plugins"
 msgstr ""
 
-#: admin/view-astra-sites.php:179 classes/class-astra-sites.php:201
+#: admin/view-astra-sites.php:136 classes/class-astra-sites.php:214
 msgid "Read more"
 msgstr ""
 
-#: admin/view-astra-sites.php:182
+#: admin/view-astra-sites.php:139
 msgid "Required Plugins"
 msgstr ""
 
-#: admin/view-astra-sites.php:197
+#: admin/view-astra-sites.php:154
 msgid "Collapse"
 msgstr ""
 
-#: admin/view-astra-sites.php:216
+#: admin/view-astra-sites.php:169
 #. translators: %1$s & %2$s are a Demo API URL
 msgid ""
 "<p> It seems the demo data server, <i><a href=\"%1$s\">%2$s</a></i> is "
 "unreachable from your site.</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:218
+#: admin/view-astra-sites.php:171
 msgid ""
 "<p class=\"left-margin\"> 1. Sometimes, simple page reload fixes any "
 "temporary issues. No kidding!</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:220
+#: admin/view-astra-sites.php:173
 msgid ""
 "<p class=\"left-margin\"> 2. If that does not work, you will need to talk "
 "to your server administrator and check if demo server is being blocked by "
 "the firewall!</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:223
+#: admin/view-astra-sites.php:176
 #. translators: %1$s is a support link
 msgid ""
 "<p>If that does not help, please open up a <a href=\"%1$s\" "
@@ -105,50 +104,58 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: classes/class-astra-sites.php:85
+#: classes/class-astra-sites.php:95
 #. translators: 1: theme.php file
 msgid ""
 "Astra Theme needs to be active for you to use currently installed \"Astra "
 "Sites\" plugin. <a href=\"%1$s\">Install & Activate Now</a>"
 msgstr ""
 
-#: classes/class-astra-sites.php:106
+#: classes/class-astra-sites.php:116
 msgid "See Library"
 msgstr ""
 
-#: classes/class-astra-sites.php:192
+#: classes/class-astra-sites.php:202
 msgid "Purchase"
 msgstr ""
 
-#: classes/class-astra-sites.php:197
+#: classes/class-astra-sites.php:207
+msgid "Error!"
+msgstr ""
+
+#: classes/class-astra-sites.php:208
+msgid "Error! Read Possibilities."
+msgstr ""
+
+#: classes/class-astra-sites.php:210
 msgid "Done! View Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:198
+#: classes/class-astra-sites.php:211
 msgid "Activating"
 msgstr ""
 
-#: classes/class-astra-sites.php:199
+#: classes/class-astra-sites.php:212
 msgid "Active"
 msgstr ""
 
-#: classes/class-astra-sites.php:200
+#: classes/class-astra-sites.php:213
 msgid "Import This Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:202
+#: classes/class-astra-sites.php:215
 msgid "Hide"
 msgstr ""
 
-#: classes/class-astra-sites.php:203
+#: classes/class-astra-sites.php:216
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: classes/class-astra-sites.php:204
+#: classes/class-astra-sites.php:217
 msgid "No Demos found, Try a different search."
 msgstr ""
 
-#: classes/class-astra-sites.php:205
+#: classes/class-astra-sites.php:218
 msgid ""
 "Executing Demo Import will make your site similar as ours. Please bear in "
 "mind -\n"
@@ -162,11 +169,11 @@ msgid ""
 "placeholders."
 msgstr ""
 
-#: classes/class-astra-sites.php:241
+#: classes/class-astra-sites.php:254
 msgid "No plugin specified"
 msgstr ""
 
-#: classes/class-astra-sites.php:266
+#: classes/class-astra-sites.php:279
 msgid "Plugin Successfully Activated"
 msgstr ""
 
