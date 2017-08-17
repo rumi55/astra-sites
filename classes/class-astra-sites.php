@@ -230,7 +230,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		private function includes() {
 
 			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-admin.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/class-astra-sites-compatibility.php';
 
 			// Load the Importers.
 			require_once ASTRA_SITES_DIR . 'importers/class-astra-sites-helper.php';
