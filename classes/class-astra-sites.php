@@ -55,6 +55,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			add_action( 'admin_notices',                                    array( $this, 'admin_notices' ) );
 
+
 			self::set_api_url();
 
 			$this->includes();
@@ -66,6 +67,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+			// add_action( 'astra_sites_import_complete', array( $this, 'init' ), 15 );
+		}
+
+		function test() {
+			vl( 'Here' );
+			wp_die();
 		}
 
 		/**
@@ -458,6 +465,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			// Import Widgets data.
 			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
+
+			do_action( 'astra_sites_import_complete' );
 		}
 
 		/**

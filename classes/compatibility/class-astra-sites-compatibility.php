@@ -48,8 +48,9 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		}
 
 		function plugins_loaded() {
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/class-astra-sites-source-remote-helper.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/class-astra-sites-compatibility-elementor.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/elementor.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/helper.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/importer.php';
 		}
 
 	}

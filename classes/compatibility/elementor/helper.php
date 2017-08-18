@@ -1,6 +1,21 @@
 <?php
+
+namespace Elementor;
+
+// If plugin - 'Elementor' not exist then return.
+if ( ! class_exists( '\Elementor\Plugin' ) ) {
+	return;
+}
+
 namespace Elementor\TemplateLibrary;
 
+use Elementor\Core\Settings\Manager as SettingsManager;
+use Elementor\TemplateLibrary\Classes\Import_Images;
+// use Elementor\Plugin;
+
+
+use Elementor\TemplateLibrary;
+use Elementor\TemplateLibrary\Classes;
 use Elementor\Api;
 use Elementor\PageSettings\Page;
 
