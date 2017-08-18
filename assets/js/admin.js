@@ -641,11 +641,13 @@ function renderDemoGrid(demos) {
 		astra_demo_url   = demo.astra_demo_url;
 		astra_demo_type  = demo.astra_demo_type;
 		requiredPlugins  = demo.required_plugins;
+		status  = demo.status;
 		astraSiteOptions = demo.astra_site_options || '';
 
 		templateData = [{
 			id: id,
 			astra_demo_type: astra_demo_type,
+			status: status,
 			astra_demo_url: astra_demo_url,
 			demo_api: demo_api,
 			screenshot: screenshot,
