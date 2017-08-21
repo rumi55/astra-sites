@@ -26,6 +26,15 @@
     display: none;
 }
 
+.astra-theme.draft .status {
+    display: block;
+    text-transform: capitalize;
+    padding: 0.8em 1.5em;
+    position: absolute;
+    background: #0073aa;
+    color: white;
+}
+
 .theme {
     position: relative;
 }
