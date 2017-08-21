@@ -644,7 +644,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						$astra_demos[ $key ]['astra_site_options'] = isset( $demo['astra-site-options-data'] ) ? json_encode( $demo['astra-site-options-data'] ) : '';
 
 						$demo_status                               = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
-						$astra_demos[ $key ]['status']             = ( $demo_status === 'draft' ) ? 'beta' : $demo_status;
+						$astra_demos[ $key ]['status']             = ( 'draft' === $demo_status  ) ? 'beta' : $demo_status;
 					}
 
 					// Free up memory by unsetting variables that are not required.
