@@ -59,7 +59,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 
 		function plugins_loaded() {
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/api-helper.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/api-importer.php';
 		}
 
 	}

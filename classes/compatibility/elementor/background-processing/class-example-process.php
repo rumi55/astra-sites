@@ -49,10 +49,6 @@ if( class_exists( 'WP_Background_Process' ) ) :
 		 */
 		function hotlink_images( $post_id ) {
 
-			// $import = new Astra_Sites_Compatibility_Elementor();
-			// $import->hotlink_images( $post_id );
-
-			// $import = new Astra_Sites_Source_Remote();
 			$import = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
 			$import->hotlink_images( $post_id );
 
