@@ -10,29 +10,28 @@
     padding-top: 66.66666%
 }
 
+.wrap .status,
 .wrap .demo-type {
     position: absolute;
     z-index: 1;
     color: #fff;
     padding: 0.5em 1em;
     top: -0.5em;
-    left: -0.5em;
     text-transform: uppercase;
 }
+.wrap .status,
 .wrap .demo-type.premium {
     background: #0073aa;
 }
-.wrap .demo-type.free {
-    display: none;
+.wrap .status {
+	left: -0.5em;
+}
+.wrap .demo-type.premium {
+	right: -0.5em;
 }
 
-.astra-theme.draft .status {
-    display: block;
-    text-transform: capitalize;
-    padding: 0.8em 1.5em;
-    position: absolute;
-    background: #0073aa;
-    color: white;
+.wrap .demo-type.free {
+    display: none;
 }
 
 .theme {
