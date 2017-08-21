@@ -126,7 +126,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function set_api_url() {
 
-			self::$api_url = apply_filters( 'astra_demo_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
+			self::$api_url = apply_filters( 'astra_sites_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
 
 		}
 
@@ -144,13 +144,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
-			$request_params = array(
-				'page'         => $page,
-				'per_page'     => '15',
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'page'         => $page,
+					'per_page'     => '15',
 
-				// Use this for premium demos.
-				'purchase_key' => '',
-				'site_url'     => '',
+					// Use this for premium demos.
+					'purchase_key' => '',
+					'site_url'     => '',
+				)
 			);
 
 			$args_search = isset( $args->search ) ? $args->search : '';
@@ -175,7 +177,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @return (String) URL that can be queried to return the demos.
 		 */
 		public static function get_taxanomy_api_url() {
-			return self::$api_url . 'astra-site-category/';
+			$request_params = apply_filters( 'astra_sites_api_params', array() );
+			return add_query_arg( $request_params, self::$api_url . 'astra-site-category/' );
 		}
 
 		/**
@@ -565,8 +568,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'required-plugins'           => '',
 			);
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
 			$response = wp_remote_get( $demo_api_uri, $api_args );
@@ -605,8 +610,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$astra_demos = array();
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
 			$response = wp_remote_get( $url, $api_args );
@@ -635,6 +642,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						$astra_demos[ $key ]['content']            = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 						$astra_demos[ $key ]['required_plugins']   = isset( $demo['required-plugins'] ) ? json_encode( $demo['required-plugins'] ) : '';
 						$astra_demos[ $key ]['astra_site_options'] = isset( $demo['astra-site-options-data'] ) ? json_encode( $demo['astra-site-options-data'] ) : '';
+
+						$demo_status                               = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
+						$astra_demos[ $key ]['status']             = ( $demo_status === 'draft' ) ? 'beta' : $demo_status;
 					}
 
 					// Free up memory by unsetting variables that are not required.
@@ -656,8 +666,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function get_demo_categories() {
 			$categories = array();
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_demo_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
 			$response = wp_remote_get( self::get_taxanomy_api_url(), $api_args );
@@ -674,8 +686,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				if ( is_array( $result ) ) {
 
 					foreach ( $result as $key => $category ) {
-						if ( 0 == $category['count'] ) {
-							continue;
+
+						if ( apply_filters( 'astra_sites_category_hide_empty', true ) ) {
+							if ( 0 == $category['count'] ) {
+								continue;
+							}
 						}
 						$categories[ $key ]['id']            = $category['id'];
 						$categories[ $key ]['name']          = $category['name'];

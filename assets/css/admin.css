@@ -10,18 +10,27 @@
     padding-top: 66.66666%
 }
 
+.wrap .status,
 .wrap .demo-type {
     position: absolute;
     z-index: 1;
     color: #fff;
     padding: 0.5em 1em;
     top: -0.5em;
-    left: -0.5em;
     text-transform: uppercase;
 }
+.wrap .status,
 .wrap .demo-type.premium {
     background: #0073aa;
 }
+.wrap .status {
+	left: -0.5em;
+}
+.wrap .demo-type.premium {
+	right: -0.5em;
+}
+
+.wrap .status.publish,
 .wrap .demo-type.free {
     display: none;
 }

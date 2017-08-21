@@ -61,7 +61,7 @@ do_action( 'astra_sites_before_site_grid' );
 	 */
 	?>
 	<script type="text/template" id="tmpl-astra-single-demo">
-		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+		<div class="theme astra-theme {{data.status}}" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
 			data-demo-id="{{{data.id}}}"
 			data-demo-type="{{{data.astra_demo_type}}}"
 			data-demo-url="{{{data.astra_demo_url}}}"
@@ -72,6 +72,8 @@ do_action( 'astra_sites_before_site_grid' );
 			data-content="{{{data.content}}}"
 			data-required-plugins="{{data.required_plugins}}">
 			<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
+
+			<span class="status {{data.status}}">{{data.status}}</span>
 
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
