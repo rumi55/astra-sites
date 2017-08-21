@@ -144,14 +144,16 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
-			$request_params = apply_filters( 'astra_sites_api_params', array(
-				'page'         => $page,
-				'per_page'     => '15',
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'page'         => $page,
+					'per_page'     => '15',
 
-				// Use this for premium demos.
-				'purchase_key' => '',
-				'site_url'     => '',
-			) );
+					// Use this for premium demos.
+					'purchase_key' => '',
+					'site_url'     => '',
+				)
+			);
 
 			$args_search = isset( $args->search ) ? $args->search : '';
 			$args_id     = isset( $args->id ) ? $args->id : '';
@@ -566,9 +568,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'required-plugins'           => '',
 			);
 
-			$api_args = apply_filters( 'astra_sites_api_args', array(
-				'timeout' => 15,
-			) );
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
+			);
 
 			$response = wp_remote_get( $demo_api_uri, $api_args );
 
@@ -606,9 +610,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$astra_demos = array();
 
-			$api_args = apply_filters( 'astra_sites_api_args', array(
-				'timeout' => 15,
-			) );
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
+			);
 
 			$response = wp_remote_get( $url, $api_args );
 
@@ -628,7 +634,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						$astra_demos[ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
 						$astra_demos[ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
 						$astra_demos[ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
-						$astra_demos[ $key ]['status']    		   = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
+						$astra_demos[ $key ]['status']             = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
 						$astra_demos[ $key ]['astra_demo_type']    = isset( $demo['astra-site-type'] ) ? sanitize_key( $demo['astra-site-type'] ) : '';
 						$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-site-url'] ) ? esc_url( $demo['astra-site-url'] ) : '';
 						$astra_demos[ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
@@ -658,9 +664,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function get_demo_categories() {
 			$categories = array();
 
-			$api_args = apply_filters( 'astra_demo_api_args', array(
-				'timeout' => 15,
-			) );
+			$api_args = apply_filters(
+				'astra_demo_api_args', array(
+					'timeout' => 15,
+				)
+			);
 
 			$response = wp_remote_get( self::get_taxanomy_api_url(), $api_args );
 
@@ -677,7 +685,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 					foreach ( $result as $key => $category ) {
 
-						if( apply_filters( 'astra_sites_category_hide_empty', true ) ) {
+						if ( apply_filters( 'astra_sites_category_hide_empty', true ) ) {
 							if ( 0 == $category['count'] ) {
 								continue;
 							}
