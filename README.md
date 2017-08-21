@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.3  
+**Stable tag:** 1.0.4  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 ## Changelog ##
 
-v1.0.4 - unreleased
+v1.0.4 - 21-Aug-2017
 * New: Added filter `astra_sites_api_params` for adding extra params in api call.
 * New: Added filter `astra_sites_api_args` for adding extra arguments in api call.
 * New: Added filter `astra_sites_category_hide_empty` for showing categories which are not set for any site.
