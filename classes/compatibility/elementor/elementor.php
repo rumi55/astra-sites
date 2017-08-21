@@ -16,11 +16,6 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 	class Astra_Sites_Comp_Elementor {
 
 		/**
-		 * @var Astra_Elementor_Image_Importer_Request
-		 */
-		// protected $process_single;
-
-		/**
 		 * @var Astra_Elementor_Image_Importer_Process
 		 */
 		protected $process_all;
@@ -56,7 +51,6 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-logger.php';
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-request.php';
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-process.php';
-			// $this->process_single = new Astra_Elementor_Image_Importer_Request();
 			$this->process_all    = new Astra_Elementor_Image_Importer_Process();
 
 			// $this->astra_sites_process_handler();
