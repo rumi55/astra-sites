@@ -73,9 +73,7 @@ do_action( 'astra_sites_before_site_grid' );
 			data-required-plugins="{{data.required_plugins}}">
 			<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
 
-			<# if ( 'draft' === data.status ) { #>
-				<span class="status">{{data.status}}</span>
-			<# } #>
+			<span class="status {{data.status}}">{{data.status}}</span>
 
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
