@@ -49,7 +49,6 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 		public function __construct() {
 
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-logger.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-request.php';
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-process.php';
 			$this->process_all    = new Astra_Elementor_Image_Importer_Process();
 
