@@ -126,7 +126,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function set_api_url() {
 
-			self::$api_url = apply_filters( 'astra_demo_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
+			self::$api_url = apply_filters( 'astra_sites_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
 
 		}
 
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
-			$request_params = apply_filters( 'astra_demo_api_params', array(
+			$request_params = apply_filters( 'astra_sites_api_params', array(
 				'page'         => $page,
 				'per_page'     => '15',
 
@@ -175,7 +175,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @return (String) URL that can be queried to return the demos.
 		 */
 		public static function get_taxanomy_api_url() {
-			$request_params = apply_filters( 'astra_demo_api_params', array() );
+			$request_params = apply_filters( 'astra_sites_api_params', array() );
 			return add_query_arg( $request_params, self::$api_url . 'astra-site-category/' );
 		}
 
@@ -566,7 +566,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'required-plugins'           => '',
 			);
 
-			$api_args = apply_filters( 'astra_demo_api_args', array(
+			$api_args = apply_filters( 'astra_sites_api_args', array(
 				'timeout' => 15,
 			) );
 
@@ -606,7 +606,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$astra_demos = array();
 
-			$api_args = apply_filters( 'astra_demo_api_args', array(
+			$api_args = apply_filters( 'astra_sites_api_args', array(
 				'timeout' => 15,
 			) );
 

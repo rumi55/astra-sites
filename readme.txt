@@ -47,8 +47,8 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.4 - unreleased
-* New: Added filter `astra_demo_api_params` for adding extra params in api call.
-* New: Added filter `astra_demo_api_args` for adding extra arguments in api call.
+* New: Added filter `astra_sites_api_params` for adding extra params in api call.
+* New: Added filter `astra_sites_api_args` for adding extra arguments in api call.
 * New: Added filter `astra_sites_category_hide_empty` for showing categories which are not set for any site.
 
 v1.0.3 - 11-Aug-2017
