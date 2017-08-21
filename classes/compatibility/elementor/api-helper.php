@@ -185,4 +185,64 @@ class Astra_Sites_Source_Remote extends Source_Base {
 
 		return $element_data;
 	}
+
+	/**
+	 * Update post meta.
+	 */
+	public function hotlink_images( $post_id = 0 ) {
+
+		// if( 0 == $post_id ) {
+		// 	$post_id = get_the_ID();
+		// }
+
+		if( ! empty( $post_id ) ) {
+
+			// delete_post_meta( $post_id, '_astra_sites_hotlink_imported' );
+			// wp_die();
+
+			error_log( $post_id );
+
+			// $all = get_post_meta( $post_id );
+			// error_log( $all );
+
+			$hotlink_imported = get_post_meta( $post_id, '_astra_sites_hotlink_imported', true );
+
+			// error_log( $hotlink_imported, true );
+
+			if( empty( $hotlink_imported ) ) {
+
+				$data = get_post_meta( $post_id, '_elementor_data', true );
+				// vl( $all );
+
+				if ( $data ) {
+
+					$data = json_decode( $data, true );
+
+					// error_log( 'ok' );
+					// wp_die();
+
+					// $source_base = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
+
+					$data = $this->replace_elements_ids( $data );
+					$data = $this->process_export_import_content( $data, 'on_import' );
+
+					// $json_value = wp_slash( wp_json_encode( $data ) );
+					$json_value = wp_json_encode( $data );
+
+					// error_log( $json_value );
+
+
+					update_metadata( 'post', $post_id, '_elementor_data', $json_value );
+					update_metadata( 'post', $post_id, '_astra_sites_hotlink_imported', true );
+
+					// !important, Clear the cache after images import.
+					Plugin::$instance->posts_css_manager->clear_cache();
+					// wp_die();
+
+				}
+			}
+		}
+
+
+	}
 }

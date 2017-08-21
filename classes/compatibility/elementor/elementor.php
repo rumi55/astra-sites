@@ -16,12 +16,12 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 	class Astra_Sites_Comp_Elementor {
 
 		/**
-		 * @var WP_Example_Request
+		 * @var Astra_Elementor_Image_Importer_Request
 		 */
-		protected $process_single;
+		// protected $process_single;
 
 		/**
-		 * @var WP_Example_Process
+		 * @var Astra_Elementor_Image_Importer_Process
 		 */
 		protected $process_all;
 
@@ -53,23 +53,16 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 		 */
 		public function __construct() {
 
-			$this->includes();
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-logger.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-request.php';
+			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-process.php';
+			// $this->process_single = new Astra_Elementor_Image_Importer_Request();
+			$this->process_all    = new Astra_Elementor_Image_Importer_Process();
 
-			add_action( 'admin_head', array( $this, 'astra_sites_process_handler' ) );
-			// add_action( 'astra_sites_import_complete', array( $this, 'astra_sites_process_handler' ) );
-		}
+			// $this->astra_sites_process_handler();
 
-		function includes() {
-
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/bg/classes/wp-async-request.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/bg/classes/wp-background-process.php';
-
-
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/bg/class-logger.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/bg/class-example-request.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/bg/class-example-process.php';
-			// $this->process_single = new WP_Example_Request();
-			$this->process_all    = new WP_Example_Process();
+			// add_action( 'admin_head', array( $this, 'astra_sites_process_handler' ) );
+			add_action( 'astra_sites_import_complete', array( $this, 'astra_sites_process_handler' ) );
 		}
 
 		/**
@@ -89,22 +82,22 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 			// delete_site_option( '_astra_sites_import_images' );
 			// wp_die();
 
-			$imported = get_site_option( '_astra_sites_import_images', 0, false );
-			if( $imported == 2 ) {
+			// $imported = get_site_option( '_astra_sites_import_images', 0, false );
+			// if( $imported == 2 ) {
 				$this->handle_all();
-				vl( 'importing...' );
-				vl( $imported );
-				wp_die();
-			}
-			$imported++;
-			update_site_option( '_astra_sites_import_images', $imported );
+			// 	vl( 'importing...' );
+			// 	vl( $imported );
+			// 	wp_die();
+			// }
+			// $imported++;
+			// update_site_option( '_astra_sites_import_images', $imported );
 		}
 
 		/**
 		 * Handle all
 		 */
 		protected function handle_all() {
-			$names = $this->get_names();
+			$names = $this->get_pages();
 
 			if( is_array( $names ) ) {
 				foreach ( $names as $name ) {
@@ -119,7 +112,7 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 		 *
 		 * @return array
 		 */
-		protected function get_names() {
+		protected function get_pages() {
 
 			$args = array(
 				'post_type'    => 'page',

@@ -2,7 +2,7 @@
 
 if( class_exists( 'WP_Async_Request' ) ) {
 
-	class WP_Example_Request extends WP_Async_Request {
+	class Astra_Elementor_Image_Importer_Request extends WP_Async_Request {
 
 		use WP_Example_Logger;
 
