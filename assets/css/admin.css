@@ -35,6 +35,10 @@
     display: none;
 }
 
+.install-theme-info .demo-type {
+    display: none;
+}
+
 .theme {
     position: relative;
 }
