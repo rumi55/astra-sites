@@ -39,7 +39,7 @@ if ( ! function_exists( 'astra_sites_setup' ) ) :
 	/**
 	 * Astra Sites Setup
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.5
 	 */
 	function astra_sites_setup() {
 		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
