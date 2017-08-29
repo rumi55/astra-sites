@@ -14,33 +14,33 @@
 /**
  * Set constants.
  */
-if( ! defined( 'ASTRA_SITES_VER' ) ) {
+if ( ! defined( 'ASTRA_SITES_VER' ) ) {
 	define( 'ASTRA_SITES_VER',  '1.0.5' );
 }
 
-if( ! defined( 'ASTRA_SITES_FILE' ) ) {
+if ( ! defined( 'ASTRA_SITES_FILE' ) ) {
 	define( 'ASTRA_SITES_FILE', __FILE__ );
 }
 
-if( ! defined( 'ASTRA_SITES_BASE' ) ) {
+if ( ! defined( 'ASTRA_SITES_BASE' ) ) {
 	define( 'ASTRA_SITES_BASE', plugin_basename( ASTRA_SITES_FILE ) );
 }
 
-if( ! defined( 'ASTRA_SITES_DIR' ) ) {
+if ( ! defined( 'ASTRA_SITES_DIR' ) ) {
 	define( 'ASTRA_SITES_DIR',  plugin_dir_path( ASTRA_SITES_FILE ) );
 }
 
-if( ! defined( 'ASTRA_SITES_URI' ) ) {
+if ( ! defined( 'ASTRA_SITES_URI' ) ) {
 	define( 'ASTRA_SITES_URI',  plugins_url( '/', ASTRA_SITES_FILE ) );
 }
 
-/**
- * Set constants.
- *
- * @since 1.0.0
- */
-if( ! function_exists( 'astra_sites_setup' ) ) :
+if ( ! function_exists( 'astra_sites_setup' ) ) :
 
+	/**
+	 * Astra Sites Setup
+	 *
+	 * @since 1.0.0
+	 */
 	function astra_sites_setup() {
 		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
 	}
