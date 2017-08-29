@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Astra Free Sites
  * Plugin URI: http://www.wpastra.com/pro/
- * Description: Import free sites build with Astra freetheme.
+ * Description: Import free sites build with Astra theme.
  * Version: 1.0.5
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
