@@ -4,7 +4,7 @@ Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,10 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 == Changelog ==
+
+v1.0.6 - 30-Aug-2017
+* New: Addd custom menu for Astra Sites.
+* Fix: Validate site options before storing in database.
 
 v1.0.5 - 29-Aug-2017
 * New: Added filter `astra_sites_api_args` for adding extra arguments in api call.
