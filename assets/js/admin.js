@@ -355,7 +355,7 @@ function renderDemoPreview(anchor) {
 	// delete any earlier fullscreen preview before we render new one.
 	jQuery('.theme-install-overlay').remove();
 
-	jQuery('#ast-menu-page').append(template(templateData[0]));
+	jQuery('#astra-sites-menu-page').append(template(templateData[0]));
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
 

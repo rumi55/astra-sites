@@ -1,14 +1,9 @@
 <?php
 /**
- * Admin settings helper
+ * Astra Sites Page
  *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
- * @package     Astra
- * @author      Astra
- * @copyright   Copyright (c) 2017, Astra
- * @link        http://wpastra.com/
- * @since       Astra 1.0
+ * @since 1.0.6
+ * @package Astra Sites
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +20,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * View all actions
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $view_actions
 		 */
 		static public $view_actions = array();
@@ -33,7 +28,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Menu page title
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $menu_page_title
 		 */
 		static public $menu_page_title = 'Astra Sites';
@@ -41,7 +36,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Plugin slug
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $plugin_slug
 		 */
 		static public $plugin_slug = 'astra-sites';
@@ -49,7 +44,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Default Menu position
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $default_menu_position
 		 */
 		static public $default_menu_position = 'themes.php';
@@ -57,7 +52,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Parent Page Slug
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $parent_page_slug
 		 */
 		static public $parent_page_slug = 'general';
@@ -65,7 +60,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Current Slug
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @var array $current_slug
 		 */
 		static public $current_slug = 'general';
@@ -103,25 +98,6 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		}
 
 		/**
-		 * View actions
-		 */
-		static public function get_view_actions() {
-
-			if ( empty( self::$view_actions ) ) {
-
-				$actions = array(
-					'general'          => array(
-						'label' => __( 'Welcome', 'astra-sites' ),
-						'show'  => ! is_network_admin(),
-					),
-				);
-				self::$view_actions = apply_filters( 'astra_sites_menu_options', $actions );
-			}
-
-			return self::$view_actions;
-		}
-
-		/**
 		 * Save All admin settings here
 		 */
 		static public function save_settings() {
@@ -139,7 +115,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * Init Nav Menu
 		 *
 		 * @param mixed $action Action name.
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function init_nav_menu( $action = '' ) {
 
@@ -152,11 +128,11 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * Render tab menu
 		 *
 		 * @param mixed $action Action name.
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function render_tab_menu( $action = '' ) {
 			?>
-			<div id="ast-menu-page">
+			<div id="astra-sites-menu-page">
 				<?php self::render( $action ); ?>
 			</div>
 			<?php
@@ -166,32 +142,13 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * Prints HTML content for tabs
 		 *
 		 * @param mixed $action Action name.
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function render( $action ) {
 
 			?>
 			<div class="nav-tab-wrapper">
-				<h1 class='ast-title'> <?php echo esc_html( self::$menu_page_title ); ?> </h1>
-				<?php
-				/*$view_actions = self::get_view_actions();
-
-				foreach ( $view_actions as $slug => $data ) {
-
-					if ( ! $data['show'] ) {
-						continue;
-					}
-
-					$url = self::get_page_url( $slug );
-
-					if ( $slug == self::$parent_page_slug ) {
-						update_option( 'astra_parent_page_url', $url );
-					}
-
-					$active = ( $slug == $action ) ? 'nav-tab-active' : '';
-					?>
-						<a class='nav-tab <?php echo esc_attr( $active ); ?>' href='<?php echo esc_url( $url ); ?>'> <?php echo esc_html( $data['label'] ); ?> </a>
-				<?php }*/ ?>
+				<h1 class='astra-sites-title'> <?php echo esc_html( self::$menu_page_title ); ?> </h1>
 			</div><!-- .nav-tab-wrapper -->
 
 			<?php
@@ -208,7 +165,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * Get and return page URL
 		 *
 		 * @param string $menu_slug Menu name.
-		 * @since 1.0
+		 * @since 1.0.6
 		 * @return  string page url
 		 */
 		static public function get_page_url( $menu_slug ) {
@@ -231,7 +188,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Add main menu
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function add_admin_menu() {
 
@@ -247,7 +204,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Menu callback
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function menu_callback() {
 
@@ -257,7 +214,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 			$current_slug = str_replace( '-', '_', $current_slug );
 
 			?>
-			<div class="ast-menu-page-wrapper">
+			<div class="astra-sites-menu-page-wrapper">
 				<?php self::init_nav_menu( $active_tab ); ?>
 				<?php do_action( 'astra_sites_menu_' . esc_attr( $current_slug ) . '_action' ); ?>
 			</div>
@@ -267,7 +224,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		/**
 		 * Include general page
 		 *
-		 * @since 1.0
+		 * @since 1.0.6
 		 */
 		static public function general_page() {
 			require_once ASTRA_SITES_DIR . 'admin/view-astra-sites.php';
