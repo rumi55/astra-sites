@@ -175,3 +175,19 @@
 .astra-sites-preview.expanded .wp-full-overlay-footer {
 	left: initial;
 }
+
+/**
+ * Menu Page
+ */
+.astra-sites-title {
+    float: left;
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0 0 6px 0px;
+    padding: 0;
+    line-height: 29px;
+}
+
+#astra-sites-menu-page {
+    margin-top: 10px;
+}

@@ -59,7 +59,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$this->includes();
 
-			add_action( 'wp_enqueue_scripts',                               array( $this, 'admin_enqueue' ) );
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
@@ -113,7 +112,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'themes.php?page=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -184,9 +183,18 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		/**
 		 * Enqueue admin scripts.
 		 *
+		 * @since  1.0.5    Added 'getUpgradeText' and 'getUpgradeURL' localize variables.
+		 *
 		 * @since  1.0.0
+		 *
+		 * @param  string $hook Current hook name.
+		 * @return void
 		 */
-		public function admin_enqueue() {
+		public function admin_enqueue( $hook ) {
+
+			if ( 'appearance_page_astra-sites' !== $hook ) {
+				return;
+			}
 
 			wp_register_script(
 				'astra-sites-admin', ASTRA_SITES_URI . 'assets/js/admin.js', array(
@@ -232,7 +240,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function includes() {
 
-			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-admin.php';
+			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-page.php';
 			require_once ASTRA_SITES_DIR . 'classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
 
 			// Load the Importers.
