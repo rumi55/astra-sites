@@ -87,31 +87,34 @@ class Astra_Site_Options_Import {
 
 		foreach ( $options as $option_name => $option_value ) {
 
-			// Is option exist in defined array site_options()?
-			if ( in_array( $option_name, self::site_options() ) ) {
+			if( NULL !== $option_value ) {
 
-				switch ( $option_name ) {
+				// Is option exist in defined array site_options()?
+				if ( in_array( $option_name, self::site_options() ) ) {
 
-					// page on front.
-					// page on front.
-					case 'page_for_posts':
-					case 'page_on_front':
-							$this->update_page_id_by_option_value( $option_name, $option_value );
-						break;
+					switch ( $option_name ) {
 
-					// nav menu locations.
-					case 'nav_menu_locations':
-							$this->set_nav_menu_locations( $option_value );
-						break;
+						// page on front.
+						// page on front.
+						case 'page_for_posts':
+						case 'page_on_front':
+								$this->update_page_id_by_option_value( $option_name, $option_value );
+							break;
 
-					// insert logo.
-					case 'custom_logo':
-							$this->insert_logo( $option_value );
-						break;
+						// nav menu locations.
+						case 'nav_menu_locations':
+								$this->set_nav_menu_locations( $option_value );
+							break;
 
-					default:
-							update_option( $option_name, $option_value );
-						break;
+						// insert logo.
+						case 'custom_logo':
+								$this->insert_logo( $option_value );
+							break;
+
+						default:
+									update_option( $option_name, $option_value );
+							break;
+					}
 				}
 			}
 		}
