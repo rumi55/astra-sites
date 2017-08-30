@@ -38,6 +38,19 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			}
 
 			$demo_data = Astra_Sites::get_astra_single_demo( $url );
+			
+			// Activate Required Plugins.
+			if( isset( $demo_data['required-plugins'] ) ) {
+				$plugins = (array) $demo_data['required-plugins'];
+				foreach ($plugins as $key => $plugin) {
+					if( isset( $plugin['init'] ) ) {
+						$activate = activate_plugin( $plugin['init'], '', false, true );
+						if ( ! is_wp_error( $activate ) ) {
+							WP_CLI::line( sprintf( __( 'Plugin %1$s activated.', 'astra-sites' ), $plugin['slug'] ) );
+						}
+					}
+				}
+			}
 
 			// Import Enabled Extensions.
 			Astra_Sites::set_instance()->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
@@ -102,7 +115,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 				$status 			= ( isset( $item['status'] ) ) ? $item['status'] : '';
 				$astra_demo_type 	= ( isset( $item['astra_demo_type'] ) ) ? $item['astra_demo_type'] : '';
 				
-				WP_CLI::line( $id.' | '.$demo_api.' | '.$status.' | '.$slug.' |' .$astra_demo_type );
+				WP_CLI::line( ($key+1) . ' | ' . $id.' | '.$demo_api.' | '.$status.' | '.$slug.' |' .$astra_demo_type );
 			}
 		}
 	}
