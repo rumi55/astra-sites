@@ -43,8 +43,8 @@ class Astra_Sites_Admin {
 	 */
 	private function __construct() {
 
-		add_filter( 'astra_menu_options',            array( $this, 'menu' ) );
-		add_action( 'astra_menu_astra_sites_action', array( $this, 'view_demos' ) );
+		add_filter( 'astra_sites_menu_options',            array( $this, 'menu' ) );
+		add_action( 'astra_sites_menu_action', array( $this, 'view_demos' ) );
 
 	}
 
