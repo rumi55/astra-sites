@@ -48,7 +48,7 @@ https://sites.wpastra.com/law-free/
 
 v1.0.6 - 30-Aug-2017
 * New: Addd custom menu for Astra Sites.
-* Fix: Elementor settings import.
+* Fix: Validate site options before storing in database.
 
 v1.0.5 - 29-Aug-2017
 * New: Added filter `astra_sites_api_args` for adding extra arguments in api call.

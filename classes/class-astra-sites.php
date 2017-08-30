@@ -59,7 +59,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$this->includes();
 
-			add_action( 'wp_enqueue_scripts',                               array( $this, 'admin_enqueue' ) );
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
@@ -184,9 +183,18 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		/**
 		 * Enqueue admin scripts.
 		 *
+		 * @since  1.0.5    Added 'getUpgradeText' and 'getUpgradeURL' localize variables.
+		 *
 		 * @since  1.0.0
+		 *
+		 * @param  string $hook Current hook name.
+		 * @return void
 		 */
 		public function admin_enqueue() {
+
+			if ( 'appearance_page_astra-sites' !== $hook ) {
+				return;
+			}
 
 			wp_register_script(
 				'astra-sites-admin', ASTRA_SITES_URI . 'assets/js/admin.js', array(
