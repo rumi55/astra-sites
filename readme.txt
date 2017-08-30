@@ -47,8 +47,6 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.6 - 30-Aug-2017
-* New: Added WP CLi support for listing astra sites. Run `wp astra-sites list`.
-* New: Added WP CLi support for importing individual astra site. Run `wp astra-sites import <site-api-url>`.
 * Fix: Elementor settings import.
 
 v1.0.5 - 29-Aug-2017
