@@ -190,7 +190,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @param  string $hook Current hook name.
 		 * @return void
 		 */
-		public function admin_enqueue() {
+		public function admin_enqueue( $hook ) {
 
 			if ( 'appearance_page_astra-sites' !== $hook ) {
 				return;
