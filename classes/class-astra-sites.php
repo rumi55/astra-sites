@@ -112,7 +112,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'themes.php?page=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
