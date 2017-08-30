@@ -1,10 +1,10 @@
 # Copyright (C) 2017 Brainstorm Force
-# This file is distributed under the same license as the Astra Sites package.
+# This file is distributed under the same license as the Astra Free Sites package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites 1.0.5\n"
+"Project-Id-Version: Astra Free Sites 1.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-08-29 12:27:58+00:00\n"
+"POT-Creation-Date: 2017-08-30 06:56:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#. Plugin Name of the plugin/theme
+#: admin/class-astra-sites-admin.php:63
 msgid "Astra Sites"
 msgstr ""
 
@@ -352,12 +352,16 @@ msgstr ""
 msgid "Could not update comment #%d with mapped data"
 msgstr ""
 
+#. Plugin Name of the plugin/theme
+msgid "Astra Free Sites"
+msgstr ""
+
 #. Plugin URI of the plugin/theme
 msgid "http://www.wpastra.com/pro/"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Import sites build with Astra theme."
+msgid "Import free sites build with Astra theme."
 msgstr ""
 
 #. Author of the plugin/theme
