@@ -47,6 +47,7 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.6 - 30-Aug-2017
+* New: Addd custom menu for Astra Sites.
 * Fix: Elementor settings import.
 
 v1.0.5 - 29-Aug-2017
