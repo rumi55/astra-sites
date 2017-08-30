@@ -43,6 +43,9 @@ if ( ! function_exists( 'astra_sites_setup' ) ) :
 	 */
 	function astra_sites_setup() {
 		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
+
+		// WP CLI
+		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites-wpcli.php';
 	}
 
 	add_action( 'plugins_loaded', 'astra_sites_setup' );
