@@ -46,6 +46,10 @@ https://sites.wpastra.com/law-free/
 
 ## Changelog ##
 
+v1.0.7 - Unreleased
+* Fix: Custom Menu widget not setting imported widget.
+* Fix: Astra Sites License Popup form jerk
+
 v1.0.6 - 30-Aug-2017
 * New: Addd custom menu for Astra Sites.
 * Fix: Validate site options before storing in database.

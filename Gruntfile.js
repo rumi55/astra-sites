@@ -112,6 +112,9 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-compress' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
+    // Generate README.md file.
+    grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+
     // Generate .pot file.
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
 
