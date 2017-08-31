@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Astra Free Sites 1.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-08-30 12:56:28+00:00\n"
+"POT-Creation-Date: 2017-08-31 13:49:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,8 +24,12 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#: admin/class-astra-sites-admin.php:63
+#: admin/class-astra-sites-page.php:85
 msgid "Astra Sites"
+msgstr ""
+
+#: admin/class-astra-sites-page.php:158
+msgid "Settings saved successfully."
 msgstr ""
 
 #: admin/view-astra-sites.php:28
@@ -64,7 +68,7 @@ msgstr ""
 msgid "Install Plugins"
 msgstr ""
 
-#: admin/view-astra-sites.php:138 classes/class-astra-sites.php:217
+#: admin/view-astra-sites.php:138 classes/class-astra-sites.php:225
 msgid "Read more"
 msgstr ""
 
@@ -104,58 +108,58 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: classes/class-astra-sites.php:95
+#: classes/class-astra-sites.php:94
 #. translators: 1: theme.php file
 msgid ""
 "Astra Theme needs to be active for you to use currently installed \"Astra "
 "Sites\" plugin. <a href=\"%1$s\">Install & Activate Now</a>"
 msgstr ""
 
-#: classes/class-astra-sites.php:116
+#: classes/class-astra-sites.php:115
 msgid "See Library"
 msgstr ""
 
-#: classes/class-astra-sites.php:205
+#: classes/class-astra-sites.php:213
 msgid "Purchase"
 msgstr ""
 
-#: classes/class-astra-sites.php:210
+#: classes/class-astra-sites.php:218
 msgid "Error!"
 msgstr ""
 
-#: classes/class-astra-sites.php:211
+#: classes/class-astra-sites.php:219
 msgid "Error! Read Possibilities."
 msgstr ""
 
-#: classes/class-astra-sites.php:213
+#: classes/class-astra-sites.php:221
 msgid "Done! View Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:214
+#: classes/class-astra-sites.php:222
 msgid "Activating"
 msgstr ""
 
-#: classes/class-astra-sites.php:215
+#: classes/class-astra-sites.php:223
 msgid "Active"
 msgstr ""
 
-#: classes/class-astra-sites.php:216
+#: classes/class-astra-sites.php:224
 msgid "Import This Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:218
+#: classes/class-astra-sites.php:226
 msgid "Hide"
 msgstr ""
 
-#: classes/class-astra-sites.php:219
+#: classes/class-astra-sites.php:227
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: classes/class-astra-sites.php:220
+#: classes/class-astra-sites.php:228
 msgid "No Demos found, Try a different search."
 msgstr ""
 
-#: classes/class-astra-sites.php:221
+#: classes/class-astra-sites.php:229
 msgid ""
 "Executing Demo Import will make your site similar as ours. Please bear in "
 "mind -\n"
@@ -169,11 +173,11 @@ msgid ""
 "placeholders."
 msgstr ""
 
-#: classes/class-astra-sites.php:257
+#: classes/class-astra-sites.php:265
 msgid "No plugin specified"
 msgstr ""
 
-#: classes/class-astra-sites.php:282
+#: classes/class-astra-sites.php:290
 msgid "Plugin Successfully Activated"
 msgstr ""
 
