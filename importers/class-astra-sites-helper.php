@@ -54,7 +54,7 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 		 * it in import widget process.
 		 *
 		 * @since 1.0.7
-		 * 
+		 *
 		 * @param  object $all_sidebars Widget data.
 		 * @return object               Set custom menu id by slug.
 		 */
@@ -73,12 +73,12 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 
 			// Import widget data.
 			$all_sidebars = (object) $all_sidebars;
-			foreach ($all_sidebars as $widgets_key => $widgets) {
-				foreach ($widgets as $widget_key => $widget) {
+			foreach ( $all_sidebars as $widgets_key => $widgets ) {
+				foreach ( $widgets as $widget_key => $widget ) {
 
 					// Found slug in current menu list.
-					$menu_id = array_search($widget->nav_menu, $menu_locations);
-					if( ! empty( $menu_id ) ) {
+					$menu_id = array_search( $widget->nav_menu, $menu_locations );
+					if ( ! empty( $menu_id ) ) {
 						$all_sidebars->$widgets_key->$widget_key->nav_menu = $menu_id;
 					}
 				}
