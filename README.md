@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 ## Changelog ##
 
-v1.0.7 - 31-Aug-2017
+v1.0.7 - 1-Sept-2017
 * Fix: Custom Menu widget not setting imported widget.
 
 v1.0.6 - 30-Aug-2017
