@@ -197,14 +197,14 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			}
 
 			wp_register_script(
-				'astra-sites-admin', ASTRA_SITES_URI . 'assets/js/admin.js', array(
+				'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/js/admin.js', array(
 					'jquery',
 					'wp-util',
 					'updates',
 				), ASTRA_SITES_VER, true
 			);
 
-			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'assets/css/admin.css', ASTRA_SITES_VER, true );
+			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 
 			wp_localize_script(
 				'astra-sites-admin', 'astraDemo', array(
@@ -240,15 +240,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function includes() {
 
-			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-page.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
+			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
 
 			// Load the Importers.
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-sites-helper.php';
-			require_once ASTRA_SITES_DIR . 'importers/class-widgets-importer.php';
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-customizer-import.php';
-			require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-site-options-import.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-sites-helper.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-widgets-importer.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 		}
 
 		/**
