@@ -390,9 +390,7 @@ function renderDemoPreview(anchor) {
 	var descHeight = parseInt( desc.outerHeight() );
 	var descBtn    = jQuery('.theme-details-read-more');
 
-	if ( 'upgrade' === astraDemo.proStatus ) {
-		enable_demo_import_button( astraDemo.proStatus );
-	} else if( jQuery.isArray( requiredPlugins ) ) {
+	if( jQuery.isArray( requiredPlugins ) ) {
 
 		if( descHeight >= 55 ) {
 

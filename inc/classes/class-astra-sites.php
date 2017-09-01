@@ -212,7 +212,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'astra_sites_localize_vars', array(
 						'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
 						'siteURL'              => site_url(),
-						'proStatus'            => '',
 						'getProText'           => __( 'Purchase', 'astra-sites' ),
 						'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
 						'getUpgradeText'       => __( 'Upgrade', 'astra-sites' ),
