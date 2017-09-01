@@ -43,6 +43,48 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 		 * @since 1.0.0
 		 */
 		public function __construct() {
+			add_filter( 'wie_import_data', array( $this, 'custom_menu_widget' ) );
+		}
+
+		/**
+		 * Custom Menu Widget
+		 *
+		 * In widget export we set the nav menu slug instead of ID.
+		 * So, In import process we check get menu id by slug and set
+		 * it in import widget process.
+		 *
+		 * @since 1.0.7
+		 *
+		 * @param  object $all_sidebars Widget data.
+		 * @return object               Set custom menu id by slug.
+		 */
+		function custom_menu_widget( $all_sidebars ) {
+
+			// Get current menu ID & Slugs.
+			$menu_locations = array();
+			$nav_menus = (object) wp_get_nav_menus();
+			if ( isset( $nav_menus ) ) {
+				foreach ( $nav_menus as $menu_key => $menu ) {
+					if ( is_object( $menu ) ) {
+						$menu_locations[ $menu->term_id ] = $menu->slug;
+					}
+				}
+			}
+
+			// Import widget data.
+			$all_sidebars = (object) $all_sidebars;
+			foreach ( $all_sidebars as $widgets_key => $widgets ) {
+				foreach ( $widgets as $widget_key => $widget ) {
+
+					// Found slug in current menu list.
+					$menu_id = array_search( $widget->nav_menu, $menu_locations );
+					if ( ! empty( $menu_id ) ) {
+						$all_sidebars->$widgets_key->$widget_key->nav_menu = $menu_id;
+					}
+				}
+			}
+
+			return $all_sidebars;
 		}
 
 		/**
