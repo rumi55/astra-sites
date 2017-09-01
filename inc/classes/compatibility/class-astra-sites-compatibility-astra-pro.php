@@ -1,21 +1,21 @@
 <?php
 /**
- * Astra Sites Compatibility for 'SiteOrigin Widgets Bundle'
+ * Astra Sites Compatibility for 'Astra Pro'
  *
- * @see  https://wordpress.org/plugins/so-widgets-bundle/
+ * @see  https://wordpress.org/plugins/astra-pro/
  *
  * @package Astra Sites
  * @since 1.0.0
  */
 
-if ( ! class_exists( 'Astra_Sites_Compatibility_SO_Widgets' ) ) :
+if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 
 	/**
-	 * Astra_Sites_Compatibility_SO_Widgets
+	 * Astra_Sites_Compatibility_Astra_Pro
 	 *
 	 * @since 1.0.0
 	 */
-	class Astra_Sites_Compatibility_SO_Widgets {
+	class Astra_Sites_Compatibility_Astra_Pro {
 
 		/**
 		 * Instance
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_SO_Widgets' ) ) :
 		 * @since 1.0.0
 		 */
 		public function __construct() {
-			add_action( 'astra_sites_after_plugin_activation', array( $this, 'site_origin' ), 10, 2 );
+			add_action( 'astra_sites_after_plugin_activation', array( $this, 'astra_pro' ), 10, 2 );
 		}
 
 		/**
@@ -57,19 +57,19 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_SO_Widgets' ) ) :
 		 * @param  array  $data               Data.
 		 * @return void
 		 */
-		function site_origin( $plugin_init = '', $data = array() ) {
+		function astra_pro( $plugin_init = '', $data = array() ) {
 
-			if ( 'so-widgets-bundle/so-widgets-bundle.php' === $plugin_init ) {
+			if ( 'astra-addon/astra-addon.php' === $plugin_init ) {
 
 				$data = json_decode(json_encode($data), true);
 
-				if ( isset( $data['astra_site_options'] ) ) {
+				if ( isset( $data['enabled_extensions'] ) ) {
+					$extensions = $data['enabled_extensions'];
 
-					$widgets = ( isset( $data['astra_site_options']['siteorigin_widgets_active'] ) ) ? $data['astra_site_options']['siteorigin_widgets_active'] : '';
-
-					if ( ! empty( $widgets ) ) {
-						update_option( 'siteorigin_widgets_active', $widgets );
-						wp_cache_delete( 'active_widgets', 'siteorigin_widgets' );
+					if ( ! empty( $extensions ) ) {
+						if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
+							Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $extensions );
+						}
 					}
 				}
 			}
@@ -81,6 +81,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_SO_Widgets' ) ) :
 	/**
 	 * Kicking this off by calling 'instance()' method
 	 */
-	Astra_Sites_Compatibility_SO_Widgets::instance();
+	Astra_Sites_Compatibility_Astra_Pro::instance();
 
 endif;
