@@ -595,10 +595,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			);
 
 			// Use this for premium demos.
-			$request_params = apply_filters( 'astra_sites_api_params', array(
-				'purchase_key' => '',
-				'site_url'     => '',
-			) );
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'purchase_key' => '',
+					'site_url'     => '',
+				)
+			);
 
 			$demo_api_uri = add_query_arg( $request_params, $demo_api_uri );
 

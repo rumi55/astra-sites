@@ -77,7 +77,7 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 				foreach ( $widgets as $widget_key => $widget ) {
 
 					// Found slug in current menu list.
-					if( isset( $widget->nav_menu ) ) {
+					if ( isset( $widget->nav_menu ) ) {
 						$menu_id = array_search( $widget->nav_menu, $menu_locations );
 						if ( ! empty( $menu_id ) ) {
 							$all_sidebars->$widgets_key->$widget_key->nav_menu = $menu_id;
