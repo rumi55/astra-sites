@@ -19,9 +19,9 @@ module.exports = function( grunt ) {
 						'!node_modules/**',
 						'!php-tests/**',
 						'!bin/**',
-						'!importers/class-widgets-importer.php',
-						'!importers/wxr-importer/class-logger.php',
-						'!importers/wxr-importer/class-wxr-importer.php'
+						'!inc/importers/class-widgets-importer.php',
+						'!inc/importers/wxr-importer/class-logger.php',
+						'!inc/importers/wxr-importer/class-wxr-importer.php'
 					]
 				}
 			}
@@ -50,12 +50,76 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		copy: {
+                main: {
+                    options: {
+                        mode: true
+                    },
+                    src: [
+                        '**',
+                        '!node_modules/**',
+                        '!build/**',
+                        '!css/sourcemap/**',
+                        '!.git/**',
+                        '!bin/**',
+                        '!.gitlab-ci.yml',
+                        '!bin/**',
+                        '!tests/**',
+                        '!phpunit.xml.dist',
+                        '!*.sh',
+                        '!*.map',
+                        '!Gruntfile.js',
+                        '!package.json',
+                        '!.gitignore',
+                        '!phpunit.xml',
+                        '!README.md',
+                        '!sass/**',
+                        '!codesniffer.ruleset.xml',
+                    ],
+                    dest: 'astra-sites/'
+                }
+        },
+
+        compress: {
+            main: {
+                options: {
+                    archive: 'astra-sites.zip',
+                    mode: 'zip'
+                },
+                files: [
+                    {
+                        src: [
+                            './astra-sites/**'
+                        ]
+
+                    }
+                ]
+            }
+        },
+
+		clean: {
+            main: ["astra-sites"],
+            zip: ["astra-sites.zip"]
+
+        },
+
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+    grunt.loadNpmTasks( 'grunt-contrib-compress' );
+    grunt.loadNpmTasks( 'grunt-contrib-clean' );
+
+    // Generate README.md file.
+    grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+
+    // Generate .pot file.
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+
+	// Grunt release - Create installable package of the local files
+    grunt.registerTask('release', ['clean:zip', 'copy', 'compress', 'clean:main']);
 
 	grunt.util.linefeed = '\n';
 

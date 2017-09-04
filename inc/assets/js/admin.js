@@ -286,31 +286,47 @@ function activateAllPlugins() {
  */
 function enable_demo_import_button( type = 'free' ) {
 
-	if( 'free' === type ) {
+	switch( type ) {
 
-		// Get initial required plugins count.
-		var remaining = parseInt( astraDemo.requiredPluginsCount ) || 0;
+		case 'free':
+					// Get initial required plugins count.
+					var remaining = parseInt( astraDemo.requiredPluginsCount ) || 0;
 
-		// Enable demo import button.
-		if( 0 >= remaining ) {
+					// Enable demo import button.
+					if( 0 >= remaining ) {
 
-			jQuery('.astra-demo-import')
-				.removeAttr('data-import')
-				.addClass('button-primary')
-				.text( astraDemo.strings.importDemo );
-		}
-	} else {
+						jQuery('.astra-demo-import')
+							.removeAttr('data-import')
+							.addClass('button-primary')
+							.text( astraDemo.strings.importDemo );
+					}
+			break;
 
-		var demo_slug = jQuery('.wp-full-overlay-header').attr('data-demo-slug');
+		case 'upgrade':
+					var demo_slug = jQuery('.wp-full-overlay-header').attr('data-demo-slug');
 
-		jQuery('.astra-demo-import')
-				.addClass('go-pro button-primary')
-				.removeClass('astra-demo-import')
-				.attr('target', '_blank')
-				.attr('href', astraDemo.getProURL + demo_slug )
-				.text( astraDemo.getProText )
-				.append('<i class="dashicons dashicons-external"></i>');
+					jQuery('.astra-demo-import')
+							.addClass('go-pro button-primary')
+							.removeClass('astra-demo-import')
+							.attr('target', '_blank')
+							.attr('href', astraDemo.getUpgradeURL + demo_slug )
+							.text( astraDemo.getUpgradeText )
+							.append('<i class="dashicons dashicons-external"></i>');
+			break;
+
+		default:
+					var demo_slug = jQuery('.wp-full-overlay-header').attr('data-demo-slug');
+
+					jQuery('.astra-demo-import')
+							.addClass('go-pro button-primary')
+							.removeClass('astra-demo-import')
+							.attr('target', '_blank')
+							.attr('href', astraDemo.getProURL )
+							.text( astraDemo.getProText )
+							.append('<i class="dashicons dashicons-external"></i>');
+			break;
 	}
+
 }
 
 /**
@@ -420,7 +436,7 @@ jQuery(document).on('click', '.next-theme', function (event) {
 	event.preventDefault();
 	currentDemo = jQuery('.theme-preview-on')
 	currentDemo.removeClass('theme-preview-on');
-	nextDemo = currentDemo.nextAll('.theme');
+	nextDemo = currentDemo.next('.theme');
 	nextDemo.addClass('theme-preview-on');
 
 	renderDemoPreview( nextDemo );
@@ -434,7 +450,7 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 
 	currentDemo = jQuery('.theme-preview-on');
 	currentDemo.removeClass('theme-preview-on');
-	prevDemo = currentDemo.prevAll('.theme');
+	prevDemo = currentDemo.prev('.theme');
 	prevDemo.addClass('theme-preview-on');
 
 	renderDemoPreview(prevDemo);
@@ -452,9 +468,105 @@ jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
 
 });
 
+jQuery(document).on( 'wp-plugin-install-success', function( event, response ) {
+	event.preventDefault();
+
+	var $message     = jQuery( '.plugin-card-' + response.slug ).find( '.install-now' );
+	var $siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
+	var $enabledExtensions = jQuery( '.wp-full-overlay-header').find('.astra-enabled-extensions').val();
+
+	// Transform the 'Install' button into an 'Activate' button.
+	var $init = $message.data('init');
+
+	$message.removeClass( 'install-now installed button-disabled updated-message' )
+		.addClass('updating-message')
+		.html( astraDemo.strings.btnActivating );
+
+	// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
+	setTimeout( function() {
+
+		jQuery.ajax({
+			url: astraDemo.ajaxurl,
+			type: 'POST',
+			data: {
+				'action'	: 'astra-required-plugin-activate',
+				'init'		: $init,
+				'options'	: $siteOptions,
+				'enabledExtensions' : $enabledExtensions,
+			},
+		})
+		.done(function (result) {
+
+			if( result.success ) {
+				$message.removeClass( 'button-primary activate-now updating-message' )
+				.attr('disabled', 'disabled')
+				.addClass('disabled')
+				.text( astraDemo.strings.btnActive );
+
+				// Enable Demo Import Button
+				astraDemo.requiredPluginsCount--;
+				enable_demo_import_button();
+			} else {
+
+				$message.removeClass( 'updating-message' );
+
+			}
+
+		});
+
+	}, 1200 );
+
+});
+
+
 /**
  * Render Demo Preview
  */
+jQuery(document).on('click', '.activate-now', function (event) {
+	event.preventDefault();
+
+	var $button = jQuery( event.target ),
+		$init 	= $button.data( 'init' );
+
+	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
+		return;
+	}
+
+	$button.addClass('updating-message button-primary')
+		.html( astraDemo.strings.btnActivating );
+
+	var $siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
+	var $enabledExtensions = jQuery( '.wp-full-overlay-header').find('.astra-enabled-extensions').val();
+
+	jQuery.ajax({
+		url: astraDemo.ajaxurl,
+		type: 'POST',
+		data: {
+			'action'	: 'astra-required-plugin-activate',
+			'init'		: $init,
+			'options' 	: $siteOptions,
+			'enabledExtensions' 	: $enabledExtensions,
+		},
+	})
+	.done(function (result) {
+
+		if( result.success ) {
+			$button.removeClass( 'button-primary activate-now updating-message' )
+				.attr('disabled', 'disabled')
+				.addClass('disabled')
+				.text( astraDemo.strings.btnActive );
+
+			// Enable Demo Import Button
+			astraDemo.requiredPluginsCount--;
+			enable_demo_import_button();
+		}
+
+	})
+	.fail(function () {
+	});
+
+} );
+
 function renderDemoPreview(anchor) {
 
 	var demoId           = anchor.data('id') || '',
@@ -467,20 +579,22 @@ function renderDemoPreview(anchor) {
 		content          = anchor.data('content') || '',
 		requiredPlugins  = anchor.data('required-plugins') || '',
 		astraSiteOptions = anchor.find('.astra-site-options').val() || '';
+		astraEnabledExtensions = anchor.find('.astra-enabled-extensions').val() || '';
 
 	var template = wp.template('astra-demo-preview');
 
 	templateData = [{
-		id                      : demoId,
-		astra_demo_type         : demoType,
-		astra_demo_url          : demoURL,
-		demo_api                : apiURL,
-		screenshot              : screenshot,
-		demo_name               : demo_name,
-		slug               		: demo_slug,
-		content                 : content,
+		id                       : demoId,
+		astra_demo_type          : demoType,
+		astra_demo_url           : demoURL,
+		demo_api                 : apiURL,
+		screenshot               : screenshot,
+		demo_name                : demo_name,
+		slug               		 : demo_slug,
+		content                  : content,
 		required_plugins        : JSON.stringify(requiredPlugins),
-		astra_site_options      : astraSiteOptions,
+		astra_site_options       : astraSiteOptions,
+		astra_enabled_extensions : astraEnabledExtensions,
 	}];
 
 	// Initial set count.
@@ -489,7 +603,7 @@ function renderDemoPreview(anchor) {
 	// delete any earlier fullscreen preview before we render new one.
 	jQuery('.theme-install-overlay').remove();
 
-	jQuery('#ast-menu-page').append(template(templateData[0]));
+	jQuery('#astra-sites-menu-page').append(template(templateData[0]));
 	jQuery('.theme-install-overlay').css('display', 'block');
 	checkNextPrevButtons();
 
@@ -497,35 +611,35 @@ function renderDemoPreview(anchor) {
 	var descHeight = parseInt( desc.outerHeight() );
 	var descBtn    = jQuery('.theme-details-read-more');
 
-	if( 'free' === demoType && descHeight >= 55 ) {
+	if( jQuery.isArray( requiredPlugins ) ) {
 
-		// Show button.
-		descBtn.css( 'display', 'inline-block' );
+		if( descHeight >= 55 ) {
 
-		// Set height upto 3 line.
-		desc.css( 'height', 57 );
+			// Show button.
+			descBtn.css( 'display', 'inline-block' );
 
-		// Button Click.
-		descBtn.click(function(event) {
+			// Set height upto 3 line.
+			desc.css( 'height', 57 );
 
-			if( descBtn.hasClass('open') ) {
-				desc.animate({ height: 57 },
-					300, function() {
-					descBtn.removeClass('open');
-					descBtn.html( astraDemo.strings.DescExpand );
-				});
-			} else {
-				desc.animate({ height: descHeight },
-					300, function() {
-					descBtn.addClass('open');
-					descBtn.html( astraDemo.strings.DescCollapse );
-				});
-			}
+			// Button Click.
+			descBtn.click(function(event) {
 
-		});
-	}
+				if( descBtn.hasClass('open') ) {
+					desc.animate({ height: 57 },
+						300, function() {
+						descBtn.removeClass('open');
+						descBtn.html( astraDemo.strings.DescExpand );
+					});
+				} else {
+					desc.animate({ height: descHeight },
+						300, function() {
+						descBtn.addClass('open');
+						descBtn.html( astraDemo.strings.DescCollapse );
+					});
+				}
 
-	if( 'free' === demoType ) {
+			});
+		}
 
 		// or
 		var $pluginsFilter    = jQuery( '#plugin-filter' ),
@@ -632,6 +746,7 @@ function renderDemoPreview(anchor) {
 	} else {
 
 		// Enable Demo Import Button
+		astraDemo.requiredPluginsCount = requiredPlugins.length;
 		enable_demo_import_button( demoType );
 		jQuery('.required-plugins-wrap').remove();
 	}
@@ -778,11 +893,14 @@ function renderDemoGrid(demos) {
 		astra_demo_url   = demo.astra_demo_url;
 		astra_demo_type  = demo.astra_demo_type;
 		requiredPlugins  = demo.required_plugins;
+		status  = demo.status;
 		astraSiteOptions = demo.astra_site_options || '';
+		astraEnabledExtensions = demo.astra_enabled_extensions || '';
 
 		templateData = [{
 			id: id,
 			astra_demo_type: astra_demo_type,
+			status: status,
 			astra_demo_url: astra_demo_url,
 			demo_api: demo_api,
 			screenshot: screenshot,
@@ -790,7 +908,8 @@ function renderDemoGrid(demos) {
 			slug: demo_slug,
 			content: content,
 			required_plugins: requiredPlugins,
-			astra_site_options: astraSiteOptions
+			astra_site_options: astraSiteOptions,
+			astra_enabled_extensions: astraEnabledExtensions
 		}]
 
 		var template = wp.template('astra-single-demo');
@@ -853,6 +972,10 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 
 	$this.closest('.theme').focus();
 
+	var $theme = $this.closest('.astra-sites-preview').find('.wp-full-overlay-header');
+
+	var apiURL = $theme.data('demo-api') || '';
+
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
 		type: 'POST',
@@ -864,17 +987,27 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	})
 	.done(function ( demos ) {
 
+		if( demos.success ) {
+			jQuery('.astra-demo-import').removeClass('updating-message installing')
+				.removeAttr('data-import')
+				.addClass('view-site')
+				.removeClass('astra-demo-import')
+				.text( astraDemo.strings.viewSite )
+				.attr('target', '_blank')
+				.append('<i class="dashicons dashicons-external"></i>')
+				.attr('href', astraDemo.siteURL );
+		}
+	})
+	.fail(function ( demos ) {
 		jQuery('.astra-demo-import').removeClass('updating-message installing')
 			.removeAttr('data-import')
 			.addClass('view-site')
 			.removeClass('astra-demo-import')
-			.text( astraDemo.strings.viewSite )
 			.attr('target', '_blank')
-			.append('<i class="dashicons dashicons-external"></i>')
-			.attr('href', astraDemo.siteURL );
-	})
-	.fail(function ( demos ) {
-		jQuery('.astra-demo-import').removeClass('updating-message installing').text('Error.');
+			.attr('href', astraDemo.strings.importFailedURL );
+
+		jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
+		jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
 	});
 
 });

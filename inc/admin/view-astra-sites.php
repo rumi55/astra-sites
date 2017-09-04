@@ -11,8 +11,6 @@ defined( 'ABSPATH' ) or exit;
 wp_enqueue_script( 'astra-sites-admin' );
 wp_enqueue_style( 'astra-sites-admin' );
 
-do_action( 'astra_sites_before_site_grid' );
-
 	/**
 	 * Initial Demo List
 	 *
@@ -20,6 +18,7 @@ do_action( 'astra_sites_before_site_grid' );
 	 */
 	?>
 	<div class="wrap">
+
 
 		<div class="wp-filter hide-if-no-js">
 
@@ -45,11 +44,15 @@ do_action( 'astra_sites_before_site_grid' );
 
 		</div>
 
+		<?php do_action( 'astra_sites_before_site_grid' ); ?>
+
 		<span class="spinner"></span>
 
 		<div class="theme-browser rendered">
 			<div class="themes wp-clearfix"></div>
 		</div>
+
+		<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
 	</div>
 
@@ -61,7 +64,7 @@ do_action( 'astra_sites_before_site_grid' );
 	 */
 	?>
 	<script type="text/template" id="tmpl-astra-single-demo">
-		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+		<div class="theme astra-theme {{data.status}}" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
 			data-demo-id="{{{data.id}}}"
 			data-demo-type="{{{data.astra_demo_type}}}"
 			data-demo-url="{{{data.astra_demo_url}}}"
@@ -72,6 +75,9 @@ do_action( 'astra_sites_before_site_grid' );
 			data-content="{{{data.content}}}"
 			data-required-plugins="{{data.required_plugins}}">
 			<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
+			<input type="hidden" class="astra-enabled-extensions" value="{{data.astra_enabled_extensions}}" >
+
+			<span class="status {{data.status}}">{{data.status}}</span>
 
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
@@ -114,6 +120,7 @@ do_action( 'astra_sites_before_site_grid' );
 						data-content="{{{data.content}}}"
 						data-required-plugins="{{data.required_plugins}}">
 					<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
+					<input type="hidden" class="astra-enabled-extensions" value="{{data.astra_enabled_extensions}}" >
 					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra-sites' ); ?></span></button>
 					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra-sites' ); ?></span></button>
 					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra-sites' ); ?></span></button>
@@ -177,7 +184,3 @@ do_action( 'astra_sites_before_site_grid' );
 			?>
 		</div>
 	</script>
-
-	<?php
-
-	do_action( 'astra_sites_after_site_grid' );

@@ -7,7 +7,13 @@
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
-	<exclude-pattern>*/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
-	<exclude-pattern>*/importers/wxr-importer/class-logger.php</exclude-pattern>
-	<exclude-pattern>*/importers/class-widgets-importer.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/wxr-importer/class-logger.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/class-widgets-importer.php</exclude-pattern>
+
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments.Found">
+		<!-- See https://github.com/squizlabs/PHP_CodeSniffer/issues/1277 -->
+		<severity>0</severity>
+	</rule>
+
 </ruleset>
