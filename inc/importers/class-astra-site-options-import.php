@@ -83,10 +83,15 @@ class Astra_Site_Options_Import {
 	 *
 	 * @param  (Array) $options Array of site options to be imported from the demo.
 	 */
-	public function import_options( $options ) {
+	public function import_options( $options = array() ) {
+
+		if ( ! isset( $options ) ) {
+			return;
+		}
 
 		foreach ( $options as $option_name => $option_value ) {
 
+			// Is option exist in defined array site_options()?
 			if ( null !== $option_value ) {
 
 				// Is option exist in defined array site_options()?

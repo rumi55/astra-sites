@@ -42,7 +42,7 @@ if ( ! function_exists( 'astra_sites_setup' ) ) :
 	 * @since 1.0.5
 	 */
 	function astra_sites_setup() {
-		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
+		require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites.php';
 	}
 
 	add_action( 'plugins_loaded', 'astra_sites_setup' );

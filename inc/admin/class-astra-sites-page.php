@@ -227,7 +227,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * @since 1.0.6
 		 */
 		static public function general_page() {
-			require_once ASTRA_SITES_DIR . 'admin/view-astra-sites.php';
+			require_once ASTRA_SITES_DIR . 'inc/admin/view-astra-sites.php';
 		}
 	}
 
