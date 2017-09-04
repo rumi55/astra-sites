@@ -59,18 +59,28 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$this->includes();
 
-			add_action( 'wp_enqueue_scripts',                               array( $this, 'admin_enqueue' ) );
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
+			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+
+		}
+
+		/**
+		 * Loads textdomain for the plugin.
+		 *
+		 * @since 1.0.1
+		 */
+		function load_textdomain() {
+			load_plugin_textdomain( 'astra-sites' );
 		}
 
 		/**
 		 * Admin Notices
 		 *
-		 * @since 1.0.0
+		 * @since 1.0.5
 		 * @return void
 		 */
 		function admin_notices() {
@@ -103,7 +113,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=astra&action=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'themes.php?page=astra-sites' ) . '" aria-label="' . esc_attr__( 'See Library', 'astra-sites' ) . '">' . esc_html__( 'See Library', 'astra-sites' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -116,7 +126,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function set_api_url() {
 
-			self::$api_url = apply_filters( 'astra_demo_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
+			self::$api_url = apply_filters( 'astra_sites_api_url', 'https://sites.wpastra.com/wp-json/wp/v2/' );
 
 		}
 
@@ -134,13 +144,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public static function get_api_url( $args, $page = '1' ) {
 
-			$request_params = array(
-				'page'         => $page,
-				'per_page'     => '15',
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'page'         => $page,
+					'per_page'     => '15',
 
-				// Use this for premium demos.
-				'purchase_key' => '',
-				'site_url'     => '',
+					// Use this for premium demos.
+					'purchase_key' => '',
+					'site_url'     => '',
+				)
 			);
 
 			$args_search = isset( $args->search ) ? $args->search : '';
@@ -165,45 +177,62 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @return (String) URL that can be queried to return the demos.
 		 */
 		public static function get_taxanomy_api_url() {
-			return self::$api_url . 'astra-site-category/';
+			$request_params = apply_filters( 'astra_sites_api_params', array() );
+			return add_query_arg( $request_params, self::$api_url . 'astra-site-category/' );
 		}
 
 		/**
 		 * Enqueue admin scripts.
 		 *
+		 * @since  1.0.5    Added 'getUpgradeText' and 'getUpgradeURL' localize variables.
+		 *
 		 * @since  1.0.0
+		 *
+		 * @param  string $hook Current hook name.
+		 * @return void
 		 */
-		public function admin_enqueue() {
+		public function admin_enqueue( $hook = '' ) {
+
+			if ( 'appearance_page_astra-sites' !== $hook ) {
+				return;
+			}
 
 			wp_register_script(
-				'astra-sites-admin', ASTRA_SITES_URI . 'assets/js/admin.js', array(
+				'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/js/admin.js', array(
 					'jquery',
 					'wp-util',
 					'updates',
 				), ASTRA_SITES_VER, true
 			);
 
-			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'assets/css/admin.css', ASTRA_SITES_VER, true );
+			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 
 			wp_localize_script(
-				'astra-sites-admin', 'astraDemo', array(
-					'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
-					'siteURL'              => site_url(),
-					'getProText'           => __( 'Get Pro', 'astra-sites' ),
-					'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
-					'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
-					'requiredPluginsCount' => 0,
-					'strings'              => array(
-						'viewSite'      => __( 'Done! View Site', 'astra-sites' ),
-						'btnActivating' => __( 'Activating', 'astra-sites' ) . '&hellip;',
-						'btnActive'     => __( 'Active', 'astra-sites' ),
-						'importDemo'    => __( 'Import Demo', 'astra-sites' ),
-						'DescExpand'    => __( 'Read more', 'astra-sites' ) . '&hellip;',
-						'DescCollapse'  => __( 'Hide', 'astra-sites' ),
-						'responseError' => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
-						'searchNoFound' => __( 'No Demos found, Try a different search.', 'astra-sites' ),
-						'importWarning' => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is strongly recommended to run Demo Import on a fresh WordPress installation.\n\n2. If you have any existing pages, posts, menus & other data, it will be overwritten.\n\n3. Some copyrighted images won't be imported. Instead they will be replaced with placeholders.", 'astra-sites' ),
-					),
+				'astra-sites-admin', 'astraDemo', apply_filters(
+					'astra_sites_localize_vars', array(
+						'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
+						'siteURL'              => site_url(),
+						'getProText'           => __( 'Purchase', 'astra-sites' ),
+						'getProURL'            => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
+						'getUpgradeText'       => __( 'Upgrade', 'astra-sites' ),
+						'getUpgradeURL'        => esc_url( 'https://wpastra.com/pro/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=' ),
+						'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
+						'requiredPluginsCount' => 0,
+						'strings'              => array(
+							'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
+							'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
+							'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
+							'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
+							'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
+							'btnActive'            => __( 'Active', 'astra-sites' ),
+							'importDemo'           => __( 'Import This Site', 'astra-sites' ),
+							'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
+							'DescCollapse'         => __( 'Hide', 'astra-sites' ),
+							'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
+							'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
+							'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
+						),
+					)
 				)
 			);
 
@@ -216,13 +245,16 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function includes() {
 
-			require_once ASTRA_SITES_DIR . 'admin/class-astra-sites-admin.php';
+			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-astra-pro.php';
 
 			// Load the Importers.
-			require_once ASTRA_SITES_DIR . 'importers/class-widgets-importer.php';
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-customizer-import.php';
-			require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-astra-wxr-importer.php';
-			require_once ASTRA_SITES_DIR . 'importers/class-astra-site-options-import.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-sites-helper.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-widgets-importer.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 		}
 
 		/**
@@ -241,7 +273,13 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				);
 			}
 
-			$plugin_init = esc_attr( $_POST['init'] );
+			$data = array();
+			$plugin_init        = ( isset( $_POST['init'] ) ) ? esc_attr( $_POST['init'] ) : '';
+			$astra_site_options = ( isset( $_POST['options'] ) ) ? json_decode( stripslashes( $_POST['options'] ) ) : '';
+			$enabled_extensions = ( isset( $_POST['enabledExtensions'] ) ) ? json_decode( stripslashes( $_POST['enabledExtensions'] ) ) : '';
+
+			$data['astra_site_options'] = $astra_site_options;
+			$data['enabled_extensions'] = $enabled_extensions;
 
 			$activate = activate_plugin( $plugin_init, '', false, true );
 
@@ -253,6 +291,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					)
 				);
 			}
+
+			do_action( 'astra_sites_after_plugin_activation', $plugin_init, $data );
 
 			wp_send_json_success(
 				array(
@@ -275,9 +315,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			$response = array(
-				'active'       => '',
-				'inactive'     => '',
-				'notinstalled' => '',
+				'active'       => array(),
+				'inactive'     => array(),
+				'notinstalled' => array(),
 			);
 
 			if ( ! current_user_can( 'customize' ) ) {
@@ -289,23 +329,88 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( count( $required_plugins ) > 0 ) {
 				foreach ( $required_plugins as $key => $plugin ) {
 
-					// Inactive plugins.
-					if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
-						$response['inactive'][] = $plugin;
+					/**
+					 * Has Pro Version Support?
+					  * And
+					  * Is Pro Version Installed?
+					 */
+					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
+					if ( $plugin_pro ) {
 
-						// Not Installed plugins.
-					} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
-						$response['notinstalled'][] = $plugin;
+						// Pro - Active.
+						if ( is_plugin_active( $plugin_pro['init'] ) ) {
+							$response['active'][] = $plugin_pro;
 
-						// Active plugins.
+							// Pro - Inactive.
+						} else {
+							$response['inactive'][] = $plugin_pro;
+						}
 					} else {
-						$response['active'][] = $plugin;
+
+						// Lite - Installed but Inactive.
+						if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) && is_plugin_inactive( $plugin['init'] ) ) {
+
+							$response['inactive'][] = $plugin;
+
+							// Lite - Not Installed.
+						} elseif ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['init'] ) ) {
+
+							$response['notinstalled'][] = $plugin;
+
+							// Lite - Active.
+						} else {
+							$response['active'][] = $plugin;
+						}
 					}
 				}
 			}
 
 			// Send response.
 			wp_send_json_success( $response );
+		}
+
+		/**
+		 * Has Pro Version Support?
+		 * And
+		 * Is Pro Version Installed?
+		 *
+		 * Check Pro plugin version exist of requested plugin lite version.
+		 *
+		 * Eg. If plugin 'BB Lite Version' required to import demo. Then we check the 'BB Agency Version' is exist?
+		 * If yes then we only 'Activate' Agency Version. [We couldn't install agency version.]
+		 * Else we 'Activate' or 'Install' Lite Version.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param  string $lite_version Lite version init file.
+		 * @return mixed               Return false if not installed or not supported by us
+		 *                                    else return 'Pro' version details.
+		 */
+		public static function pro_plugin_exist( $lite_version = '' ) {
+
+			// Lite init => Pro init.
+			$plugins = array(
+				'beaver-builder-lite-version/fl-builder.php' => array(
+					'slug' => 'bb-plugin',
+					'init' => 'bb-plugin/fl-builder.php',
+					'name' => 'Beaver Builder Plugin (Agency Version)',
+				),
+				'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
+					'slug' => 'bb-ultimate-addon',
+					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
+					'name' => 'Ultimate Addon for Beaver Builder',
+				),
+			);
+
+			if ( isset( $plugins[ $lite_version ] ) ) {
+
+				// Pro plugin directory exist?
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugins[ $lite_version ]['init'] ) ) {
+					return $plugins[ $lite_version ];
+				}
+			}
+
+			return false;
 		}
 
 		/**
@@ -331,6 +436,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$report['success'] = true;
 			$report['message'] = __( 'Demo Imported Successfully.', 'astra-sites' );
 			wp_send_json( $report );
+
 		}
 
 		/**
@@ -355,20 +461,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		}
 
 		/**
-		 * Get the list of demos.
-		 *
-		 * @since  1.0.0
-		 * @see  admin/view-astra-sites.php
-		 * @return (Array) Demos.
-		 */
-		public static function get_astra_all_demos() {
-			$args     = new stdClass();
-			$args->id = 'all';
-
-			return self::get_astra_demos( $args );
-		}
-
-		/**
 		 * Import the demo.
 		 *
 		 * @since  1.0.0
@@ -382,9 +474,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Import Enabled Extensions.
 			$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
 
-			// Import Widgets data.
-			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
-
 			// Import Customizer Settings.
 			$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 
@@ -396,6 +485,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			// Import Custom 404 extension options.
 			$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
+
+			// Import Widgets data.
+			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
+
 		}
 
 		/**
@@ -461,8 +554,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @param  (Array) $saved_extensions Array of enabled extensions.
 		 */
 		private function import_astra_enabled_extension( $saved_extensions ) {
-			if ( is_callable( 'AST_Admin_Helper::update_admin_settings_option' ) ) {
-				AST_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $saved_extensions );
+			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
+				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $saved_extensions );
 			}
 		}
 
@@ -474,8 +567,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @param  (Array) $options_404 404 Extensions settings from the demo.
 		 */
 		private function import_custom_404_extension_options( $options_404 ) {
-			if ( is_callable( 'AST_Admin_Helper::update_admin_settings_option' ) ) {
-				AST_Admin_Helper::update_admin_settings_option( '_astra_ext_custom_404', $options_404 );
+			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
+				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_custom_404', $options_404 );
 			}
 		}
 
@@ -493,32 +586,49 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// default values.
 			$remote_args = array();
 			$defaults    = array(
-				'id'                           => '',
-				'astra-site-widgets-data'      => '',
-				'astra-site-customizer-data'   => '',
-				'astra-site-options-data' => '',
-				'astra-site-wxr-path'          => '',
-				'astra-enabled-extensions'     => '',
-				'astra-custom-404'             => '',
-				'required-plugins'             => '',
+				'id'                         => '',
+				'astra-site-widgets-data'    => '',
+				'astra-site-customizer-data' => '',
+				'astra-site-options-data'    => '',
+				'astra-site-wxr-path'        => '',
+				'astra-enabled-extensions'   => '',
+				'astra-custom-404'           => '',
+				'required-plugins'           => '',
 			);
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
+			// Use this for premium demos.
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'purchase_key' => '',
+					'site_url'     => '',
+				)
+			);
+
+			$demo_api_uri = add_query_arg( $request_params, $demo_api_uri );
+
+			// API Call.
 			$response = wp_remote_get( $demo_api_uri, $api_args );
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
+
 				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
-				$remote_args['id']                           = $result['id'];
-				$remote_args['astra-site-widgets-data']      = json_decode( $result['astra-site-widgets-data'] );
-				$remote_args['astra-site-customizer-data']   = $result['astra-site-customizer-data'];
-				$remote_args['astra-site-options-data'] = $result['astra-site-options-data'];
-				$remote_args['astra-site-wxr-path']          = $result['astra-site-wxr-path'];
-				$remote_args['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
-				$remote_args['astra-custom-404']             = $result['astra-custom-404'];
-				$remote_args['required-plugins']             = $result['required-plugins'];
+
+				if ( ! isset( $result['code'] ) ) {
+					$remote_args['id']                           = $result['id'];
+					$remote_args['astra-site-widgets-data']      = json_decode( $result['astra-site-widgets-data'] );
+					$remote_args['astra-site-customizer-data']   = $result['astra-site-customizer-data'];
+					$remote_args['astra-site-options-data'] = $result['astra-site-options-data'];
+					$remote_args['astra-site-wxr-path']          = $result['astra-site-wxr-path'];
+					$remote_args['astra-enabled-extensions']     = $result['astra-enabled-extensions'];
+					$remote_args['astra-custom-404']             = $result['astra-custom-404'];
+					$remote_args['required-plugins']             = $result['required-plugins'];
+				}
 			}
 
 			// Merge remote demo and defaults.
@@ -539,8 +649,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$astra_demos = array();
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_sites_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
 			$response = wp_remote_get( $url, $api_args );
@@ -567,7 +679,20 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						$astra_demos[ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
 						$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? esc_url( $demo['_links']['self'][0]['href'] ) : self::get_api_url( new stdClass() ) . $demo['id'];
 						$astra_demos[ $key ]['content']            = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
-						$astra_demos[ $key ]['required_plugins']   = isset( $demo['required-plugins'] ) ? json_encode( $demo['required-plugins'] ) : '';
+
+						if ( isset( $demo['required-plugins'] ) ) {
+							$required_plugins = $demo['required-plugins'];
+							if ( is_array( $required_plugins ) ) {
+								$astra_demos[ $key ]['required_plugins'] = json_encode( $required_plugins );
+							} else {
+								$astra_demos[ $key ]['required_plugins'] = $required_plugins;
+							}
+						}
+						$astra_demos[ $key ]['astra_site_options'] = isset( $demo['astra-site-options-data'] ) ? json_encode( $demo['astra-site-options-data'] ) : '';
+						$astra_demos[ $key ]['astra_enabled_extensions'] = isset( $demo['astra-enabled-extensions'] ) ? json_encode( $demo['astra-enabled-extensions'] ) : '';
+
+						$demo_status                               = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
+						$astra_demos[ $key ]['status']             = ( 'draft' === $demo_status  ) ? 'beta' : $demo_status;
 					}
 
 					// Free up memory by unsetting variables that are not required.
@@ -589,8 +714,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function get_demo_categories() {
 			$categories = array();
 
-			$api_args = array(
-				'timeout' => 15,
+			$api_args = apply_filters(
+				'astra_demo_api_args', array(
+					'timeout' => 15,
+				)
 			);
 
 			$response = wp_remote_get( self::get_taxanomy_api_url(), $api_args );
@@ -607,8 +734,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				if ( is_array( $result ) ) {
 
 					foreach ( $result as $key => $category ) {
-						if ( 0 == $category['count'] ) {
-							continue;
+
+						if ( apply_filters( 'astra_sites_category_hide_empty', true ) ) {
+							if ( 0 == $category['count'] ) {
+								continue;
+							}
 						}
 						$categories[ $key ]['id']            = $category['id'];
 						$categories[ $key ]['name']          = $category['name'];
@@ -635,4 +765,3 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 	Astra_Sites::set_instance();
 
 endif;
-

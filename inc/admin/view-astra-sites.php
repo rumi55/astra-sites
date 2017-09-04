@@ -11,13 +11,6 @@ defined( 'ABSPATH' ) or exit;
 wp_enqueue_script( 'astra-sites-admin' );
 wp_enqueue_style( 'astra-sites-admin' );
 
-// Load demo importer markup.
-$all_demos = Astra_Sites::get_astra_all_demos();
-
-do_action( 'astra_sites_before_site_grid', $all_demos );
-
-if ( count( $all_demos ) > 0 ) {
-
 	/**
 	 * Initial Demo List
 	 *
@@ -25,6 +18,7 @@ if ( count( $all_demos ) > 0 ) {
 	 */
 	?>
 	<div class="wrap">
+
 
 		<div class="wp-filter hide-if-no-js">
 
@@ -50,48 +44,15 @@ if ( count( $all_demos ) > 0 ) {
 
 		</div>
 
+		<?php do_action( 'astra_sites_before_site_grid' ); ?>
+
 		<span class="spinner"></span>
 
 		<div class="theme-browser rendered">
-			<div class="themes wp-clearfix">
-
-				<?php foreach ( $all_demos as $key => $demo ) { ?>
-
-					<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
-						data-demo-id="<?php echo esc_attr( $demo['id'] ); ?>"
-						data-demo-type="<?php echo esc_attr( $demo['astra_demo_type'] ); ?>"
-						data-demo-url="<?php echo esc_url( $demo['astra_demo_url'] ); ?>"
-						data-demo-api="<?php echo esc_url( $demo['demo_api'] ); ?>"
-						data-screenshot="<?php echo esc_url( $demo['featured_image_url'] ); ?>"
-						data-demo-name="<?php echo esc_attr( $demo['title'] ); ?>"
-						data-demo-slug="<?php echo esc_attr( $demo['slug'] ); ?>"
-						data-content="<?php echo esc_attr( $demo['content'] ); ?>"
-						data-required-plugins="<?php echo esc_attr( $demo['required_plugins'] ); ?>">
-
-						<?php if ( 'premium' === $demo['astra_demo_type'] ) { ?>
-							<span class="demo-type <?php echo esc_attr( $demo['astra_demo_type'] ); ?>"><?php echo esc_attr( $demo['astra_demo_type'] ); ?></span>
-						<?php } ?>
-
-						<div class="theme-screenshot">
-							<?php if ( ! empty( $demo['featured_image_url'] ) ) { ?>
-								<img src="<?php echo esc_attr( $demo['featured_image_url'] ); ?>" alt="">
-							<?php } ?>
-						</div>
-
-						<a href="<?php echo esc_url( $demo['astra_demo_url'] ); ?>" target="_blank">
-							<span class="more-details" id="astra-theme-action"><?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?></span>
-						</a>
-
-						<h3 class="theme-name" id="astra-theme-name"><?php echo esc_attr( $demo['title'] ); ?></h3>
-						<div class="theme-actions">
-							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
-						</div>
-					</div>
-
-				<?php } ?>
-
-			</div>
+			<div class="themes wp-clearfix"></div>
 		</div>
+
+		<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
 	</div>
 
@@ -103,7 +64,7 @@ if ( count( $all_demos ) > 0 ) {
 	 */
 	?>
 	<script type="text/template" id="tmpl-astra-single-demo">
-		<div class="theme astra-theme" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
+		<div class="theme astra-theme {{data.status}}" tabindex="0" aria-describedby="astra-theme-action astra-theme-name"
 			data-demo-id="{{{data.id}}}"
 			data-demo-type="{{{data.astra_demo_type}}}"
 			data-demo-url="{{{data.astra_demo_url}}}"
@@ -113,6 +74,10 @@ if ( count( $all_demos ) > 0 ) {
 			data-screenshot="{{{data.screenshot}}}"
 			data-content="{{{data.content}}}"
 			data-required-plugins="{{data.required_plugins}}">
+			<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
+			<input type="hidden" class="astra-enabled-extensions" value="{{data.astra_enabled_extensions}}" >
+
+			<span class="status {{data.status}}">{{data.status}}</span>
 
 			<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 
@@ -154,6 +119,8 @@ if ( count( $all_demos ) > 0 ) {
 						data-screenshot="{{{data.screenshot}}}"
 						data-content="{{{data.content}}}"
 						data-required-plugins="{{data.required_plugins}}">
+					<input type="hidden" class="astra-site-options" value="{{data.astra_site_options}}" >
+					<input type="hidden" class="astra-enabled-extensions" value="{{data.astra_enabled_extensions}}" >
 					<button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'astra-sites' ); ?></span></button>
 					<button class="previous-theme"><span class="screen-reader-text"><?php esc_html_e( 'Previous', 'astra-sites' ); ?></span></button>
 					<button class="next-theme"><span class="screen-reader-text"><?php esc_html_e( 'Next', 'astra-sites' ); ?></span></button>
@@ -201,28 +168,19 @@ if ( count( $all_demos ) > 0 ) {
 		</div>
 	</script>
 
-	<?php
-
-	// Load demo importer welcome.
-} else {
-	?>
+	<script type="text/template" id="tmpl-astra-no-demos">
 		<div class="no-themes">
 			<?php
 
 			/* translators: %1$s & %2$s are a Demo API URL */
-			printf( __( '<p> Hey, It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-sites' ) , esc_url( Astra_Sites::$api_url ), esc_url( Astra_Sites::$api_url ) );
+			printf( __( '<p> It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-sites' ) , esc_url( Astra_Sites::$api_url ), esc_url( Astra_Sites::$api_url ) );
 
-			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues, No kidding! .</p>', 'astra-sites' );
+			_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues. No kidding!</p>', 'astra-sites' );
 
-			_e( '<p class="left-margin"> 2. If that does not work, You will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
+			_e( '<p class="left-margin"> 2. If that does not work, you will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
 
 			/* translators: %1$s is a support link */
-			printf( __( '<p>Meanwhile, You can open up a <a href="%1$s" target="_blank">Support Ticket</a> on out support portal and we will help you to get the demo data on your site using a manual procedure.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
+			printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
 			?>
-
-					</div>
-	</p>
-	<?php
-}// End if().
-
-do_action( 'astra_sites_after_site_grid', $all_demos );
+		</div>
+	</script>
