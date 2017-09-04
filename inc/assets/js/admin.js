@@ -160,6 +160,36 @@ function bulkPluginInstallActivate() {
 	activateAllPlugins();
 }
 
+jQuery(document).on('click', '.install-now', function (event) {
+	event.preventDefault();
+
+	var $button 	= jQuery( event.target ),
+		$document   = jQuery(document);
+
+	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
+		return;
+	}
+
+	if ( wp.updates.shouldRequestFilesystemCredentials && ! wp.updates.ajaxLocked ) {
+		wp.updates.requestFilesystemCredentials( event );
+
+		$document.on( 'credential-modal-cancel', function() {
+			var $message = $( '.install-now.updating-message' );
+
+			$message
+				.removeClass( 'updating-message' )
+				.text( wp.updates.l10n.installNow );
+
+			wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
+		} );
+	}
+
+	wp.updates.installPlugin( {
+		slug: $button.data( 'slug' )
+	} );
+
+} );
+
 /**
  * Plugin Installing.
  */
@@ -168,6 +198,8 @@ jQuery(document).on('wp-plugin-installing', function (event, args) {
 
 	var $card = jQuery( '.plugin-card-' + args.slug );
 
+	// $card.addClass('updating-message');
+	
 	// Remove icon.
 	$card.find('.dashicons').remove();
 
@@ -210,6 +242,7 @@ jQuery(document).on( 'wp-plugin-install-success', function( event, args ) {
 
 			if( result.success ) {
 
+				// $card.removeClass('updating-message');
 				$card.find('.spinner').remove();
 				$card.append('<span class="dashicons-yes dashicons"></span>');
 
@@ -248,6 +281,8 @@ function activateAllPlugins() {
 			var $card    	 = jQuery( '.plugin-card-' + single_plugin.slug ),
 				$siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
 
+
+			// $card.addClass('updating-message');
 			$card.append('<span class="spinner is-active"></span>');
 			$card.find('.dashicons').remove();
 
@@ -263,6 +298,7 @@ function activateAllPlugins() {
 
 					if( result.success ) {
 
+						// $card.removeClass('updating-message');
 						$card.append('<span class="dashicons-yes dashicons"></span>');
 						$card.find('.spinner').remove();
 
@@ -462,6 +498,10 @@ jQuery(document).on('click', '.previous-theme', function (event) {
 jQuery(document).on( 'wp-plugin-install-error', function( event, response ) {
 
 	var $card = jQuery( '.plugin-card-' + response.slug );
+
+	// $card
+	// 	.addClass( 'button-primary' )
+	// 	.html( wp.updates.l10n.installNow );
 
 	$card.find('.spinner').remove();
 	$card.find('.title').after('<span class="dashicons-no dashicons"></span>');
@@ -678,6 +718,12 @@ function renderDemoPreview(anchor) {
 						output += ' 		data-slug="'+plugin.slug+'"';
 						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
+						// output += '	<button class="button install-now"';
+						// output += '			data-init="' + plugin.init + '"';
+						// output += '			data-slug="' + plugin.slug + '"';
+						// output += '			data-name="' + plugin.name + '">';
+						// output += 	wp.updates.l10n.installNow;
+						// output += '	</button>';
 						output += '	<span class="dashicons-no dashicons"></span>';
 						output += '</div>';
 
@@ -703,6 +749,10 @@ function renderDemoPreview(anchor) {
 						output += ' 		data-slug="'+plugin.slug+'"';
 						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
+						// output += '	<button class="button activate-now button-primary"';
+						// output += '		data-init="' + plugin.init + '">';
+						// output += 	wp.updates.l10n.activatePlugin;
+						// output += '	</button>';
 						output += '	<span class="dashicons-no dashicons"></span>';
 						output += '</div>';
 
@@ -725,6 +775,11 @@ function renderDemoPreview(anchor) {
 						output += ' 		data-slug="'+plugin.slug+'"';
 						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
+						// output += '	<button class="button disabled"';
+						// output += '			data-slug="' + plugin.slug + '"';
+						// output += '			data-name="' + plugin.name + '">';
+						// output += astraDemo.strings.btnActive;
+						// output += '	</button>';
 						output += '	<span class="dashicons-yes dashicons"></span>';
 						output += '</div>';
 
