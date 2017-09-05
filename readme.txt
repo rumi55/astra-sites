@@ -47,6 +47,7 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.8 - 5-Sept-2017
+* Enhancement: Disabled dismiss-able notice visible once for each user.
 * Enhancement: Showing error message for for user who have not `manage_plugins` capability.
 
 v1.0.7 - 1-Sept-2017
