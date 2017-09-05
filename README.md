@@ -46,6 +46,9 @@ https://sites.wpastra.com/law-free/
 
 ## Changelog ##
 
+v1.0.8 - Unreleased
+* Enhancement: Showing error message for for user who have not `manage_plugins` capability.
+
 v1.0.7 - 1-Sept-2017
 * Fix: Custom Menu widget not setting imported widget.
 
