@@ -60,6 +60,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$this->includes();
 
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
+			add_action( 'wp_ajax_astra-import-info',                        array( $this, 'import_info' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'wp_ajax_astra-list-sites',                         array( $this, 'list_demos' ) );
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
@@ -205,7 +206,140 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				), ASTRA_SITES_VER, true
 			);
 
+			wp_register_style( 'astra-sites-importer', ASTRA_SITES_URI . 'inc/assets/css/importer.css', ASTRA_SITES_VER, true );
 			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
+
+			
+
+			$data = array(
+					    'home' => 'http://wptest.io/demo',
+					    'siteurl' => 'http://wptest.io/demo',
+					    'title' => 'WP Test Demo',
+					    'users' => array(
+					        array(
+					            'data' => array(
+					                'ID' => '1',
+					                'user_login' => 'manovotny',
+					                'user_email' => 'manovotny@gmail.com',
+					                'display_name' => 'Michael Novotny',
+					                'first_name' => 'Michael',
+					                'last_name' => 'Novotny',
+					            ),
+					            'meta' => array()
+					        ),
+					        array(
+					            'data' => array(
+					                'ID' => '2',
+					                'user_login' => 'dewde',
+					                'user_email' => 'yo@chrisam.es',
+					                'display_name' => 'Chris Ames',
+					                'first_name' => 'Chris',
+					                'last_name' => 'Ames',
+					            ),
+					            'meta' => array()
+					        ),
+					        array(
+					            'data' => array(
+					                'ID' => '3',
+					                'user_login' => 'tommcfarlin',
+					                'user_email' => 'tom@tommcfarlin.com',
+					                'display_name' => 'Tom McFarlin',
+					                'first_name' => 'Tom',
+					                'last_name' => 'McFarlin',
+					            ),
+					            'meta' => array()
+					        ),
+					        array(
+					            'data' => array(
+					                'ID' => '4',
+					                'user_login' => 'saddington',
+					                'user_email' => 'me@john.do',
+					                'display_name' => 'John Saddington',
+					                'first_name' => 'John',
+					                'last_name' => 'Saddington',
+					            ),
+					            'meta' => array()
+					        ),
+					        array(
+					            'data' => array(
+					                'ID' => '5',
+					                'user_login' => 'alliswell',
+					                'user_email' => 'jared@lessmade.com',
+					                'display_name' => 'Jared Erickson',
+					                'first_name' => 'Jared',
+					                'last_name' => 'Erickson',
+					            ),
+					            'meta' => array()
+					        ),
+					        array(
+					            'data' => array(
+					                'ID' => '6',
+					                'user_login' => 'jbrad',
+					                'user_email' => 'jason.bradley@me.com',
+					                'display_name' => 'Jason Bradley',
+					                'first_name' => 'Jason',
+					                'last_name' => 'Bradley',
+					            ),
+					            'meta' => array()
+					        ),
+					    ),
+					    'posts' => 154,
+					    'media' => 44,
+					    'comments' => 30,
+					    'terms' => 61,
+					    'generator' => 'http://wordpress.org/?v=3.5.1',
+					    'version' => 1.2,
+					);
+
+			
+			// $data = array(
+			// 	'home' => 'http://sites-wpastra.sharkz.in/car-repair',
+			//     'siteurl' => 'http://sites-wpastra.sharkz.in/',
+			//     'title' => 'Car Repair',
+			//     'users' => array(
+			//         array(
+			//             'data' => array(
+			//                 'ID' => '4',
+			//                 'user_login' => 'komalg',
+			//                 'user_email' => 'komalg@bsf.io',
+			//                 'display_name' => 'komalg',
+			//                 'first_name' => '',
+			//                 'last_name' => '',
+			//             ),
+			//             'meta' => array()
+			//         ),
+			//         array(
+			//             'data' => array(
+			//                 'ID' => '2',
+			//                 'user_login' => 'satishk',
+			//                 'user_email' => 'satishk@bsf.io',
+			//                 'display_name' => 'satishk',
+			//                 'first_name' => '',
+			//                 'last_name' => '',
+			//             ),
+			//             'meta' => array()
+			//         )
+			//     ),
+			//     'post' => '14',
+			//     'media' => '35',
+			//     'comment' => '1',
+			//     'term' => '4',
+			//     'generator' => 'https://wordpress.org/?v=4.8.1',
+			//     'version' => '1.2',
+			// );
+
+			// $args = array();
+			// $mapping = $this->get_author_mapping( $args );
+			// $fetch_attachments = true;
+
+			// // Set our settings
+			// $settings = compact( 'mapping', 'fetch_attachments' );
+
+			$args = array(
+				'action'  => 'astra-wxr-import',
+				'id'      => '',
+			);
+			$url = add_query_arg( urlencode_deep( $args ), admin_url( 'admin-ajax.php' ) );
 
 			wp_localize_script(
 				'astra-sites-admin', 'astraDemo', apply_filters(
@@ -232,10 +366,70 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 							'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
 							'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
 						),
+						'importer' => array(
+							'count' => array(
+								'posts' => 154, // $data->post,
+					            'media' => 44, // $data->media,
+					            'users' => 6, // count( $data->users ),
+					            'comments' => 30, // $data->comment,
+					            'terms' => 61, // $data->term,
+							),
+							'url' => $url,
+							'strings' => array(
+								'complete' => __( 'Import complete!', 'wordpress-importer' ),
+							),
+						)
 					)
 				)
 			);
 
+		}
+
+		/**
+		 * Get mapping data from request data.
+		 *
+		 * Parses form request data into an internally usable mapping format.
+		 *
+		 * @param array $args Raw (UNSLASHED) POST data to parse.
+		 * @return array Map containing `mapping` and `slug_overrides` keys.
+		 */
+		protected function get_author_mapping( $args ) {
+			if ( ! isset( $args['imported_authors'] ) ) {
+				return array(
+					'mapping'        => array(),
+					'slug_overrides' => array(),
+				);
+			}
+
+			$map        = isset( $args['user_map'] ) ? (array) $args['user_map'] : array();
+			$new_users  = isset( $args['user_new'] ) ? $args['user_new'] : array();
+			$old_ids    = isset( $args['imported_author_ids'] ) ? (array) $args['imported_author_ids'] : array();
+
+			// Store the actual map.
+			$mapping = array();
+			$slug_overrides = array();
+
+			foreach ( (array) $args['imported_authors'] as $i => $old_login ) {
+				$old_id = isset( $old_ids[ $i ] ) ? (int) $old_ids[ $i ] : false;
+
+				if ( ! empty( $map[ $i ] ) ) {
+					$user = get_user_by( 'id', (int) $map[ $i ] );
+
+					if ( isset( $user->ID ) ) {
+						$mapping[] = array(
+							'old_slug' => $old_login,
+							'old_id'   => $old_id,
+							'new_id'   => $user->ID,
+						);
+					}
+				} elseif ( ! empty( $new_users[ $i ] ) ) {
+					if ( $new_users[ $i ] !== $old_login ) {
+						$slug_overrides[ $old_login ] = $new_users[ $i ];
+					}
+				}
+			}
+
+			return compact( 'mapping', 'slug_overrides' );
 		}
 
 		/**
@@ -246,6 +440,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		private function includes() {
 
 			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
+
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-astra-pro.php';
 
@@ -254,6 +449,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-widgets-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-importer-queue.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 		}
 
@@ -526,6 +722,35 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		}
 
 		/**
+		 * Import Info.
+		 *
+		 * @since  1.0.0
+		 */
+		public function import_info() {
+
+			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
+
+			$demo_data = self::get_astra_single_demo( $demo_api_uri );
+			// vl( $demo_data );
+
+			$wxr_url = $demo_data['astra-site-wxr-path'];
+
+			$wxr_importer = Astra_WXR_Importer::instance();
+			$xml_path     = $wxr_importer->download_xml( $wxr_url );
+			// vl( $xml_path );
+
+			// $wxr_importer->import_xml( $xml_path['file'] );
+			$data = $wxr_importer->info( $xml_path['file'] );
+
+			wp_send_json( $data );
+			// if( is_wp_error( $data ) ) {
+			// 	wp_send_json_error();
+			// }
+
+			// wp_send_json( $data );
+		}
+
+		/**
 		 * Import site options - Front Page, Menus, Blog page etc.
 		 *
 		 * @since  1.0.0
@@ -602,6 +827,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			);
 
 			$demo_api_uri = add_query_arg( $request_params, $demo_api_uri );
+			// return $demo_api_uri;
 
 			// API Call.
 			$response = wp_remote_get( $demo_api_uri, $api_args );
@@ -756,3 +982,17 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 	Astra_Sites::set_instance();
 
 endif;
+
+// add_action( 'admin_head', function(  ) {
+
+// 	// http://sites-wpastra.sharkz.in/wp-json/wp/v2/astra-sites/17366
+// 	// http://sites-wpastra.sharkz.in/wp-content/uploads/astra-sites/car-repair/wxr.xml
+// 	$wxr_url = 'http://sites-wpastra.sharkz.in/wp-content/uploads/astra-sites/car-repair/wxr.xml';
+// 	$wxr_importer = Astra_WXR_Importer::instance()->download_xml( $wxr_url );
+// 	vl( $wxr_importer );
+
+
+// 	Astra_Sites::set_instance()->import_info( 'http://sites-wpastra.sharkz.in/wp-json/wp/v2/astra-sites/17346' );
+	
+// 	wp_die();
+// } );

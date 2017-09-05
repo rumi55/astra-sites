@@ -1,5 +1,6 @@
 <?php
 
+if( ! class_exists( 'WXR_Importer' ) ) :
 class WXR_Importer extends WP_Importer {
 	/**
 	 * Maximum supported WXR version
@@ -499,6 +500,7 @@ class WXR_Importer extends WP_Importer {
 	 * @param string $file Path to the WXR file for importing
 	 */
 	protected function import_start( $file ) {
+
 		if ( ! is_file( $file ) ) {
 			return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'wordpress-importer' ) );
 		}
@@ -2297,3 +2299,4 @@ class WXR_Importer extends WP_Importer {
 		$this->exists['term'][ $exists_key ] = $term_id;
 	}
 }
+endif;

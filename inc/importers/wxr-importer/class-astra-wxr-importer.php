@@ -50,6 +50,33 @@ class Astra_WXR_Importer {
 	}
 
 	/**
+	 * Get the importer instance.
+	 *
+	 * @return WXR_Importer
+	 */
+	public function get_importer() {
+		$options  = array(
+			'fetch_attachments' => true,
+			'default_author'    => 0,
+		);
+		$importer = new WXR_Importer( $options );
+		// $logger = new WP_Importer_Logger_ServerSentEvents();
+		// $importer->set_logger( $logger );
+
+		return $importer;
+	}
+
+	public function info( $xml_url ) {
+		$importer = $this->get_importer();
+		$data = $importer->get_preliminary_information( $xml_url );
+
+		// if ( is_wp_error( $data ) ) {
+		// 	return $data;
+		// }
+		return $data;
+	}
+
+	/**
 	 * Pre-process user data.
 	 *
 	 * @since 1.0.3
@@ -85,6 +112,7 @@ class Astra_WXR_Importer {
 			defined( 'WP_LOAD_IMPORTERS' ) || define( 'WP_LOAD_IMPORTERS', true );
 			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
 		}
+		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-import-info.php';
 		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-importer.php';
 		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-logger.php';
 	}
@@ -129,3 +157,27 @@ class Astra_WXR_Importer {
 	}
 
 }
+
+
+
+
+// add_action( 'admin_head', function() {
+
+// 	// C:\xampp\htdocs\m.sharkz.in/wp-content/uploads/2017/09/wxr-29.xml
+// 	// http://sites-wpastra.sharkz.in/wp-json/wp/v2/astra-sites/17383
+// 	// http://sites-wpastra.sharkz.in/wp-content/uploads/astra-sites/pet-services/wxr.xml
+
+// 	$wxr_url = 'http://sites-wpastra.sharkz.in/wp-content/uploads/astra-sites/car-repair/wxr.xml';
+
+// 	$importer = Astra_WXR_Importer::instance();
+// 	$xml_path     = $importer->download_xml( $wxr_url );
+// 	// $importer->import_xml( $xml_path['file'] );
+
+// 	$data = $importer->info( $xml_path['file'] );
+// 	vl( $data );
+	
+
+// 	wp_die();
+// } );
+
+

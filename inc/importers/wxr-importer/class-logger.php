@@ -17,6 +17,7 @@
  * See https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
  * for the full interface specification.
  */
+if( ! class_exists( 'WP_Importer_Logger' ) ) :
 class WP_Importer_Logger {
 	/**
 	 * System is unusable.
@@ -134,3 +135,4 @@ class WP_Importer_Logger {
 		);
 	}
 }
+endif;

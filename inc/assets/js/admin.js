@@ -743,40 +743,191 @@ jQuery(document).on('click', '.astra-demo-import', function (event) {
 	var $theme = $this.closest('.astra-sites-preview').find('.wp-full-overlay-header');
 
 	var apiURL = $theme.data('demo-api') || '';
+	console.log('apiURL: ' + apiURL);
 
-
+	// Get all info.
 	jQuery.ajax({
 		url: astraDemo.ajaxurl,
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			action: 'astra-import-demo',
+			action: 'astra-import-info',
 			api_url: apiURL
 		},
 	})
 	.done(function ( demos ) {
+		console.log('demos: ' + demos);
+		console.log('demos: ' + JSON.stringify( demos ) );
 
-		if( demos.success ) {
-			jQuery('.astra-demo-import').removeClass('updating-message installing')
-				.removeAttr('data-import')
-				.addClass('view-site')
-				.removeClass('astra-demo-import')
-				.text( astraDemo.strings.viewSite )
-				.attr('target', '_blank')
-				.append('<i class="dashicons dashicons-external"></i>')
-				.attr('href', astraDemo.siteURL );
-		}
+		importer( demos );
 	})
 	.fail(function ( demos ) {
-		jQuery('.astra-demo-import').removeClass('updating-message installing')
-			.removeAttr('data-import')
-			.addClass('view-site')
-			.removeClass('astra-demo-import')
-			.attr('target', '_blank')
-			.attr('href', astraDemo.strings.importFailedURL );
-
-		jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
-		jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
+		console.log( 'failed' );
 	});
+	
+
+	// jQuery.ajax({
+	// 	url: astraDemo.ajaxurl,
+	// 	type: 'POST',
+	// 	dataType: 'json',
+	// 	data: {
+	// 		action: 'astra-import-demo',
+	// 		api_url: apiURL
+	// 	},
+	// })
+	// .done(function ( demos ) {
+
+	// 	if( demos.success ) {
+	// 		jQuery('.astra-demo-import').removeClass('updating-message installing')
+	// 			.removeAttr('data-import')
+	// 			.addClass('view-site')
+	// 			.removeClass('astra-demo-import')
+	// 			.text( astraDemo.strings.viewSite )
+	// 			.attr('target', '_blank')
+	// 			.append('<i class="dashicons dashicons-external"></i>')
+	// 			.attr('href', astraDemo.siteURL );
+	// 	}
+	// })
+	// .fail(function ( demos ) {
+	// 	jQuery('.astra-demo-import').removeClass('updating-message installing')
+	// 		.removeAttr('data-import')
+	// 		.addClass('view-site')
+	// 		.removeClass('astra-demo-import')
+	// 		.attr('target', '_blank')
+	// 		.attr('href', astraDemo.strings.importFailedURL );
+
+	// 	jQuery('.wp-full-overlay-header .view-site').text( astraDemo.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
+	// 	jQuery('.footer-import-button-wrap .view-site').text( astraDemo.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
+	// });
+	
 
 });
+
+(function ($) {
+// var url = 'http://sites-wpastra.sharkz.in/wp-json/wp/v2/astra-sites/17383';
+
+	// // Get all info.
+	// jQuery.ajax({
+	// 	url: astraDemo.ajaxurl,
+	// 	type: 'POST',
+	// 	dataType: 'json',
+	// 	data: {
+	// 		action: 'astra-import-info',
+	// 		api_url: 'http://sites-wpastra.sharkz.in/wp-json/wp/v2/astra-sites/17383'
+	// 	},
+	// })
+	// .done(function ( demos ) {
+	// 	console.log('demos: ' + demos);
+	// 	console.log('demos: ' + JSON.stringify( demos ) );
+
+	// 	importer( demos );
+	// })
+	// .fail(function ( demos ) {
+	// 	console.log( 'failed' );
+	// });
+
+
+
+
+	importer();
+
+	
+	console.log('Processing' );
+	
+})(jQuery);
+
+function importer( ) {
+
+	var wxrImport = {
+		complete: {
+			posts: 0, //posts: 0,
+			media: 0, //media: 0,
+			users: 0, //users: 0,
+			comments: 0, //comments: 0,
+			terms: 0 //terms: 0,
+		},
+
+		updateDelta: function (type, delta) {
+			console.log('type: ' + type);
+			this.complete[ type ] += delta;
+
+			var self = this;
+			requestAnimationFrame(function () {
+				self.render();
+			});
+		},
+		updateProgress: function ( type, complete, total ) {
+			var text = complete + '/' + total;
+			console.log('text: ' + type);
+			console.log('text: ' + text);
+			document.getElementById( 'completed-' + type ).innerHTML = text;
+			total = parseInt( total, 10 );
+			if ( 0 === total || isNaN( total ) ) {
+				total = 1;
+			}
+			var percent = parseInt( complete, 10 ) / total;
+			console.log('percent: ' + percent);
+
+			document.getElementById( 'progress-' + type ).innerHTML = Math.round( percent * 100 ) + '%';
+			document.getElementById( 'progressbar-' + type ).value = percent * 100;
+		},
+		render: function () {
+			var types = Object.keys( this.complete );
+			var complete = 0;
+			var total = 0;
+
+			for (var i = types.length - 1; i >= 0; i--) {
+				var type = types[i];
+				this.updateProgress( type, this.complete[ type ], this.data.count[ type ] );
+
+				complete += this.complete[ type ];
+				total += this.data.count[ type ];
+			}
+
+			this.updateProgress( 'total', complete, total );
+		}
+	};
+
+	console.log('astraDemo.importer: ' + JSON.stringify( astraDemo.importer ) );
+
+	wxrImport.data = astraDemo.importer;
+	wxrImport.render();
+
+	console.log('wxrImport.data.url: ' + wxrImport.data.url);
+
+	var evtSource = new EventSource( wxrImport.data.url );
+	evtSource.onmessage = function ( message ) {
+		var data = JSON.parse( message.data );
+
+		console.log('data: ' + JSON.stringify( data ) );
+		
+		switch ( data.action ) {
+			case 'updateDelta':
+				wxrImport.updateDelta( data.type, data.delta );
+				break;
+
+			case 'complete':
+				evtSource.close();
+				var import_status_msg = jQuery('#import-status-message');
+				import_status_msg.text( wxrImport.data.strings.complete );
+				import_status_msg.removeClass('notice-info');
+				import_status_msg.addClass('notice-success');
+				break;
+		}
+	};
+	evtSource.addEventListener( 'log', function ( message ) {
+		var data = JSON.parse( message.data );
+		console.log('data: ' + JSON.stringify( data ) );
+		console.log('data: ' + data);
+		var row = document.createElement('tr');
+		var level = document.createElement( 'td' );
+		level.appendChild( document.createTextNode( data.level ) );
+		row.appendChild( level );
+
+		var message = document.createElement( 'td' );
+		message.appendChild( document.createTextNode( data.message ) );
+		row.appendChild( message );
+
+		jQuery('#import-log').append( row );
+	});
+}
