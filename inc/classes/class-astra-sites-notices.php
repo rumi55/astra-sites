@@ -73,10 +73,18 @@ if( ! class_exists( 'Astra_Sites_Notices' ) ) :
 
 			$id   = ( isset( $_POST['id'] ) ) ? $_POST['id'] : '';
 			$time = ( isset( $_POST['time'] ) ) ? $_POST['time'] : '';
+			$meta = ( isset( $_POST['meta'] ) ) ? $_POST['meta'] : '';
+			
 
-			// Reset transient.
-			if( ! empty( $time ) && ! empty( $id ) ) {
-				set_transient( $id, true, $time );
+			// Valid inputs?
+			if( ! empty( $id ) ) {
+
+				if( 'user' === $meta ) {
+					update_user_meta( get_current_user_id(), $id, true );
+				} else {
+					set_transient( $id, true, $time );
+				}
+
 				wp_send_json_success();
 			}
 
@@ -101,10 +109,6 @@ if( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		 */
 		function show_notices() {
 
-			// vl( ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false );
-
-			// vl( self::$notices );
-
 			$defaults = array(
 				'type' => 'info',
 				'show_if' => true,
@@ -112,7 +116,7 @@ if( ! class_exists( 'Astra_Sites_Notices' ) ) :
 				'class' => 'ast-active-notice',
 				
 				'dismissible' => false,
-				// 'dismissible-meta' => 'user', // 'transient',
+				'dismissible-meta' => 'user',
 				'dismissible-time' => MINUTE_IN_SECONDS,
 
 				'data' => '',
@@ -137,10 +141,19 @@ if( ! class_exists( 'Astra_Sites_Notices' ) ) :
 					$notice['data'] = ' dismissible-time='.$notice['dismissible-time'].' ';
 				}
 
+
 				// Notice ID.
 				$notice_id = 'astra-sites-notices-id-' . $key;
 				$notice['id'] = $notice_id;
 				$notice['classes'] = implode(' ', $classes);
+
+				// Meta
+				$notice['data'] = ' dismissible-meta='.$notice['dismissible-meta'].' ';
+				if( $notice['dismissible-meta'] === 'user' ) {
+					$expired = get_user_meta( get_current_user_id(), $notice_id, true );
+				} else {
+					$expired = get_transient( $notice_id );
+				}
 
 				// Notices visible after transient expire.
 				if( isset( $notice['show_if'] ) ) {
@@ -148,7 +161,7 @@ if( ! class_exists( 'Astra_Sites_Notices' ) ) :
 					if( true === $notice['show_if'] ) {
 
 						// Is transient expired?
-						if( false === get_transient( $notice_id ) ) {
+						if( false === $expired || empty( $expired ) ) {
 							self::markup( $notice );
 						}
 					}
