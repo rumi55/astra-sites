@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.7  
+**Stable tag:** 1.0.8  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -45,6 +45,9 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 ## Changelog ##
+
+v1.0.8 - 5-Sept-2017
+* Enhancement: Showing error message for for user who have not `manage_plugins` capability.
 
 v1.0.7 - 1-Sept-2017
 * Fix: Custom Menu widget not setting imported widget.

@@ -431,14 +431,23 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public function demo_ajax_import() {
 
+			$report = array(
+				'success' => false,
+				'message' => '',
+			);
+
 			if ( ! current_user_can( 'customize' ) ) {
-				return;
+				$report['message'] = __( 'You have not "customize" access to import the astra site.', 'astra-sites' );
+				wp_send_json( $report );
 			}
 
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 			$this->import_demo( $demo_api_uri );
 
-			wp_send_json_success( 'success' );
+			$report['success'] = true;
+			$report['message'] = __( 'Demo Imported Successfully.', 'astra-sites' );
+			wp_send_json( $report );
+
 		}
 
 		/**
