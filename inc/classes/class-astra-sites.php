@@ -53,11 +53,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function __construct() {
 
-			add_action( 'admin_notices',                                    array( $this, 'admin_notices' ) );
-
 			self::set_api_url();
 
 			$this->includes();
+
+			add_action( 'admin_notices',                                    array( $this, 'add_notice' ), 1 );
 
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
@@ -66,6 +66,28 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
 
+		}
+
+		/**
+		 * Add Admin Notice.
+		 */
+		function add_notice() {
+
+			Astra_Sites_Notices::add_notice(
+				array(
+					'type'              => 'error',
+					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					'message'           => sprintf(
+						/* translators: 1: theme.php file*/
+											__( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ),
+						esc_url(
+							admin_url( 'themes.php?theme=astra' )
+						)
+					),
+					'dismissible'       => true,
+					'dismissible-time'  => MINUTE_IN_SECONDS,
+				)
+			);
 		}
 
 		/**
@@ -86,19 +108,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		function admin_notices() {
 
 			if ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) {
-				?>
-				<div class="notice notice-error ast-active-notice is-dismissible">
-					<p>
-						<?php
-						printf(
-							/* translators: 1: theme.php file*/
-							__( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ),
-							esc_url( admin_url( 'themes.php?theme=astra' ) )
-						);
-						?>
-					</p>
-				</div>
-				<?php
 				return;
 			}
 
@@ -244,6 +253,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @since  1.0.0
 		 */
 		private function includes() {
+
+			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-notices.php';
 
 			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
