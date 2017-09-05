@@ -146,7 +146,7 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 					$classes[] = 'is-dismissible';
 
 					// Dismissable time.
-					$notice['data'] = ' dismissible-time=' . $notice['dismissible-time'] . ' ';
+					$notice['data'] = ' dismissible-time=' . esc_attr( $notice['dismissible-time'] ) . ' ';
 				}
 
 				// Notice ID.
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 				$notice['classes'] = implode( ' ', $classes );
 
 				// User meta.
-				$notice['data'] = ' dismissible-meta=' . $notice['dismissible-meta'] . ' ';
+				$notice['data'] = ' dismissible-meta=' . esc_attr( $notice['dismissible-meta'] ) . ' ';
 				if ( 'user' === $notice['dismissible-meta'] ) {
 					$expired = get_user_meta( get_current_user_id(), $notice_id, true );
 				} else {
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 			wp_enqueue_script( 'astra-sites-notices' );
 
 			?>
-			<div id="<?php echo esc_attr( $notice['id'] ); ?>" class="<?php echo esc_attr( $notice['classes'] ); ?>" <?php echo esc_attr( $notice['data'] ); ?>>
+			<div id="<?php echo esc_attr( $notice['id'] ); ?>" class="<?php echo esc_attr( $notice['classes'] ); ?>" <?php echo $notice['data']; ?>>
 				<p>
 					<?php echo $notice['message']; ?>
 				</p>
