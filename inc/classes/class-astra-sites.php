@@ -53,7 +53,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function __construct() {
 
-
 			self::set_api_url();
 
 			$this->includes();
@@ -69,19 +68,24 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 		}
 
+		/**
+		 * Add Admin Notice.
+		 */
 		function add_notice() {
-			
+
 			Astra_Sites_Notices::add_notice(
 				array(
-					'type' 				=> 'error',
-					'show_if' 			=> ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
-					'message' 			=> sprintf(
-											/* translators: 1: theme.php file*/
+					'type'              => 'error',
+					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					'message'           => sprintf(
+						/* translators: 1: theme.php file*/
 											__( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ),
-											esc_url( admin_url( 'themes.php?theme=astra' ) )
-										),
-					'dismissible' 		=> true,
-					'dismissible-time' 	=> MINUTE_IN_SECONDS,
+						esc_url(
+							admin_url( 'themes.php?theme=astra' )
+						)
+					),
+					'dismissible'       => true,
+					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
 			);
 		}
