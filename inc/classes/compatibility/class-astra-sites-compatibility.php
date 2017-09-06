@@ -48,8 +48,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-async-request.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-background-process.php';
 
-			// Plugin Compatibility files.
-			// 
 			// Plugin - Astra Pro
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/astra-pro/class-astra-sites-compatibility-astra-pro.php';
 
@@ -57,7 +55,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/so-widgets-bundle/class-astra-sites-compatibility-so-widgets.php';
 
 			// Plugin - Elementor.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/elementor.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-compatibility-elementor.php';
 		}
 
 
