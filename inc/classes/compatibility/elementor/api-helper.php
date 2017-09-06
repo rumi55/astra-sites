@@ -231,7 +231,6 @@ class Astra_Sites_Source_Remote extends Source_Base {
 
 					// error_log( $json_value );
 
-
 					update_metadata( 'post', $post_id, '_elementor_data', $json_value );
 					update_metadata( 'post', $post_id, '_astra_sites_hotlink_imported', true );
 

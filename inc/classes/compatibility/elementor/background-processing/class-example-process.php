@@ -53,6 +53,12 @@ if( class_exists( 'WP_Background_Process' ) ) :
 			$import = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
 			$import->hotlink_images( $post_id );
 
+			if( get_option( '_astra_sites_elementor_image_import' ) ) {
+				error_log( '_astra_sites_elementor_image_import : TRUE' );
+			} else {
+				error_log( '_astra_sites_elementor_image_import : FALSE' );
+			}
+
 			$this->log( 'Imported hotlink images for Post ID: ' . $post_id );
 			$this->log( '----------------------------------------------------------------' );
 
@@ -104,6 +110,22 @@ if( class_exists( 'WP_Background_Process' ) ) :
 		 */
 		protected function complete() {
 			parent::complete();
+
+			if( get_option( '_astra_sites_elementor_image_import' ) ) {
+				error_log( '_astra_sites_elementor_image_import : TRUE' );
+			} else {
+				error_log( '_astra_sites_elementor_image_import : FALSE' );
+			}
+
+			do_action( 'astra_sites_elementor_image_import_complete' );
+
+			if( get_option( '_astra_sites_elementor_image_import' ) ) {
+				error_log( '_astra_sites_elementor_image_import : TRUE' );
+			} else {
+				error_log( '_astra_sites_elementor_image_import : FALSE' );
+			}
+
+			error_log('Import process complete');
 
 			// Show notice to user or perform some other arbitrary task...
 		}
