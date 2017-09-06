@@ -60,6 +60,10 @@
     width: 100%;
 }
 
+.install-theme-info .demo-type.premium {
+    display: none;
+}
+
 /**
  * Required Plugins
  */
@@ -190,4 +194,11 @@
 
 #astra-sites-menu-page {
     margin-top: 10px;
+}
+
+/**
+ * API Error
+ */
+.astra-api-error {
+    margin: 0 0 0.5em 0;
 }

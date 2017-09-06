@@ -3,7 +3,7 @@
  * Plugin Name: Astra Free Sites
  * Plugin URI: http://www.wpastra.com/pro/
  * Description: Import free sites build with Astra theme.
- * Version: 1.0.6
+ * Version: 1.0.8
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
  * Text Domain: astra-sites
@@ -15,7 +15,7 @@
  * Set constants.
  */
 if ( ! defined( 'ASTRA_SITES_VER' ) ) {
-	define( 'ASTRA_SITES_VER',  '1.0.6' );
+	define( 'ASTRA_SITES_VER',  '1.0.8' );
 }
 
 if ( ! defined( 'ASTRA_SITES_FILE' ) ) {
@@ -42,7 +42,7 @@ if ( ! function_exists( 'astra_sites_setup' ) ) :
 	 * @since 1.0.5
 	 */
 	function astra_sites_setup() {
-		require_once ASTRA_SITES_DIR . 'classes/class-astra-sites.php';
+		require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites.php';
 	}
 
 	add_action( 'plugins_loaded', 'astra_sites_setup' );

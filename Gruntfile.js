@@ -19,9 +19,9 @@ module.exports = function( grunt ) {
 						'!node_modules/**',
 						'!php-tests/**',
 						'!bin/**',
-						'!importers/class-widgets-importer.php',
-						'!importers/wxr-importer/class-logger.php',
-						'!importers/wxr-importer/class-wxr-importer.php'
+						'!inc/importers/class-widgets-importer.php',
+						'!inc/importers/wxr-importer/class-logger.php',
+						'!inc/importers/wxr-importer/class-wxr-importer.php'
 					]
 				}
 			}
@@ -111,6 +111,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-contrib-compress' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
+
+    // Generate README.md file.
+    grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
 
     // Generate .pot file.
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
