@@ -76,10 +76,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			Astra_Sites_Notices::add_notice(
 				array(
-					'type'    			=> 'error',
-					'show_if' 			=> ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					'type'              => 'error',
+					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
-					'message' 			=> sprintf( __( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ), esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
+					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ), esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'       => true,
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
