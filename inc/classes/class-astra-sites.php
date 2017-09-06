@@ -58,6 +58,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$this->includes();
 
 			add_action( 'admin_notices',                                    array( $this, 'add_notice' ), 1 );
+			add_action( 'admin_notices',                                    array( $this, 'admin_notices' ) );
 
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
@@ -75,15 +76,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			Astra_Sites_Notices::add_notice(
 				array(
-					'type'              => 'error',
-					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
-					'message'           => sprintf(
-						/* translators: 1: theme.php file*/
-											__( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ),
-						esc_url(
-							admin_url( 'themes.php?theme=astra' )
-						)
-					),
+					'type'    			=> 'error',
+					'show_if' 			=> ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					/* translators: 1: theme.php file*/
+					'message' 			=> sprintf( __( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ), esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'       => true,
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
