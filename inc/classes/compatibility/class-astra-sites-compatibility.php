@@ -45,21 +45,21 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		public function __construct() {
 
 			// Background Processing.
-			require_once ASTRA_SITES_DIR . 'admin/vendor/wp-async-request.php';
-			require_once ASTRA_SITES_DIR . 'admin/vendor/wp-background-process.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-async-request.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-background-process.php';
 
 			// Plugin Compatibility files.
+			// 
+			// Plugin - Astra Pro
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/astra-pro/class-astra-sites-compatibility-astra-pro.php';
+
 			// Plugin - Site Origin Widgets.
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/so-widgets-bundle/class-astra-sites-compatibility-so-widgets.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/so-widgets-bundle/class-astra-sites-compatibility-so-widgets.php';
 
 			// Plugin - Elementor.
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/elementor.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/elementor.php';
 		}
 
-		function plugins_loaded() {
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/api-helper.php';
-		}
 
 	}
 

@@ -28,6 +28,7 @@ if( class_exists( 'WP_Background_Process' ) ) :
 
 			$this->really_long_running_task();
 			// $this->log( $message );
+			$this->log( 'Started' );
 
 			$this->hotlink_images( $item );
 

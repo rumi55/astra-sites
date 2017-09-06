@@ -85,8 +85,8 @@ class Astra_WXR_Importer {
 			defined( 'WP_LOAD_IMPORTERS' ) || define( 'WP_LOAD_IMPORTERS', true );
 			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
 		}
-		require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-wxr-importer.php';
-		require_once ASTRA_SITES_DIR . 'importers/wxr-importer/class-logger.php';
+		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-importer.php';
+		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-logger.php';
 	}
 
 	/**

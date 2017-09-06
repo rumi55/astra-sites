@@ -10,19 +10,32 @@
     padding-top: 66.66666%
 }
 
+.wrap .status,
 .wrap .demo-type {
     position: absolute;
     z-index: 1;
     color: #fff;
     padding: 0.5em 1em;
     top: -0.5em;
-    left: -0.5em;
     text-transform: uppercase;
 }
+.wrap .status,
 .wrap .demo-type.premium {
     background: #0073aa;
 }
+.wrap .status {
+	left: -0.5em;
+}
+.wrap .demo-type.premium {
+	right: -0.5em;
+}
+
+.wrap .status.publish,
 .wrap .demo-type.free {
+    display: none;
+}
+
+.install-theme-info .demo-type {
     display: none;
 }
 
@@ -45,6 +58,10 @@
 
 .astra-sites-preview .theme-screenshot {
     width: 100%;
+}
+
+.install-theme-info .demo-type.premium {
+    display: none;
 }
 
 /**
@@ -161,4 +178,27 @@
 
 .astra-sites-preview.expanded .wp-full-overlay-footer {
 	left: initial;
+}
+
+/**
+ * Menu Page
+ */
+.astra-sites-title {
+    float: left;
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0 0 6px 0px;
+    padding: 0;
+    line-height: 29px;
+}
+
+#astra-sites-menu-page {
+    margin-top: 10px;
+}
+
+/**
+ * API Error
+ */
+.astra-api-error {
+    margin: 0 0 0.5em 0;
 }

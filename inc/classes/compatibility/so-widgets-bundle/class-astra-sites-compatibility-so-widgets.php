@@ -52,16 +52,25 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_SO_Widgets' ) ) :
 		 * Update Site Origin Active Widgets
 		 *
 		 * @since 1.0.0
+		 *
 		 * @param  string $plugin_init        Plugin init file.
-		 * @param  array  $astra_site_options Astra Site Options.
+		 * @param  array  $data               Data.
 		 * @return void
 		 */
-		function site_origin( $plugin_init = '', $astra_site_options = array() ) {
+		function site_origin( $plugin_init = '', $data = array() ) {
 
 			if ( 'so-widgets-bundle/so-widgets-bundle.php' === $plugin_init ) {
-				if ( isset( $astra_site_options->siteorigin_widgets_active ) ) {
-					update_option( 'siteorigin_widgets_active', $astra_site_options->siteorigin_widgets_active );
-					wp_cache_delete( 'active_widgets', 'siteorigin_widgets' );
+
+				$data = json_decode( json_encode( $data ), true );
+
+				if ( isset( $data['astra_site_options'] ) ) {
+
+					$widgets = ( isset( $data['astra_site_options']['siteorigin_widgets_active'] ) ) ? $data['astra_site_options']['siteorigin_widgets_active'] : '';
+
+					if ( ! empty( $widgets ) ) {
+						update_option( 'siteorigin_widgets_active', $widgets );
+						wp_cache_delete( 'active_widgets', 'siteorigin_widgets' );
+					}
 				}
 			}
 

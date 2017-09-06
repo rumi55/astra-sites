@@ -1,10 +1,10 @@
 # Copyright (C) 2017 Brainstorm Force
-# This file is distributed under the same license as the Astra Sites package.
+# This file is distributed under the same license as the Astra Free Sites package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites 1.0.3\n"
+"Project-Id-Version: Astra Free Sites 1.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-08-11 06:34:41+00:00\n"
+"POT-Creation-Date: 2017-09-05 14:54:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,79 +24,83 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#. Plugin Name of the plugin/theme
+#: inc/admin/class-astra-sites-page.php:85
 msgid "Astra Sites"
 msgstr ""
 
-#: admin/view-astra-sites.php:28
+#: inc/admin/class-astra-sites-page.php:158
+msgid "Settings saved successfully."
+msgstr ""
+
+#: inc/admin/view-astra-sites.php:27
 msgid "All"
 msgstr ""
 
-#: admin/view-astra-sites.php:42
+#: inc/admin/view-astra-sites.php:41
 msgid "Search Sites"
 msgstr ""
 
-#: admin/view-astra-sites.php:43
+#: inc/admin/view-astra-sites.php:42
 msgid "Search Sites..."
 msgstr ""
 
-#: admin/view-astra-sites.php:85
+#: inc/admin/view-astra-sites.php:91
 msgid "Details &amp; Preview"
 msgstr ""
 
-#: admin/view-astra-sites.php:91 admin/view-astra-sites.php:159
+#: inc/admin/view-astra-sites.php:97 inc/admin/view-astra-sites.php:166
 msgid "Preview"
 msgstr ""
 
-#: admin/view-astra-sites.php:117
+#: inc/admin/view-astra-sites.php:124
 msgid "Close"
 msgstr ""
 
-#: admin/view-astra-sites.php:118
+#: inc/admin/view-astra-sites.php:125
 msgid "Previous"
 msgstr ""
 
-#: admin/view-astra-sites.php:119
+#: inc/admin/view-astra-sites.php:126
 msgid "Next"
 msgstr ""
 
-#: admin/view-astra-sites.php:120 admin/view-astra-sites.php:148
+#: inc/admin/view-astra-sites.php:127 inc/admin/view-astra-sites.php:155
 msgid "Install Plugins"
 msgstr ""
 
-#: admin/view-astra-sites.php:136 classes/class-astra-sites.php:214
+#: inc/admin/view-astra-sites.php:143 inc/classes/class-astra-sites.php:238
 msgid "Read more"
 msgstr ""
 
-#: admin/view-astra-sites.php:139
+#: inc/admin/view-astra-sites.php:146
 msgid "Required Plugins"
 msgstr ""
 
-#: admin/view-astra-sites.php:154
+#: inc/admin/view-astra-sites.php:161
 msgid "Collapse"
 msgstr ""
 
-#: admin/view-astra-sites.php:169
+#: inc/admin/view-astra-sites.php:176
 #. translators: %1$s & %2$s are a Demo API URL
 msgid ""
 "<p> It seems the demo data server, <i><a href=\"%1$s\">%2$s</a></i> is "
 "unreachable from your site.</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:171
+#: inc/admin/view-astra-sites.php:178
 msgid ""
 "<p class=\"left-margin\"> 1. Sometimes, simple page reload fixes any "
 "temporary issues. No kidding!</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:173
+#: inc/admin/view-astra-sites.php:180
 msgid ""
 "<p class=\"left-margin\"> 2. If that does not work, you will need to talk "
 "to your server administrator and check if demo server is being blocked by "
 "the firewall!</p>"
 msgstr ""
 
-#: admin/view-astra-sites.php:176
+#: inc/admin/view-astra-sites.php:183
 #. translators: %1$s is a support link
 msgid ""
 "<p>If that does not help, please open up a <a href=\"%1$s\" "
@@ -104,58 +108,62 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: classes/class-astra-sites.php:95
+#: inc/classes/class-astra-sites.php:82
 #. translators: 1: theme.php file
 msgid ""
 "Astra Theme needs to be active for you to use currently installed \"Astra "
 "Sites\" plugin. <a href=\"%1$s\">Install & Activate Now</a>"
 msgstr ""
 
-#: classes/class-astra-sites.php:116
+#: inc/classes/class-astra-sites.php:125
 msgid "See Library"
 msgstr ""
 
-#: classes/class-astra-sites.php:202
+#: inc/classes/class-astra-sites.php:224
 msgid "Purchase"
 msgstr ""
 
-#: classes/class-astra-sites.php:207
+#: inc/classes/class-astra-sites.php:226
+msgid "Upgrade"
+msgstr ""
+
+#: inc/classes/class-astra-sites.php:231
 msgid "Error!"
 msgstr ""
 
-#: classes/class-astra-sites.php:208
+#: inc/classes/class-astra-sites.php:232
 msgid "Error! Read Possibilities."
 msgstr ""
 
-#: classes/class-astra-sites.php:210
+#: inc/classes/class-astra-sites.php:234
 msgid "Done! View Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:211
+#: inc/classes/class-astra-sites.php:235
 msgid "Activating"
 msgstr ""
 
-#: classes/class-astra-sites.php:212
+#: inc/classes/class-astra-sites.php:236
 msgid "Active"
 msgstr ""
 
-#: classes/class-astra-sites.php:213
+#: inc/classes/class-astra-sites.php:237
 msgid "Import This Site"
 msgstr ""
 
-#: classes/class-astra-sites.php:215
+#: inc/classes/class-astra-sites.php:239
 msgid "Hide"
 msgstr ""
 
-#: classes/class-astra-sites.php:216
+#: inc/classes/class-astra-sites.php:240
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: classes/class-astra-sites.php:217
+#: inc/classes/class-astra-sites.php:241
 msgid "No Demos found, Try a different search."
 msgstr ""
 
-#: classes/class-astra-sites.php:218
+#: inc/classes/class-astra-sites.php:242
 msgid ""
 "Executing Demo Import will make your site similar as ours. Please bear in "
 "mind -\n"
@@ -169,187 +177,199 @@ msgid ""
 "placeholders."
 msgstr ""
 
-#: classes/class-astra-sites.php:254
+#: inc/classes/class-astra-sites.php:282
 msgid "No plugin specified"
 msgstr ""
 
-#: classes/class-astra-sites.php:279
+#: inc/classes/class-astra-sites.php:311
 msgid "Plugin Successfully Activated"
 msgstr ""
 
-#: importers/class-widgets-importer.php:83
+#: inc/classes/class-astra-sites.php:440
+msgid "You have not \"customize\" access to import the astra site."
+msgstr ""
+
+#: inc/classes/class-astra-sites.php:448
+msgid "Demo Imported Successfully."
+msgstr ""
+
+#: inc/importers/class-widgets-importer.php:83
 msgid "Import data could not be read. Please try a different file."
 msgstr ""
 
-#: importers/class-widgets-importer.php:127
+#: inc/importers/class-widgets-importer.php:127
 msgid "Widget area does not exist in theme (using Inactive)"
 msgstr ""
 
-#: importers/class-widgets-importer.php:149
+#: inc/importers/class-widgets-importer.php:149
 msgid "Site does not support widget"
 msgstr ""
 
-#: importers/class-widgets-importer.php:185
+#: inc/importers/class-widgets-importer.php:185
 msgid "Widget already exists"
 msgstr ""
 
-#: importers/class-widgets-importer.php:254
+#: inc/importers/class-widgets-importer.php:254
 msgid "Imported"
 msgstr ""
 
-#: importers/class-widgets-importer.php:257
+#: inc/importers/class-widgets-importer.php:257
 msgid "Imported to Inactive"
 msgstr ""
 
-#: importers/class-widgets-importer.php:263
+#: inc/importers/class-widgets-importer.php:263
 msgid "No Title"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:130
+#: inc/importers/wxr-importer/class-wxr-importer.php:130
 msgid "Could not open the file for parsing"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:166
-#: importers/wxr-importer/class-wxr-importer.php:282
-#: importers/wxr-importer/class-wxr-importer.php:355
+#: inc/importers/wxr-importer/class-wxr-importer.php:166
+#: inc/importers/wxr-importer/class-wxr-importer.php:282
+#: inc/importers/wxr-importer/class-wxr-importer.php:355
 msgid ""
 "This WXR file (version %1$s) is newer than the importer (version %2$s) and "
 "may not be supported. Please consider updating."
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:503
+#: inc/importers/wxr-importer/class-wxr-importer.php:503
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:563
+#: inc/importers/wxr-importer/class-wxr-importer.php:563
 msgid "Invalid author mapping"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:664
+#: inc/importers/wxr-importer/class-wxr-importer.php:664
 msgid "Cannot import auto-draft posts"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:752
+#: inc/importers/wxr-importer/class-wxr-importer.php:752
 msgid "Failed to import \"%1$s\": Invalid post type %2$s"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:762
+#: inc/importers/wxr-importer/class-wxr-importer.php:762
 msgid "%1$s \"%2$s\" already exists."
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:856
+#: inc/importers/wxr-importer/class-wxr-importer.php:856
 msgid "Skipping attachment \"%s\", fetching attachments disabled"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:877
+#: inc/importers/wxr-importer/class-wxr-importer.php:877
 msgid "Failed to import \"%1$s\" (%2$s)"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:909
-#: importers/wxr-importer/class-wxr-importer.php:1754
+#: inc/importers/wxr-importer/class-wxr-importer.php:909
+#: inc/importers/wxr-importer/class-wxr-importer.php:1754
 msgid "Imported \"%1$s\" (%2$s)"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:914
+#: inc/importers/wxr-importer/class-wxr-importer.php:914
 msgid "Post %1$d remapped to %2$d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1061
+#: inc/importers/wxr-importer/class-wxr-importer.php:1061
 msgid "Invalid file type"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1559
+#: inc/importers/wxr-importer/class-wxr-importer.php:1559
 msgid "Failed to import user \"%s\""
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1580
+#: inc/importers/wxr-importer/class-wxr-importer.php:1580
 msgid "Imported user \"%s\""
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1584
+#: inc/importers/wxr-importer/class-wxr-importer.php:1584
 msgid "User %1$d remapped to %2$d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1730
+#: inc/importers/wxr-importer/class-wxr-importer.php:1730
 msgid "Failed to import %1$s %2$s"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1759
+#: inc/importers/wxr-importer/class-wxr-importer.php:1759
 msgid "Term %1$d remapped to %2$d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1812
+#: inc/importers/wxr-importer/class-wxr-importer.php:1812
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1825
+#: inc/importers/wxr-importer/class-wxr-importer.php:1825
 msgid "Remote file is incorrect size"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1830
+#: inc/importers/wxr-importer/class-wxr-importer.php:1830
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1836
+#: inc/importers/wxr-importer/class-wxr-importer.php:1836
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1858
+#: inc/importers/wxr-importer/class-wxr-importer.php:1858
 msgid "Running post-processing for post %d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1871
+#: inc/importers/wxr-importer/class-wxr-importer.php:1871
 msgid "Could not find the post parent for \"%1$s\" (post #%2$d)"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1876
+#: inc/importers/wxr-importer/class-wxr-importer.php:1876
 msgid "Post %1$d was imported with parent %2$d, but could not be found"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1890
+#: inc/importers/wxr-importer/class-wxr-importer.php:1890
 msgid "Could not find the author for \"%1$s\" (post #%2$d)"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1895
+#: inc/importers/wxr-importer/class-wxr-importer.php:1895
 msgid "Post %1$d was imported with author \"%2$s\", but could not be found"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1921
+#: inc/importers/wxr-importer/class-wxr-importer.php:1921
 msgid "Post %d was marked for post-processing, but none was required."
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1932
+#: inc/importers/wxr-importer/class-wxr-importer.php:1932
 msgid "Could not update \"%1$s\" (post #%2$d) with mapped data"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1977
+#: inc/importers/wxr-importer/class-wxr-importer.php:1977
 msgid "Could not find the menu object for \"%1$s\" (post #%2$d)"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:1982
+#: inc/importers/wxr-importer/class-wxr-importer.php:1982
 msgid ""
 "Post %1$d was imported with object \"%2$d\" of type \"%3$s\", but could not "
 "be found"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:2004
+#: inc/importers/wxr-importer/class-wxr-importer.php:2004
 msgid "Could not find the comment parent for comment #%d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:2008
+#: inc/importers/wxr-importer/class-wxr-importer.php:2008
 msgid "Comment %1$d was imported with parent %2$d, but could not be found"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:2022
+#: inc/importers/wxr-importer/class-wxr-importer.php:2022
 msgid "Could not find the author for comment #%d"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:2026
+#: inc/importers/wxr-importer/class-wxr-importer.php:2026
 msgid "Comment %1$d was imported with author %2$d, but could not be found"
 msgstr ""
 
-#: importers/wxr-importer/class-wxr-importer.php:2043
+#: inc/importers/wxr-importer/class-wxr-importer.php:2043
 msgid "Could not update comment #%d with mapped data"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Astra Free Sites"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -357,7 +377,7 @@ msgid "http://www.wpastra.com/pro/"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Import sites build with Astra theme."
+msgid "Import free sites build with Astra theme."
 msgstr ""
 
 #. Author of the plugin/theme

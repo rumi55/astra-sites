@@ -48,15 +48,29 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 		 */
 		public function __construct() {
 
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-logger.php';
-			require_once ASTRA_SITES_DIR . 'classes/compatibility/elementor/background-processing/class-example-process.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/api-helper.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/background-processing/class-logger.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/background-processing/class-example-process.php';
 			$this->process_all    = new Astra_Elementor_Image_Importer_Process();
 
 			// $this->astra_sites_process_handler();
 
 			// add_action( 'admin_head', array( $this, 'astra_sites_process_handler' ) );
-			add_action( 'astra_sites_import_complete', array( $this, 'astra_sites_process_handler' ) );
+			// add_action( 'astra_sites_import_complete', array( $this, 'astra_sites_process_handler' ) );
+
+			// add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+			// add_action( 'admin_head', array( $this, 'test' ) );
 		}
+
+		// function test() {
+		// 	$data = get_post_meta( get_the_id(), '_elementor_data', true );
+		// 	vl( $data );
+		// 	wp_die();
+		// }
+		
+		// function plugins_loaded() {
+			
+		// }
 
 		/**
 		 * Process handler
@@ -94,6 +108,7 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 
 			if( is_array( $names ) ) {
 				foreach ( $names as $name ) {
+					error_log( $name );
 					$this->process_all->push_to_queue( $name );
 				}
 				$this->process_all->save()->dispatch();
