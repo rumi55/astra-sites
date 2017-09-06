@@ -496,7 +496,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Import Widgets data.
 			$this->import_widgets( $demo_data['astra-site-widgets-data'] );
 
-			do_action( 'astra_sites_import_complete' );
+			do_action( 'astra_sites_import_complete', $demo_data );
 		}
 
 		/**

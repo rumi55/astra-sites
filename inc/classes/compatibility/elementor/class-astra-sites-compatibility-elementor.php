@@ -65,7 +65,7 @@ if( ! class_exists( 'Astra_Sites_Comp_Elementor' ) ) :
 		/**
 		 * Start Image Import
 		 */
-		public function start_image_import() {
+		public function start_image_import( $data ) {
 			
 			$page_ids = $this->get_pages();
 
