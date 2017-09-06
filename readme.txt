@@ -46,7 +46,8 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
-v1.0.8 - 5-Sept-2017
+v1.0.8 - 6-Sept-2017
+* Fix: Beaver Builder option import.
 * Enhancement: Disabled dismiss-able notice visible once for each user.
 * Enhancement: Showing error message for for user who have not `manage_plugins` capability.
 

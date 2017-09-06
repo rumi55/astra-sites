@@ -71,6 +71,15 @@ class Astra_Site_Options_Import {
 			'elementor_scheme_typography',
 			'elementor_space_between_widgets',
 			'elementor_stretched_section_container',
+
+			'_fl_builder_enabled_icons',
+			'_fl_builder_enabled_modules',
+			'_fl_builder_post_types',
+			'_fl_builder_color_presets',
+			'_fl_builder_services',
+			'_fl_builder_settings',
+			'_fl_builder_user_access',
+			'_fl_builder_enabled_templates',
 		);
 	}
 
