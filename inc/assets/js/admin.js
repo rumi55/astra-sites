@@ -19,7 +19,18 @@ function initial_load_demos() {
 	})
 	.done(function (demos) {
 
-		renderDemoGrid( demos, 'first_loaded' );
+		jQuery('body').removeClass('loading-content');
+		jQuery('.filter-count .count').text( demos.length );
+
+		// Has sites?
+		if( demos.length ) {
+			renderDemoGrid( demos );
+
+		// Something is wrong in API request.
+		} else {
+			var template = wp.template('astra-no-demos');
+			jQuery('.themes').append( template );
+		}
 
 	})
 	.fail(function () {
@@ -136,7 +147,8 @@ jQuery(document).scroll(function (event) {
 			},
 		})
 			.done(function (demos) {
-				renderDemoGrid(demos, 'scroll');
+				jQuery('body').removeClass('loading-content');
+				renderDemoGrid(demos);
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
@@ -589,7 +601,14 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		},
 	})
 	.done(function (demos) {
-		renderDemoGrid(demos);
+		jQuery('.filter-count .count').text( demos.length );
+		jQuery('body').removeClass('loading-content');
+
+		if (demos.length > 0) {
+			renderDemoGrid(demos);
+		} else {
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+		}
 	})
 	.fail(function () {
 		jQuery('body').removeClass('loading-content');
@@ -635,12 +654,24 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			},
 		})
 		.done(function (demos) {
-			renderDemoGrid(demos);
+			// jQuery('.filter-links li a[data-id="all"]').addClass('current');
+			// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
+			jQuery('body').removeClass('loading-content');
+
+			jQuery('.filter-count .count').text( demos.length );
+
+			if (demos.length > 0) {
+				renderDemoGrid(demos);
+			} else {
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+			}
+
 		})
 		.fail(function () {
 			jQuery('body').removeClass('loading-content');
 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
 		});
+
 
 	}, 500);
 
@@ -648,58 +679,40 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 function renderDemoGrid(demos, current_event = '') {
 
-	jQuery('body').removeClass('loading-content');
-	
-	jQuery('.filter-count .count').text( demos.length );
+	jQuery.each(demos, function (index, demo) {
 
-	if( demos.length ) {
+		id               = demo.id;
+		content          = demo.content;
+		demo_api         = demo.demo_api;
+		demo_name        = demo.title;
+		demo_slug        = demo.slug;
+		screenshot       = demo.featured_image_url;
+		astra_demo_url   = demo.astra_demo_url;
+		astra_demo_type  = demo.astra_demo_type;
+		requiredPlugins  = demo.required_plugins;
+		status  = demo.status;
+		astraSiteOptions = demo.astra_site_options || '';
+		astraEnabledExtensions = demo.astra_enabled_extensions || '';
 
-		jQuery.each(demos, function (index, demo) {
-			id               = demo.id;
-			content          = demo.content;
-			demo_api         = demo.demo_api;
-			demo_name        = demo.title;
-			demo_slug        = demo.slug;
-			screenshot       = demo.featured_image_url;
-			astra_demo_url   = demo.astra_demo_url;
-			astra_demo_type  = demo.astra_demo_type;
-			requiredPlugins  = demo.required_plugins;
-			status  = demo.status;
-			astraSiteOptions = demo.astra_site_options || '';
-			astraEnabledExtensions = demo.astra_enabled_extensions || '';
+		templateData = [{
+			id: id,
+			astra_demo_type: astra_demo_type,
+			status: status,
+			astra_demo_url: astra_demo_url,
+			demo_api: demo_api,
+			screenshot: screenshot,
+			demo_name: demo_name,
+			slug: demo_slug,
+			content: content,
+			required_plugins: requiredPlugins,
+			astra_site_options: astraSiteOptions,
+			astra_enabled_extensions: astraEnabledExtensions
+		}]
 
-			templateData = [{
-				id: id,
-				astra_demo_type: astra_demo_type,
-				status: status,
-				astra_demo_url: astra_demo_url,
-				demo_api: demo_api,
-				screenshot: screenshot,
-				demo_name: demo_name,
-				slug: demo_slug,
-				content: content,
-				required_plugins: requiredPlugins,
-				astra_site_options: astraSiteOptions,
-				astra_enabled_extensions: astraEnabledExtensions
-			}]
+		var template = wp.template('astra-single-demo');
+		jQuery('.themes').append(template(templateData[0]));
+	});
 
-			var template = wp.template('astra-single-demo');
-			jQuery('.themes').append(template(templateData[0]));
-		});
-
-	} else {
-
-		// Show first time API error message.	
-		if( 'first_loaded' === current_event ) {
-
-			var template = wp.template('astra-no-demos');
-			jQuery('.themes').append( template );
-
-		// Not have any sites in this category.
-		} else if( 'scroll' !== current_event ) {
-			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-		}		
-	}
 
 }
 
