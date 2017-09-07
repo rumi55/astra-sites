@@ -20,11 +20,11 @@ function initial_load_demos() {
 	.done(function (demos) {
 
 		jQuery('body').removeClass('loading-content');
-		jQuery('.filter-count .count').text( demos.length );
+		jQuery('.filter-count .count').text( demos.sites_count );
 
 		// Has sites?
-		if( demos.length ) {
-			renderDemoGrid( demos );
+		if( demos.sites_count ) {
+			renderDemoGrid( demos.sites );
 
 		// Something is wrong in API request.
 		} else {
@@ -148,14 +148,8 @@ jQuery(document).scroll(function (event) {
 		})
 			.done(function (demos) {
 
-				$currnt_count = parseInt( jQuery('.filter-count .count').text() ) || 0;
-				$count = $currnt_count + demos.length;
-
-				jQuery('.filter-count .count').text( $count );
-
-
 				jQuery('body').removeClass('loading-content');
-				renderDemoGrid(demos);
+				renderDemoGrid(demos.sites);
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
@@ -608,11 +602,11 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		},
 	})
 	.done(function (demos) {
-		jQuery('.filter-count .count').text( demos.length );
+		jQuery('.filter-count .count').text( demos.sites_count );
 		jQuery('body').removeClass('loading-content');
 
-		if (demos.length > 0) {
-			renderDemoGrid(demos);
+		if ( demos.sites_count ) {
+			renderDemoGrid(demos.sites);
 		} else {
 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
 		}
@@ -665,10 +659,10 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
 			jQuery('body').removeClass('loading-content');
 
-			jQuery('.filter-count .count').text( demos.length );
+			jQuery('.filter-count .count').text( demos.sites_count );
 
-			if (demos.length > 0) {
-				renderDemoGrid(demos);
+			if ( demos.sites_count ) {
+				renderDemoGrid(demos.sites);
 			} else {
 				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
 			}

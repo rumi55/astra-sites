@@ -671,7 +671,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$url = self::get_api_url( $args, $paged );
 
-			$astra_demos = array();
+			$astra_demos = array(
+				'sites' => array(),
+				'sites_count' => 0,
+			);
 
 			$api_args = apply_filters(
 				'astra_sites_api_args', array(
@@ -682,6 +685,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$response = wp_remote_get( $url, $api_args );
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
+	
+				$astra_demos['sites_count'] = wp_remote_retrieve_header( $response, 'x-wp-total' );
+
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				// If is array then proceed
@@ -694,29 +700,29 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 							continue;
 						}
 
-						$astra_demos[ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
-						$astra_demos[ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
-						$astra_demos[ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
-						$astra_demos[ $key ]['astra_demo_type']    = isset( $demo['astra-site-type'] ) ? sanitize_key( $demo['astra-site-type'] ) : '';
-						$astra_demos[ $key ]['astra_demo_url']     = isset( $demo['astra-site-url'] ) ? esc_url( $demo['astra-site-url'] ) : '';
-						$astra_demos[ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
-						$astra_demos[ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
-						$astra_demos[ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? esc_url( $demo['_links']['self'][0]['href'] ) : self::get_api_url( new stdClass() ) . $demo['id'];
-						$astra_demos[ $key ]['content']            = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
+						$astra_demos['sites'][ $key ]['id']                 = isset( $demo['id'] ) ? esc_attr( $demo['id'] ) : '';
+						$astra_demos['sites'][ $key ]['slug']               = isset( $demo['slug'] ) ? esc_attr( $demo['slug'] ) : '';
+						$astra_demos['sites'][ $key ]['date']               = isset( $demo['date'] ) ? esc_attr( $demo['date'] ) : '';
+						$astra_demos['sites'][ $key ]['astra_demo_type']    = isset( $demo['astra-site-type'] ) ? sanitize_key( $demo['astra-site-type'] ) : '';
+						$astra_demos['sites'][ $key ]['astra_demo_url']     = isset( $demo['astra-site-url'] ) ? esc_url( $demo['astra-site-url'] ) : '';
+						$astra_demos['sites'][ $key ]['title']              = isset( $demo['title']['rendered'] ) ? esc_attr( $demo['title']['rendered'] ) : '';
+						$astra_demos['sites'][ $key ]['featured_image_url'] = isset( $demo['featured-image-url'] ) ? esc_url( $demo['featured-image-url'] ) : '';
+						$astra_demos['sites'][ $key ]['demo_api']           = isset( $demo['_links']['self'][0]['href'] ) ? esc_url( $demo['_links']['self'][0]['href'] ) : self::get_api_url( new stdClass() ) . $demo['id'];
+						$astra_demos['sites'][ $key ]['content']            = isset( $demo['content']['rendered'] ) ? strip_tags( $demo['content']['rendered'] ) : '';
 
 						if ( isset( $demo['required-plugins'] ) ) {
 							$required_plugins = $demo['required-plugins'];
 							if ( is_array( $required_plugins ) ) {
-								$astra_demos[ $key ]['required_plugins'] = json_encode( $required_plugins );
+								$astra_demos['sites'][ $key ]['required_plugins'] = json_encode( $required_plugins );
 							} else {
-								$astra_demos[ $key ]['required_plugins'] = $required_plugins;
+								$astra_demos['sites'][ $key ]['required_plugins'] = $required_plugins;
 							}
 						}
-						$astra_demos[ $key ]['astra_site_options'] = isset( $demo['astra-site-options-data'] ) ? json_encode( $demo['astra-site-options-data'] ) : '';
-						$astra_demos[ $key ]['astra_enabled_extensions'] = isset( $demo['astra-enabled-extensions'] ) ? json_encode( $demo['astra-enabled-extensions'] ) : '';
+						$astra_demos['sites'][ $key ]['astra_site_options'] = isset( $demo['astra-site-options-data'] ) ? json_encode( $demo['astra-site-options-data'] ) : '';
+						$astra_demos['sites'][ $key ]['astra_enabled_extensions'] = isset( $demo['astra-enabled-extensions'] ) ? json_encode( $demo['astra-enabled-extensions'] ) : '';
 
 						$demo_status                               = isset( $demo['status'] ) ? sanitize_key( $demo['status'] ) : '';
-						$astra_demos[ $key ]['status']             = ( 'draft' === $demo_status  ) ? 'beta' : $demo_status;
+						$astra_demos['sites'][ $key ]['status']             = ( 'draft' === $demo_status  ) ? 'beta' : $demo_status;
 					}
 
 					// Free up memory by unsetting variables that are not required.
