@@ -19,7 +19,7 @@ function initial_load_demos() {
 	})
 	.done(function (demos) {
 
-		renderDemoGrid( demos, 'init' );
+		renderDemoGrid( demos, 'first_loaded' );
 
 	})
 	.fail(function () {
@@ -136,7 +136,7 @@ jQuery(document).scroll(function (event) {
 			},
 		})
 			.done(function (demos) {
-				renderDemoGrid(demos);
+				renderDemoGrid(demos, 'scroll');
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
@@ -646,7 +646,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 });
 
-function renderDemoGrid(demos, first_loaded = '') {
+function renderDemoGrid(demos, current_event = '') {
 
 	jQuery('body').removeClass('loading-content');
 	
@@ -690,13 +690,13 @@ function renderDemoGrid(demos, first_loaded = '') {
 	} else {
 
 		// Show first time API error message.	
-		if( 'init' === first_loaded ) {
+		if( 'first_loaded' === current_event ) {
 
 			var template = wp.template('astra-no-demos');
 			jQuery('.themes').append( template );
 
-		} else {
-			// Not have any sites in this category.
+		// Not have any sites in this category.
+		} else if( 'scroll' !== current_event ) {
 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
 		}		
 	}
