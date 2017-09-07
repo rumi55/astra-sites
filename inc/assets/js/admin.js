@@ -129,15 +129,8 @@ jQuery(document).scroll(function (event) {
 
 		var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
 		astra_category 	   = jQuery('.filter-links.astra-category'),
-		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || '',
 		page_builder_id   	= astra_page_builder.find('.current').data('id'),
-		category_slug  		= astra_category.find('.current').data('sort') || '',
 		category_id   		= astra_category.find('.current').data('id');
-		console.log('paged: ' + paged);
-		console.log('page_builder_slug: ' + page_builder_slug);
-		console.log('page_builder_id: ' + page_builder_id);
-		console.log('category_slug: ' + category_slug);
-		console.log('category_id: ' + category_id);
 
 		jQuery.ajax({
 			url: astraDemo.ajaxurl,
@@ -147,13 +140,8 @@ jQuery(document).scroll(function (event) {
 				action: 'astra-list-sites',
 				paged: paged,
 				search: search,
-
-				page_builder_slug : page_builder_slug,
 				page_builder_id : page_builder_id,
-				category_slug : category_slug,
 				category_id : category_id,
-				// category: category,
-				// id: id,
 			},
 		})
 			.done(function (demos) {
@@ -589,17 +577,12 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 	
 	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
 		astra_category 	   = jQuery('.filter-links.astra-category'),
-		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || '',
 		page_builder_id   	= astra_page_builder.find('.current').data('id'),
-		category_slug  		= astra_category.find('.current').data('sort') || '',
 		category_id   		= astra_category.find('.current').data('id');
-
-	// return;
 
 	resetPagedCount();
 	
 	paged = parseInt(jQuery('body').attr('data-astra-demo-paged'));
-	
 
 	jQuery('body').addClass('loading-content');
 	jQuery('.theme-browser .theme').remove();
@@ -613,28 +596,23 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		data: {
 			action: 'astra-list-sites',
 			paged: paged,
-
-			page_builder_slug : page_builder_slug,
 			page_builder_id : page_builder_id,
-			category_slug : category_slug,
 			category_id : category_id,
-			// category: category,
-			// id: id,
 		},
 	})
-		.done(function (demos) {
-			jQuery('body').removeClass('loading-content');
-			
-			if (demos.length > 0) {
-				renderDemoGrid(demos);
-			} else {
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-			}
-		})
-		.fail(function () {
-			jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
-		});
+	.done(function (demos) {
+		jQuery('body').removeClass('loading-content');
+		
+		if (demos.length > 0) {
+			renderDemoGrid(demos);
+		} else {
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+		}
+	})
+	.fail(function () {
+		jQuery('body').removeClass('loading-content');
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
+	});
 
 });
 
@@ -649,15 +627,9 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
 		astra_category 	   = jQuery('.filter-links.astra-category'),
-		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || 'all',
 		page_builder_id   	= astra_page_builder.find('.current').data('id'),
-		category_slug  		= astra_category.find('.current').data('sort') || 'all',
 		category_id   		= astra_category.find('.current').data('id');
 	
-		console.log('page_builder_slug: ' + page_builder_slug);
-		console.log('page_builder_id: ' + page_builder_id);
-		console.log('category_slug: ' + category_slug);
-		console.log('category_id: ' + category_id);
 
 	window.clearTimeout(ref);
 	ref = window.setTimeout(function () {
@@ -676,30 +648,24 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			data: {
 				action: 'astra-list-sites',
 				search: $this,
-				page_builder_slug : page_builder_slug,
 				page_builder_id : page_builder_id,
-				category_slug : category_slug,
 				category_id : category_id,
-				// category: category,
-				// id: id,
 			},
 		})
-			.done(function (demos) {
-				// jQuery('.filter-links li a[data-id="all"]').addClass('current');
-				// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
-				jQuery('body').removeClass('loading-content');
+		.done(function (demos) {
+			jQuery('body').removeClass('loading-content');
 
-				if (demos.length > 0) {
-					renderDemoGrid(demos);
-				} else {
-					jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-				}
+			if (demos.length > 0) {
+				renderDemoGrid(demos);
+			} else {
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+			}
 
-			})
-			.fail(function () {
-				jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
-			});
+		})
+		.fail(function () {
+			jQuery('body').removeClass('loading-content');
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
+		});
 
 	}, 500);
 
