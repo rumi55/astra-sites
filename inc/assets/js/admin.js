@@ -562,8 +562,6 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 	$this = jQuery(this);
 	$this.parent('li').siblings().find('.current').removeClass('current');
 	$this.addClass('current');
-	// slug = $this.data('sort');
-	// id = $this.data('id');
 	
 	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
 		astra_category 	   = jQuery('.filter-links.astra-category'),
