@@ -685,7 +685,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$response = wp_remote_get( $url, $api_args );
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
-	
+
 				$astra_demos['sites_count'] = wp_remote_retrieve_header( $response, 'x-wp-total' );
 
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
