@@ -161,33 +161,31 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			);
 
 			$args_search = isset( $args->search ) ? $args->search : '';
-			$args_search 	 = isset( $args->search ) ? $args->search : '';
-			$category_id 	 = isset( $args->category_id ) ? $args->category_id : '';
+			$args_search     = isset( $args->search ) ? $args->search : '';
+			$category_id     = isset( $args->category_id ) ? $args->category_id : '';
 			$page_builder_id = isset( $args->page_builder_id ) ? $args->page_builder_id : '';
 
 			// Not Search?
 			if ( ! empty( $args_search ) ) {
- 				$request_params['search'] = $args_search;
+				 $request_params['search'] = $args_search;
 			}
 
-			if( ! empty( $page_builder_id ) && 'all' != $page_builder_id ) {
+			if ( ! empty( $page_builder_id ) && 'all' != $page_builder_id ) {
 				$request_params['astra-site-page-builder'] = $page_builder_id;
 			}
 
-			if( ! empty( $category_id ) && 'all' != $category_id ) {
+			if ( ! empty( $category_id ) && 'all' != $category_id ) {
 				$request_params['astra-site-category'] = $category_id;
- 			}
+			}
 
- 			// @see http://localhost/dev.themes/wp-json/wp/v2/astra-sites?page=1&per_page=15&purchase_key&site_url&astra-site-page-builder=89&astra-site-category=83
+			 // @see http://localhost/dev.themes/wp-json/wp/v2/astra-sites?page=1&per_page=15&purchase_key&site_url&astra-site-page-builder=89&astra-site-category=83
 			// @see search
 			// http://localhost/dev.themes/wp-json/wp/v2/astra-sites?page=1&per_page=15&purchase_key&site_url&astra-site-page-builder=89&astra-site-category=83
-
 			// // Not All?
 			// $args_id     = isset( $args->id ) ? $args->id : '';
 			// } elseif ( 'all' != $args_id ) {
-			// 	$request_params['astra-site-category'] = $args_id;
+			// $request_params['astra-site-category'] = $args_id;
 			// }
-
 			return add_query_arg( $request_params, self::$api_url . 'astra-sites' );
 		}
 
@@ -490,11 +488,10 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$args->search   = isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
 			// $args->category = isset( $_POST['category'] ) ? esc_attr( $_POST['category'] ) : '';
 			// $args->id       = isset( $_POST['id'] ) ? esc_attr( $_POST['id'] ) : '';
-			
 			// $args->page_builder_slug 	= isset( $_POST['page_builder_slug'] ) ? esc_attr( $_POST['page_builder_slug'] ) : '';
 			$args->page_builder_id       = isset( $_POST['page_builder_id'] ) ? esc_attr( $_POST['page_builder_id'] ) : '';
 			// $args->category_slug = isset( $_POST['category_slug'] ) ? esc_attr( $_POST['category_slug'] ) : '';
-			$args->category_id       = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';			
+			$args->category_id       = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';
 
 			return wp_send_json( self::get_astra_demos( $args, $paged ) );
 		}
@@ -689,7 +686,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// vl($args );
 			// vl($url );
 			// wp_die();
-
 			$astra_demos = array();
 
 			$api_args = apply_filters(
