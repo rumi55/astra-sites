@@ -1,4 +1,10 @@
 <?php
+/**
+ * Elementor Images
+ *
+ * @package Astra Sites
+ * @since 1.0.4
+ */
 
 namespace Elementor;
 
@@ -11,16 +17,13 @@ namespace Elementor\TemplateLibrary;
 
 use Elementor\Core\Settings\Manager as SettingsManager;
 use Elementor\TemplateLibrary\Classes\Import_Images;
-// use Elementor\Plugin;
-
-
 use Elementor\TemplateLibrary;
 use Elementor\TemplateLibrary\Classes;
 use Elementor\Api;
 use Elementor\PageSettings\Page;
 
-// For working protected methods defined in
-// file '/elementor/includes/template-library/sources/base.php'
+// For working protected methods defined in.
+// file '/elementor/includes/template-library/sources/base.php'.
 use Elementor\Plugin;
 use Elementor\Utils;
 
@@ -28,18 +31,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Astra Source Remote
+ */
 class Astra_Sites_Source_Remote extends Source_Base {
 
+	/**
+	 * Get ID
+	 *
+	 * @since 1.0.4
+	 *
+	 * @return string
+	 */
 	public function get_id() {
 		return 'remote';
 	}
 
+	/**
+	 * Get Title.
+	 *
+	 * @since 1.0.4
+	 *
+	 * @return string
+	 */
 	public function get_title() {
 		return __( 'Remote', 'elementor' );
 	}
 
+	/**
+	 * Get Data
+	 *
+	 * @since 1.0.4
+	 *
+	 * @return void
+	 */
 	public function register_data() {}
 
+	/**
+	 * Get Items
+	 *
+	 * @since 1.0.4
+	 *
+	 * @param  array $args Arguments.
+	 * @return array
+	 */
 	public function get_items( $args = [] ) {
 		$templates_data = Api::get_templates_data();
 
@@ -59,7 +94,9 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	}
 
 	/**
-	 * @param array $template_data
+	 * Get Item
+	 *
+	 * @param array $template_data Template Data.
 	 *
 	 * @return array
 	 */
@@ -79,22 +116,53 @@ class Astra_Sites_Source_Remote extends Source_Base {
 		];
 	}
 
+	/**
+	 * Template Data
+	 *
+	 * @param  boolean $template_data Template Data.
+	 * @return boolean                Return false.
+	 */
 	public function save_item( $template_data ) {
 		return false;
 	}
 
+	/**
+	 * Update Item
+	 *
+	 * @param  boolean $new_data New Data.
+	 * @return boolean                Return false.
+	 */
 	public function update_item( $new_data ) {
 		return false;
 	}
 
+	/**
+	 * Delete Template
+	 *
+	 * @param  boolean $template_id Template ID.
+	 * @return boolean                Return false.
+	 */
 	public function delete_template( $template_id ) {
 		return false;
 	}
 
+	/**
+	 * Delete Template
+	 *
+	 * @param  boolean $template_id Template ID.
+	 * @return boolean                Return false.
+	 */
 	public function export_template( $template_id ) {
 		return false;
 	}
 
+	/**
+	 * Get Data
+	 *
+	 * @param  array  $args    Arguments.
+	 * @param  string $context Context.
+	 * @return array          Data.
+	 */
 	public function get_data( array $args, $context = 'display' ) {
 		$data = Api::get_template_content( $args['template_id'] );
 
@@ -112,9 +180,11 @@ class Astra_Sites_Source_Remote extends Source_Base {
 		$data['content'] = $this->process_export_import_content( $data['content'], 'on_import' );
 
 		if ( ! empty( $args['page_settings'] ) && ! empty( $data['page_settings'] ) ) {
-			$page = new Page( [
-				'settings' => $data['page_settings'],
-			] );
+			$page = new Page(
+				[
+					'settings' => $data['page_settings'],
+				]
+			);
 
 			$page_settings_data = $this->process_element_export_import_content( $page, 'on_import' );
 			$data['page_settings'] = $page_settings_data['settings'];
@@ -123,19 +193,25 @@ class Astra_Sites_Source_Remote extends Source_Base {
 		return $data;
 	}
 
-
 	/**
-	 * PROTECTED METHODs
+	 * Replace Elements Ids
+	 *
+	 * @param  string $content Context.
+	 * @return array    Element.
 	 */
 	public function replace_elements_ids( $content ) {
-		return Plugin::$instance->db->iterate_data( $content, function( $element ) {
-			$element['id'] = Utils::generate_random_string();
+		return Plugin::$instance->db->iterate_data(
+			$content, function( $element ) {
+				$element['id'] = Utils::generate_random_string();
 
-			return $element;
-		} );
+				return $element;
+			}
+		);
 	}
 
 	/**
+	 * Process Import Content.
+	 *
 	 * @param array  $content a set of elements.
 	 * @param string $method  (on_export|on_import).
 	 *
@@ -146,7 +222,7 @@ class Astra_Sites_Source_Remote extends Source_Base {
 			$content, function( $element_data ) use ( $method ) {
 				$element = Plugin::$instance->elements_manager->create_element_instance( $element_data );
 
-				// If the widget/element isn't exist, like a plugin that creates a widget but deactivated
+				// If the widget/element isn't exist, like a plugin that creates a widget but deactivated.
 				if ( ! $element ) {
 					return null;
 				}
@@ -157,8 +233,10 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	}
 
 	/**
-	 * @param \Elementor\Controls_Stack $element
-	 * @param string                    $method
+	 * Process Element/Export Import Content.
+	 *
+	 * @param \Elementor\Controls_Stack $element Element.
+	 * @param string                    $method Method.
 	 *
 	 * @return array
 	 */
@@ -188,15 +266,18 @@ class Astra_Sites_Source_Remote extends Source_Base {
 
 	/**
 	 * Update post meta.
+	 *
+	 * @param  integer $post_id Post ID.
+	 * @return void
 	 */
 	public function hotlink_images( $post_id = 0 ) {
 
-		if( ! empty( $post_id ) ) {
+		if ( ! empty( $post_id ) ) {
 
 			$hotlink_imported = get_post_meta( $post_id, '_astra_sites_hotlink_imported', true );
 
-			if( empty( $hotlink_imported ) ) {
-				
+			if ( empty( $hotlink_imported ) ) {
+
 				$data = get_post_meta( $post_id, '_elementor_data', true );
 
 				if ( ! empty( $data ) ) {

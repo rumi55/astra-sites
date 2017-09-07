@@ -48,7 +48,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-async-request.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-background-process.php';
 
-			// Plugin - Astra Pro
+			// Plugin - Astra Pro.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/astra-pro/class-astra-sites-compatibility-astra-pro.php';
 
 			// Plugin - Site Origin Widgets.
