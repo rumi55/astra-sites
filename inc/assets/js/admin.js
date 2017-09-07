@@ -147,6 +147,13 @@ jQuery(document).scroll(function (event) {
 			},
 		})
 			.done(function (demos) {
+
+				$currnt_count = parseInt( jQuery('.filter-count .count').text() ) || 0;
+				$count = $currnt_count + demos.length;
+
+				jQuery('.filter-count .count').text( $count );
+
+
 				jQuery('body').removeClass('loading-content');
 				renderDemoGrid(demos);
 			})
