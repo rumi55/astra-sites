@@ -5,8 +5,16 @@
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
 
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+
+	<!-- Show sniff codes in all reports -->
+	<arg value="s"/>
+
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/admin/bsf-core/*</exclude-pattern>
 	<exclude-pattern>*/inc/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/wxr-importer/class-logger.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/class-widgets-importer.php</exclude-pattern>
@@ -15,5 +23,4 @@
 		<!-- See https://github.com/squizlabs/PHP_CodeSniffer/issues/1277 -->
 		<severity>0</severity>
 	</rule>
-
 </ruleset>
