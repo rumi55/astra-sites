@@ -14,8 +14,6 @@ function initial_load_demos() {
 		dataType: 'json',
 		data: {
 			action   : 'astra-list-sites',
-			category : 'all',
-			id       : 'all',
 			paged    : '1',
 		},
 	})
@@ -89,7 +87,7 @@ function enable_demo_import_button( type = 'free' ) {
 }
 
 function resetPagedCount() {
-	categoryId = jQuery('.filter-links li .current').data('id');
+	categoryId = jQuery('.astra-category.filter-links li .current').data('id');
 	jQuery('body').attr('data-astra-demo-paged', '1');
 	jQuery('body').attr('data-astra-site-category', categoryId);
 	jQuery('body').attr('data-astra-demo-search', '');
@@ -129,15 +127,33 @@ jQuery(document).scroll(function (event) {
 
 		jQuery('.no-themes').remove();
 
+		var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || '',
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_slug  		= astra_category.find('.current').data('sort') || '',
+		category_id   		= astra_category.find('.current').data('id');
+		console.log('paged: ' + paged);
+		console.log('page_builder_slug: ' + page_builder_slug);
+		console.log('page_builder_id: ' + page_builder_id);
+		console.log('category_slug: ' + category_slug);
+		console.log('category_id: ' + category_id);
+
 		jQuery.ajax({
 			url: astraDemo.ajaxurl,
 			type: 'POST',
 			dataType: 'json',
 			data: {
 				action: 'astra-list-sites',
-				id: id,
 				paged: paged,
-				search: search
+				search: search,
+
+				page_builder_slug : page_builder_slug,
+				page_builder_id : page_builder_id,
+				category_slug : category_slug,
+				category_id : category_id,
+				// category: category,
+				// id: id,
 			},
 		})
 			.done(function (demos) {
@@ -568,17 +584,22 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 	$this = jQuery(this);
 	$this.parent('li').siblings().find('.current').removeClass('current');
 	$this.addClass('current');
-	slug = $this.data('sort');
-	id = $this.data('id');
+	// slug = $this.data('sort');
+	// id = $this.data('id');
+	
+	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || '',
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_slug  		= astra_category.find('.current').data('sort') || '',
+		category_id   		= astra_category.find('.current').data('id');
+
+	// return;
 
 	resetPagedCount();
+	
 	paged = parseInt(jQuery('body').attr('data-astra-demo-paged'));
-
-	if (slug == 'all') {
-		category = 'all';
-	} else {
-		category = slug;
-	}
+	
 
 	jQuery('body').addClass('loading-content');
 	jQuery('.theme-browser .theme').remove();
@@ -591,14 +612,24 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		dataType: 'json',
 		data: {
 			action: 'astra-list-sites',
-			category: category,
-			id: id,
 			paged: paged,
+
+			page_builder_slug : page_builder_slug,
+			page_builder_id : page_builder_id,
+			category_slug : category_slug,
+			category_id : category_id,
+			// category: category,
+			// id: id,
 		},
 	})
 		.done(function (demos) {
 			jQuery('body').removeClass('loading-content');
-			renderDemoGrid(demos);
+			
+			if (demos.length > 0) {
+				renderDemoGrid(demos);
+			} else {
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+			}
 		})
 		.fail(function () {
 			jQuery('body').removeClass('loading-content');
@@ -615,6 +646,18 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 	if ($this.length < 2) {
 		id = 'all';
 	}
+
+	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_slug  	= astra_page_builder.find('.current').data('sort') || 'all',
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_slug  		= astra_category.find('.current').data('sort') || 'all',
+		category_id   		= astra_category.find('.current').data('id');
+	
+		console.log('page_builder_slug: ' + page_builder_slug);
+		console.log('page_builder_id: ' + page_builder_id);
+		console.log('category_slug: ' + category_slug);
+		console.log('category_id: ' + category_id);
 
 	window.clearTimeout(ref);
 	ref = window.setTimeout(function () {
@@ -633,12 +676,17 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			data: {
 				action: 'astra-list-sites',
 				search: $this,
-				id: id,
+				page_builder_slug : page_builder_slug,
+				page_builder_id : page_builder_id,
+				category_slug : category_slug,
+				category_id : category_id,
+				// category: category,
+				// id: id,
 			},
 		})
 			.done(function (demos) {
-				jQuery('.filter-links li a[data-id="all"]').addClass('current');
-				jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
+				// jQuery('.filter-links li a[data-id="all"]').addClass('current');
+				// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
 				jQuery('body').removeClass('loading-content');
 
 				if (demos.length > 0) {

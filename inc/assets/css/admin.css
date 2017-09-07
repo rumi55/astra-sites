@@ -202,3 +202,19 @@
 .astra-api-error {
     margin: 0 0 0.5em 0;
 }
+
+/**
+ * Grid
+ */
+.wp-filter .search-form {
+    margin-left: 1em;
+}
+.wp-filter .search-form input[type="search"] {
+    width: 200px;
+}
+.left-section {
+    display: inline-block;
+}
+.right-section {
+    float: right;
+}
