@@ -23,6 +23,11 @@ wp_enqueue_style( 'astra-sites-admin' );
 		<div class="wp-filter hide-if-no-js">
 
 			<div class="left-section">
+				
+				<div class="filter-count">
+					<span class="count"></span>
+				</div>
+
 				<ul class="filter-links astra-page-builder">
 					<?php foreach ( Astra_Sites::get_page_builders() as $key => $category ) { ?>
 						<li>

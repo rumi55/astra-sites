@@ -18,18 +18,9 @@ function initial_load_demos() {
 		},
 	})
 	.done(function (demos) {
-		jQuery('body').removeClass('loading-content');
 
-		// Has sites?
-		if( demos.length ) {
-			renderDemoGrid( demos );
+		renderDemoGrid( demos, 'init' );
 
-		// Something is wrong in API request.
-		} else {
-			var template = wp.template('astra-no-demos');
-
-			jQuery('.themes').append( template );
-		}
 	})
 	.fail(function () {
 		jQuery('body').removeClass('loading-content');
@@ -145,7 +136,6 @@ jQuery(document).scroll(function (event) {
 			},
 		})
 			.done(function (demos) {
-				jQuery('body').removeClass('loading-content');
 				renderDemoGrid(demos);
 			})
 			.fail(function () {
@@ -601,13 +591,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		},
 	})
 	.done(function (demos) {
-		jQuery('body').removeClass('loading-content');
-		
-		if (demos.length > 0) {
-			renderDemoGrid(demos);
-		} else {
-			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-		}
+		renderDemoGrid(demos);
 	})
 	.fail(function () {
 		jQuery('body').removeClass('loading-content');
@@ -653,14 +637,7 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			},
 		})
 		.done(function (demos) {
-			jQuery('body').removeClass('loading-content');
-
-			if (demos.length > 0) {
-				renderDemoGrid(demos);
-			} else {
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-			}
-
+			renderDemoGrid(demos);
 		})
 		.fail(function () {
 			jQuery('body').removeClass('loading-content');
@@ -671,40 +648,61 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 
 });
 
-function renderDemoGrid(demos) {
-	jQuery.each(demos, function (index, demo) {
+function renderDemoGrid(demos, first_loaded = '') {
 
-		id               = demo.id;
-		content          = demo.content;
-		demo_api         = demo.demo_api;
-		demo_name        = demo.title;
-		demo_slug        = demo.slug;
-		screenshot       = demo.featured_image_url;
-		astra_demo_url   = demo.astra_demo_url;
-		astra_demo_type  = demo.astra_demo_type;
-		requiredPlugins  = demo.required_plugins;
-		status  = demo.status;
-		astraSiteOptions = demo.astra_site_options || '';
-		astraEnabledExtensions = demo.astra_enabled_extensions || '';
+	jQuery('body').removeClass('loading-content');
+	
+	jQuery('.filter-count .count').text( demos.length );
 
-		templateData = [{
-			id: id,
-			astra_demo_type: astra_demo_type,
-			status: status,
-			astra_demo_url: astra_demo_url,
-			demo_api: demo_api,
-			screenshot: screenshot,
-			demo_name: demo_name,
-			slug: demo_slug,
-			content: content,
-			required_plugins: requiredPlugins,
-			astra_site_options: astraSiteOptions,
-			astra_enabled_extensions: astraEnabledExtensions
-		}]
+	if( demos.length ) {
 
-		var template = wp.template('astra-single-demo');
-		jQuery('.themes').append(template(templateData[0]));
-	});
+		jQuery.each(demos, function (index, demo) {
+			id               = demo.id;
+			content          = demo.content;
+			demo_api         = demo.demo_api;
+			demo_name        = demo.title;
+			demo_slug        = demo.slug;
+			screenshot       = demo.featured_image_url;
+			astra_demo_url   = demo.astra_demo_url;
+			astra_demo_type  = demo.astra_demo_type;
+			requiredPlugins  = demo.required_plugins;
+			status  = demo.status;
+			astraSiteOptions = demo.astra_site_options || '';
+			astraEnabledExtensions = demo.astra_enabled_extensions || '';
+
+			templateData = [{
+				id: id,
+				astra_demo_type: astra_demo_type,
+				status: status,
+				astra_demo_url: astra_demo_url,
+				demo_api: demo_api,
+				screenshot: screenshot,
+				demo_name: demo_name,
+				slug: demo_slug,
+				content: content,
+				required_plugins: requiredPlugins,
+				astra_site_options: astraSiteOptions,
+				astra_enabled_extensions: astraEnabledExtensions
+			}]
+
+			var template = wp.template('astra-single-demo');
+			jQuery('.themes').append(template(templateData[0]));
+		});
+
+	} else {
+
+		// Show first time API error message.	
+		if( 'init' === first_loaded ) {
+
+			var template = wp.template('astra-no-demos');
+			jQuery('.themes').append( template );
+
+		} else {
+			// Not have any sites in this category.
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+		}		
+	}
+
 }
 
 jQuery(document).on('click', '.collapse-sidebar', function (event) {
