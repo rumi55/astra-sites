@@ -47,7 +47,7 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.9 - 8-Sept-2017
-* New: Added page builder categories for listing sites as pre page builder.
+* New: Added page builder categories for listing sites as per page builder.
 
 v1.0.8 - 6-Sept-2017
 * Fix: Beaver Builder option import.
