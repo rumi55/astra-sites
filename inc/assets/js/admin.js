@@ -14,24 +14,24 @@ function initial_load_demos() {
 		dataType: 'json',
 		data: {
 			action   : 'astra-list-sites',
-			category : 'all',
-			id       : 'all',
 			paged    : '1',
 		},
 	})
 	.done(function (demos) {
+
 		jQuery('body').removeClass('loading-content');
+		jQuery('.filter-count .count').text( demos.sites_count );
 
 		// Has sites?
-		if( demos.length ) {
-			renderDemoGrid( demos );
+		if( demos.sites_count ) {
+			renderDemoGrid( demos.sites );
 
 		// Something is wrong in API request.
 		} else {
 			var template = wp.template('astra-no-demos');
-
 			jQuery('.themes').append( template );
 		}
+
 	})
 	.fail(function () {
 		jQuery('body').removeClass('loading-content');
@@ -89,7 +89,7 @@ function enable_demo_import_button( type = 'free' ) {
 }
 
 function resetPagedCount() {
-	categoryId = jQuery('.filter-links li .current').data('id');
+	categoryId = jQuery('.astra-category.filter-links li .current').data('id');
 	jQuery('body').attr('data-astra-demo-paged', '1');
 	jQuery('body').attr('data-astra-site-category', categoryId);
 	jQuery('body').attr('data-astra-demo-search', '');
@@ -129,20 +129,27 @@ jQuery(document).scroll(function (event) {
 
 		jQuery('.no-themes').remove();
 
+		var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_id   		= astra_category.find('.current').data('id');
+
 		jQuery.ajax({
 			url: astraDemo.ajaxurl,
 			type: 'POST',
 			dataType: 'json',
 			data: {
 				action: 'astra-list-sites',
-				id: id,
 				paged: paged,
-				search: search
+				search: search,
+				page_builder_id : page_builder_id,
+				category_id : category_id,
 			},
 		})
 			.done(function (demos) {
+
 				jQuery('body').removeClass('loading-content');
-				renderDemoGrid(demos);
+				renderDemoGrid(demos.sites);
 			})
 			.fail(function () {
 				jQuery('body').removeClass('loading-content');
@@ -568,17 +575,15 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 	$this = jQuery(this);
 	$this.parent('li').siblings().find('.current').removeClass('current');
 	$this.addClass('current');
-	slug = $this.data('sort');
-	id = $this.data('id');
+	
+	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_id   		= astra_category.find('.current').data('id');
 
 	resetPagedCount();
+	
 	paged = parseInt(jQuery('body').attr('data-astra-demo-paged'));
-
-	if (slug == 'all') {
-		category = 'all';
-	} else {
-		category = slug;
-	}
 
 	jQuery('body').addClass('loading-content');
 	jQuery('.theme-browser .theme').remove();
@@ -591,19 +596,25 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		dataType: 'json',
 		data: {
 			action: 'astra-list-sites',
-			category: category,
-			id: id,
 			paged: paged,
+			page_builder_id : page_builder_id,
+			category_id : category_id,
 		},
 	})
-		.done(function (demos) {
-			jQuery('body').removeClass('loading-content');
-			renderDemoGrid(demos);
-		})
-		.fail(function () {
-			jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
-		});
+	.done(function (demos) {
+		jQuery('.filter-count .count').text( demos.sites_count );
+		jQuery('body').removeClass('loading-content');
+
+		if ( demos.sites_count ) {
+			renderDemoGrid(demos.sites);
+		} else {
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+		}
+	})
+	.fail(function () {
+		jQuery('body').removeClass('loading-content');
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
+	});
 
 });
 
@@ -615,6 +626,12 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 	if ($this.length < 2) {
 		id = 'all';
 	}
+
+	var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+		astra_category 	   = jQuery('.filter-links.astra-category'),
+		page_builder_id   	= astra_page_builder.find('.current').data('id'),
+		category_id   		= astra_category.find('.current').data('id');
+	
 
 	window.clearTimeout(ref);
 	ref = window.setTimeout(function () {
@@ -633,31 +650,36 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			data: {
 				action: 'astra-list-sites',
 				search: $this,
-				id: id,
+				page_builder_id : page_builder_id,
+				category_id : category_id,
 			},
 		})
-			.done(function (demos) {
-				jQuery('.filter-links li a[data-id="all"]').addClass('current');
-				jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
-				jQuery('body').removeClass('loading-content');
+		.done(function (demos) {
+			// jQuery('.filter-links li a[data-id="all"]').addClass('current');
+			// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
+			jQuery('body').removeClass('loading-content');
 
-				if (demos.length > 0) {
-					renderDemoGrid(demos);
-				} else {
-					jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
-				}
+			jQuery('.filter-count .count').text( demos.sites_count );
 
-			})
-			.fail(function () {
-				jQuery('body').removeClass('loading-content');
-				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
-			});
+			if ( demos.sites_count ) {
+				renderDemoGrid(demos.sites);
+			} else {
+				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
+			}
+
+		})
+		.fail(function () {
+			jQuery('body').removeClass('loading-content');
+			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'.</p>');
+		});
+
 
 	}, 500);
 
 });
 
-function renderDemoGrid(demos) {
+function renderDemoGrid(demos, current_event = '') {
+
 	jQuery.each(demos, function (index, demo) {
 
 		id               = demo.id;
@@ -691,6 +713,8 @@ function renderDemoGrid(demos) {
 		var template = wp.template('astra-single-demo');
 		jQuery('.themes').append(template(templateData[0]));
 	});
+
+
 }
 
 jQuery(document).on('click', '.collapse-sidebar', function (event) {
