@@ -1,4 +1,4 @@
-=== Astra Free Sites ===
+=== Astra Sites - Lite ===
 Contributors: brainstormforce
 Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
@@ -8,7 +8,7 @@ Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Import Astra Free Sites with just one click.
+Import Astra Sites - Lite with just one click.
 
 == Description ==
 
