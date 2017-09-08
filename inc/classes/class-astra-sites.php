@@ -517,7 +517,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			// Clear Cache.
 			$this->clear_cache();
-		
+
 		}
 
 		/**
@@ -533,7 +533,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			}
 
 			// Clear 'Builder Builder' cache.
-			if( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
+			if ( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
 				FLBuilderModel::delete_asset_cache_for_all_posts();
 			}
 
