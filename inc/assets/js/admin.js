@@ -655,8 +655,6 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 			},
 		})
 		.done(function (demos) {
-			// jQuery('.filter-links li a[data-id="all"]').addClass('current');
-			// jQuery('.filter-links li a[data-id="all"]').parent('li').siblings().find('.current').removeClass('current');
 			jQuery('body').removeClass('loading-content');
 
 			jQuery('.filter-count .count').text( demos.sites_count );

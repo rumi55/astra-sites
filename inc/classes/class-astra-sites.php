@@ -165,15 +165,17 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$category_id     = isset( $args->category_id ) ? $args->category_id : '';
 			$page_builder_id = isset( $args->page_builder_id ) ? $args->page_builder_id : '';
 
-			// Not Search?
+			// Have Search?
 			if ( ! empty( $args_search ) ) {
 				 $request_params['search'] = $args_search;
 			}
 
+			// Have Site Page Builder Category?
 			if ( ! empty( $page_builder_id ) && 'all' != $page_builder_id ) {
 				$request_params['astra-site-page-builder'] = $page_builder_id;
 			}
 
+			// Have Site Category?
 			if ( ! empty( $category_id ) && 'all' != $category_id ) {
 				$request_params['astra-site-category'] = $category_id;
 			}
@@ -195,7 +197,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		/**
 		 * Returns the API URL for searching site page builders
 		 *
-		 * @since  1.0.0
+		 * @since  1.0.9
 		 * @return (String) URL that can be queried to return the demos.
 		 */
 		public static function get_page_builders_api_url() {
@@ -790,7 +792,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		/**
 		 * Get Site Page Builder Categories.
 		 *
-		 * @since  1.0.8
+		 * @since  1.0.9
 		 * @return (Array) Array of Site Page Builder Categories.
 		 */
 		public static function get_page_builders() {
