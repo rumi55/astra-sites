@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Astra Free Sites
+ * Plugin Name: Astra Sites - Lite
  * Plugin URI: http://www.wpastra.com/pro/
  * Description: Import free sites build with Astra theme.
  * Version: 1.0.8
