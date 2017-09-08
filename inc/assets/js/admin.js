@@ -23,7 +23,7 @@ function initial_load_demos() {
 		jQuery('.filter-count .count').text( demos.sites_count );
 
 		// Has sites?
-		if( demos.sites_count ) {
+		if ( demos.sites_count > 0 ) {
 			renderDemoGrid( demos.sites );
 
 		// Something is wrong in API request.
@@ -605,7 +605,7 @@ jQuery(document).on('click', '.filter-links li a', function (event) {
 		jQuery('.filter-count .count').text( demos.sites_count );
 		jQuery('body').removeClass('loading-content');
 
-		if ( demos.sites_count ) {
+		if ( demos.sites_count > 0 ) {
 			renderDemoGrid(demos.sites);
 		} else {
 			jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
@@ -657,9 +657,11 @@ jQuery(document).on('keyup input', '#wp-filter-search-input', function () {
 		.done(function (demos) {
 			jQuery('body').removeClass('loading-content');
 
+			console.log('demos.sites_count: ' + demos.sites_count);
+
 			jQuery('.filter-count .count').text( demos.sites_count );
 
-			if ( demos.sites_count ) {
+			if ( demos.sites_count > 0 ) {
 				renderDemoGrid(demos.sites);
 			} else {
 				jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.searchNoFound+'</p>');
