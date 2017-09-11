@@ -47,8 +47,8 @@ https://sites.wpastra.com/law-free/
 ## Changelog ##
 
 v1.0.10 - 11-Sept-2017
-* Fix: Importing images for Astra Customizer settings.
-* Fix: Customizer Site logo image import.
+* Improvement: Added support for retina logo import.
+* Fix: Site logo image not displayed in customizer.
 * Fix: Updated `Astra Agency` purchase link.
 
 v1.0.9 - 8-Sept-2017
