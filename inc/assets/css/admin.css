@@ -223,3 +223,6 @@
 .filter-count {
     min-width: 3em;
 }
+.astra-site-preview-on {
+    overflow: hidden;
+}

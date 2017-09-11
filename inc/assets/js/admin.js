@@ -170,6 +170,8 @@ jQuery(document).on('click', '.theme-browser .theme-screenshot, .theme-browser .
 	$this = jQuery(this).parents('.theme');
 	$this.addClass('theme-preview-on');
 
+	jQuery('html').addClass('astra-site-preview-on');
+
 	renderDemoPreview($this);
 });
 
@@ -179,6 +181,7 @@ jQuery(document).on('click', '.close-full-overlay', function (event) {
 	jQuery('.theme-install-overlay').css('display', 'none');
 	jQuery('.theme-install-overlay').remove();
 	jQuery('.theme-preview-on').removeClass('theme-preview-on');
+	jQuery('html').removeClass('astra-site-preview-on');
 });
 
 jQuery(document).on('click', '.next-theme', function (event) {
