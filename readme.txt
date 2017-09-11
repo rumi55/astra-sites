@@ -1,14 +1,14 @@
-=== Astra Free Sites ===
+=== Astra Sites - Lite ===
 Contributors: brainstormforce
 Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Import Astra Free Sites with just one click.
+Import Astra Sites - Lite with just one click.
 
 == Description ==
 
@@ -45,6 +45,11 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 == Changelog ==
+
+v1.0.10 - 11-Sept-2017
+* Improvement: Added support for retina logo import.
+* Fix: Site logo image not displayed in customizer.
+* Fix: Updated `Astra Agency` purchase link.
 
 v1.0.9 - 8-Sept-2017
 * New: Added page builder categories for listing sites as per page builder.
