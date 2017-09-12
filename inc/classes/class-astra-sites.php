@@ -538,7 +538,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				FLBuilderModel::delete_asset_cache_for_all_posts();
 			}
 
->>>>>>> 1bc806f3f73714c08855eee4ebb71554c27e13bc
+			>> >> >> > 1bc806f3f73714c08855eee4ebb71554c27e13bc
 		}
 
 		/**
