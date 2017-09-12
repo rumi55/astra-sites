@@ -22,25 +22,46 @@ wp_enqueue_style( 'astra-sites-admin' );
 
 		<div class="wp-filter hide-if-no-js">
 
-			<ul class="filter-links">
+			<div class="left-section">
+				
+				<div class="filter-count">
+					<span class="count"></span>
+				</div>
 
-				<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
-
-				<?php foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
-					<li>
-						<a href="#"
-						   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
-						   data-id="<?php echo esc_attr( $category['id'] ); ?>">
-							<?php echo esc_attr( $category['name'] ); ?>
-						</a>
-					</li>
-				<?php } ?>
-			</ul>
-
-			<div class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Sites', 'astra-sites' ); ?></label>
-				<input placeholder="<?php esc_attr_e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+				<ul class="filter-links astra-page-builder">
+					<?php foreach ( Astra_Sites::get_page_builders() as $key => $category ) { ?>
+						<li>
+							<a href="#"
+							   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
+							   data-id="<?php echo esc_attr( $category['id'] ); ?>">
+								<?php echo esc_attr( $category['name'] ); ?>
+							</a>
+						</li>
+					<?php } ?>
+				</ul>
 			</div>
+
+			<div class="right-section">
+				<ul class="filter-links astra-category">
+
+					<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
+
+					<?php foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
+						<li>
+							<a href="#"
+							   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
+							   data-id="<?php echo esc_attr( $category['id'] ); ?>">
+								<?php echo esc_attr( $category['name'] ); ?>
+							</a>
+						</li>
+					<?php } ?>
+				</ul>
+
+				<div class="search-form">
+					<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Sites', 'astra-sites' ); ?></label>
+					<input placeholder="<?php esc_attr_e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+				</div>
+			 </div>
 
 		</div>
 

@@ -1,9 +1,9 @@
 
 {
   "name": "astra-sites",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "main": "Gruntfile.js",
-  "author": "Import Astra Free Sites with just one click.",
+  "author": "Import Astra Sites - Lite with just one click.",
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-wp-i18n": "~1.0.0",

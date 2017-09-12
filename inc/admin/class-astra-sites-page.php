@@ -31,7 +31,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * @since 1.0.6
 		 * @var array $menu_page_title
 		 */
-		static public $menu_page_title = 'Astra Sites';
+		static public $menu_page_title = 'Astra Sites - Lite';
 
 		/**
 		 * Plugin slug
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 */
 		static public function init_admin_settings() {
 
-			self::$menu_page_title  = apply_filters( 'astra_sites_menu_page_title', __( 'Astra Sites' , 'astra-sites' ) );
+			self::$menu_page_title  = apply_filters( 'astra_sites_menu_page_title', __( 'Astra Sites - Lite' , 'astra-sites' ) );
 
 			if ( isset( $_REQUEST['page'] ) && strpos( $_REQUEST['page'], self::$plugin_slug ) !== false ) {
 

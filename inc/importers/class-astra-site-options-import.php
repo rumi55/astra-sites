@@ -71,6 +71,15 @@ class Astra_Site_Options_Import {
 			'elementor_scheme_typography',
 			'elementor_space_between_widgets',
 			'elementor_stretched_section_container',
+
+			'_fl_builder_enabled_icons',
+			'_fl_builder_enabled_modules',
+			'_fl_builder_post_types',
+			'_fl_builder_color_presets',
+			'_fl_builder_services',
+			'_fl_builder_settings',
+			'_fl_builder_user_access',
+			'_fl_builder_enabled_templates',
 		);
 	}
 
@@ -179,25 +188,13 @@ class Astra_Site_Options_Import {
 	 */
 	private function insert_logo( $image_url = '' ) {
 
-		// Download Site Logo Image.
-		$response = Astra_Sites_Helper::download_file( $image_url );
+		$data = Astra_Sites_Helper::_sideload_image( $image_url );
 
-		// Is Success?
-		if ( $response['success'] ) {
+		if ( ! is_wp_error( $data ) ) {
 
-			// Set attachment data.
-			$attachment = array(
-				'post_mime_type' => $response['data']['type'],
-				'post_title'     => sanitize_file_name( basename( $image_url ) ),
-				'post_content'   => '',
-				'post_status'    => 'inherit',
-			);
+			set_theme_mod( 'custom_logo', $data->attachment_id );
 
-			// Create the attachment.
-			$attach_id = wp_insert_attachment( $attachment, $response['data']['file'] );
-
-			set_theme_mod( 'custom_logo', $attach_id );
 		}
-
 	}
+
 }

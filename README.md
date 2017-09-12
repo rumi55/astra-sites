@@ -1,14 +1,14 @@
-# Astra Free Sites #
+# Astra Sites - Lite #
 **Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://wpastra.com/pro/  
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.7  
+**Stable tag:** 1.0.10  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Import Astra Free Sites with just one click.
+Import Astra Sites - Lite with just one click.
 
 ## Description ##
 
@@ -45,6 +45,19 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 ## Changelog ##
+
+v1.0.10 - 11-Sept-2017
+* Improvement: Added support for retina logo import.
+* Fix: Site logo image not displayed in customizer.
+* Fix: Updated `Astra Agency` purchase link.
+
+v1.0.9 - 8-Sept-2017
+* New: Added page builder categories for listing sites as per page builder.
+
+v1.0.8 - 6-Sept-2017
+* Fix: Beaver Builder option import.
+* Enhancement: Disabled dismiss-able notice visible once for each user.
+* Enhancement: Showing error message for for user who have not `manage_plugins` capability.
 
 v1.0.7 - 1-Sept-2017
 * Fix: Custom Menu widget not setting imported widget.
