@@ -650,7 +650,8 @@ jQuery(document).on('click', '.activate-now', function (event) {
 	event.preventDefault();
 
 	var $button = jQuery( event.target ),
-		$init 	= $button.data( 'init' );
+		$init 	= $button.data( 'init' ),
+		$slug 	= $button.data( 'slug' );
 
 	if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
 		return;
@@ -679,18 +680,18 @@ jQuery(document).on('click', '.activate-now', function (event) {
 			var pluginsList = astraDemo.requiredPlugins.inactive;
 
 			// Reset not installed plugins list.
-			astraDemo.requiredPlugins.inactive = removePluginFromQueue( response.slug, pluginsList );
+			astraDemo.requiredPlugins.inactive = removePluginFromQueue( $slug, pluginsList );
 
 			// console.log('astraDemo.requiredPlugins: ' + astraDemo.requiredPlugins);
 			// console.log('astraDemo.requiredPlugins: ' + JSON.stringify(astraDemo.requiredPlugins));
 			console.log('$button: ' + $button.attr('class') );
-			console.log('$parent: ' + $button.parents('.plugin-card-' + response.slug).attr('class') );
+			console.log('$parent: ' + $button.parents('.plugin-card-' + $slug).attr('class') );
 			$button.removeClass( 'button-primary install-now activate-now updating-message' )
 				.attr('disabled', 'disabled')
 				.addClass('disabled')
 				.text( astraDemo.strings.btnActive );
 
-			bulkPluginInstallActivate();
+			// bulkPluginInstallActivate();
 
 			// Enable Demo Import Button
 			astraDemo.requiredPluginsCount--;
@@ -856,7 +857,9 @@ function renderDemoPreview(anchor) {
 						output += ' 		data-init="'+plugin.init+'">';
 						output += '	<span class="title">'+plugin.name+'</span>';
 						output += '	<button class="button activate-now button-primary"';
-						output += '		data-init="' + plugin.init + '">';
+						output += '		data-init="' + plugin.init + '"';
+						output += '		data-slug="' + plugin.slug + '"';
+						output += '		data-name="' + plugin.name + '">';
 						output += 	wp.updates.l10n.activatePlugin;
 						output += '	</button>';
 						// output += '	<span class="dashicons-no dashicons"></span>';
