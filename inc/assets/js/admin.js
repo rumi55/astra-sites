@@ -1004,7 +1004,8 @@ var AstraSitesAjaxQueue = (function() {
 
 				var $card    	 = jQuery( '.plugin-card-' + single_plugin.slug ),
 					$button  	 = $card.find('.button'),
-					$siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val();
+					$siteOptions = jQuery( '.wp-full-overlay-header').find('.astra-site-options').val(),
+					$enabledExtensions = jQuery( '.wp-full-overlay-header').find('.astra-enabled-extensions').val();
 
 				$button.addClass('updating-message');
 
@@ -1015,6 +1016,7 @@ var AstraSitesAjaxQueue = (function() {
 						'action'	: 'astra-required-plugin-activate',
 						'init'		: single_plugin.init,
 						'options'	: $siteOptions,
+						'enabledExtensions' : $enabledExtensions,
 					},
 					success: function( result ){
 
