@@ -202,3 +202,27 @@
 .astra-api-error {
     margin: 0 0 0.5em 0;
 }
+
+/**
+ * Grid
+ */
+.wp-filter .search-form {
+    margin-left: 1em;
+}
+.wp-filter .search-form input[type="search"] {
+    width: 200px;
+    font-size: 13px;
+    padding: 5px 10px;
+}
+.left-section {
+    display: inline-block;
+}
+.right-section {
+    float: right;
+}
+.filter-count {
+    min-width: 3em;
+}
+.astra-site-preview-on {
+    overflow: hidden;
+}

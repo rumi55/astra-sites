@@ -188,25 +188,13 @@ class Astra_Site_Options_Import {
 	 */
 	private function insert_logo( $image_url = '' ) {
 
-		// Download Site Logo Image.
-		$response = Astra_Sites_Helper::download_file( $image_url );
+		$data = Astra_Sites_Helper::_sideload_image( $image_url );
 
-		// Is Success?
-		if ( $response['success'] ) {
+		if ( ! is_wp_error( $data ) ) {
 
-			// Set attachment data.
-			$attachment = array(
-				'post_mime_type' => $response['data']['type'],
-				'post_title'     => sanitize_file_name( basename( $image_url ) ),
-				'post_content'   => '',
-				'post_status'    => 'inherit',
-			);
+			set_theme_mod( 'custom_logo', $data->attachment_id );
 
-			// Create the attachment.
-			$attach_id = wp_insert_attachment( $attachment, $response['data']['file'] );
-
-			set_theme_mod( 'custom_logo', $attach_id );
 		}
-
 	}
+
 }
