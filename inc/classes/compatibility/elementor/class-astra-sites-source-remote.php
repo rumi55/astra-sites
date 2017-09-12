@@ -75,10 +75,10 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	 * @param  array $args Arguments.
 	 * @return array
 	 */
-	public function get_items( $args = [] ) {
+	public function get_items( $args = array() ) {
 		$templates_data = Api::get_templates_data();
 
-		$templates = [];
+		$templates = array();
 
 		if ( ! empty( $templates_data ) ) {
 			foreach ( $templates_data as $template_data ) {
@@ -108,8 +108,8 @@ class Astra_Sites_Source_Remote extends Source_Base {
 			'thumbnail' => $template_data['thumbnail'],
 			'date' => date( get_option( 'date_format' ), $template_data['tmpl_created'] ),
 			'author' => $template_data['author'],
-			'categories' => [],
-			'keywords' => [],
+			'categories' => array(),
+			'keywords' => array(),
 			'isPro' => ( '1' === $template_data['is_pro'] ),
 			'hasPageSettings' => ( '1' === $template_data['has_page_settings'] ),
 			'url' => $template_data['url'],
