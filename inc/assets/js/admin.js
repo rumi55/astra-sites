@@ -111,7 +111,7 @@ var AstraSitesAjaxQueue = (function() {
 			$( document ).on('click', '.previous-theme', AstraSites._previousTheme);
 			$( document ).on('keyup input', '#wp-filter-search-input', AstraSites._serach);
 			$( document ).on('wp-plugin-installing', AstraSites._pluginInstalling);
-			$( document ).on('wp-plugin-install-error', AstraSites._installError);			
+			$( document ).on('wp-plugin-install-error', AstraSites._installError);
 			$( document ).on('wp-plugin-install-success', AstraSites._installSuccess);
 		},
 
@@ -1098,6 +1098,9 @@ var AstraSitesAjaxQueue = (function() {
 
 	};
 
+	/**
+	 * Initialize AstraSites
+	 */
 	$(function(){
 		AstraSites.init();
 	});
