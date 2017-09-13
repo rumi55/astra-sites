@@ -57,6 +57,8 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		protected function complete() {
 			parent::complete();
 
+			do_action( 'astra_sites_image_import_complete' );
+
 			error_log( 'Import process complete' );
 		}
 
