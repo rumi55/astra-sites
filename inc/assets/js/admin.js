@@ -955,6 +955,16 @@ var AstraSitesAjaxQueue = (function() {
 				return;
 			}
 
+			jQuery('.required-plugins')
+				.find('.install-now')
+				.addClass( 'updating-message button-primary' )
+				.text( wp.updates.l10n.installing );
+
+			jQuery('.required-plugins')
+				.find('.activate-now')
+				.addClass('updating-message button-primary')
+				.html( astraDemo.strings.btnActivating );
+
 			var not_installed 	 = astraDemo.requiredPlugins.notinstalled || '';
 			var activate_plugins = astraDemo.requiredPlugins.inactive || '';
 
