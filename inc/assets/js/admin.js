@@ -958,11 +958,13 @@ var AstraSitesAjaxQueue = (function() {
 			jQuery('.required-plugins')
 				.find('.install-now')
 				.addClass( 'updating-message button-primary' )
+				.removeClass( 'install-now' )
 				.text( wp.updates.l10n.installing );
 
 			jQuery('.required-plugins')
 				.find('.activate-now')
 				.addClass('updating-message button-primary')
+				.removeClass( 'activate-now' )
 				.html( astraDemo.strings.btnActivating );
 
 			var not_installed 	 = astraDemo.requiredPlugins.notinstalled || '';
