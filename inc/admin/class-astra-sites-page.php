@@ -87,8 +87,6 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 			if ( isset( $_REQUEST['page'] ) && strpos( $_REQUEST['page'], self::$plugin_slug ) !== false ) {
 
 				// Let extensions hook into saving.
-				do_action( 'astra_sites_page' );
-
 				self::save_settings();
 			}
 
@@ -108,7 +106,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 			}
 
 			// Let extensions hook into saving.
-			do_action( 'astra_sites_page' );
+			do_action( 'astra_sites_save_settings' );
 		}
 
 		/**
@@ -139,6 +137,23 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		}
 
 		/**
+		 * View actions
+		 *
+		 * @since 1.0.11
+		 */
+		static public function get_view_actions() {
+
+			if ( empty( self::$view_actions ) ) {
+
+				self::$view_actions = apply_filters(
+					'astra_sites_menu_item', array()
+				);
+			}
+
+			return self::$view_actions;
+		}
+
+		/**
 		 * Prints HTML content for tabs
 		 *
 		 * @param mixed $action Action name.
@@ -149,6 +164,25 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 			?>
 			<div class="nav-tab-wrapper">
 				<h1 class='astra-sites-title'> <?php echo esc_html( self::$menu_page_title ); ?> </h1>
+				<?php
+				$view_actions = self::get_view_actions();
+
+				foreach ( $view_actions as $slug => $data ) {
+
+					if ( ! $data['show'] ) {
+						continue;
+					}
+
+					$url = self::get_page_url( $slug );
+
+					if ( $slug == self::$parent_page_slug ) {
+						update_option( 'astra_parent_page_url', $url );
+					}
+
+					$active = ( $slug == $action ) ? 'nav-tab-active' : '';
+					?>
+						<a class='nav-tab <?php echo esc_attr( $active ); ?>' href='<?php echo esc_url( $url ); ?>'> <?php echo esc_html( $data['label'] ); ?> </a>
+				<?php } ?>
 			</div><!-- .nav-tab-wrapper -->
 
 			<?php
