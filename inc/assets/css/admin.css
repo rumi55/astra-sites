@@ -226,3 +226,9 @@
 .astra-site-preview-on {
     overflow: hidden;
 }
+
+#astra-sites-menu-page .notice {
+    margin-left: 0;
+    width: auto;
+    float: none;
+}
