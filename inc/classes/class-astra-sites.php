@@ -223,7 +223,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 
-			// Load Admin JS for only if there is no Tab. If have a tab then load only in General Tab
+			// Load Admin JS for only if there is no Tab.
+			// If have a tab then load only in General Tab.
 			if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && 'general' === $_GET['action'] ) ) {
 
 				wp_enqueue_script(
@@ -258,7 +259,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 								'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
 								'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
 								'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
-							)
+							),
 						)
 					)
 				);
