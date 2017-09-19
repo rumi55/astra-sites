@@ -101,7 +101,7 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	 * @return array
 	 */
 	public function get_item( $template_data ) {
-		return [
+		return array(
 			'template_id' => $template_data['id'],
 			'source' => $this->get_id(),
 			'title' => $template_data['title'],
@@ -113,7 +113,7 @@ class Astra_Sites_Source_Remote extends Source_Base {
 			'isPro' => ( '1' === $template_data['is_pro'] ),
 			'hasPageSettings' => ( '1' === $template_data['has_page_settings'] ),
 			'url' => $template_data['url'],
-		];
+		);
 	}
 
 	/**
@@ -181,9 +181,9 @@ class Astra_Sites_Source_Remote extends Source_Base {
 
 		if ( ! empty( $args['page_settings'] ) && ! empty( $data['page_settings'] ) ) {
 			$page = new Page(
-				[
+				array(
 					'settings' => $data['page_settings'],
-				]
+				)
 			);
 
 			$page_settings_data = $this->process_element_export_import_content( $page, 'on_import' );

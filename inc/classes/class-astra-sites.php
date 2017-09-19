@@ -527,7 +527,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @since  1.0.9
 		 */
-		private function clear_cache() {
+		public function clear_cache() {
 
 			// Clear 'Elementor' file cache.
 			if ( class_exists( '\Elementor\Plugin' ) ) {
