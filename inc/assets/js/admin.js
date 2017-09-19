@@ -210,7 +210,6 @@ var AstraSitesAjaxQueue = (function() {
 							.text( astraDemo.strings.btnActive );
 
 						// Enable Demo Import Button
-						astraDemo.requiredPluginsCount--;
 						AstraSites._enable_demo_import_button();
 
 					} else {
@@ -271,7 +270,6 @@ var AstraSitesAjaxQueue = (function() {
 						.text( astraDemo.strings.btnActive );
 
 					// Enable Demo Import Button
-					astraDemo.requiredPluginsCount--;
 					AstraSites._enable_demo_import_button();
 
 				}
@@ -311,9 +309,6 @@ var AstraSitesAjaxQueue = (function() {
 				astra_site_options       : astraSiteOptions,
 				astra_enabled_extensions : astraEnabledExtensions,
 			}];
-
-			// Initial set count.
-			astraDemo.requiredPluginsCount = requiredPlugins.length || 0;
 
 			// delete any earlier fullscreen preview before we render new one.
 			jQuery('.theme-install-overlay').remove();
@@ -469,7 +464,6 @@ var AstraSitesAjaxQueue = (function() {
 					 * Enable Demo Import Button
 					 * @type number
 					 */
-					astraDemo.requiredPluginsCount = remaining_plugins;
 					astraDemo.requiredPlugins = response;
 					AstraSites._enable_demo_import_button();
 
@@ -478,7 +472,6 @@ var AstraSitesAjaxQueue = (function() {
 			} else {
 
 				// Enable Demo Import Button
-				astraDemo.requiredPluginsCount = requiredPlugins.length;
 				AstraSites._enable_demo_import_button( demoType );
 				jQuery('.required-plugins-wrap').remove();
 			}
@@ -663,6 +656,7 @@ var AstraSitesAjaxQueue = (function() {
 		},
 
 		_scroll: function(event) {
+
 			var scrollDistance = jQuery(window).scrollTop();
 
 			var themesBottom = Math.abs(jQuery(window).height() - jQuery('.themes').offset().top - jQuery('.themes').height());
@@ -851,8 +845,10 @@ var AstraSitesAjaxQueue = (function() {
 			event.preventDefault();
 
 			var $card = jQuery( '.plugin-card-' + args.slug );
+			var $button = $card.find( '.button' );
 
 			$card.addClass('updating-message');
+			$button.addClass('already-started');
 
 		},
 
@@ -989,14 +985,20 @@ var AstraSitesAjaxQueue = (function() {
 			
 			jQuery.each( not_installed, function(index, single_plugin) {
 
-				// Add each plugin activate request in Ajax queue.
-				// @see wp-admin/js/updates.js
-				wp.updates.queue.push( {
-					action: 'install-plugin', // Required action.
-					data:   {
-						slug: single_plugin.slug
-					}
-				} );
+				var $card   = jQuery( '.plugin-card-' + single_plugin.slug ),
+					$button = $card.find('.button');
+
+				if( ! $button.hasClass('already-started') ) {
+
+					// Add each plugin activate request in Ajax queue.
+					// @see wp-admin/js/updates.js
+					wp.updates.queue.push( {
+						action: 'install-plugin', // Required action.
+						data:   {
+							slug: single_plugin.slug
+						}
+					} );
+				}
 			});
 
 			// Required to set queue.
@@ -1034,10 +1036,14 @@ var AstraSitesAjaxQueue = (function() {
 
 						if( result.success ) {
 
-							var pluginsList = astraDemo.requiredPlugins.inactive;
+							var $card = jQuery( '.plugin-card-' + single_plugin.slug );
+							var $button = $card.find( '.button' );
+							if( ! $button.hasClass('already-started') ) {
+								var pluginsList = astraDemo.requiredPlugins.inactive;
 
-							// Reset not installed plugins list.
-							astraDemo.requiredPlugins.inactive = AstraSites._removePluginFromQueue( single_plugin.slug, pluginsList );
+								// Reset not installed plugins list.
+								astraDemo.requiredPlugins.inactive = AstraSites._removePluginFromQueue( single_plugin.slug, pluginsList );
+							}
 
 							$button.removeClass( 'button-primary install-now activate-now updating-message' )
 								.attr('disabled', 'disabled')
@@ -1045,7 +1051,6 @@ var AstraSitesAjaxQueue = (function() {
 								.text( astraDemo.strings.btnActive );
 
 							// Enable Demo Import Button
-							astraDemo.requiredPluginsCount--;
 							AstraSites._enable_demo_import_button();
 						}
 					}
@@ -1061,17 +1066,17 @@ var AstraSitesAjaxQueue = (function() {
 			switch( type ) {
 
 				case 'free':
-							// Get initial required plugins count.
-							var remaining = parseInt( astraDemo.requiredPluginsCount ) || 0;
+							var all_buttons      = parseInt( jQuery( '.plugin-card .button' ).length ) || 0,
+								disabled_buttons = parseInt( jQuery( '.plugin-card .button.disabled' ).length ) || 0;
 
-							// Enable demo import button.
-							if( 0 >= remaining ) {
+							if( all_buttons === disabled_buttons ) {
 
 								jQuery('.astra-demo-import')
 									.removeAttr('data-import')
 									.addClass('button-primary')
 									.text( astraDemo.strings.importDemo );
 							}
+
 					break;
 
 				case 'upgrade':
