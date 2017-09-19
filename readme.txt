@@ -46,6 +46,10 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
+v1.0.11 - Unreleased
+* Fix: Jerk on retina display while on site active & hover.
+* New: Added filter `astra_sites_menu_item` for adding extra tabs in admin page.
+
 v1.0.10 - 11-Sept-2017
 * Improvement: Added support for retina logo import.
 * Fix: Site logo image not displayed in customizer.
