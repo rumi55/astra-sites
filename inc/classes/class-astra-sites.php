@@ -242,7 +242,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'getUpgradeURL'        => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
 						'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
 						'requiredPlugins'      => array(),
-						'requiredPluginsCount' => 0,
 						'strings'              => array(
 							'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
 							'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
