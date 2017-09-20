@@ -66,6 +66,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
 
 		}
 
@@ -84,6 +85,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
 			);
+
 		}
 
 		/**
@@ -275,8 +277,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-notices.php';
 
 			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-astra-pro.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility.php';
 
 			// Load the Importers.
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-sites-helper.php';
@@ -521,6 +522,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Clear Cache.
 			$this->clear_cache();
 
+			do_action( 'astra_sites_import_complete', $demo_data );
 		}
 
 		/**
@@ -528,7 +530,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @since  1.0.9
 		 */
-		private function clear_cache() {
+		public function clear_cache() {
 
 			// Clear 'Elementor' file cache.
 			if ( class_exists( '\Elementor\Plugin' ) ) {
@@ -539,7 +541,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
 				FLBuilderModel::delete_asset_cache_for_all_posts();
 			}
-
 		}
 
 		/**
