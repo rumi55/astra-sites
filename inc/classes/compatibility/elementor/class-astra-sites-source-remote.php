@@ -55,7 +55,7 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Remote', 'elementor' );
+		return __( 'Remote', 'astra-sites' );
 	}
 
 	/**
