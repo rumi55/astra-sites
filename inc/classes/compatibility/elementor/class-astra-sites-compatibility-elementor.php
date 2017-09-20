@@ -55,18 +55,23 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		 */
 		public function __construct() {
 
-			require_once ABSPATH . 'wp-admin/includes/image.php';
+			if ( ini_get( 'allow_url_fopen' ) ) {
 
-			// Remote Source extends Elementor Remote API.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-source-remote.php';
+				require_once ABSPATH . 'wp-admin/includes/image.php';
 
-			// Background Processing.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/background-processing/class-astra-elementor-image-importer-process.php';
+				// Remote Source extends Elementor Remote API.
+				require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-source-remote.php';
 
-			$this->process_all = new Astra_Elementor_Image_Importer_Process();
+				// Background Processing.
+				require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/background-processing/class-astra-elementor-image-importer-process.php';
 
-			// Start image importing after site import complete.
-			add_action( 'astra_sites_import_complete', array( $this, 'start_image_import' ) );
+				$this->process_all = new Astra_Elementor_Image_Importer_Process();
+
+				// Start image importing after site import complete.
+				add_action( 'astra_sites_import_complete', array( $this, 'start_image_import' ) );
+
+			}
+
 		}
 
 		/**
