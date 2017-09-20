@@ -870,6 +870,9 @@ var AstraSitesAjaxQueue = (function() {
 
 			if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
+				$this.addClass('updating-message')
+					.text( wp.updates.l10n.installing );
+
 				/**
 				 * Process Bulk Plugin Install & Activate
 				 */
@@ -885,7 +888,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			jQuery('.astra-demo-import').attr('data-import', 'disabled')
 				.addClass('updating-message installing')
-				.text('Importing Demo');
+				.text( astraDemo.strings.importingDemo );
 
 			$this.closest('.theme').focus();
 
@@ -953,13 +956,13 @@ var AstraSitesAjaxQueue = (function() {
 
 			jQuery('.required-plugins')
 				.find('.install-now')
-				.addClass( 'updating-message button-primary' )
+				.addClass( 'updating-message' )
 				.removeClass( 'install-now' )
 				.text( wp.updates.l10n.installing );
 
 			jQuery('.required-plugins')
 				.find('.activate-now')
-				.addClass('updating-message button-primary')
+				.addClass('updating-message')
 				.removeClass( 'activate-now' )
 				.html( astraDemo.strings.btnActivating );
 
@@ -1073,6 +1076,7 @@ var AstraSitesAjaxQueue = (function() {
 
 								jQuery('.astra-demo-import')
 									.removeAttr('data-import')
+									.removeClass('updating-message')
 									.addClass('button-primary')
 									.text( astraDemo.strings.importDemo );
 							}
