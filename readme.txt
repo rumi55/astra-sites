@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
-v1.0.11 - 12-Sept-2017
+v1.0.11 - 20-Sept-2017
 * New: Added filter `astra_sites_menu_item` for adding extra tabs in admin page.
 * New: Added back image import feature for `elementor` page builder. In batch image import we import all images from astra site into client site.
 * Improvement: Updated JS code with object prototype.
