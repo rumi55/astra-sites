@@ -3,7 +3,7 @@
  * Astra Sites Elementor
  *
  * @package Astra Sites
- * @since 1.0.4
+ * @since 1.0.11
  */
 
 if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
@@ -11,13 +11,16 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 	/**
 	 * Astra_Sites_Compatibility_Elementor
 	 *
-	 * @since 1.0.4
+	 * @since 1.0.11
 	 */
 	class Astra_Sites_Compatibility_Elementor {
 
 		/**
 		 * All Processes.
 		 *
+		 * @since 1.0.11
+		 *
+		 * @access protected
 		 * @var $process_all
 		 */
 		protected $process_all;
@@ -25,7 +28,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		/**
 		 * Instance
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 *
 		 * @access private
 		 * @var object Class object.
@@ -35,7 +38,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		/**
 		 * Initiator
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 * @return object initialized object of class.
 		 */
 		public static function set_instance() {
@@ -48,7 +51,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		/**
 		 * Constructor
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 */
 		public function __construct() {
 
@@ -69,7 +72,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		/**
 		 * Start Image Import
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 *
 		 * @param  array $data Site API Data.
 		 * @return void
@@ -97,7 +100,9 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		}
 
 		/**
-		 * Get page_ids
+		 * Get Page IDs
+		 *
+		 * @since 1.0.11
 		 *
 		 * @return array
 		 */

@@ -3,7 +3,7 @@
  * Astra Sites Compatibility for 3rd party plugins.
  *
  * @package Astra Sites
- * @since 1.0.4
+ * @since 1.0.11
  */
 
 if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 	/**
 	 * Astra Sites Compatibility
 	 *
-	 * @since 1.0.4
+	 * @since 1.0.11
 	 */
 	class Astra_Sites_Compatibility {
 
@@ -20,14 +20,14 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		 *
 		 * @access private
 		 * @var object Class object.
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 */
 		private static $instance;
 
 		/**
 		 * Initiator
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 * @return object initialized object of class.
 		 */
 		public static function instance() {
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		/**
 		 * Constructor
 		 *
-		 * @since 1.0.4
+		 * @since 1.0.11
 		 */
 		public function __construct() {
 

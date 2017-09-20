@@ -3,7 +3,7 @@
  * Elementor Images
  *
  * @package Astra Sites
- * @since 1.0.4
+ * @since 1.0.11
  */
 
 namespace Elementor;

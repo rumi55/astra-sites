@@ -2,6 +2,7 @@
 /**
  * WP Background Process
  *
+ * @see  https://github.com/A5hleyRich/wp-background-processing/
  * @package WP-Background-Processing
  */
 
@@ -422,7 +423,7 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
 			// Adds every 5 minutes to the existing schedules.
 			$schedules[ $this->identifier . '_cron_interval' ] = array(
 				'interval' => MINUTE_IN_SECONDS * $interval,
-				'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),
+				'display'  => sprintf( __( 'Every %d Minutes', 'astra-sites' ), $interval ),
 			);
 
 			return $schedules;
