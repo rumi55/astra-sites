@@ -225,6 +225,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 
+			// Load Admin JS for only if there is no Tab.
+			// If have a tab then load only in General Tab.
 			if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && 'general' === $_GET['action'] ) ) {
 
 				wp_enqueue_script(
@@ -245,7 +247,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 							'getUpgradeText'       => __( 'Upgrade', 'astra-sites' ),
 							'getUpgradeURL'        => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
 							'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
-							'requiredPluginsCount' => 0,
+							'requiredPlugins'      => array(),
 							'strings'              => array(
 								'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
 								'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
@@ -254,6 +256,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 								'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
 								'btnActive'            => __( 'Active', 'astra-sites' ),
 								'importDemo'           => __( 'Import This Site', 'astra-sites' ),
+								'importingDemo'        => __( 'Importing Demo', 'astra-sites' ),
 								'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
 								'DescCollapse'         => __( 'Hide', 'astra-sites' ),
 								'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
