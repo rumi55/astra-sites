@@ -7,10 +7,6 @@
 
 defined( 'ABSPATH' ) or exit;
 
-// Enqueue scripts.
-wp_enqueue_script( 'astra-sites-admin' );
-wp_enqueue_style( 'astra-sites-admin' );
-
 	/**
 	 * Initial Demo List
 	 *

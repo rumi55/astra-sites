@@ -66,6 +66,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
 			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
+			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
 
 		}
 
@@ -84,6 +85,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
 			);
+
 		}
 
 		/**
@@ -221,44 +223,50 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			wp_register_script(
-				'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/js/admin.js', array(
-					'jquery',
-					'wp-util',
-					'updates',
-				), ASTRA_SITES_VER, true
-			);
+			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 
-			wp_register_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
+			// Load Admin JS for only if there is no Tab.
+			// If have a tab then load only in General Tab.
+			if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && 'general' === $_GET['action'] ) ) {
 
-			wp_localize_script(
-				'astra-sites-admin', 'astraDemo', apply_filters(
-					'astra_sites_localize_vars', array(
-						'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
-						'siteURL'              => site_url(),
-						'getProText'           => __( 'Purchase', 'astra-sites' ),
-						'getProURL'            => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
-						'getUpgradeText'       => __( 'Upgrade', 'astra-sites' ),
-						'getUpgradeURL'        => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
-						'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
-						'requiredPluginsCount' => 0,
-						'strings'              => array(
-							'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
-							'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
-							'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
-							'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
-							'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
-							'btnActive'            => __( 'Active', 'astra-sites' ),
-							'importDemo'           => __( 'Import This Site', 'astra-sites' ),
-							'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
-							'DescCollapse'         => __( 'Hide', 'astra-sites' ),
-							'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
-							'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
-							'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
-						),
+				wp_enqueue_script(
+					'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/js/admin.js', array(
+						'jquery',
+						'wp-util',
+						'updates',
+					), ASTRA_SITES_VER, true
+				);
+
+				wp_localize_script(
+					'astra-sites-admin', 'astraDemo', apply_filters(
+						'astra_sites_localize_vars', array(
+							'ajaxurl'              => esc_url( admin_url( 'admin-ajax.php' ) ),
+							'siteURL'              => site_url(),
+							'getProText'           => __( 'Purchase', 'astra-sites' ),
+							'getProURL'            => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
+							'getUpgradeText'       => __( 'Upgrade', 'astra-sites' ),
+							'getUpgradeURL'        => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
+							'_ajax_nonce'          => wp_create_nonce( 'astra-sites' ),
+							'requiredPlugins'      => array(),
+							'strings'              => array(
+								'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
+								'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
+								'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
+								'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
+								'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
+								'btnActive'            => __( 'Active', 'astra-sites' ),
+								'importDemo'           => __( 'Import This Site', 'astra-sites' ),
+								'importingDemo'        => __( 'Importing Demo', 'astra-sites' ),
+								'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
+								'DescCollapse'         => __( 'Hide', 'astra-sites' ),
+								'responseError'        => __( 'There was a problem receiving a response from server.', 'astra-sites' ),
+								'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
+								'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
+							),
+						)
 					)
-				)
-			);
+				);
+			}
 
 		}
 
@@ -272,8 +280,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-notices.php';
 
 			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-so-widgets.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility-astra-pro.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility.php';
 
 			// Load the Importers.
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-sites-helper.php';
@@ -518,6 +525,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			// Clear Cache.
 			$this->clear_cache();
 
+			do_action( 'astra_sites_import_complete', $demo_data );
 		}
 
 		/**
@@ -525,7 +533,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @since  1.0.9
 		 */
-		private function clear_cache() {
+		public function clear_cache() {
 
 			// Clear 'Elementor' file cache.
 			if ( class_exists( '\Elementor\Plugin' ) ) {
@@ -536,7 +544,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
 				FLBuilderModel::delete_asset_cache_for_all_posts();
 			}
-
 		}
 
 		/**

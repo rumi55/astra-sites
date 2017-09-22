@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Astra Sites - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites - Lite 1.0.10\n"
+"Project-Id-Version: Astra Sites - Lite 1.0.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-09-11 09:24:17+00:00\n"
+"POT-Creation-Date: 2017-09-20 12:32:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,83 +24,83 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#. Plugin Name of the plugin/theme
-msgid "Astra Sites - Lite"
+#: inc/admin/class-astra-sites-page.php:85
+msgid "Astra Sites"
 msgstr ""
 
-#: inc/admin/class-astra-sites-page.php:158
+#: inc/admin/class-astra-sites-page.php:192
 msgid "Settings saved successfully."
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:47
+#: inc/admin/view-astra-sites.php:43
 msgid "All"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:61
+#: inc/admin/view-astra-sites.php:57
 msgid "Search Sites"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:62
+#: inc/admin/view-astra-sites.php:58
 msgid "Search Sites..."
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:112
+#: inc/admin/view-astra-sites.php:108
 msgid "Details &amp; Preview"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:118 inc/admin/view-astra-sites.php:187
+#: inc/admin/view-astra-sites.php:114 inc/admin/view-astra-sites.php:183
 msgid "Preview"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:145
+#: inc/admin/view-astra-sites.php:141
 msgid "Close"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:146
+#: inc/admin/view-astra-sites.php:142
 msgid "Previous"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:147
+#: inc/admin/view-astra-sites.php:143
 msgid "Next"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:148 inc/admin/view-astra-sites.php:176
+#: inc/admin/view-astra-sites.php:144 inc/admin/view-astra-sites.php:172
 msgid "Install Plugins"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:164 inc/classes/class-astra-sites.php:253
+#: inc/admin/view-astra-sites.php:160 inc/classes/class-astra-sites.php:260
 msgid "Read more"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:167
+#: inc/admin/view-astra-sites.php:163
 msgid "Required Plugins"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:182
+#: inc/admin/view-astra-sites.php:178
 msgid "Collapse"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:197
+#: inc/admin/view-astra-sites.php:193
 #. translators: %1$s & %2$s are a Demo API URL
 msgid ""
 "<p> It seems the demo data server, <i><a href=\"%1$s\">%2$s</a></i> is "
 "unreachable from your site.</p>"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:199
+#: inc/admin/view-astra-sites.php:195
 msgid ""
 "<p class=\"left-margin\"> 1. Sometimes, simple page reload fixes any "
 "temporary issues. No kidding!</p>"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:201
+#: inc/admin/view-astra-sites.php:197
 msgid ""
 "<p class=\"left-margin\"> 2. If that does not work, you will need to talk "
 "to your server administrator and check if demo server is being blocked by "
 "the firewall!</p>"
 msgstr ""
 
-#: inc/admin/view-astra-sites.php:204
+#: inc/admin/view-astra-sites.php:200
 #. translators: %1$s is a support link
 msgid ""
 "<p>If that does not help, please open up a <a href=\"%1$s\" "
@@ -108,62 +108,66 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:82
+#: inc/classes/class-astra-sites.php:83
 #. translators: 1: theme.php file
 msgid ""
 "Astra Theme needs to be active for you to use currently installed \"Astra "
 "Sites\" plugin. <a href=\"%1$s\">Install & Activate Now</a>"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:121
+#: inc/classes/class-astra-sites.php:123
 msgid "See Library"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:239
+#: inc/classes/class-astra-sites.php:245
 msgid "Purchase"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:241
+#: inc/classes/class-astra-sites.php:247
 msgid "Upgrade"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:246
+#: inc/classes/class-astra-sites.php:252
 msgid "Error!"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:247
+#: inc/classes/class-astra-sites.php:253
 msgid "Error! Read Possibilities."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:249
+#: inc/classes/class-astra-sites.php:255
 msgid "Done! View Site"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:250
+#: inc/classes/class-astra-sites.php:256
 msgid "Activating"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:251
+#: inc/classes/class-astra-sites.php:257
 msgid "Active"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:252
+#: inc/classes/class-astra-sites.php:258
 msgid "Import This Site"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:254
+#: inc/classes/class-astra-sites.php:259
+msgid "Importing Demo"
+msgstr ""
+
+#: inc/classes/class-astra-sites.php:261
 msgid "Hide"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:255
+#: inc/classes/class-astra-sites.php:262
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:256
+#: inc/classes/class-astra-sites.php:263
 msgid "No Demos found, Try a different search."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:257
+#: inc/classes/class-astra-sites.php:264
 msgid ""
 "Executing Demo Import will make your site similar as ours. Please bear in "
 "mind -\n"
@@ -177,20 +181,28 @@ msgid ""
 "placeholders."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:297
+#: inc/classes/class-astra-sites.php:304
 msgid "No plugin specified"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:326
+#: inc/classes/class-astra-sites.php:333
 msgid "Plugin Successfully Activated"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:455
+#: inc/classes/class-astra-sites.php:462
 msgid "You have not \"customize\" access to import the astra site."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:463
+#: inc/classes/class-astra-sites.php:470
 msgid "Demo Imported Successfully."
+msgstr ""
+
+#: inc/classes/compatibility/elementor/class-astra-sites-source-remote.php:58
+msgid "Remote"
+msgstr ""
+
+#: inc/classes/vendor/wp-background-process.php:426
+msgid "Every %d Minutes"
 msgstr ""
 
 #: inc/importers/class-widgets-importer.php:83
@@ -366,6 +378,10 @@ msgstr ""
 
 #: inc/importers/wxr-importer/class-wxr-importer.php:2043
 msgid "Could not update comment #%d with mapped data"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Astra Sites - Lite"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
