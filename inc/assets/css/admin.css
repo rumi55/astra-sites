@@ -76,6 +76,7 @@
 }
 .required-plugins .spinner {
     float: none;
+    margin: 0;
 }
 
 .expanded .wp-full-overlay-footer {
