@@ -25,11 +25,18 @@ defined( 'ABSPATH' ) or exit;
 				</div>
 
 				<ul class="filter-links astra-page-builder">
-					<?php foreach ( Astra_Sites::get_page_builders() as $key => $category ) { ?>
+					<?php foreach ( Astra_Sites::get_page_builders() as $key => $category ) {
+						$current = '';
+
+						if( 0 === $key ) {
+							$current = 'current';
+						}
+						?>
 						<li>
 							<a href="#"
 							   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
-							   data-id="<?php echo esc_attr( $category['id'] ); ?>">
+							   data-id="<?php echo esc_attr( $category['id'] ); ?>"
+							   class="<?php echo esc_attr( $current ); ?>">
 								<?php echo esc_attr( $category['name'] ); ?>
 							</a>
 						</li>
