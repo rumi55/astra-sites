@@ -25,10 +25,11 @@ defined( 'ABSPATH' ) or exit;
 				</div>
 
 				<ul class="filter-links astra-page-builder">
-					<?php foreach ( Astra_Sites::get_page_builders() as $key => $category ) {
+					<?php
+					foreach ( Astra_Sites::get_page_builders() as $key => $category ) {
 						$current = '';
 
-						if( 0 === $key ) {
+						if ( 0 === $key ) {
 							$current = 'current';
 						}
 						?>
