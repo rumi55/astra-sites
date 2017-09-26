@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.10  
+**Stable tag:** 1.0.12  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -45,6 +45,9 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 ## Changelog ##
+
+v1.0.12 - Unreleased
+* Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
 
 v1.0.11 - 20-Sept-2017
 * New: Single click Install & activate required plugins.

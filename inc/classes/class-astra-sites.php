@@ -484,11 +484,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			$paged          = isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
-			$args           = new stdClass();
-			$args->search   = isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
-			$args->page_builder_id       = isset( $_POST['page_builder_id'] ) ? esc_attr( $_POST['page_builder_id'] ) : '';
-			$args->category_id       = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';
+			$paged                 = isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
+			$args                  = new stdClass();
+			$args->search          = isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
+			$args->page_builder_id = isset( $_POST['page_builder_id'] ) ? esc_attr( $_POST['page_builder_id'] ) : '';
+			$args->category_id     = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';
 
 			return wp_send_json( self::get_astra_demos( $args, $paged ) );
 		}
