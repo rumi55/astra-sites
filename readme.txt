@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
-v1.0.12 - 25-Sept-2017
+v1.0.12 - Unreleased
 * Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
 
 v1.0.11 - 20-Sept-2017
