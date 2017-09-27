@@ -422,7 +422,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function pro_plugin_exist( $lite_version = '' ) {
 
 			// Lite init => Pro init.
-			$plugins = array(
+			$plugins = apply_filters( 'astra_sites_pro_plugin_exist', array(
 				'beaver-builder-lite-version/fl-builder.php' => array(
 					'slug' => 'bb-plugin',
 					'init' => 'bb-plugin/fl-builder.php',
@@ -433,7 +433,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
 					'name' => 'Ultimate Addon for Beaver Builder',
 				),
-			);
+			), $lite_version );
 
 			if ( isset( $plugins[ $lite_version ] ) ) {
 
