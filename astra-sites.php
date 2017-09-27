@@ -14,6 +14,10 @@
 /**
  * Set constants.
  */
+if ( ! defined( 'ASTRA_SITES_NAME' ) ) {
+	define( 'ASTRA_SITES_NAME',  __( 'Astra Sites - Lite', 'astra-sites' ) );
+}
+
 if ( ! defined( 'ASTRA_SITES_VER' ) ) {
 	define( 'ASTRA_SITES_VER',  '1.0.12' );
 }

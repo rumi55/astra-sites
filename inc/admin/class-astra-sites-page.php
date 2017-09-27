@@ -31,7 +31,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		 * @since 1.0.6
 		 * @var array $menu_page_title
 		 */
-		static public $menu_page_title = 'Astra Sites - Lite';
+		static public $menu_page_title = ASTRA_SITES_NAME;
 
 		/**
 		 * Plugin slug

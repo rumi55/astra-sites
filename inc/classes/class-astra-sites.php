@@ -80,7 +80,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'type'              => 'error',
 					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
-					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ), esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
+					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'       => true,
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
