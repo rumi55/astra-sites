@@ -288,6 +288,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
+
+			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-white-label.php';
 		}
 
 		/**
@@ -422,18 +424,20 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function pro_plugin_exist( $lite_version = '' ) {
 
 			// Lite init => Pro init.
-			$plugins = apply_filters( 'astra_sites_pro_plugin_exist', array(
-				'beaver-builder-lite-version/fl-builder.php' => array(
-					'slug' => 'bb-plugin',
-					'init' => 'bb-plugin/fl-builder.php',
-					'name' => 'Beaver Builder Plugin (Agency Version)',
-				),
-				'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
-					'slug' => 'bb-ultimate-addon',
-					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
-					'name' => 'Ultimate Addon for Beaver Builder',
-				),
-			), $lite_version );
+			$plugins = apply_filters(
+				'astra_sites_pro_plugin_exist', array(
+					'beaver-builder-lite-version/fl-builder.php' => array(
+						'slug' => 'bb-plugin',
+						'init' => 'bb-plugin/fl-builder.php',
+						'name' => 'Beaver Builder Plugin (Agency Version)',
+					),
+					'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
+						'slug' => 'bb-ultimate-addon',
+						'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
+						'name' => 'Ultimate Addon for Beaver Builder',
+					),
+				), $lite_version
+			);
 
 			if ( isset( $plugins[ $lite_version ] ) ) {
 
