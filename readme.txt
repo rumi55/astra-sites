@@ -48,6 +48,7 @@ https://sites.wpastra.com/law-free/
 
 v1.0.12 - Unreleased
 * Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
+* Fix: Firefox not previewing Astra sites.
 
 v1.0.11 - 20-Sept-2017
 * New: Single click Install & activate required plugins.

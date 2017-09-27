@@ -643,7 +643,7 @@ var AstraSitesAjaxQueue = (function() {
 		 *
 		 * On click on image, more link & preview button.
 		 */
-		_preview: function() {
+		_preview: function( event ) {
 
 			event.preventDefault();
 
