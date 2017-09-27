@@ -19,7 +19,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Instance
 		 *
 		 * @since 1.0.12
-		 * 
+		 *
 		 * @var object Class Object.
 		 * @access private
 		 */
@@ -29,7 +29,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Member Variable
 		 *
 		 * @since 1.0.12
-		 * 
+		 *
 		 * @var array branding
 		 * @access private
 		 */
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Initiator
 		 *
 		 * @since 1.0.12
-		 * 
+		 *
 		 * @return object initialized object of class.
 		 */
 		public static function set_instance() {

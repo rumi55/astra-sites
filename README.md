@@ -46,7 +46,7 @@ https://sites.wpastra.com/law-free/
 
 ## Changelog ##
 
-v1.0.12 - Unreleased
+v1.0.12 - 27-Sept-2017
 * New: Added filter `astra_sites_pro_plugin_exist`.
 * Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
 * Fix: Firefox not previewing Astra sites.
