@@ -19,6 +19,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Instance
 		 *
 		 * @since 1.0.12
+		 * 
 		 * @var object Class Object.
 		 * @access private
 		 */
@@ -28,6 +29,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Member Variable
 		 *
 		 * @since 1.0.12
+		 * 
 		 * @var array branding
 		 * @access private
 		 */
@@ -37,6 +39,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 * Initiator
 		 *
 		 * @since 1.0.12
+		 * 
 		 * @return object initialized object of class.
 		 */
 		public static function set_instance() {
@@ -53,20 +56,21 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 */
 		public function __construct() {
 
-			add_filter( 'all_plugins'                               , array( $this, 'plugins_page' ) );
-			add_filter( 'astra_addon_branding_options'              , __CLASS__ . '::settings' );
-			add_action( 'astra_pro_white_label_add_form'            , __CLASS__ . '::add_white_lavel_form' );
+			add_filter( 'all_plugins'                    , array( $this, 'plugins_page' ) );
+			add_filter( 'astra_addon_branding_options'   , __CLASS__ . '::settings' );
+			add_action( 'astra_pro_white_label_add_form' , __CLASS__ . '::add_white_lavel_form' );
+			add_filter( 'astra_sites_menu_page_title'    , array( $this, 'page_title' ) );
 
-			add_filter( 'astra_sites_menu_page_title',      array( $this, 'page_title' ) );
-
+			// Display the link with the plugin meta.
 			if ( is_admin() ) {
-				// Display the link with the plugin meta.
 				add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 4 );
 			}
 		}
 
 		/**
 		 * White labels the plugins page.
+		 *
+		 * @since 1.0.12
 		 *
 		 * @param array $plugins Plugins Array.
 		 * @return array
