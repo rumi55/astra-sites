@@ -3,7 +3,7 @@
  * Astra Sites White Label
  *
  * @package Astra Sites
- * @since 1.0.7
+ * @since 1.0.12
  */
 
 if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
@@ -11,14 +11,14 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 	/**
 	 * Astra_Sites_White_Label
 	 *
-	 * @since 1.0.7
+	 * @since 1.0.12
 	 */
 	class Astra_Sites_White_Label {
 
 		/**
 		 * Instance
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 * @var object Class Object.
 		 * @access private
 		 */
@@ -27,7 +27,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Member Variable
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 * @var array branding
 		 * @access private
 		 */
@@ -36,7 +36,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Initiator
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 * @return object initialized object of class.
 		 */
 		public static function set_instance() {
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Constructor
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 */
 		public function __construct() {
 
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Add White Label setting's
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 *
 		 * @param  array $settings White label setting.
 		 * @return array
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Add White Label form
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 *
 		 * @param  array $settings White label setting.
 		 * @return void
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		/**
 		 * Page Title
 		 *
-		 * @since 1.0.7
+		 * @since 1.0.12
 		 *
 		 * @param  string $title Page Title.
 		 * @return string        Filtered Page Title.
