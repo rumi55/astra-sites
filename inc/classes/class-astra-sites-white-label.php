@@ -174,11 +174,9 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 */
 		function page_title( $title ) {
 
-			if ( is_callable( 'Astra_Ext_White_Label_Markup::get_white_labels' ) ) {
-				$astra_sites_name = Astra_Ext_White_Label_Markup::get_white_label( 'astra-sites', 'name' )
-				if ( ! empty( $astra_sites_name ) ) {
-					$title = Astra_Ext_White_Label_Markup::get_white_label( 'astra-sites', 'name' );
-				}
+			$astra_sites_name = Astra_Ext_White_Label_Markup::get_white_label( 'astra-sites', 'name' )
+			if ( ! empty( $astra_sites_name ) ) {
+				$title = Astra_Ext_White_Label_Markup::get_white_label( 'astra-sites', 'name' );
 			}
 
 			return $title;
