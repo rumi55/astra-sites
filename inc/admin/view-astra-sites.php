@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) or exit;
 
 		<div class="wp-filter hide-if-no-js">
 
-			<div class="left-section">
+			<div class="section-left">
 				
 				<div class="filter-count">
 					<span class="count"></span>
@@ -45,7 +45,7 @@ defined( 'ABSPATH' ) or exit;
 				</ul>
 			</div>
 
-			<div class="right-section">
+			<div class="section-right">
 				<ul class="filter-links astra-category">
 
 					<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
