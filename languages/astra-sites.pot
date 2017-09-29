@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Astra Sites - Lite 1.0.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-09-27 12:52:57+00:00\n"
+"POT-Creation-Date: 2017-09-29 05:24:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#: inc/admin/class-astra-sites-page.php:85
+#: astra-sites.php:18 inc/admin/class-astra-sites-page.php:85
 msgid "Astra Sites"
 msgstr ""
 
@@ -108,11 +108,16 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
+#: inc/classes/class-astra-sites-white-label.php:176
+#. translators: %1$s product name
+msgid "%1$s Branding"
+msgstr ""
+
 #: inc/classes/class-astra-sites.php:83
 #. translators: 1: theme.php file
 msgid ""
-"Astra Theme needs to be active for you to use currently installed \"Astra "
-"Sites\" plugin. <a href=\"%1$s\">Install & Activate Now</a>"
+"Astra Theme needs to be active for you to use currently installed \"%1$s\" "
+"plugin. <a href=\"%2$s\">Install & Activate Now</a>"
 msgstr ""
 
 #: inc/classes/class-astra-sites.php:123
@@ -380,15 +385,11 @@ msgstr ""
 msgid "Could not update comment #%d with mapped data"
 msgstr ""
 
-#: inc/templates/white-label.php:12 inc/templates/white-label.php:17
-msgid "Astra Sites Branding"
-msgstr ""
-
-#: inc/templates/white-label.php:23
+#: inc/includes/white-label.php:23
 msgid "Plugin Name:"
 msgstr ""
 
-#: inc/templates/white-label.php:28
+#: inc/includes/white-label.php:28
 msgid "Plugin Description:"
 msgstr ""
 

@@ -46,7 +46,8 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
-v1.0.12 - 27-Sept-2017
+v1.0.12 - 29-Sept-2017
+* New: Added White Label support.
 * New: Added filter `astra_sites_pro_plugin_exist`.
 * Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
 * Fix: Firefox not previewing Astra sites.
