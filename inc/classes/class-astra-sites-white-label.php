@@ -173,7 +173,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		public static function add_white_lavel_form( $settings = array() ) {
 
 			/* translators: %1$s product name */
-			$plugin_name = apply_filters( 'astra_sites_white_label_form_title', sprintf( __( '%1$s Branding', 'astra-sites' ), ASTRA_SITES_NAME ) );
+			$plugin_name = sprintf( __( '%1$s Branding', 'astra-sites' ), ASTRA_SITES_NAME );
 
 			require_once ASTRA_SITES_DIR . 'inc/includes/white-label.php';
 		}
