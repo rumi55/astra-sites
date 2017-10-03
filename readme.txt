@@ -53,7 +53,7 @@ https://sites.wpastra.com/law-free/
 v1.0.12 - 29-Sept-2017
 * New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
 * Improvement: Don't display sites from both the page builders in the same view.
-* Fix: Astra Sites not admin area not working in the Firefox.
+* Fix: Astra Sites admin area not working in the Firefox.
 
 v1.0.11 - 22-Sept-2017
 * New: Single click Install & activate required plugins.
