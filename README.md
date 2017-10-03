@@ -4,7 +4,11 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
+<<<<<<< HEAD
+**Stable tag:** 1.0.12  
+=======
 **Stable tag:** 1.0.11  
+>>>>>>> aa6dc6ad67dd7c25e6a62aa01742974bb5d1d833
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -45,6 +49,11 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 ## Changelog ##
+
+v1.0.12 - 29-Sept-2017
+* New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
+* Improvement: Don't display sites from both the page builders in the same view.
+* Fix: Astra Sites admin area not working in the Firefox.
 
 v1.0.11 - 22-Sept-2017
 * New: Single click Install & activate required plugins.

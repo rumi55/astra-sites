@@ -203,10 +203,10 @@
     font-size: 13px;
     padding: 5px 10px;
 }
-.left-section {
+.section-left {
     display: inline-block;
 }
-.right-section {
+.section-right {
     float: right;
 }
 .filter-count {

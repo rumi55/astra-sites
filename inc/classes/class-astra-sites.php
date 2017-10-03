@@ -80,7 +80,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'type'              => 'error',
 					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
-					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "Astra Sites" plugin. <a href="%1$s">Install & Activate Now</a>', 'astra-sites' ), esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
+					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'       => true,
 					'dismissible-time'  => MINUTE_IN_SECONDS,
 				)
@@ -288,6 +288,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
+
+			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-white-label.php';
 		}
 
 		/**
@@ -422,17 +424,19 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public static function pro_plugin_exist( $lite_version = '' ) {
 
 			// Lite init => Pro init.
-			$plugins = array(
-				'beaver-builder-lite-version/fl-builder.php' => array(
-					'slug' => 'bb-plugin',
-					'init' => 'bb-plugin/fl-builder.php',
-					'name' => 'Beaver Builder Plugin (Agency Version)',
-				),
-				'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
-					'slug' => 'bb-ultimate-addon',
-					'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
-					'name' => 'Ultimate Addon for Beaver Builder',
-				),
+			$plugins = apply_filters(
+				'astra_sites_pro_plugin_exist', array(
+					'beaver-builder-lite-version/fl-builder.php' => array(
+						'slug' => 'bb-plugin',
+						'init' => 'bb-plugin/fl-builder.php',
+						'name' => 'Beaver Builder Plugin (Agency Version)',
+					),
+					'ultimate-addons-for-beaver-builder-lite/bb-ultimate-addon.php' => array(
+						'slug' => 'bb-ultimate-addon',
+						'init' => 'bb-ultimate-addon/bb-ultimate-addon.php',
+						'name' => 'Ultimate Addon for Beaver Builder',
+					),
+				), $lite_version
 			);
 
 			if ( isset( $plugins[ $lite_version ] ) ) {
@@ -484,11 +488,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			$paged          = isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
-			$args           = new stdClass();
-			$args->search   = isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
-			$args->page_builder_id       = isset( $_POST['page_builder_id'] ) ? esc_attr( $_POST['page_builder_id'] ) : '';
-			$args->category_id       = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';
+			$paged                 = isset( $_POST['paged'] ) ? esc_attr( $_POST['paged'] ) : '1';
+			$args                  = new stdClass();
+			$args->search          = isset( $_POST['search'] ) ? esc_attr( $_POST['search'] ) : '';
+			$args->page_builder_id = isset( $_POST['page_builder_id'] ) ? esc_attr( $_POST['page_builder_id'] ) : '';
+			$args->category_id     = isset( $_POST['category_id'] ) ? esc_attr( $_POST['category_id'] ) : '';
 
 			return wp_send_json( self::get_astra_demos( $args, $paged ) );
 		}

@@ -643,7 +643,7 @@ var AstraSitesAjaxQueue = (function() {
 		 *
 		 * On click on image, more link & preview button.
 		 */
-		_preview: function() {
+		_preview: function( event ) {
 
 			event.preventDefault();
 
@@ -767,6 +767,11 @@ var AstraSitesAjaxQueue = (function() {
 
 		_initial_load_demos: function() {
 
+			var astra_page_builder = jQuery('.filter-links.astra-page-builder'),
+				astra_category 	   = jQuery('.filter-links.astra-category'),
+				page_builder_id   	= astra_page_builder.find('.current').data('id'),
+				category_id   		= astra_category.find('.current').data('id');
+
 			jQuery('body').addClass('loading-content');
 
 			jQuery.ajax({
@@ -774,8 +779,10 @@ var AstraSitesAjaxQueue = (function() {
 				type: 'POST',
 				dataType: 'json',
 				data: {
-					action   : 'astra-list-sites',
-					paged    : '1',
+					action          : 'astra-list-sites',
+					paged           : '1',
+					page_builder_id : page_builder_id,
+					category_id     : category_id,
 				},
 			})
 			.done(function (demos) {
