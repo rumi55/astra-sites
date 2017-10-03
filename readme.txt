@@ -4,7 +4,11 @@ Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
+<<<<<<< HEAD
 Stable tag: 1.0.12
+=======
+Stable tag: 1.0.11
+>>>>>>> aa6dc6ad67dd7c25e6a62aa01742974bb5d1d833
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,12 +55,12 @@ v1.0.12 - 29-Sept-2017
 * Improvement: Don't display sites from both the page builders in the same view.
 * Fix: Astra Sites not admin area not working in the Firefox.
 
-v1.0.11 - 20-Sept-2017
+v1.0.11 - 22-Sept-2017
 * New: Single click Install & activate required plugins.
 * New: Added filter `astra_sites_menu_item` for adding extra tabs in admin page.
 * New: Added back image import feature for `elementor` page builder. In batch image import we import all images from astra site into client site.
 * Improvement: Updated JS code with object prototype.
-* Fix: Jerk on retina display while on site active & hover.
+* Fix: Screen bounce on retina devices.
 
 v1.0.10 - 11-Sept-2017
 * Improvement: Added support for retina logo import.
