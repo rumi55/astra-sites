@@ -20,10 +20,10 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		 *
 		 * @since 1.0.11
 		 *
-		 * @access protected
+		 * @access public
 		 * @var $process_all
 		 */
-		protected $process_all;
+		public $process_all;
 
 		/**
 		 * Instance
@@ -95,8 +95,10 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 
 					if ( is_array( $page_ids ) ) {
 						foreach ( $page_ids as $page_id ) {
-							error_log( $page_id );
-							$this->process_all->push_to_queue( $page_id );
+							if( is_numeric( $page_id ) ) {
+								error_log( $page_id );
+								$this->process_all->push_to_queue( $page_id );
+							}
 						}
 						$this->process_all->save()->dispatch();
 					}
@@ -111,7 +113,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 		 *
 		 * @return array
 		 */
-		protected function get_pages() {
+		public function get_pages() {
 
 			$args = array(
 				'post_type'    => 'page',

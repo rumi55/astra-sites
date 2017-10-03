@@ -20,7 +20,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 *
 		 * @var string
 		 */
-		protected $action = 'image_process';
+		public $action = 'image_process';
 
 		/**
 		 * Task
@@ -35,7 +35,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 * @param mixed $post_id Queue item to iterate over.
 		 * @return mixed
 		 */
-		protected function task( $post_id ) {
+		public function task( $post_id ) {
 
 			$import = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
 			$import->hotlink_images( $post_id );
@@ -51,7 +51,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 *
 		 * @since 1.0.11
 		 */
-		protected function complete() {
+		public function complete() {
 
 			parent::complete();
 
