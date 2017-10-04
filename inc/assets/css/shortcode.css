@@ -1,0 +1,503 @@
+/* Rest API Templates */
+#astra-sites-showcase > h3 {
+    display: none;
+}
+.template-meta > h3 {
+    font-size: 1rem;
+    margin: 1em 0 1em 0;
+}
+#astra-sites-showcase .site-single:hover .view-demo-wrap {
+    opacity: 1;
+    visibility: visible;
+    background: rgba(0,0,0,0.4);
+}
+#astra-sites-showcase .view-demo-wrap {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.72);
+    transition: all ease 0.3s;
+}
+.view-demo {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    background: #23282d;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: center;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: opacity 0.1s ease-in-out;
+    transition: opacity 0.1s ease-in-out;
+}
+.site-single .site-preview {
+    position: relative;
+    display: block;
+}
+
+#astra-sites .site-single .inner {
+	display: inline-block;
+	width: 100%;
+    box-shadow: 0 0 13px 0px rgba(0, 0, 0, 0.11);
+}
+
+#astra-sites .inner img {
+	width: 100%;
+	height: auto;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+/* Filters */
+.filter-links li {
+    margin: 0;
+    display: inline-block;
+}
+.filter-links li a {
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+.filter-links li a.active {
+    color: #000;
+    transition: color 0.3s ease;
+}
+.site-single {
+    margin-bottom: 50px;
+    text-align: center;
+    transition: none !important;
+}
+
+#astra-sites-loadmore .button {
+	font-size: 14px;
+    padding: 8px 22px;
+    transition: all linear 150ms;
+}
+
+.site-loading {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    text-align: center;
+    color: #555;
+    transform: translate(-50%, -45%);
+}
+
+.site-loading h3 {
+    font-size: 33px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.site-loading p {
+    margin: 0;
+}
+
+.thickbox-loading .site-loading {
+    display: block;
+}
+
+.thickbox-loading:before {
+    content: "";
+    background: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.loadmore {
+    clear: both;
+	text-align: center;
+}
+.page-id-11742 .loadmore {
+	position: absolute;
+	top: 92%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.loadmore .loadmore-inner {
+	display: inline-block;							
+}
+.loadmore-inner .button {
+    padding: 8px 16px;
+    border: 1px solid #525252;
+    background: #525252;
+    color: #fff;
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: none !important;
+}
+.loadmore-inner i {
+    font-size: 20px;
+    color: #525252;
+    transition: none !important;
+}
+.loadmore-icon  {
+	opacity: 0
+}
+.loadmore-inner i {
+	/*display: block;*/
+	-webkit-animation: cssAnimation 550ms ease infinite;
+    -moz-animation: cssAnimation 550ms ease infinite;
+    -o-animation: cssAnimation 550ms ease infinite;
+}
+#astra-sites-loadmore .button {
+    transition: none !important;
+}
+
+@-webkit-keyframes cssAnimation {
+   from { -webkit-transform: rotate(0); }
+   to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes cssAnimation {
+   from { -moz-transform: rotate(0); }
+   to { -moz-transform: rotate(360deg); }
+}
+@-o-keyframes cssAnimation {
+    from { -o-transform: rotate(0); }
+    to { -o-transform: rotate(360deg); }
+}
+
+/**
+ * Full Width
+ */
+#TB_window {
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: center !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+#TB_iframeContent {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.desktop #TB_iframeContent-wrapper {
+    position: fixed;
+    right: 0;
+    bottom: 50px;
+    left: 0;
+    top: 0;
+}
+
+/* For general iPad layouts */
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+    #TB_iframeContent-wrapper {
+        position: fixed;
+        right: 0;
+        bottom: 50px;
+        left: 0;
+        top: 0;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.thickbox-loading #TB_iframeContent,
+.thickbox-loading #TB_iframeContent-wrapper {
+    display: none;
+}
+
+#TB_window #TB_ajaxWindowTitle {
+    line-height: 50px;
+    font-size: 1.2rem;
+    display: inline-block;
+    width: auto;
+}
+
+#TB_window #TB_closeWindowButton {
+    height: 60px;
+    width: 50px;
+    position: relative;
+    vertical-align: middle;
+}
+
+#TB_window .tb-close-icon {
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+}
+.tb-close-icon:before {
+    vertical-align: middle;
+}
+
+/**
+ * Popup
+ */
+#TB_window {
+    text-align: center;
+}
+#TB_iframeContent.tablet {
+    width: 768px !important;
+    height: 1024px !important;
+    background: #111;
+    padding: 40px 10px 70px;
+    border-radius: 30px;
+}
+#TB_iframeContent.tablet.landscape {
+    width: 1024px !important;
+}
+#TB_iframeContent.mobile {
+    width: 360px !important;
+    height: 640px !important;
+    background: #111;
+    padding: 40px 10px 70px;
+    border-radius: 30px;
+}
+#TB_iframeContent.mobile.landscape {
+    width: 360px !important;
+}
+
+
+/**
+ * Responsive Buttons.
+ */
+.responsive-view .dashicons.active,
+.responsive-view .dashicons:hover {
+    background: #cccccc;
+}
+
+/**
+ * NEW
+ */
+#astra-sites-filters .filter-count {
+    background: #fafafa;
+    height: 2.5em;
+    width: 2.5em;
+    font-weight: bold;
+    line-height: 2.5em;
+    margin-right: 2em;
+    color: #888;
+    box-shadow: 0px 0px 0px 1px #eaeaea;
+}
+#astra-sites-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 3em auto;
+    background: #ffffff;
+    box-shadow: 0 0 1px 1px #f3f3f3;
+    padding: 1.4em 1em;
+    flex-wrap: wrap;
+}
+#astra-sites-showcase {
+    text-align: center;
+    min-height: 100vh;
+}
+#astra-sites-filters .filters-wrap {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+#astra-sites-filters .search-form {
+    display: inline-block;
+    margin-left: 1em;
+}
+#astra-sites-filters .search-form input {
+    font-size: 12px;
+}
+#astra-sites-showcase .filter-links {
+    margin: 0;
+}
+.astra-showcase-not-found {
+    font-size: 1.2em;
+    padding: 4em 0 6em 0;
+
+    /** To avoid masonry position **/
+    position: relative !important;
+}
+.site-type.premium {
+    font-size: 12px;
+    background: #FFC107;
+    padding: 2px 8px;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-left: 0.5em;
+}
+.site-type {
+    display: none;
+}
+/*#astra-sites {
+    min-height: 200px;
+}*/
+
+.astra-sites-list {
+    padding: 0.6em 1em;
+    margin-right: 1em;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+}
+
+html.processing {
+    overflow: hidden;
+}
+
+.responsive-view .actions a {
+    color: #666;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1em;
+    vertical-align: middle;
+}
+
+#TB_closeAjaxWindow {
+    float: right;
+}
+
+/**
+ * Dark Theme
+ */
+div#TB_window {
+    background-color: #333;
+    color: #fff;
+}
+#TB_window.tablet #TB_title,
+#TB_window.mobile #TB_title {
+    padding-right: 20px;
+}
+#TB_window #TB_title {
+    border: none;
+    text-align: left;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: none;
+    background: #222;
+    position: fixed;
+}
+div#TB_window.tablet,
+div#TB_window.mobile {
+    overflow-y: scroll;
+    padding-bottom: 100px;
+    padding-top: 50px;
+}
+.responsive-view .dashicons.active,
+.responsive-view .dashicons:hover {
+    background: transparent;
+    color: #fff;
+}
+#TB_window #TB_closeWindowButton:focus .tb-close-icon {
+    box-shadow: none;
+    color: #666;
+}
+
+#TB_closeWindowButton:hover .tb-close-icon {
+    color: #fff;
+}
+@media all and (max-width: 768px) {
+    .responsive-view {
+        display: none;
+    }    
+
+    #astra-sites-filters {
+        flex-direction: column;
+    }
+
+    #astra-sites-filters .filter-count {
+        margin: 0 0 1em 0;
+    }
+
+    #astra-sites-filters .filters-wrap {
+        display: block;
+    }
+
+    #astra-sites-showcase .filter-links.astra-site-page-builder {
+        margin: 0;
+    }
+
+    #astra-sites-filters .search-form {
+        margin: 0;
+    }
+
+    div#astra-site-page-builder {
+        margin-bottom: 0.7em;
+    }
+
+    #astra-site-category {
+        margin-bottom: 1.3em;
+    }
+}
+
+@media all and ( max-width: 768px ) {
+    #astra-sites-filters {
+        display: block;
+    }
+
+    #astra-sites-filters .filter-count {
+        display: inline-block;
+        margin: 0 0 1em 0;
+    }
+
+    #astra-site-category {
+        float: left;
+        width: 100%;
+        clear: both;
+    }
+
+    .filters-wrap > div {
+        margin-bottom: 1em;
+    }
+
+    #astra-sites-filters .search-form {
+        margin: 0;
+    }
+
+}
+
+.hide-me {
+    display: none !important;
+}
+
+.spinner.is-active {
+    visibility: visible;
+}
+
+.spinner {
+    -webkit-background-size: 20px 20px;
+    background-size: 20px 20px;
+    visibility: hidden;
+    vertical-align: middle;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    width: 20px;
+    height: 20px;
+    margin: 4px 10px 0;
+    background-position: center;
+    width: 100%;
+    background-repeat: no-repeat;
+    padding: 2em;
+}

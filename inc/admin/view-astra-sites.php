@@ -7,26 +7,31 @@
 
 defined( 'ABSPATH' ) or exit;
 
+require_once ASTRA_SITES_DIR . 'inc/includes/shortcode.php';
+
 	/**
 	 * Initial Demo List
 	 *
 	 * Generated though PHP
 	 */
 	?>
-	<div class="wrap">
+	<div class="wrap" id="astra-sites-showcase">
 
-
-		<div class="wp-filter hide-if-no-js">
+		<div id="astra-sites-filters" class="wp-filter hide-if-no-js">
 
 			<div class="section-left">
-				
+
+				<!-- All Filters -->
 				<div class="filter-count">
 					<span class="count"></span>
 				</div>
+				<div class="filters-wrap">
+					<div id="astra-site-page-builder"></div>
+				</div>				
 
-				<ul class="filter-links astra-page-builder">
+				<!-- <ul class="filter-links astra-page-builder">
 					<?php
-					foreach ( Astra_Sites::get_page_builders() as $key => $category ) {
+					/**foreach ( Astra_Sites::get_page_builders() as $key => $category ) {
 						$current = '';
 
 						if ( 0 === $key ) {
@@ -41,16 +46,20 @@ defined( 'ABSPATH' ) or exit;
 								<?php echo esc_attr( $category['name'] ); ?>
 							</a>
 						</li>
-					<?php } ?>
-				</ul>
+					<?php }**/ ?>
+				</ul> -->
 			</div>
 
 			<div class="section-right">
-				<ul class="filter-links astra-category">
+
+				<div class="filters-wrap">
+					<div id="astra-site-category"></div>
+				</div>
+				<!-- <ul class="filter-links astra-category">
 
 					<li><a href="#" data-sort="all" class="current" data-id="all"><?php esc_html_e( 'All', 'astra-sites' ); ?></a></li>
 
-					<?php foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
+					<?php /* foreach ( Astra_Sites::get_demo_categories() as $key => $category ) { ?>
 						<li>
 							<a href="#"
 							   data-sort="<?php echo esc_attr( $category['slug'] ); ?>"
@@ -58,24 +67,30 @@ defined( 'ABSPATH' ) or exit;
 								<?php echo esc_attr( $category['name'] ); ?>
 							</a>
 						</li>
-					<?php } ?>
-				</ul>
+					<?php } */ ?>
+				</ul> -->
 
 				<div class="search-form">
-					<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Sites', 'astra-sites' ); ?></label>
-					<input placeholder="<?php esc_attr_e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+					<label class="screen-reader-text" for="wp-filter-search-input"><?php _e( 'Search Sites', 'astra-sites-showcase' ); ?> </label>
+					<input placeholder="<?php _e( 'Search Sites...', 'astra-sites-showcase' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 				</div>
+
 			 </div>
 
 		</div>
 
 		<?php do_action( 'astra_sites_before_site_grid' ); ?>
 
-		<span class="spinner"></span>
 
 		<div class="theme-browser rendered">
-			<div class="themes wp-clearfix"></div>
+			<div id="astra-sites" class="themes wp-clearfix"></div>
 		</div>
+		
+		<div class="spinner-wrap">
+			<span class="spinner"></span>			
+		</div>
+
+		<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites-showcase' ); ?> </p></span>
 
 		<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
@@ -120,7 +135,6 @@ defined( 'ABSPATH' ) or exit;
 
 			<div class="theme-actions">
 				<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
-
 			</div>
 
 		</div>

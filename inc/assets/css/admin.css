@@ -1,5 +1,5 @@
 .wrap .status,
-.wrap .demo-type {
+.wrap .site-type {
     position: absolute;
     z-index: 1;
     color: #fff;
@@ -8,29 +8,29 @@
     text-transform: uppercase;
 }
 .wrap .status,
-.wrap .demo-type.premium {
+.wrap .site-type.premium {
     background: #0073aa;
 }
 .wrap .status {
 	left: -0.5em;
 }
-.wrap .demo-type.premium {
+.wrap .site-type.premium {
 	right: -0.5em;
 }
 
 .wrap .status.publish,
-.wrap .demo-type.free {
+.wrap .site-type.free {
     display: none;
 }
 
-.install-theme-info .demo-type {
+.install-theme-info .site-type {
     display: none;
 }
 
 .theme {
     position: relative;
 }
-.wrap .astra-sites-preview .demo-type.premium {
+.wrap .astra-sites-preview .site-type.premium {
     display: block;
     display: none;
     position: relative;
@@ -48,7 +48,7 @@
     width: 100%;
 }
 
-.install-theme-info .demo-type.premium {
+.install-theme-info .site-type.premium {
     display: none;
 }
 
@@ -220,4 +220,19 @@
     margin-left: 0;
     width: auto;
     float: none;
+}
+.filters-wrap {
+    display: inline-block;
+}
+.spinner-wrap {
+    text-align: center;
+}
+.spinner-wrap .spinner {
+    float: none;
+}
+.hide-me {
+    display: none !important;
+}
+.no-more-demos .no-themes {
+    padding: 0;
 }
