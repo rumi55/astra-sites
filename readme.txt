@@ -47,17 +47,16 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.12 - 29-Sept-2017
-* New: Added White Label support.
-* New: Added filter `astra_sites_pro_plugin_exist`.
-* Improvement: Initially loading 'Beaver Builder' sites instead of all sites.
-* Fix: Firefox not previewing Astra sites.
+* New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
+* Improvement: Don't display sites from both the page builders in the same view.
+* Fix: Astra Sites admin area not working in the Firefox.
 
-v1.0.11 - 20-Sept-2017
+v1.0.11 - 22-Sept-2017
 * New: Single click Install & activate required plugins.
 * New: Added filter `astra_sites_menu_item` for adding extra tabs in admin page.
 * New: Added back image import feature for `elementor` page builder. In batch image import we import all images from astra site into client site.
 * Improvement: Updated JS code with object prototype.
-* Fix: Jerk on retina display while on site active & hover.
+* Fix: Screen bounce on retina devices.
 
 v1.0.10 - 11-Sept-2017
 * Improvement: Added support for retina logo import.
