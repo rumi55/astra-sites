@@ -75,13 +75,15 @@ var AstraSitesAjaxQueue = (function() {
 
 }());
 (function($){
+
 	AstraSitesShowcase = {
 
 		init: function()
 		{
+			this._resetPagedCount();
 			this._bind();
 		},
-		
+
 		/**
 		 * Binds events for the Astra Sites.
 		 *
@@ -109,12 +111,16 @@ var AstraSitesAjaxQueue = (function() {
 		/**
 		 * API Request Failed/Not found any demos.
 		 */
-		// _apiFailed: function() {
-		// 	// $('#astra-sites-showcase').find('.spinner').removeClass('is-active').addClass('hide-me');
-		// 	// $('#astra-sites-showcase').find('.no-more-demos').removeClass('hide-me');
-		// 	jQuery('body').removeClass('loading-content');
-		// 	jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
-		// },
+		_apiFailed: function() {
+
+			// var template = wp.template('astra-site-api-request-failed');
+			// jQuery('#astra-sites-showcase').html(template());
+
+			// // $('#astra-sites-showcase').find('.spinner').removeClass('is-active').addClass('hide-me');
+			// // $('#astra-sites-showcase').find('.no-more-demos').removeClass('hide-me');
+			// jQuery('body').removeClass('loading-content');
+			// jQuery('.spinner').after('<p class="no-themes" style="display:block;">'+astraDemo.strings.responseError+'</p>');
+		},
 
 		_installNow: function(event)
 		{
@@ -605,7 +611,7 @@ var AstraSitesAjaxQueue = (function() {
 				astraSiteOptions       = anchor.find('.astra-site-options').val() || '';
 				astraEnabledExtensions = anchor.find('.astra-enabled-extensions').val() || '';
 
-			var template = wp.template('astra-demo-preview');
+			var template = wp.template('astra-site-preview');
 
 			templateData = [{
 				id                       : demoId,
@@ -858,10 +864,11 @@ var AstraSitesAjaxQueue = (function() {
 		 */
 		_resetPagedCount: function() {
 
-			jQuery('body').attr('data-astra-demo-last-request', '1');
-			jQuery('body').attr('data-astra-demo-paged', '1');
-			jQuery('body').attr('data-astra-demo-search', '');
-			jQuery('body').attr('data-scrolling', false);
+			$('body').addClass('loading-content');
+			$('body').attr('data-astra-demo-last-request', '1');
+			$('body').attr('data-astra-demo-paged', '1');
+			$('body').attr('data-astra-demo-search', '');
+			$('body').attr('data-scrolling', false);
 
 		},
 
