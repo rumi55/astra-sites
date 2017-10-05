@@ -232,8 +232,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		private function includes() {
 
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-notices.php';
-
-			require_once ASTRA_SITES_DIR . 'inc/admin/class-astra-sites-page.php';
+			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-page.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/class-astra-sites-compatibility.php';
 
 			// Load the Importers.
@@ -243,6 +242,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
+			// White Label.
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-white-label.php';
 		}
 
@@ -492,7 +492,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		private function import_widgets( $data ) {
 
-			// bail if wiegets data is not available.
+			// bail if widgets data is not available.
 			if ( null == $data ) {
 				return;
 			}
