@@ -72,13 +72,6 @@
 
 	        // Show sites.
 			AstraRender._showSites();
-
-			if( $('.filters-wrap').length ) {
-
-				$('html, body').animate({
-					scrollTop: $('.filters-wrap').offset().top - 100
-				});
-			}
 		},
 
 		/**
