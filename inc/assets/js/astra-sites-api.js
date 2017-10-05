@@ -3,7 +3,7 @@
 
 	AstraSitesAPI = {
 
-		_api_url  : astraSitesShowcaseApi.ApiURL,
+		_api_url  : astraSitesApi.ApiURL,
 
 		/**
 		 * API Request

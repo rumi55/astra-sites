@@ -156,47 +156,41 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			wp_register_script( 'astra-sites-lazyload', ASTRA_SITES_URI . 'inc/assets/vendor/js/jquery.lazy.min.js', array( 'jquery' ), ASTRA_SITES_VER, true );
 
 			// API.
-			wp_enqueue_script( 'astra-admin-page', ASTRA_SITES_URI . 'inc/assets/js/admin-page.js', array( 'jquery', 'wp-util', 'updates' ), ASTRA_SITES_VER, true );
-
 			wp_register_script( 'astra-sites-api', ASTRA_SITES_URI . 'inc/assets/js/astra-sites-api.js', array( 'jquery' ), ASTRA_SITES_VER, true );
-			wp_enqueue_script( 'astra-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery', 'astra-sites-lazyload' ), ASTRA_SITES_VER, true );
+
+			// Admin Page.
+			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
+			wp_enqueue_script( 'astra-sites-admin-page', ASTRA_SITES_URI . 'inc/assets/js/admin-page.js', array( 'jquery', 'wp-util', 'updates' ), ASTRA_SITES_VER, true );
+			wp_enqueue_script( 'astra-sites-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery', 'astra-sites-lazyload' ), ASTRA_SITES_VER, true );
 
 			$data = array(
 				'ApiURL' => self::$api_url,
 				'filters' => array(
 					'page_builder' => array(
-						'title'   => __( 'Page Builder', 'astra-sites-showcase' ),
+						'title'   => __( 'Page Builder', 'astra-sites' ),
 						'slug'    => 'astra-site-page-builder',
 						'trigger' => 'astra-api-category-loaded',
 					),
 					'categories' => array(
-						'title'   => __( 'Categories', 'astra-sites-showcase' ),
+						'title'   => __( 'Categories', 'astra-sites' ),
 						'slug'    => 'astra-site-category',
 						'trigger' => 'astra-api-category-loaded',
 					),
 				),
 			);
-			wp_localize_script( 'astra-sites-api', 'astraSitesShowcaseApi', $data );
-
-			// $settings = Astra_Sites_Showcase_Helper::get_page_settings();
+			wp_localize_script( 'astra-sites-api', 'astraSitesApi', $data );
 
 			$data = apply_filters(
 				'astra_sites_localize_vars',
 				array(
-					'ajaxurl'         => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'settings'        => array(
 						'par-page' => 6,
-					),
-					'strings'         => array(
-						'selectSite'           => __( '- Select Site -', 'astra-sites-showcase' ),
-						'siteLoadingTitle'     => __( 'Loading...', 'astra-sites-showcase' ),
-						'siteLoadingMessage'   => __( 'Site is loading please wait for a moment.', 'astra-sites-showcase' ),
 					),
 				)
 			);
 
-			wp_localize_script( 'astra-render-grid', 'astraRenderGrid', $data );
-			
+			wp_localize_script( 'astra-sites-render-grid', 'astraRenderGrid', $data );
+
 			$data = apply_filters(
 				'astra_sites_localize_vars',
 				array(
@@ -226,13 +220,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				)
 			);
 
-			wp_localize_script( 'astra-admin-page', 'astraSitesAdmin', $data );
-
-			// Styles.
-			// wp_enqueue_style( 'astra-sites-showcase-shortcode', ASTRA_SITES_URI . 'inc/assets/css/shortcode.css', null, ASTRA_SITES_VER, 'all' );
-			// wp_enqueue_style( 'astra-sites-showcase-grid', ASTRA_SITES_URI . 'inc/assets/css/grid.css', null, ASTRA_SITES_VER, 'all' );
-
-			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
+			wp_localize_script( 'astra-sites-admin-page', 'astraSitesAdmin', $data );
 
 		}
 

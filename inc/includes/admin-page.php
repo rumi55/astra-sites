@@ -14,7 +14,7 @@
 defined( 'ABSPATH' ) or exit;
 
 ?>
-<div class="wrap" id="astra-sites-showcase">
+<div class="wrap" id="astra-sites-admin">
 
 	<div id="astra-sites-filters" class="wp-filter hide-if-no-js">
 
@@ -37,8 +37,8 @@ defined( 'ABSPATH' ) or exit;
 			</div>
 
 			<div class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input"><?php _e( 'Search Sites', 'astra-sites-showcase' ); ?> </label>
-				<input placeholder="<?php _e( 'Search Sites...', 'astra-sites-showcase' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
+				<label class="screen-reader-text" for="wp-filter-search-input"><?php _e( 'Search Sites', 'astra-sites' ); ?> </label>
+				<input placeholder="<?php _e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 			</div>
 
 		 </div>
@@ -56,7 +56,7 @@ defined( 'ABSPATH' ) or exit;
 		<span class="spinner"></span>			
 	</div>
 
-	<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites-showcase' ); ?> </p></span>
+	<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites' ); ?> </p></span>
 
 	<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
@@ -235,6 +235,6 @@ defined( 'ABSPATH' ) or exit;
 			</div>
 		<# } #>
 	<# } else { #>
-		<div class="astra-showcase-not-found"> <p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites-showcase' ); ?> </p> </div>
+		<p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?> </p>
 	<# } #>
 </script>

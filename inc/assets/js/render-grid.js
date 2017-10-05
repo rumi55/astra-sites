@@ -68,7 +68,7 @@
 			$('#astra-sites').hide().css('height', '');			
 			$('.no-more-demos').addClass('hide-me');
 			$('body').addClass('loading-content');
-			$('#astra-sites-showcase').find('.spinner').removeClass('hide-me');
+			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
 	        // Show sites.
 			AstraRender._showSites();
@@ -98,7 +98,7 @@
 			$('#astra-sites').hide().css('height', '');			
 			$('.no-more-demos').addClass('hide-me');
 			$('body').addClass('loading-content');
-			$('#astra-sites-showcase').find('.spinner').removeClass('hide-me');
+			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
 			window.clearTimeout(AstraRender._ref);
 			AstraRender._ref = window.setTimeout(function () {
@@ -131,7 +131,7 @@
 				if (scrollDistance > themesBottom && ajaxLoading == false) {
 					AstraRender._updatedPagedCount();
 
-					$('#astra-sites-showcase').find('.spinner').addClass('is-active');
+					$('#astra-sites-admin').find('.spinner').addClass('is-active');
 
 					jQuery('body').data('scrolling', true);
 					
@@ -388,7 +388,7 @@
 
 				$('body').addClass('listed-all-sites');
 
-				// $('#astra-sites-showcase').find('.spinner').removeClass('is-active');
+				// $('#astra-sites-admin').find('.spinner').removeClass('is-active');
 			}
 
 		},
@@ -414,10 +414,10 @@
 
 			AstraRender._imagesLoaded();
 
-			$('#astra-sites-showcase').find('.spinner').removeClass('is-active');
+			$('#astra-sites-admin').find('.spinner').removeClass('is-active');
 
 			if( data.items_count <= 0 ) {
-				$('#astra-sites-showcase').find('.spinner').removeClass('is-active');
+				$('#astra-sites-admin').find('.spinner').removeClass('is-active');
 				$('.no-more-demos').addClass('hide-me');
 			} else {
 				$('body').removeClass('listed-all-sites');
@@ -439,7 +439,7 @@
 					// $('#astra-sites').masonry('reload');
 				}
 
-				$('#astra-sites-showcase').find('.spinner').removeClass('is-active');
+				$('#astra-sites-admin').find('.spinner').removeClass('is-active');
 			})
 			.progress( function( instance, image ) {
 				var result = image.isLoaded ? 'loaded' : 'broken';
@@ -451,8 +451,8 @@
 		 * API Request Failed/Not found any demos.
 		 */
 		_apiFailed: function() {
-			$('#astra-sites-showcase').find('.spinner').removeClass('is-active').addClass('hide-me');
-			$('#astra-sites-showcase').find('.no-more-demos').removeClass('hide-me');
+			$('#astra-sites-admin').find('.spinner').removeClass('is-active').addClass('hide-me');
+			$('#astra-sites-admin').find('.no-more-demos').removeClass('hide-me');
 		},
 
 		/**
