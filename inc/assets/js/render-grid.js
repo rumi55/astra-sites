@@ -159,8 +159,8 @@
 		_apiAddParam_per_page: function() {
 			// Add 'per_page'
 			var per_page_val = 3;
-			if( astraRenderGrid.settings && astraRenderGrid.settings["par-page"] ) {
-				per_page_val = parseInt( astraRenderGrid.settings["par-page"] );
+			if( astraRenderGrid.sites && astraRenderGrid.sites["par-page"] ) {
+				per_page_val = parseInt( astraRenderGrid.sites["par-page"] );
 			}
 			AstraRender._api_params['per_page'] = per_page_val;
 		},
@@ -204,6 +204,18 @@
 			AstraRender._api_params['page'] = page_val;
 		},
 
+		_apiAddParam_purchase_key: function() {
+			if( astraRenderGrid.sites && astraRenderGrid.sites.purchase_key ) {
+				AstraRender._api_params['purchase_key'] = astraRenderGrid.sites.purchase_key;
+			}
+		},
+
+		_apiAddParam_site_url: function() {
+			if( astraRenderGrid.sites && astraRenderGrid.sites.site_url ) {
+				AstraRender._api_params['site_url'] = astraRenderGrid.sites.site_url;
+			}
+		},
+
 		/**
 		 * Show Sites
 		 * 
@@ -234,6 +246,8 @@
 			AstraRender._apiAddParam_astra_site_category();
 			AstraRender._apiAddParam_astra_site_page_builder();
 			AstraRender._apiAddParam_page();
+			AstraRender._apiAddParam_site_url();
+			AstraRender._apiAddParam_purchase_key();
 
 			// API Request.
 			var api_post = {

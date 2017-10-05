@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) or exit;
 			<div class="wp-full-overlay-sidebar-content">
 				<div class="install-theme-info">
 
-					<span class="demo-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
+					<span class="site-type {{{data.astra_demo_type}}}">{{{data.astra_demo_type}}}</span>
 					<h3 class="theme-name">{{{data.demo_name}}}</h3>
 
 					<# if ( data.screenshot.length ) { #>

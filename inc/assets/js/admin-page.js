@@ -620,9 +620,9 @@ var AstraSitesAjaxQueue = (function() {
 				demo_api                 : apiURL,
 				screenshot               : screenshot,
 				demo_name                : demo_name,
-				slug               		 : demo_slug,
+				slug                     : demo_slug,
 				content                  : content,
-				required_plugins        : JSON.stringify(requiredPlugins),
+				required_plugins         : JSON.stringify(requiredPlugins),
 				astra_site_options       : astraSiteOptions,
 				astra_enabled_extensions : astraEnabledExtensions,
 			}];

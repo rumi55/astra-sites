@@ -180,12 +180,20 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			);
 			wp_localize_script( 'astra-sites-api', 'astraSitesApi', $data );
 
+			// Use this for premium demos.
+			$request_params = apply_filters(
+				'astra_sites_api_params', array(
+					'purchase_key' => '',
+					'site_url'     => '',
+					'par-page'     => 6,
+				)
+			);
+
 			$data = apply_filters(
 				'astra_sites_localize_vars',
 				array(
-					'settings'        => array(
-						'par-page' => 6,
-					),
+					'sites' => $request_params,
+					'settings' => array(),
 				)
 			);
 
