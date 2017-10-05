@@ -10,10 +10,18 @@
 		 */
 		_api_request: function( args ) {
 
-			$.ajax({
+			// Set API Request Data.
+			var data = {
 				url: AstraSitesAPI._api_url + args.slug,
-				cache: false
-			})
+				cache: false,
+			};
+
+			// Set API Request Header.
+			if( astraRenderGrid.headers ) {
+				data.headers = astraRenderGrid.headers;
+			}
+
+			$.ajax( data )
 			.done(function( items, status, XHR ) {
 
 				if( 'success' === status && XHR.getResponseHeader('x-wp-total') ) {

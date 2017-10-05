@@ -148,6 +148,12 @@
 		    });
 		},
 
+		_apiAddParam_status: function() {
+			if( astraRenderGrid.sites && astraRenderGrid.sites.status ) {
+				AstraRender._api_params['status'] = astraRenderGrid.sites.status;
+			}
+		},
+
 		// Add 'search'
 		_apiAddParam_search: function() {
 			var search_val = jQuery('#wp-filter-search-input').val() || '';
@@ -241,6 +247,7 @@
 			// Add Params for API request.
 			AstraRender._api_params = {};
 
+			AstraRender._apiAddParam_status();
 			AstraRender._apiAddParam_search();
 			AstraRender._apiAddParam_per_page();
 			AstraRender._apiAddParam_astra_site_category();

@@ -222,12 +222,13 @@ defined( 'ABSPATH' ) or exit;
 				</a>
 
 				</span>
-				<h3 class="theme-name" id="astra-theme-name">
-					{{{ data.items[ key ].title.rendered }}}
-					<# if ( data.items[ key ]['astra-site-type'] ) { #>
-						<span class="site-type {{data.items[ key ]['astra-site-type']}}">{{data.items[ key ]['astra-site-type']}}</span>
-					<# } #>
-				</h3>
+				<h3 class="theme-name" id="astra-theme-name"> {{{ data.items[ key ].title.rendered }}} </h3>
+				<# if ( data.items[ key ]['astra-site-type'] ) { #>
+					<span class="site-type {{data.items[ key ]['astra-site-type']}}">{{data.items[ key ]['astra-site-type']}}</span>
+				<# } #>
+				<# if ( data.items[ key ].status ) { #>
+					<span class="status {{data.items[ key ].status}}">{{data.items[ key ].status}}</span>
+				<# } #>
 				<div class="theme-actions">
 					<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
 				</div>
