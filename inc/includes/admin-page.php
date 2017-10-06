@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) or exit;
 	</div>
 
 	<div class="spinner-wrap">
-		<span class="spinner"></span>			
+		<span class="spinner"></span>
 	</div>
 
 	<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites' ); ?> </p></span>
