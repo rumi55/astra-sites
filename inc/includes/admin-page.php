@@ -169,11 +169,13 @@ defined( 'ABSPATH' ) or exit;
 			<# } #>
 
 			<# for ( key in data.items ) { #>
-				<li>
-					<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
-						 {{ data.items[ key ].name }}
-					</a>
-				</li>
+				<# if ( data.items[ key ].count ) { #>
+					<li>
+						<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
+							 {{ data.items[ key ].name }}
+						</a>
+					</li>
+				<# } #>
 			<# } #>
 
 		</ul>
