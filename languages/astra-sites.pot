@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Astra Sites - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites - Lite 1.0.12\n"
+"Project-Id-Version: Astra Sites - Lite 1.0.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
 "POT-Creation-Date: 2017-09-29 05:24:35+00:00\n"
 "MIME-Version: 1.0\n"
