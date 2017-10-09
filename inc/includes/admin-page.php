@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) or exit;
 	</div>
 
 	<div class="spinner-wrap">
-		<span class="spinner"></span>			
+		<span class="spinner"></span>
 	</div>
 
 	<?php do_action( 'astra_sites_after_site_grid' ); ?>
