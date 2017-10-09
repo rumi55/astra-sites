@@ -166,7 +166,6 @@ defined( 'ABSPATH' ) or exit;
 				</li>
 			<# } #>
 
-			<# console.log( JSON.stringify( data.items ) ); #>
 			<# for ( key in data.items ) { #>
 				<# if ( data.items[ key ].count ) { #>
 					<li>
