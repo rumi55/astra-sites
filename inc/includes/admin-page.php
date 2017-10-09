@@ -239,3 +239,16 @@ defined( 'ABSPATH' ) or exit;
 		<p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?> </p>
 	<# } #>
 </script>
+
+<?php
+/**
+ * TMPL - List
+ */
+?>
+<script type="text/template" id="tmpl-astra-sites-suggestions">
+	<div class="theme astra-theme site-single astra-sites-suggestions">
+		<div class="inner">
+			<p><?php printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest one</a>!', 'astra-sites' ), esc_url( '#' ) ); ?> </p>
+		</div>
+	</div>
+</script>
