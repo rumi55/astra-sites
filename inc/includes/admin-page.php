@@ -56,8 +56,6 @@ defined( 'ABSPATH' ) or exit;
 		<span class="spinner"></span>			
 	</div>
 
-	<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites' ); ?> </p></span>
-
 	<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
 </div>
@@ -168,6 +166,7 @@ defined( 'ABSPATH' ) or exit;
 				</li>
 			<# } #>
 
+			<# console.log( JSON.stringify( data.items ) ); #>
 			<# for ( key in data.items ) { #>
 				<# if ( data.items[ key ].count ) { #>
 					<li>
