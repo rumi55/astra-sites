@@ -62,7 +62,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
 			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
 
-			// AJAX
+			// AJAX.
 			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
 			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
 		}
