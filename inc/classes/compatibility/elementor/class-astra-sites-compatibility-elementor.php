@@ -69,7 +69,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Elementor' ) ) :
 
 				// Start image importing after site import complete.
 				add_action( 'astra_sites_import_complete', array( $this, 'start_image_import' ) );
-
 			}
 
 		}
