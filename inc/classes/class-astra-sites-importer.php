@@ -22,6 +22,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 * @var (Object) Class object
 		 */
 		private static $_instance = null;
+		private static $demo_data = array();
 
 		/**
 		 * Set Instance
@@ -51,10 +52,51 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
+			add_action( 'wp_ajax_astra-import-start'               , array( $this, 'import_start' ) );
+			add_action( 'wp_ajax_astra-import-customizer-settings' , array( $this, 'import_customizer_settings' ) );
+			add_action( 'wp_ajax_astra-import-xml'                 , array( $this, 'import_xml' ) );
+			add_action( 'wp_ajax_astra-import-options'             , array( $this, 'import_options' ) );
+			add_action( 'wp_ajax_astra-import-widgets'             , array( $this, 'import_widgets' ) );
+			add_action( 'wp_ajax_astra-import-end'                 , array( $this, 'import_end' ) );
+
+			// import_astra_enabled_extension
+			// import_customizer_settings
+			// import_wxr
+			// import_site_options
+			// import_custom_404_extension_options
+			// import_widgets
+			// clear_cache
+
+
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
 
 		}
+
+		$demo_data = self::get_astra_single_demo( $demo_api_uri );
+
+		// Import Enabled Extensions.
+		$this->import_astra_enabled_extension( $demo_data['astra-enabled-extensions'] );
+
+		// Import Customizer Settings.
+		$this->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
+
+		// Import XML.
+		$this->import_wxr( $demo_data['astra-site-wxr-path'] );
+
+		// Import WordPress site options.
+		$this->import_site_options( $demo_data['astra-site-options-data'] );
+
+		// Import Custom 404 extension options.
+		$this->import_custom_404_extension_options( $demo_data['astra-custom-404'] );
+
+		// Import Widgets data.
+		$this->import_widgets( $demo_data['astra-site-widgets-data'] );
+
+		// Clear Cache.
+		$this->clear_cache();
+
+		do_action( 'astra_sites_import_complete', $demo_data );
 
 		/**
 		 * Ajax callback for demo import action.
