@@ -22,7 +22,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 * @var (Object) Class object
 		 */
 		public static $_instance = null;
-		public static $demo_data = array();
 
 		/**
 		 * Set Instance
@@ -52,36 +51,35 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
-			
 			add_action( 'wp_ajax_astra-sites-import-start'               , array( $this, 'import_start' ) );
 			add_action( 'wp_ajax_astra-sites-import-customizer-settings' , array( $this, 'import_customizer_settings' ) );
 			add_action( 'wp_ajax_astra-sites-import-xml'                 , array( $this, 'import_xml' ) );
 			add_action( 'wp_ajax_astra-sites-import-options'             , array( $this, 'import_options' ) );
 			add_action( 'wp_ajax_astra-sites-import-widgets'             , array( $this, 'import_widgets' ) );
 			add_action( 'wp_ajax_astra-sites-import-end'                 , array( $this, 'import_end' ) );
-
-			add_action( 'astra_sites_import_start'               , array( $this, 'import_astra_enabled_extension' ) );
-			add_action( 'astra_sites_import_customizer_settings' , array( $this, 'import_custom_404_extension_options' ) );
-			add_action( 'astra_sites_import_end'                 , array( $this, 'clear_cache' ) );
-
-			// add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
-			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
+			
+			add_action( 'astra_sites_import_start'                       , array( $this, 'import_astra_enabled_extension' ) );
+			add_action( 'astra_sites_import_customizer_settings'         , array( $this, 'import_custom_404_extension_options' ) );
+			add_action( 'astra_sites_import_end'                         , array( $this, 'clear_cache' ) );
+			
+			// add_action( 'wp_ajax_astra-import-demo'                   , array( $this, 'demo_ajax_import' ) );
+			add_action( 'astra_sites_image_import_complete'              , array( $this, 'clear_cache' ) );
 		}
 
 		function import_start() {
 
-			$upload_dir    = wp_upload_dir();
-			$upload_path   = trailingslashit( $upload_dir['path'] );
-			$log_file_path = $upload_path .  'log_file.txt';
-			// vl( $log_file_path );
-			// wp_die();
+			// $upload_dir    = wp_upload_dir();
+			// $upload_path   = trailingslashit( $upload_dir['path'] );
+			// $log_file_path = $upload_path .  'log_file-' .microtime(). '.txt';
+			// // vl( $log_file_path );
+			// // wp_die();
 
-			// Add this message to log file.
-			$log_added = self::append_to_file(
-				__( 'The import files were successfully uploaded!', 'pt-ocdi' ),
-				$log_file_path,
-				esc_html__( 'Upload files' , 'pt-ocdi' )
-			);
+			// // Add this message to log file.
+			// $log_added = self::append_to_file(
+			// 	__( 'The import files were successfully uploaded!', 'pt-ocdi' ),
+			// 	self::$log_file_path,
+			// 	esc_html__( 'Upload files' , 'pt-ocdi' )
+			// );
 
 			$report = array(
 				'success' => false,
@@ -95,74 +93,91 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
 
-			self::$demo_data = self::get_astra_single_demo( $demo_api_uri );
+			$demo_data = self::get_astra_single_demo( $demo_api_uri );
 
-			// do_action( 'astra_sites_import_start' );
+			do_action( 'astra_sites_import_start', $demo_data );
 			
-			wp_send_json_success( self::$demo_data );
+			wp_send_json_success( $demo_data );
 		}
 
 		// Import Customizer Settings.
 		function import_customizer_settings() {
 
-			$demo_data = $_POST['demo_data'];
-			vl( $demo_data );
+			$demo_data       = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
+			$customizer_data = $demo_data['data']['astra-site-customizer-data'];
 
-			if( isset( $demo_data['astra-site-customizer-data'] ) ) {
+			if( isset( $customizer_data ) ) {
 				$customizer_import = Astra_Customizer_Import::instance();
-				$customizer_data   = self::$demo_data['astra-site-customizer-data'];
 				$customizer_data   = $customizer_import->import( $customizer_data );
 			}
 
-			do_action( 'astra_sites_import_customizer_settings' );
-			wp_send_json_success();
+			do_action( 'astra_sites_import_customizer_settings', $demo_data );
+
+			wp_send_json_success( $demo_data );
 		}
 
 		// Import XML.
 		function import_xml() {
 
-			if( isset( self::$demo_data['astra-site-wxr-path'] ) ) {
-				$wxr_url      = self::$demo_data['astra-site-wxr-path'];
+			$demo_data = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
+			$wxr_url   = $demo_data['data']['astra-site-wxr-path'];
+
+			if( isset( $wxr_url ) ) {
 				$wxr_importer = Astra_WXR_Importer::instance();
 				$xml_path     = $wxr_importer->download_xml( $wxr_url );
 				$wxr_importer->import_xml( $xml_path['file'] );
 			}
 
 			do_action( 'astra_sites_import_xml' );
+
+			wp_send_json_success( $demo_data );
 		}
 		
 		// Import WordPress site options.
 		function import_options() {
+
+			$demo_data = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
+			$options   = $demo_data['data']['astra-site-options-data'];
 		
-			if( isset( self::$demo_data['astra-site-options-data'] ) ) {
-				$options = self::$demo_data['astra-site-options-data'];
+			if( isset( $options ) ) {
 				$options_importer = Astra_Site_Options_Import::instance();
 				$options_importer->import_options( $options );
 			}
 			
 			do_action( 'astra_sites_import_options' );
+
+			wp_send_json_success( $demo_data );
 		}
 
 		// bail if widgets data is not available.
 		function import_widgets() {
 
-			if ( isset( self::$demo_data['astra-site-widgets-data'] ) ) {
+			$demo_data    = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
+			$widgets_data = $demo_data['data']['astra-site-widgets-data'];
+
+			if ( isset( $widgets_data ) ) {
 				$widgets_importer = Astra_Widget_Importer::instance();
-				$widgets_importer->import_widgets_data( $data );
+				$widgets_importer->import_widgets_data( $widgets_data );
 			}
 
-
 			do_action( 'astra_sites_import_widgets' );
+
+			wp_send_json_success( $demo_data );
 		}
 
 		function import_end() {
-			do_action( 'astra_sites_import_end' );
 
-			do_action( 'astra_sites_import_complete', self::$demo_data );
+			$demo_data = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
 
-			$report['success'] = true;
-			$report['message'] = __( 'Demo Imported Successfully.', 'astra-sites' );
-			wp_send_json( $report );
+			do_action( 'astra_sites_import_end', $demo_data );
+
+			do_action( 'astra_sites_import_complete', $demo_data );
+
+			// $report['success'] = true;
+			// $report['message'] = __( 'Demo Imported Successfully.', 'astra-sites' );
+			// wp_send_json( $report );
+
+			wp_send_json_success( $demo_data );
 		}
 
 		/**
@@ -236,9 +251,9 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 */
 		public function import_custom_404_extension_options( ) {
 			
-			if( isset( self::$demo_data['astra-custom-404'] ) ) {
+			if( isset( $demo_data['astra-custom-404'] ) ) {
 				if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
-					$options_404 = self::$demo_data['astra-custom-404'];
+					$options_404 = $demo_data['astra-custom-404'];
 					Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_custom_404', $options_404 );
 				}
 			}
@@ -251,9 +266,9 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 */
 		public function import_astra_enabled_extension() {
 
-			if( isset( self::$demo_data['astra-enabled-extensions'] ) ) {
+			if( isset( $demo_data['astra-enabled-extensions'] ) ) {
 				if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
-					$saved_extensions = self::$demo_data['astra-enabled-extensions'];
+					$saved_extensions = $demo_data['astra-enabled-extensions'];
 					Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $saved_extensions );
 				}
 			}

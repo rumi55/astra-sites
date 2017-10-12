@@ -105,6 +105,81 @@ var AstraSitesAjaxQueue = (function() {
 			$( document ).on('wp-plugin-install-error'   , AstraSitesAdmin._installError);
 			$( document ).on('wp-plugin-install-success' , AstraSitesAdmin._installSuccess);
 
+			$( document ).on('astra-sites-import-customizer-settings-success' , AstraSitesAdmin._importCustomizerSettings);
+			$( document ).on('astra-sites-import-xml-success'                 , AstraSitesAdmin._importXml);
+			$( document ).on('astra-sites-import-options-success'             , AstraSitesAdmin._importOptions);
+			$( document ).on('astra-sites-import-widgets-success'             , AstraSitesAdmin._importWidgets);
+			$( document ).on('astra-sites-import-end-success'                 , AstraSitesAdmin._importEnd);
+		},
+
+		_importCustomizerSettings: function(e, data) {
+			console.log('--------------------------------------');
+			console.log('1) _importCustomizerSettings');
+			console.log('data: ' + data);
+			console.log('data: ' + JSON.stringify( data ) );
+		},
+		_importXml: function(e, data) {
+			console.log('--------------------------------------');
+			console.log('2) _importXml');
+			console.log('data: ' + data);
+			console.log('data: ' + JSON.stringify( data ) );
+
+		},
+		_importOptions: function(e, data) {
+			console.log('--------------------------------------');
+			console.log('3) _importOptions');
+			console.log('data: ' + data);
+			console.log('data: ' + JSON.stringify( data ) );
+
+		},
+		_importWidgets: function(e, data) {
+			console.log('--------------------------------------');
+			console.log('4) _importWidgets');
+			console.log('data: ' + data);
+			console.log('data: ' + JSON.stringify( data ) );
+
+		},
+		_importEnd: function(e, data) {
+			console.log('--------------------------------------');
+			console.log('5) _importEnd');
+			console.log('data: ' + data);
+			console.log('data: ' + JSON.stringify( data ) );
+			
+			jQuery('.astra-demo-import').removeClass('updating-message installing')
+				.removeAttr('data-import')
+				.addClass('view-site')
+				.removeClass('astra-demo-import')
+				.text( astraSitesAdmin.strings.viewSite )
+				.attr('target', '_blank')
+				.append('<i class="dashicons dashicons-external"></i>')
+				.attr('href', astraSitesAdmin.siteURL );
+
+			// Success?
+			// 	if( demos.success ) {
+			// 		jQuery('.astra-demo-import').removeClass('updating-message installing')
+			// 			.removeAttr('data-import')
+			// 			.addClass('view-site')
+			// 			.removeClass('astra-demo-import')
+			// 			.text( astraSitesAdmin.strings.viewSite )
+			// 			.attr('target', '_blank')
+			// 			.append('<i class="dashicons dashicons-external"></i>')
+			// 			.attr('href', astraSitesAdmin.siteURL );
+
+			// 	} else {
+
+			// 		var output  = '<div class="astra-api-error notice notice-error notice-alt is-dismissible">';
+			// 			output += '	<p>'+demos.message+'</p>';
+			// 			output += '	<button type="button" class="notice-dismiss">';
+			// 			output += '		<span class="screen-reader-text">'+commonL10n.dismiss+'</span>';
+			// 			output += '	</button>';
+			// 			output += '</div>';
+
+			// 		jQuery('.install-theme-info').prepend( output );
+
+			// 		// !important to add trigger.
+			// 		// Which reinitialize the dismiss error message events.
+			// 		jQuery(document).trigger('wp-updates-notice-added');
+			// 	}
 		},
 
 		/**
@@ -469,8 +544,6 @@ var AstraSitesAjaxQueue = (function() {
 				},
 				success: function( demo_data ){
 
-					$( document ).trigger( 'astra-sites-import-start' + '-success' );
-
 					console.log('demo_data: ' + demo_data);
 					console.log('demo_data: ' + JSON.stringify( demo_data ) );
 
@@ -491,12 +564,10 @@ var AstraSitesAjaxQueue = (function() {
 							data : {
 								action    : ajaxRequest,
 								api_url   : apiURL,
-								demo_data : demo_data
+								demo_data : JSON.stringify( demo_data ),
 							},
-							success: function( demo_data ){
-								console.log('demo_data: ' + demo_data);
-								console.log('demo_data: ' + JSON.stringify( demo_data ) );
-								// $( document ).trigger( ajaxRequest + '-success' );
+							success: function( result ){
+								$( document ).trigger( ajaxRequest + '-success', [result] );
 							}
 						});
 
