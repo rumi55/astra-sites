@@ -457,56 +457,107 @@ var AstraSitesAjaxQueue = (function() {
 
 			var apiURL = $theme.data('demo-api') || '';
 
-			jQuery.ajax({
-				url: astraSitesAdmin.ajaxurl,
-				type: 'POST',
-				dataType: 'json',
-				data: {
-					action: 'astra-import-demo',
-					api_url: apiURL
+			
+
+			AstraSitesAjaxQueue.add({
+				url  : astraSitesAdmin.ajaxurl,
+				type : 'POST',
+				async: false,
+				data : {
+					action  : 'astra-sites-import-start',
+					api_url : apiURL
 				},
-			})
-			.done(function ( demos ) {
+				success: function( demo_data ){
 
-				// Success?
-				if( demos.success ) {
-					jQuery('.astra-demo-import').removeClass('updating-message installing')
-						.removeAttr('data-import')
-						.addClass('view-site')
-						.removeClass('astra-demo-import')
-						.text( astraSitesAdmin.strings.viewSite )
-						.attr('target', '_blank')
-						.append('<i class="dashicons dashicons-external"></i>')
-						.attr('href', astraSitesAdmin.siteURL );
+					$( document ).trigger( 'astra-sites-import-start' + '-success' );
 
-				} else {
+					console.log('demo_data: ' + demo_data);
+					console.log('demo_data: ' + JSON.stringify( demo_data ) );
 
-					var output  = '<div class="astra-api-error notice notice-error notice-alt is-dismissible">';
-						output += '	<p>'+demos.message+'</p>';
-						output += '	<button type="button" class="notice-dismiss">';
-						output += '		<span class="screen-reader-text">'+commonL10n.dismiss+'</span>';
-						output += '	</button>';
-						output += '</div>';
+					var ajaxQueue = [
+						'astra-sites-import-customizer-settings',
+						'astra-sites-import-xml',
+						'astra-sites-import-options',
+						'astra-sites-import-widgets',
+						'astra-sites-import-end',
+					];
 
-					jQuery('.install-theme-info').prepend( output );
+					$.each( ajaxQueue, function(index, ajaxRequest) {
 
-					// !important to add trigger.
-					// Which reinitialize the dismiss error message events.
-					jQuery(document).trigger('wp-updates-notice-added');
+						AstraSitesAjaxQueue.add({
+							url  : astraSitesAdmin.ajaxurl,
+							type : 'POST',
+							async: false,
+							data : {
+								action    : ajaxRequest,
+								api_url   : apiURL,
+								demo_data : demo_data
+							},
+							success: function( demo_data ){
+								console.log('demo_data: ' + demo_data);
+								console.log('demo_data: ' + JSON.stringify( demo_data ) );
+								// $( document ).trigger( ajaxRequest + '-success' );
+							}
+						});
+
+					});
 				}
-
-			})
-			.fail(function ( demos ) {
-				jQuery('.astra-demo-import').removeClass('updating-message installing')
-					.removeAttr('data-import')
-					.addClass('view-site')
-					.removeClass('astra-demo-import')
-					.attr('target', '_blank')
-					.attr('href', astraSitesAdmin.strings.importFailedURL );
-
-				jQuery('.wp-full-overlay-header .view-site').text( astraSitesAdmin.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
-				jQuery('.footer-import-button-wrap .view-site').text( astraSitesAdmin.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
 			});
+
+
+			// Process of cloud templates - (download, remove & fetch).
+			AstraSitesAjaxQueue.run();
+
+			// jQuery.ajax({
+			// 	url: astraSitesAdmin.ajaxurl,
+			// 	type: 'POST',
+			// 	dataType: 'json',
+			// 	data: {
+			// 		action: 'astra-import-demo',
+			// 		api_url: apiURL
+			// 	},
+			// })
+			// .done(function ( demos ) {
+
+			// 	// Success?
+			// 	if( demos.success ) {
+			// 		jQuery('.astra-demo-import').removeClass('updating-message installing')
+			// 			.removeAttr('data-import')
+			// 			.addClass('view-site')
+			// 			.removeClass('astra-demo-import')
+			// 			.text( astraSitesAdmin.strings.viewSite )
+			// 			.attr('target', '_blank')
+			// 			.append('<i class="dashicons dashicons-external"></i>')
+			// 			.attr('href', astraSitesAdmin.siteURL );
+
+			// 	} else {
+
+			// 		var output  = '<div class="astra-api-error notice notice-error notice-alt is-dismissible">';
+			// 			output += '	<p>'+demos.message+'</p>';
+			// 			output += '	<button type="button" class="notice-dismiss">';
+			// 			output += '		<span class="screen-reader-text">'+commonL10n.dismiss+'</span>';
+			// 			output += '	</button>';
+			// 			output += '</div>';
+
+			// 		jQuery('.install-theme-info').prepend( output );
+
+			// 		// !important to add trigger.
+			// 		// Which reinitialize the dismiss error message events.
+			// 		jQuery(document).trigger('wp-updates-notice-added');
+			// 	}
+
+			// })
+			// .fail(function ( demos ) {
+			// 	jQuery('.astra-demo-import').removeClass('updating-message installing')
+			// 		.removeAttr('data-import')
+			// 		.addClass('view-site')
+			// 		.removeClass('astra-demo-import')
+			// 		.attr('target', '_blank')
+			// 		.attr('href', astraSitesAdmin.strings.importFailedURL );
+
+			// 	jQuery('.wp-full-overlay-header .view-site').text( astraSitesAdmin.strings.importFailedBtnSmall ).append('<i class="dashicons dashicons-external"></i>');
+			// 	jQuery('.footer-import-button-wrap .view-site').text( astraSitesAdmin.strings.importFailedBtnLarge ).append('<i class="dashicons dashicons-external"></i>');
+			// });
 		},
 
 		/**
