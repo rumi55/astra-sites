@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.8.1  
-**Stable tag:** 1.0.12  
+**Stable tag:** 1.0.13  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -45,6 +45,9 @@ https://sites.wpastra.com/law-free/
 1. Import the demo.
 
 ## Changelog ##
+
+v1.0.13 - 9-Oct-2017
+* New: Browsing the Astra Sites in the Admin panel is not faster with JS rendering.
 
 v1.0.12 - 29-Sept-2017
 * New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
