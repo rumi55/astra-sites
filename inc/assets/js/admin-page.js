@@ -522,7 +522,7 @@ var AstraSitesAjaxQueue = (function() {
 				return;
 			}
 
-			jQuery('.astra-demo-import').attr('data-import', 'disabled')
+			$('.astra-demo-import').attr('data-import', 'disabled')
 				.addClass('updating-message installing')
 				.text( astraSitesAdmin.strings.importingDemo );
 
@@ -532,7 +532,8 @@ var AstraSitesAjaxQueue = (function() {
 
 			var apiURL = $theme.data('demo-api') || '';
 
-			
+			// Process of cloud templates - (download, remove & fetch).
+			AstraSitesAjaxQueue.run();
 
 			AstraSitesAjaxQueue.add({
 				url  : astraSitesAdmin.ajaxurl,
@@ -574,10 +575,6 @@ var AstraSitesAjaxQueue = (function() {
 					});
 				}
 			});
-
-
-			// Process of cloud templates - (download, remove & fetch).
-			AstraSitesAjaxQueue.run();
 
 			// jQuery.ajax({
 			// 	url: astraSitesAdmin.ajaxurl,
