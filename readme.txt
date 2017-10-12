@@ -47,7 +47,7 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.13 - 9-Oct-2017
-* New: Updated showing Astra Sites logic.
+* New: Browsing the Astra Sites in the Admin panel is not faster with JS rendering.
 
 v1.0.12 - 29-Sept-2017
 * New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
