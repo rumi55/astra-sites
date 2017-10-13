@@ -807,7 +807,7 @@ var AstraSitesAjaxQueue = (function() {
 				astraSiteOptions       = anchor.find('.astra-site-options').val() || '';
 				astraEnabledExtensions = anchor.find('.astra-enabled-extensions').val() || '';
 
-			AstraSitesAdmin._log( 'Previewing "' + demo_name + '" API : ' + apiURL );
+			AstraSitesAdmin._log( 'Previewing "' + demo_name + '" URL : ' + demoURL );
 
 			var template = wp.template('astra-site-preview');
 
