@@ -200,6 +200,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			$data = apply_filters(
 				'astra_sites_localize_vars',
 				array(
+					'debug'           => ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) ? true : false,
 					'ajaxurl'         => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'         => site_url(),
 					'getProText'      => __( 'Purchase', 'astra-sites' ),
