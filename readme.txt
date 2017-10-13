@@ -46,6 +46,9 @@ https://sites.wpastra.com/law-free/
 
 == Changelog ==
 
+v1.0.14 - Unreleased
+* New: Categorized AJAX calls while importing Astra Site.
+
 v1.0.13 - 9-Oct-2017
 * New: Updated showing Astra Sites logic.
 
