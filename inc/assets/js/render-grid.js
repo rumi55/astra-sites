@@ -150,18 +150,12 @@
 			}
 		},
 
-		// Add 'per_page'
 		_apiAddParam_per_page: function() {
-
-			var windowWidth = $(window).outerWidth();
-
-			var per_page_val = 6;
-			if( 2000 < windowWidth ) {
-				per_page_val = 10;
-			} else if( 1600 < windowWidth ) {
-				per_page_val = 8;
+			// Add 'per_page'
+			var per_page_val = 10;
+			if( astraRenderGrid.sites && astraRenderGrid.sites["par-page"] ) {
+				per_page_val = parseInt( astraRenderGrid.sites["par-page"] );
 			}
-
 			AstraRender._api_params['per_page'] = per_page_val;
 		},
 
