@@ -180,7 +180,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra_sites_api_params', array(
 					'purchase_key' => '',
 					'site_url'     => '',
-					'par-page'     => 6,
 				)
 			);
 
