@@ -47,6 +47,7 @@ https://sites.wpastra.com/law-free/
 ## Changelog ##
 
 v1.0.14 - Unreleased
+* Improvement: Empty the search input only click on category filter not on page builder filter.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
