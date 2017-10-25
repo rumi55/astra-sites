@@ -77,6 +77,10 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Beaver_Builder_Downloader' ) ) :
 
 					// Update page builder data.
 					update_post_meta( $post_id, '_fl_builder_data', $data );
+					update_post_meta( $post_id, '_fl_builder_draft', $data );
+
+					// Clear all cache.
+					FLBuilderModel::delete_asset_cache_for_all_posts();
 				}
 			}
 		}
