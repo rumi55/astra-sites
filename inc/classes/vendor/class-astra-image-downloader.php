@@ -4,22 +4,12 @@
  * 
  * => How to use?
  * 
- *	$images = array(
- *		array(
- *		    'url' => 'https://sites.wpastra.com/astra-lite-demo-1/wp-content/uploads/sites/30/2017/06/home-banner.jpg',
- *		    'id'  => '317',
- *		),
- *		array(
- *		    'url' => 'https://sites.wpastra.com/astra-lite-demo-1/wp-content/uploads/sites/30/2017/06/editing.png',
- *		    'id'  => '177',
- *		),
- *		array(
- *		    'url' => 'https://sites.wpastra.com/astra-lite-demo-1/wp-content/uploads/sites/30/2017/06/coding-1-1.png',
- *		    'id'  => '259',
- *		),
+ *	$image = array(
+ *		'url' => '<image-url>',
+ *		'id'  => '<image-id>',
  *	);
  *
- *  $downloaded_images = Astra_Sites_Image_Imorter::set_instance()->import( $images );
+ *  $downloaded_image = Astra_Sites_Image_Imorter::set_instance()->import( $image );
  *
  * @package Astra Sites
  * @since 1.0.0
@@ -110,9 +100,14 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 			// Already imported? Then return!
 			if ( isset( $this->already_imported_ids[ $attachment['id'] ] ) ) {
+
+				// @Debug Log
+				Astra_Sites_Compatibility::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
+
 				return $this->already_imported_ids[ $attachment['id'] ];
 			}
 
+			// 1. Is already imported in Batch Import Process?
 			$post_id = $wpdb->get_var(
 				$wpdb->prepare(
 					'SELECT `post_id` FROM `' . $wpdb->postmeta . '`
@@ -122,6 +117,32 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 					$this->get_hash_image( $attachment['url'] )
 				)
 			);
+
+			// 2. Is image already imported though XML?
+			if( empty( $post_id ) ) {
+
+				// Get file name without extension.
+				// To check it exist in attachment.
+				$filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename( $attachment['url'] ) );
+
+				$post_id = $wpdb->get_var(
+					$wpdb->prepare(
+						'SELECT `post_id` FROM `' . $wpdb->postmeta . '`
+							WHERE `meta_key` = \'_wp_attached_file\'
+							AND `meta_value` LIKE %s
+						;',
+						'%' . $filename . '%'
+					)
+				);
+
+				// @Debug Log
+				Astra_Sites_Compatibility::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
+
+			} else {
+
+				// @Debug Log
+				Astra_Sites_Compatibility::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
+			}
 
 			if ( $post_id ) {
 				$new_attachment = array(
