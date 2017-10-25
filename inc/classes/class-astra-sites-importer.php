@@ -52,6 +52,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing.php';
 			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
 			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
 
