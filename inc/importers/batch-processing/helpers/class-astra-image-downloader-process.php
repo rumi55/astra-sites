@@ -38,7 +38,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		protected function task( $process ) {
 
 			if( method_exists( $process, 'import') ) {
-				$process->import();
+				$process->import( );
 			}
 			// Process Widget.
 			
@@ -58,7 +58,9 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 * @since 1.0.11
 		 */
 		protected function complete() {
-			error_log('completed');
+			
+			// @Debug Log
+			Astra_Sites_Compatibility::log( '------------------ COMPLETE -------------------' );
 
 			parent::complete();
 

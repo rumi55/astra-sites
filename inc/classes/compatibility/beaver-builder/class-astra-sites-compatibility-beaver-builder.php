@@ -76,68 +76,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Beaver_Builder' ) ) :
 
 		}
 
-		/**
-		 * Start Image Import
-		 *
-		 * @since 1.0.11
-		 *
-		 * @param  array $data Site API Data.
-		 * @return void
-		 */
-		public function start_image_import( $data ) {
-
-			// Have Required Plugins?
-			if ( array_key_exists( 'required-plugins', $data ) ) {
-
-				// Have BB Plugin?
-				// Yes, Then proceed!
-				if (
-					in_array( 'beaver-builder-lite-version', array_column( $data['required-plugins'], 'slug' ) ) ||
-					in_array( 'bb-plugin', array_column( $data['required-plugins'], 'slug' ) )
-				) {
-
-					$page_ids = $this->get_pages();
-
-					if ( is_array( $page_ids ) ) {
-						foreach ( $page_ids as $page_id ) {
-							error_log( $page_id );
-							$this->process_all->push_to_queue( $page_id );
-						}
-						$this->process_all->save()->dispatch();
-					}
-				}
-			}
-		}
-
-		/**
-		 * Get Page IDs
-		 *
-		 * @since 1.0.11
-		 *
-		 * @return array
-		 */
-		protected function get_pages() {
-
-			$args = array(
-				'post_type'    => 'page',
-
-				// Query performance optimization.
-				'fields'        => 'ids',
-				'no_found_rows' => true,
-				'post_status'   => 'publish',
-			);
-
-			$query = new WP_Query( $args );
-
-			// Have posts?
-			if ( $query->have_posts() ) :
-
-				return $query->posts;
-
-			endif;
-
-			return null;
-		}
+		
 
 	}
 

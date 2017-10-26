@@ -54,7 +54,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 
 			$data = get_option( 'widget_media_image', null );
 
-			error_log('ok');
+			error_log('------------------------- WIDGETS - START -----------------------------');
 
 			foreach ( $data as $key => $value) {
 
@@ -77,6 +77,8 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 					$data[ $key ]['attachment_id'] = $downloaded_image['id'];
 				}
 			}
+
+			error_log('------------------------- WIDGETS - END -----------------------------');
 
 			update_option( 'widget_media_image', $data );
 		}
