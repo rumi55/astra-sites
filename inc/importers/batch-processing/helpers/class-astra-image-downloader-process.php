@@ -40,11 +40,6 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 			if( method_exists( $process, 'import') ) {
 				$process->import( );
 			}
-			// Process Widget.
-			
-			// if( 'widget' === $process ) {
-			// 	Astra_Sites_Batch_Processing_Widgets::set_instance()->import();
-			// }
 
 			return false;
 		}

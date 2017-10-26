@@ -59,9 +59,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 
 			// Plugin - Elementor.
 			// require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-compatibility-elementor.php';
-
-			// // Plugin - Beaver Builder.
-			// require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/beaver-builder/class-astra-sites-compatibility-beaver-builder.php';
 		}
 
 		/**

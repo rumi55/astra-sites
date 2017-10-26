@@ -90,6 +90,3 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 	Astra_Sites_Batch_Processing_Widgets::set_instance();
 
 endif;
-// 
-
-
