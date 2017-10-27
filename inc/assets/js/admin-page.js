@@ -292,10 +292,18 @@ var AstraSitesAjaxQueue = (function() {
 		_fullOverlay: function (event) {
 			event.preventDefault();
 
-			jQuery('.theme-install-overlay').css('display', 'none');
-			jQuery('.theme-install-overlay').remove();
-			jQuery('.theme-preview-on').removeClass('theme-preview-on');
-			jQuery('html').removeClass('astra-site-preview-on');
+			// Import process is started?
+			// And Closing the window? Then showing the warning confirm message.
+			if( $('body').hasClass('importing-site') && ! confirm( astraSitesAdmin.strings.warningBeforeCloseWindow ) ) {
+				return;
+			}
+
+			$('body').removeClass('importing-site');
+			$('.previous-theme, .next-theme').removeClass('disabled');
+			$('.theme-install-overlay').css('display', 'none');
+			$('.theme-install-overlay').remove();
+			$('.theme-preview-on').removeClass('theme-preview-on');
+			$('html').removeClass('astra-site-preview-on');
 		},
 
 		/**
@@ -447,6 +455,9 @@ var AstraSitesAjaxQueue = (function() {
 				return;
 			}
 
+			$('body').addClass('importing-site');
+			$('.previous-theme, .next-theme').addClass('disabled');
+
 			$('.astra-demo-import').attr('data-import', 'disabled')
 				.addClass('updating-message installing')
 				.text( astraSitesAdmin.strings.importingDemo );
@@ -467,6 +478,9 @@ var AstraSitesAjaxQueue = (function() {
 				},
 			})
 			.done(function ( demos ) {
+
+				$('body').removeClass('importing-site');
+				$('.previous-theme, .next-theme').removeClass('disabled');
 
 				// Success?
 				if( demos.success ) {
@@ -678,12 +692,12 @@ var AstraSitesAjaxQueue = (function() {
 										required_plugins : requiredPlugins
 									};
 
-				jQuery('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
+				$('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
 
 				wp.ajax.post( 'astra-required-plugins', data ).done( function( response ) {
 
 					// Remove loader.
-					jQuery('.required-plugins').removeClass('loading').html('');
+					$('.required-plugins').removeClass('loading').html('');
 
 					/**
 					 * Count remaining plugins.

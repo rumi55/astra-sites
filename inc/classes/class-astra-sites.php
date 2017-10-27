@@ -206,6 +206,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'_ajax_nonce'     => wp_create_nonce( 'astra-sites' ),
 					'requiredPlugins' => array(),
 					'strings'         => array(
+						'warningBeforeCloseWindow' => __( 'Warning! Astra Site Import process is not complete. Don\'t close the window until import process complete. Do you still want to leave the window?', 'astra-sites' ),
 						'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
 						'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
 						'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
