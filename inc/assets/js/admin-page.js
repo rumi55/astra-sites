@@ -431,7 +431,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
-				$this.addClass('updating-message')
+				$('.astra-demo-import').addClass('updating-message installing')
 					.text( wp.updates.l10n.installing );
 
 				/**
@@ -447,7 +447,7 @@ var AstraSitesAjaxQueue = (function() {
 				return;
 			}
 
-			jQuery('.astra-demo-import').attr('data-import', 'disabled')
+			$('.astra-demo-import').attr('data-import', 'disabled')
 				.addClass('updating-message installing')
 				.text( astraSitesAdmin.strings.importingDemo );
 
@@ -457,7 +457,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			var apiURL = $theme.data('demo-api') || '';
 
-			jQuery.ajax({
+			$.ajax({
 				url: astraSitesAdmin.ajaxurl,
 				type: 'POST',
 				dataType: 'json',
