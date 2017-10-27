@@ -1,46 +1,53 @@
 <?php
 /**
  * Image Importer
- * 
- * => How to use?
- * 
- *	$image = array(
- *		'url' => '<image-url>',
- *		'id'  => '<image-id>',
- *	);
  *
- *  $downloaded_image = Astra_Sites_Image_Imorter::set_instance()->import( $image );
+ * => How to use?
+ *
+ *  $image = array(
+ *      'url' => '<image-url>',
+ *      'id'  => '<image-id>',
+ *  );
+ *
+ *  $downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
  *
  * @package Astra Sites
- * @since 1.0.0
+ * @since 1.0.14
  */
 
-if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
+if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 
 	/**
-	 * Astra_Sites_Image_Imorter
+	 * Astra Sites Image Importer
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.14
 	 */
-	class Astra_Sites_Image_Imorter {
-
-		private $already_imported_ids = [];
+	class Astra_Sites_Image_Importer {
 
 		/**
 		 * Instance
 		 *
+		 * @since 1.0.14
+		 * @var object Class object.
 		 * @access private
-		 * @since 1.0.0
 		 */
 		private static $instance;
 
 		/**
+		 * Images IDs
+		 *
+		 * @var array   The Array of already image IDs.
+		 * @since 1.0.14
+		 */
+		private $already_imported_ids = array();
+
+		/**
 		 * Initiator
 		 *
-		 * @since 1.0.0
+		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance(){
+		public static function set_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -50,7 +57,7 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 		/**
 		 * Constructor
 		 *
-		 * @since 1.0.0
+		 * @since 1.0.14
 		 */
 		public function __construct() {
 
@@ -63,7 +70,8 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 		/**
 		 * Process Image Download
-		 * 
+		 *
+		 * @since 1.0.14
 		 * @param  array $attachments Attachment array.
 		 * @return array              Attachment array.
 		 */
@@ -71,7 +79,7 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 			$downloaded_images = array();
 
-			foreach ($attachments as $key => $attachment) {
+			foreach ( $attachments as $key => $attachment ) {
 				$downloaded_images[] = $this->import( $attachment );
 			}
 
@@ -80,7 +88,8 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 		/**
 		 * Get Hash Image.
-		 * 
+		 *
+		 * @since 1.0.14
 		 * @param  string $attachment_url Attachment URL.
 		 * @return string                 Hash string.
 		 */
@@ -90,8 +99,9 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 		/**
 		 * Get Saved Image.
-		 * 
-		 * @param  string $attachment_url Attachment URL.
+		 *
+		 * @since 1.0.14
+		 * @param  string $attachment   Attachment Data.
 		 * @return string                 Hash string.
 		 */
 		private function get_saved_image( $attachment ) {
@@ -102,7 +112,7 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 			if ( isset( $this->already_imported_ids[ $attachment['id'] ] ) ) {
 
 				// @Debug Log
-				Astra_Sites_Image_Imorter::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Importer::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
 
 				return $this->already_imported_ids[ $attachment['id'] ];
 			}
@@ -119,11 +129,11 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 			);
 
 			// 2. Is image already imported though XML?
-			if( empty( $post_id ) ) {
+			if ( empty( $post_id ) ) {
 
 				// Get file name without extension.
 				// To check it exist in attachment.
-				$filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename( $attachment['url'] ) );
+				$filename = preg_replace( '/\\.[^.\\s]{3,4}$/', '', basename( $attachment['url'] ) );
 
 				$post_id = $wpdb->get_var(
 					$wpdb->prepare(
@@ -136,12 +146,12 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 				);
 
 				// @Debug Log
-				Astra_Sites_Image_Imorter::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Importer::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
 
 			} else {
 
 				// @Debug Log
-				Astra_Sites_Image_Imorter::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Importer::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
 			}
 
 			if ( $post_id ) {
@@ -159,18 +169,19 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 		/**
 		 * Import Image
-		 * 
-		 * @param  array $attachments Attachment array.
+		 *
+		 * @since 1.0.14
+		 * @param  array $attachment Attachment array.
 		 * @return array              Attachment array.
 		 */
 		public function import( $attachment ) {
-			
+
 			$saved_image = $this->get_saved_image( $attachment );
 			if ( $saved_image ) {
 				return $saved_image;
 			}
 
-			// Extract the file name and extension from the url
+			// Extract the file name and extension from the URL.
 			$filename = basename( $attachment['url'] );
 
 			if ( function_exists( 'file_get_contents' ) ) {
@@ -207,9 +218,8 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 			if ( $info ) {
 				$post['post_mime_type'] = $info['type'];
 			} else {
-				// For now just return the origin attachment
+				// For now just return the origin attachment.
 				return $attachment;
-				// return new \WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'elementor' ) );
 			}
 
 			$post_id = wp_insert_attachment( $post, $upload['file'] );
@@ -231,28 +241,29 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 
 		/**
 		 * Debugging Log.
-		 * 
-		 * @param  [type] $log [description]
-		 * @return [type]      [description]
+		 *
+		 * @since 1.0.14
+		 * @param  mixed $log Log data.
+		 * @return void
 		 */
-		public static function log( $log )  {
-			
-			if( ! WP_DEBUG_LOG ) {
+		public static function log( $log ) {
+
+			if ( ! WP_DEBUG_LOG ) {
 				return;
 			}
 
-	  		if ( is_array( $log ) || is_object( $log ) ) {
+			if ( is_array( $log ) || is_object( $log ) ) {
 				error_log( print_r( $log, true ) );
-	  		} else {
+			} else {
 				error_log( $log );
-	  		}
-	   	}
+			}
+		}
 
 	}
 
 	/**
 	 * Kicking this off by calling 'set_instance()' method
 	 */
-	Astra_Sites_Image_Imorter::set_instance();
+	Astra_Sites_Image_Importer::set_instance();
 
 endif;

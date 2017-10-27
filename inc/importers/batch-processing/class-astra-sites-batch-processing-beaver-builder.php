@@ -3,33 +3,34 @@
  * Batch Processing
  *
  * @package Astra Sites
- * @since 1.0.0
+ * @since 1.0.14
  */
 
-if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
+if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 
 	/**
 	 * Astra_Sites_Batch_Processing_Beaver_Builder
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.14
 	 */
 	class Astra_Sites_Batch_Processing_Beaver_Builder {
 
 		/**
 		 * Instance
 		 *
+		 * @since 1.0.14
 		 * @access private
-		 * @since 1.0.0
+		 * @var object Class object.
 		 */
 		private static $instance;
 
 		/**
 		 * Initiator
 		 *
-		 * @since 1.0.0
+		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance(){
+		public static function set_instance() {
 
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
@@ -40,25 +41,31 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		/**
 		 * Constructor
 		 *
-		 * @since 1.0.0
+		 * @since 1.0.14
 		 */
 		public function __construct() {
 		}
 
+		/**
+		 * Import
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		public function import() {
 
-			// @Debug Log
-			Astra_Sites_Image_Imorter::log( '=================== BEAVER BUILDER - START ===================' );
+			// @Debug Log.
+			Astra_Sites_Image_Importer::log( '=================== BEAVER BUILDER - START ===================' );
 
 			$post_ids = Astra_Sites_Batch_Processing::get_pages();
 			if ( is_array( $post_ids ) ) {
 				foreach ( $post_ids as $post_id ) {
-					$this->import_single_post( $post_id );					
+					$this->import_single_post( $post_id );
 				}
 			}
 
-			// @Debug Log
-			Astra_Sites_Image_Imorter::log( '=================== BEAVER BUILDER - END ===================-' );
+			// @Debug Log.
+			Astra_Sites_Image_Importer::log( '=================== BEAVER BUILDER - END ===================-' );
 
 		}
 
@@ -70,8 +77,8 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 */
 		public function import_single_post( $post_id = 0 ) {
 
-			// @Debug Log
-			Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
+			// @Debug Log.
+			Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
 
 			if ( ! empty( $post_id ) ) {
 
@@ -79,20 +86,20 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 				$data = get_post_meta( $post_id, '_fl_builder_data', true );
 
 				if ( ! empty( $data ) ) {
-					foreach( $data as $key => $el ) {
+					foreach ( $data as $key => $el ) {
 
 						// Import 'row' images.
-						if( 'row' === $el->type ) {
+						if ( 'row' === $el->type ) {
 							$data[ $key ]->settings = self::import_row_images( $el->settings );
 						}
 
 						// Import 'module' images.
-						if( 'module' === $el->type ) {
+						if ( 'module' === $el->type ) {
 							$data[ $key ]->settings = self::import_module_images( $el->settings );
 						}
 
 						// Import 'column' images.
-						if( 'column' === $el->type ) {
+						if ( 'column' === $el->type ) {
 							$data[ $key ]->settings = self::import_column_images( $el->settings );
 						}
 					}
@@ -106,8 +113,8 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 				}
 			}
 
-			// @Debug Log
-			Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
+			// @Debug Log.
+			Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
 		}
 
 		/**
@@ -125,10 +132,10 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 
 			/**
 			 * 2) Set `$settings->data` for Only type 'image-icon'
-			 * 
+			 *
 			 * @todo Remove the condition `'image-icon' === $settings->type` if `$settings->data` is used only for the Image Icon.
 			 */
-			if(
+			if (
 				isset( $settings->data ) &&
 				isset( $settings->photo ) && ! empty( $settings->photo ) &&
 				'image-icon' === $settings->type
@@ -137,10 +144,10 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			}
 
 			/**
-			 * 3) Set `list item` module images 
+			 * 3) Set `list item` module images
 			 */
-			if( isset( $settings->add_list_item ) ) {				
-				foreach ( $settings->add_list_item as $key => $value) {
+			if ( isset( $settings->add_list_item ) ) {
+				foreach ( $settings->add_list_item as $key => $value ) {
 					$settings->add_list_item[ $key ] = self::import_photo( $value );
 				}
 			}
@@ -184,19 +191,19 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 */
 		public static function import_bg_image( $settings ) {
 
-			if(
+			if (
 				( ! empty( $settings->bg_image ) && ! empty( $settings->bg_image_src ) )
 			) {
 
-				// @Debug Log
-				Astra_Sites_Image_Imorter::log( 'BG_IMAGE' . $settings->bg_image . ' : ' . $settings->bg_image_src );
+				// @Debug Log.
+				Astra_Sites_Image_Importer::log( 'BG_IMAGE' . $settings->bg_image . ' : ' . $settings->bg_image_src );
 
 				$image = array(
-				    'url' => $settings->bg_image_src,
-				    'id'  => $settings->bg_image,
+					'url' => $settings->bg_image_src,
+					'id'  => $settings->bg_image,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Imorter::set_instance()->import( $image );
+				$downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
 
 				$settings->bg_image_src = $downloaded_image['url'];
 				$settings->bg_image     = $downloaded_image['id'];
@@ -212,28 +219,26 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 * @return object
 		 */
 		public static function import_photo( $settings ) {
-			if(
-				( ! empty( $settings->photo ) && ! empty( $settings->photo_src ) )
-			) {
 
-				// @Debug Log
-				Astra_Sites_Image_Imorter::log( 'PHOTO: ' . $settings->photo . ' : ' . $settings->photo_src );
+			if ( ! empty( $settings->photo ) && ! empty( $settings->photo_src ) ) {
+				// @Debug Log.
+				Astra_Sites_Image_Importer::log( 'PHOTO: ' . $settings->photo . ' : ' . $settings->photo_src );
 
 				$image = array(
-				    'url' => $settings->photo_src,
-				    'id'  => $settings->photo,
+					'url' => $settings->photo_src,
+					'id'  => $settings->photo,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Imorter::set_instance()->import( $image );
+				$downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
 
 				$settings->photo_src = $downloaded_image['url'];
 				$settings->photo     = $downloaded_image['id'];
-
 			}
+
 			return $settings;
 		}
 
-		
+
 	}
 
 	/**
@@ -242,6 +247,5 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 	Astra_Sites_Batch_Processing_Beaver_Builder::set_instance();
 
 endif;
-// 
 
 

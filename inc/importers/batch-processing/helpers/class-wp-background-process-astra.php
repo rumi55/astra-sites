@@ -32,13 +32,13 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 *
 		 * @since 1.0.11
 		 *
-		 * @param mixed $post_id Queue item to iterate over.
+		 * @param object $process Queue item object.
 		 * @return mixed
 		 */
 		protected function task( $process ) {
 
-			if( method_exists( $process, 'import') ) {
-				$process->import( );
+			if ( method_exists( $process, 'import' ) ) {
+				$process->import();
 			}
 
 			return false;
@@ -53,9 +53,9 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 * @since 1.0.11
 		 */
 		protected function complete() {
-			
-			// @Debug Log
-			Astra_Sites_Image_Imorter::log( '------------------ COMPLETE -------------------' );
+
+			// @Debug Log.
+			Astra_Sites_Image_Importer::log( '------------------ COMPLETE -------------------' );
 
 			parent::complete();
 
