@@ -512,7 +512,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
-				$this.addClass('updating-message')
+				$('.astra-demo-import').addClass('updating-message installing')
 					.text( wp.updates.l10n.installing );
 
 				/**
@@ -1009,7 +1009,7 @@ var AstraSitesAjaxQueue = (function() {
 
 								jQuery('.astra-demo-import')
 									.removeAttr('data-import')
-									.removeClass('updating-message')
+									.removeClass('installing updating-message')
 									.addClass('button-primary')
 									.text( astraSitesAdmin.strings.importDemo );
 							}

@@ -136,18 +136,6 @@
 			}
 		},
 
-		/**
-		 * Lazy Load Images
-		 *
-		 * @see  http://jquery.eisbehr.de/lazy/#features
-		 */
-		_lazyLoad: function() {
-
-			$('#astra-sites img').Lazy({
-		        effect: 'fadeIn',
-		    });
-		},
-
 		_apiAddParam_status: function() {
 			if( astraRenderGrid.sites && astraRenderGrid.sites.status ) {
 				AstraRender._api_params['status'] = astraRenderGrid.sites.status;
@@ -394,8 +382,6 @@
 				setTimeout(function() {
 					jQuery('#astra-sites').append(template( data ));
 
-					AstraRender._lazyLoad();
-
 					AstraRender._imagesLoaded();
 				}, 800);
 			} else {
@@ -423,8 +409,6 @@
 			jQuery('body').attr('data-astra-demo-last-request', data.items_count);
 
 			jQuery('#astra-sites').show().html(template( data ));
-
-			AstraRender._lazyLoad();
 
 			AstraRender._imagesLoaded();
 

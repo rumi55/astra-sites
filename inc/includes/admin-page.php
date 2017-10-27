@@ -204,16 +204,12 @@ defined( 'ABSPATH' ) or exit;
 				<input type="hidden" class="astra-site-options" value="{{ JSON.stringify(data.items[ key ]['astra-site-options-data'] ) }}" />
 				<input type="hidden" class="astra-enabled-extensions" value="{{ JSON.stringify(data.items[ key ]['astra-enabled-extensions'] ) }}" />
 
-			<!-- <div class="theme astra-theme site-single" data-groups=["{{ data.items[ key ].tags }}"]> -->
 				<div class="inner">
 				<span class="site-preview" data-href="{{ data.items[ key ]['astra-site-url'] }}?TB_iframe=true&width=600&height=550" data-title="{{ data.items[ key ].title.rendered }}">		
 				
 				<div class="theme-screenshot">
 				<# if( '' !== data.items[ key ]['featured-image-url'] ) { #>
-					<img class="lazy" data-src="{{ data.items[ key ]['featured-image-url'] }}" />
-						<noscript>
-							<img src="{{ data.items[ key ]['featured-image-url'] }}" />
-						</noscript>
+					<img src="{{ data.items[ key ]['featured-image-url'] }}" />
 				<# } #>
 				</div>
 

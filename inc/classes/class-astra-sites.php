@@ -150,16 +150,13 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			// Lazyload & Image Loaded.
-			wp_register_script( 'astra-sites-lazyload', ASTRA_SITES_URI . 'inc/assets/vendor/js/jquery.lazy.min.js', array( 'jquery' ), ASTRA_SITES_VER, true );
-
 			// API.
 			wp_register_script( 'astra-sites-api', ASTRA_SITES_URI . 'inc/assets/js/astra-sites-api.js', array( 'jquery' ), ASTRA_SITES_VER, true );
 
 			// Admin Page.
 			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
 			wp_enqueue_script( 'astra-sites-admin-page', ASTRA_SITES_URI . 'inc/assets/js/admin-page.js', array( 'jquery', 'wp-util', 'updates' ), ASTRA_SITES_VER, true );
-			wp_enqueue_script( 'astra-sites-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery', 'astra-sites-lazyload' ), ASTRA_SITES_VER, true );
+			wp_enqueue_script( 'astra-sites-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery' ), ASTRA_SITES_VER, true );
 
 			$data = array(
 				'ApiURL' => self::$api_url,
