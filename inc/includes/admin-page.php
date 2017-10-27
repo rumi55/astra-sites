@@ -53,10 +53,8 @@ defined( 'ABSPATH' ) or exit;
 	</div>
 
 	<div class="spinner-wrap">
-		<span class="spinner"></span>			
+		<span class="spinner"></span>
 	</div>
-
-	<span class="no-more-demos hide-me"> <p class="no-themes" style="display:block;"> <?php _e( 'No more sites!', 'astra-sites' ); ?> </p></span>
 
 	<?php do_action( 'astra_sites_after_site_grid' ); ?>
 
@@ -169,11 +167,13 @@ defined( 'ABSPATH' ) or exit;
 			<# } #>
 
 			<# for ( key in data.items ) { #>
-				<li>
-					<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
-						 {{ data.items[ key ].name }}
-					</a>
-				</li>
+				<# if ( data.items[ key ].count ) { #>
+					<li>
+						<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
+							 {{ data.items[ key ].name }}
+						</a>
+					</li>
+				<# } #>
 			<# } #>
 
 		</ul>
@@ -204,16 +204,12 @@ defined( 'ABSPATH' ) or exit;
 				<input type="hidden" class="astra-site-options" value="{{ JSON.stringify(data.items[ key ]['astra-site-options-data'] ) }}" />
 				<input type="hidden" class="astra-enabled-extensions" value="{{ JSON.stringify(data.items[ key ]['astra-enabled-extensions'] ) }}" />
 
-			<!-- <div class="theme astra-theme site-single" data-groups=["{{ data.items[ key ].tags }}"]> -->
 				<div class="inner">
 				<span class="site-preview" data-href="{{ data.items[ key ]['astra-site-url'] }}?TB_iframe=true&width=600&height=550" data-title="{{ data.items[ key ].title.rendered }}">		
 				
 				<div class="theme-screenshot">
 				<# if( '' !== data.items[ key ]['featured-image-url'] ) { #>
-					<img class="lazy" data-src="{{ data.items[ key ]['featured-image-url'] }}" />
-						<noscript>
-							<img src="{{ data.items[ key ]['featured-image-url'] }}" />
-						</noscript>
+					<img src="{{ data.items[ key ]['featured-image-url'] }}" />
 				<# } #>
 				</div>
 
@@ -248,7 +244,12 @@ defined( 'ABSPATH' ) or exit;
 <script type="text/template" id="tmpl-astra-sites-suggestions">
 	<div class="theme astra-theme site-single astra-sites-suggestions">
 		<div class="inner">
-			<p><?php printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest one</a>!', 'astra-sites' ), esc_url( '#' ) ); ?> </p>
+			<p>
+			<?php
+			/* translators: %1$s External Link */
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest one</a>!', 'astra-sites' ), esc_url( '#' ) );
+			?>
+			 </p>
 		</div>
 	</div>
 </script>

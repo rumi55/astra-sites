@@ -128,7 +128,9 @@
 				if (scrollDistance > themesBottom && ajaxLoading == false) {
 					AstraRender._updatedPagedCount();
 
-					$('#astra-sites-admin').find('.spinner').addClass('is-active');
+					if( ! $('#astra-sites .no-themes').length ) {
+						$('#astra-sites-admin').find('.spinner').addClass('is-active');
+					}
 
 					jQuery('body').data('scrolling', true);
 					
@@ -138,18 +140,6 @@
 					AstraRender._showSites( false, 'astra-api-post-loaded-on-scroll' );
 				}
 			}
-		},
-
-		/**
-		 * Lazy Load Images
-		 *
-		 * @see  http://jquery.eisbehr.de/lazy/#features
-		 */
-		_lazyLoad: function() {
-
-			$('#astra-sites img').Lazy({
-		        effect: 'fadeIn',
-		    });
 		},
 
 		_apiAddParam_status: function() {
@@ -398,8 +388,6 @@
 				setTimeout(function() {
 					jQuery('#astra-sites').append(template( data ));
 
-					AstraRender._lazyLoad();
-
 					AstraRender._imagesLoaded();
 				}, 800);
 			} else {
@@ -427,8 +415,6 @@
 			jQuery('body').attr('data-astra-demo-last-request', data.items_count);
 
 			jQuery('#astra-sites').show().html(template( data ));
-
-			AstraRender._lazyLoad();
 
 			AstraRender._imagesLoaded();
 
@@ -472,6 +458,7 @@
 		 */
 		_apiFailed: function() {
 			$('#astra-sites-admin').find('.spinner').removeClass('is-active').addClass('hide-me');
+
 			$('#astra-sites-admin').find('.no-more-demos').removeClass('hide-me');
 			var template = wp.template('astra-sites-suggestions');
 			if( ! $( '.astra-sites-suggestions').length ) {

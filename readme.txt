@@ -4,7 +4,7 @@ Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
 Tested up to: 4.8.1
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,15 +36,21 @@ https://sites.wpastra.com/law-free/
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/astra-sites` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
 
 == Screenshots ==
 1. Select the demo you want to import.
-1. Install and activate the required plugins.
-1. Import the demo.
+2. Install and activate the required plugins.
+3. Import the demo.
 
 == Changelog ==
+
+v1.0.14 - Unreleased
+* Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
+
+v1.0.13 - 9-Oct-2017
+* New: Browsing the Astra Sites in the Admin panel is not faster with JS rendering.
 
 v1.0.12 - 29-Sept-2017
 * New: Added White Label support from <a href="https://wpastra.com/pro/">Astra Pro</a>.
