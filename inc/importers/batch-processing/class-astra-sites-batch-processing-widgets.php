@@ -54,7 +54,8 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 
 			$data = get_option( 'widget_media_image', null );
 
-			error_log('------------------------- WIDGETS - START -----------------------------');
+			// @Debug Log
+			Astra_Sites_Image_Imorter::log('------------------------- WIDGETS - START -----------------------------');
 
 			foreach ( $data as $key => $value) {
 
@@ -78,7 +79,8 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 				}
 			}
 
-			error_log('------------------------- WIDGETS - END -----------------------------');
+			// @Debug Log
+			Astra_Sites_Image_Imorter::log('------------------------- WIDGETS - END -----------------------------');
 
 			update_option( 'widget_media_image', $data );
 		}

@@ -49,23 +49,28 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 				return;
 			}
 
+			// Core Helpers - Image.
+			// @todo 	This file is required for Elementor.
+			// 			Once we implement our logic for updating elementor data then we'll delete this file.
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+
 			// Core Helpers - Image Downloader.
-			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/class-astra-image-downloader.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/class-astra-image-importer.php';
 			
 			// Core Helpers - Batch Processing.
 			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/wp-async-request.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/wp-background-process.php';
-			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/class-astra-image-downloader-process.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/helpers/wp-background-process-astra.php';
 
 			// Prepare Widgets.
 			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing-widgets.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing-beaver-builder.php';
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing-elementor.php';
 
-			self::$process_all = new Astra_Sites_Image_Imorter_Process();
+			self::$process_all = new WP_Background_Process_Astra();
 
 			// Start image importing after site import complete.
-			add_action( 'astra_sites_import_complete', array( $this, 'start_process' ) );
-			add_action( 'admin_head', array( $this, 'start_process' ) );
+			add_action( 'astra_sites_import_complete', 	array( $this, 'start_process' ) );
 		}
 
 		/**
@@ -79,13 +84,31 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		public function start_process( $data ) {
 
 			// Add "widget" in import [queue].
-			self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Widgets::set_instance() );
+			if( class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) )
+			{
+				self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Widgets::set_instance() );
+			}
 
-			// // Add "elementor" in import [queue].
-			// self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Widgets::set_instance() );
-			
 			// Add "bb-plugin" in import [queue].
-			self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Beaver_Builder::set_instance() );
+			// Add "beaver-builder-lite-version" in import [queue].
+			if ( is_plugin_active( 'beaver-builder-lite-version/fl-builder.php' ) || is_plugin_active( 'bb-plugin/fl-builder.php' ) )
+			{
+				if( class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) )
+				{
+					self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Beaver_Builder::set_instance() );
+				}
+			}
+
+			// Add "elementor" in import [queue].
+			if ( is_plugin_active( 'elementor/elementor.php' ) )
+			{
+				if( class_exists( '\Elementor\TemplateLibrary\Astra_Sites_Source_Remote' ) )
+				{
+					$import = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
+					self::$process_all->push_to_queue( $import );
+				}
+			}
+
 
 			// Dispatch Queue.
 			self::$process_all->save()->dispatch();

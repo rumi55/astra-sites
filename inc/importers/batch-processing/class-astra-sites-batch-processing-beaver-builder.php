@@ -48,7 +48,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		public function import() {
 
 			// @Debug Log
-			Astra_Sites_Compatibility::log( '=================== BEAVER BUILDER - START ===================' );
+			Astra_Sites_Image_Imorter::log( '=================== BEAVER BUILDER - START ===================' );
 
 			$post_ids = Astra_Sites_Batch_Processing::get_pages();
 			if ( is_array( $post_ids ) ) {
@@ -58,7 +58,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			}
 
 			// @Debug Log
-			Astra_Sites_Compatibility::log( '=================== BEAVER BUILDER - END ===================-' );
+			Astra_Sites_Image_Imorter::log( '=================== BEAVER BUILDER - END ===================-' );
 
 		}
 
@@ -71,7 +71,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		public function import_single_post( $post_id = 0 ) {
 
 			// @Debug Log
-			Astra_Sites_Compatibility::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
+			Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
 
 			if ( ! empty( $post_id ) ) {
 
@@ -107,7 +107,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			}
 
 			// @Debug Log
-			Astra_Sites_Compatibility::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
+			Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
 		}
 
 		/**
@@ -189,7 +189,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			) {
 
 				// @Debug Log
-				Astra_Sites_Compatibility::log( 'BG_IMAGE' . $settings->bg_image . ' : ' . $settings->bg_image_src );
+				Astra_Sites_Image_Imorter::log( 'BG_IMAGE' . $settings->bg_image . ' : ' . $settings->bg_image_src );
 
 				$image = array(
 				    'url' => $settings->bg_image_src,
@@ -217,7 +217,7 @@ if( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			) {
 
 				// @Debug Log
-				Astra_Sites_Compatibility::log( 'PHOTO: ' . $settings->photo . ' : ' . $settings->photo_src );
+				Astra_Sites_Image_Imorter::log( 'PHOTO: ' . $settings->photo . ' : ' . $settings->photo_src );
 
 				$image = array(
 				    'url' => $settings->photo_src,

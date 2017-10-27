@@ -102,7 +102,7 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 			if ( isset( $this->already_imported_ids[ $attachment['id'] ] ) ) {
 
 				// @Debug Log
-				Astra_Sites_Compatibility::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Imorter::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
 
 				return $this->already_imported_ids[ $attachment['id'] ];
 			}
@@ -136,12 +136,12 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 				);
 
 				// @Debug Log
-				Astra_Sites_Compatibility::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Imorter::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
 
 			} else {
 
 				// @Debug Log
-				Astra_Sites_Compatibility::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Imorter::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
 			}
 
 			if ( $post_id ) {
@@ -236,6 +236,11 @@ if( ! class_exists( 'Astra_Sites_Image_Imorter' ) ) :
 		 * @return [type]      [description]
 		 */
 		public static function log( $log )  {
+			
+			if( ! WP_DEBUG_LOG ) {
+				return;
+			}
+
 	  		if ( is_array( $log ) || is_object( $log ) ) {
 				error_log( print_r( $log, true ) );
 	  		} else {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Elementor Images
+ * Elementor Images Batch Processing
  *
  * @package Astra Sites
- * @since 1.0.11
+ * @since 1.0.0
  */
 
 namespace Elementor;
@@ -264,13 +264,33 @@ class Astra_Sites_Source_Remote extends Source_Base {
 		return $element_data;
 	}
 
+	public function import() {
+
+		// @Debug Log
+		\Astra_Sites_Image_Imorter::log( '=================== ELEMENTOR - START ===================' );
+
+		$post_ids = \Astra_Sites_Batch_Processing::get_pages();
+		if ( is_array( $post_ids ) ) {
+			foreach ( $post_ids as $post_id ) {
+				$this->import_single_post( $post_id );					
+			}
+		}
+
+		// @Debug Log
+		\Astra_Sites_Image_Imorter::log( '=================== ELEMENTOR - END ===================-' );
+
+	}
+
 	/**
 	 * Update post meta.
 	 *
 	 * @param  integer $post_id Post ID.
 	 * @return void
 	 */
-	public function hotlink_images( $post_id = 0 ) {
+	public function import_single_post( $post_id = 0 ) {
+
+		// @Debug Log
+		\Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
 
 		if ( ! empty( $post_id ) ) {
 
@@ -297,6 +317,9 @@ class Astra_Sites_Source_Remote extends Source_Base {
 				}
 			}
 		}
+
+		// @Debug Log
+		\Astra_Sites_Image_Imorter::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
 
 	}
 }

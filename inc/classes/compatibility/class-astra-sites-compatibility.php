@@ -44,36 +44,12 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		 */
 		public function __construct() {
 
-			// Vendor: Image Downloader.
-			// require_once ASTRA_SITES_DIR . 'inc/classes/vendor/class-astra-image-downloader.php';
-
-			// Vendor: Background Processing.
-			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-async-request.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-background-process.php';
-
 			// Plugin - Astra Pro.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/astra-pro/class-astra-sites-compatibility-astra-pro.php';
 
 			// Plugin - Site Origin Widgets.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/so-widgets-bundle/class-astra-sites-compatibility-so-widgets.php';
-
-			// Plugin - Elementor.
-			// require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-compatibility-elementor.php';
 		}
-
-		/**
-		 * Debugging Log.
-		 * 
-		 * @param  [type] $log [description]
-		 * @return [type]      [description]
-		 */
-		public static function log( $log )  {
-	  		if ( is_array( $log ) || is_object( $log ) ) {
-				error_log( print_r( $log, true ) );
-	  		} else {
-				error_log( $log );
-	  		}
-	   	}
 
 	}
 
