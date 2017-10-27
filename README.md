@@ -36,13 +36,13 @@ https://sites.wpastra.com/law-free/
 ## Installation ##
 
 1. Upload the plugin files to the `/wp-content/plugins/astra-sites` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
 
 ## Screenshots ##
 1. Select the demo you want to import.
-1. Install and activate the required plugins.
-1. Import the demo.
+2. Install and activate the required plugins.
+3. Import the demo.
 
 ## Changelog ##
 
