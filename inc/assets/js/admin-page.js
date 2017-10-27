@@ -454,7 +454,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			if ( typeof disabled !== 'undefined' && disabled === 'disabled' ) {
 
-				$this.addClass('updating-message')
+				$('.astra-demo-import').addClass('updating-message installing')
 					.text( wp.updates.l10n.installing );
 
 				/**
@@ -470,7 +470,7 @@ var AstraSitesAjaxQueue = (function() {
 				return;
 			}
 
-			jQuery('.astra-demo-import').attr('data-import', 'disabled')
+			$('.astra-demo-import').attr('data-import', 'disabled')
 				.addClass('updating-message installing')
 				.text( astraSitesAdmin.strings.importingDemo );
 
@@ -480,7 +480,7 @@ var AstraSitesAjaxQueue = (function() {
 
 			var apiURL = $theme.data('demo-api') || '';
 
-			jQuery.ajax({
+			$.ajax({
 				url: astraSitesAdmin.ajaxurl,
 				type: 'POST',
 				dataType: 'json',
@@ -837,7 +837,7 @@ var AstraSitesAjaxQueue = (function() {
 
 								jQuery('.astra-demo-import')
 									.removeAttr('data-import')
-									.removeClass('updating-message')
+									.removeClass('installing updating-message')
 									.addClass('button-primary')
 									.text( astraSitesAdmin.strings.importDemo );
 							}
