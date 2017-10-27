@@ -814,7 +814,7 @@ var AstraSitesAjaxQueue = (function() {
 
 								jQuery('.astra-demo-import')
 									.removeAttr('data-import')
-									.removeClass('updating-message')
+									.removeClass('installing updating-message')
 									.addClass('button-primary')
 									.text( astraSitesAdmin.strings.importDemo );
 							}
