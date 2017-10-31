@@ -133,7 +133,16 @@ var AstraSitesAjaxQueue = (function() {
 		 * 
 		 * @param  {string} data Error message.
 		 */
-		_importSuccessMessage: function() {
+		_importSuccessMessage: function( data ) {
+
+			if( astraSitesAdmin.debug && 'undefined' !== data.data.log_file.url ) {
+
+				var abs_url = decodeURIComponent( data.data.log_file.abs_url ) || '',
+					name    = data.data.log_file.name || '',
+					url     = decodeURIComponent( data.data.log_file.url ) || '';
+
+				$('.install-theme-info').prepend('<div class="notice notice-info"><p>Check import log: <a target="_blank" href="'+url+'">'+name+'</a></p></div>')
+			}
 
 			$('.astra-demo-import').removeClass('updating-message installing')
 				.removeAttr('data-import')
@@ -685,7 +694,7 @@ var AstraSitesAjaxQueue = (function() {
 								AstraSitesAdmin._importFailMessage( demo_data.data );
 								AstraSitesAdmin._log( astraSitesAdmin.log.error + ' ' + demo_data.data );
 							} else {
-								AstraSitesAdmin._importSuccessMessage();
+								AstraSitesAdmin._importSuccessMessage( demo_data );
 								AstraSitesAdmin._log( astraSitesAdmin.log.success + ' ' + astraSitesAdmin.siteURL );
 							}
 						}
