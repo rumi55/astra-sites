@@ -102,6 +102,7 @@ var AstraSitesAjaxQueue = (function() {
 					console.log('%c ' + data + ' ' + time, 'background: #222; color: #bada55');
 				}
 
+
 			}
 		},
 
@@ -429,17 +430,16 @@ var AstraSitesAjaxQueue = (function() {
 					url: astraSitesAdmin.ajaxurl,
 					type: 'POST',
 					data: {
-						'action'	: 'astra-required-plugin-activate',
-						'init'		: single_plugin.init,
-						'options'	: $siteOptions,
+						'action'            : 'astra-required-plugin-activate',
+						'init'              : single_plugin.init,
+						'options'           : $siteOptions,
 						'enabledExtensions' : $enabledExtensions,
 					},
 					success: function( result ){
 
-
 						if( result.success ) {
 
-							AstraSitesAdmin._log( astraSitesAdmin.log.activate + ' ' + $slug );
+							AstraSitesAdmin._log( astraSitesAdmin.log.activate + ' ' + single_plugin.slug );
 
 							var $card = jQuery( '.plugin-card-' + single_plugin.slug );
 							var $button = $card.find( '.button' );
