@@ -85,7 +85,11 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 				$demo_data = self::get_astra_single_demo( $demo_api_uri );
 
-				do_action( 'astra_sites_import_start', $demo_data, $demo_api_uri );
+				if( is_wp_error( $demo_data ) ) {
+					wp_send_json_error( $demo_data->get_error_code() );
+				} else {
+					do_action( 'astra_sites_import_start', $demo_data, $demo_api_uri );
+				}
 
 				wp_send_json_success( $demo_data );
 
@@ -249,20 +253,26 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			// API Call.
 			$response = wp_remote_get( $demo_api_uri, $api_args );
 
-			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
+			// API Error.
+			if( is_wp_error( $response ) ) {
+				return new WP_Error( 'error', $response->get_error_code() );
+			}
 
-				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
+			if( wp_remote_retrieve_response_code( $response ) !== 200 ) {
+				return new WP_Error( 'error', 'Invalid API response code.' );
+			}
 
-				if ( ! isset( $result['code'] ) ) {
-					$remote_args['id']                         = $result['id'];
-					$remote_args['astra-site-widgets-data']    = json_decode( $result['astra-site-widgets-data'] );
-					$remote_args['astra-site-customizer-data'] = $result['astra-site-customizer-data'];
-					$remote_args['astra-site-options-data']    = $result['astra-site-options-data'];
-					$remote_args['astra-site-wxr-path']        = $result['astra-site-wxr-path'];
-					$remote_args['astra-enabled-extensions']   = $result['astra-enabled-extensions'];
-					$remote_args['astra-custom-404']           = $result['astra-custom-404'];
-					$remote_args['required-plugins']           = $result['required-plugins'];
-				}
+			$result = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			if ( ! isset( $result['code'] ) ) {
+				$remote_args['id']                         = $result['id'];
+				$remote_args['astra-site-widgets-data']    = json_decode( $result['astra-site-widgets-data'] );
+				$remote_args['astra-site-customizer-data'] = $result['astra-site-customizer-data'];
+				$remote_args['astra-site-options-data']    = $result['astra-site-options-data'];
+				$remote_args['astra-site-wxr-path']        = $result['astra-site-wxr-path'];
+				$remote_args['astra-enabled-extensions']   = $result['astra-enabled-extensions'];
+				$remote_args['astra-custom-404']           = $result['astra-custom-404'];
+				$remote_args['required-plugins']           = $result['required-plugins'];
 			}
 
 			// Merge remote demo and defaults.
