@@ -213,6 +213,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'            => __( 'Active', 'astra-sites' ),
+						'importAgain'           => __( 'Import Again!', 'astra-sites' ),
 						'importDemo'           => __( 'Import This Site', 'astra-sites' ),
 						'importingDemo'        => __( 'Importing Demo', 'astra-sites' ),
 						'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',

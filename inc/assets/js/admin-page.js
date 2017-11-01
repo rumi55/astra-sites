@@ -160,7 +160,11 @@ var AstraSitesAjaxQueue = (function() {
 		 * @param  {string} data Error message.
 		 */
 		_importFailMessage: function( data ) {
-			
+
+			$('.astra-demo-import').removeClass('updating-message installing')
+				.removeAttr('data-import')
+				.text( astraSitesAdmin.strings.importAgain );
+
 			var output  = '<div class="astra-api-error notice notice-error notice-alt is-dismissible">';
 				output += '	<p>'+data+'</p>';
 				output += '	<button type="button" class="notice-dismiss">';
@@ -704,7 +708,7 @@ var AstraSitesAjaxQueue = (function() {
 					AstraSitesAjaxQueue.run();
 
 				} else {
-					AstraSitesAdmin._importFailMessage( data.data );
+					AstraSitesAdmin._importFailMessage( demo_data.data );
 				}
 			
 			});
