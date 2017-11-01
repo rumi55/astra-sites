@@ -2,7 +2,7 @@
 /**
  * Astra Sites Importer Log
  *
- * @since  1.0.0
+ * @since 1.0.14
  * @package Astra Sites
  */
 
@@ -18,7 +18,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Instance
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.14
 		 * @var (Object) Class object
 		 */
 		private static $_instance = null;
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Log File
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.14
 		 * @var (Object) Class object
 		 */
 		private static $log_file = null;
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Set Instance
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.14
 		 *
 		 * @return object Class object.
 		 */
@@ -49,14 +49,20 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Constructor.
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.14
 		 */
 		private function __construct() {
 
 			// Check file read/write permissions.
-			add_action( 'admin_init' , array( $this, 'has_file_read_write') );
+			add_action( 'admin_init' , array( $this, 'has_file_read_write' ) );
 		}
 
+		/**
+		 * Check file read/write permissions and process.
+		 *
+		 * @since 1.0.14
+		 * @return null
+		 */
 		function has_file_read_write() {
 
 			// Get user credentials for WP file-system API.
@@ -65,22 +71,28 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 				return;
 			}
 
-			// Initial AJAX Import Hooks
-			add_action( 'astra_sites_import_start'               , array( $this, 'start'), 10, 2 );
-			add_action( 'astra_sites_import_customizer_settings' , array( $this, 'start_customizer') );
-			add_action( 'astra_sites_import_xml'                 , array( $this, 'start_xml') );
-			add_action( 'astra_sites_import_options'             , array( $this, 'start_options') );
-			add_action( 'astra_sites_import_widgets'             , array( $this, 'start_widgets') );
-			add_action( 'astra_sites_import_complete'            , array( $this, 'start_end') );
+			// Initial AJAX Import Hooks.
+			add_action( 'astra_sites_import_start'               , array( $this, 'start' ), 10, 2 );
+			add_action( 'astra_sites_import_customizer_settings' , array( $this, 'start_customizer' ) );
+			add_action( 'astra_sites_import_xml'                 , array( $this, 'start_xml' ) );
+			add_action( 'astra_sites_import_options'             , array( $this, 'start_options' ) );
+			add_action( 'astra_sites_import_widgets'             , array( $this, 'start_widgets' ) );
+			add_action( 'astra_sites_import_complete'            , array( $this, 'start_end' ) );
 
 			// Hooks in between the process of import.
-			add_filter( 'wie_import_results'                     , array( $this, 'widgets_data') );
-			add_action( 'astra_sites_import_xml_log'             , array( $this, 'xml_log'), 10, 3 );
-			
+			add_filter( 'wie_import_results'                     , array( $this, 'widgets_data' ) );
+			add_action( 'astra_sites_import_xml_log'             , array( $this, 'xml_log' ), 10, 3 );
+
 			// Added log file info in JSON.
-			add_filter( 'astra_sites_import_end_data'            , array( $this, 'add_log_file_url') );
+			add_filter( 'astra_sites_import_end_data'            , array( $this, 'add_log_file_url' ) );
 		}
 
+		/**
+		 * Add log file URL in UI response.
+		 *
+		 * @since 1.0.14
+		 * @param array $data Current site API data.
+		 */
 		function add_log_file_url( $data = array() ) {
 
 			$upload_dir   = self::log_dir();
@@ -98,10 +110,37 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			return $data;
 		}
 
+		/**
+		 * XML Log.
+		 *
+		 * @since 1.0.14
+		 * @param  string $level   Level (Debug, Info etc.).
+		 * @param  string $message Message.
+		 * @param  string $context Context.
+		 * @return void
+		 */
 		function xml_log( $level = '', $message = '', $context = '' ) {
 			Astra_Sites_Importer_Log::add( $message );
 		}
 
+		/**
+		 * Current Time for log.
+		 *
+		 * @since 1.0.14
+		 * @return string Current time with time zone.
+		 */
+		public static function current_time() {
+			return date( 'H:i:s' ) . ' ' . date_default_timezone_get();
+		}
+
+		/**
+		 * Import Start
+		 *
+		 * @since 1.0.14
+		 * @param  array  $data         Import Data.
+		 * @param  string $demo_api_uri Import site API URL.
+		 * @return void
+		 */
 		function start( $data = array(), $demo_api_uri = '' ) {
 
 			// Set log file.
@@ -110,45 +149,82 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			Astra_Sites_Importer_Log::add( '---------------------------------------------------' . PHP_EOL );
 			Astra_Sites_Importer_Log::add( 'Site API URL: ' . $demo_api_uri . PHP_EOL );
 			Astra_Sites_Importer_Log::add( '---------------------------------------------------' . PHP_EOL );
-			Astra_Sites_Importer_Log::add( 'Importing Started! - ' . date("h:i:s") );
+			Astra_Sites_Importer_Log::add( 'Importing Started! - ' . self::current_time() );
 
 		}
 
+		/**
+		 * Start Customizer Import
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		function start_customizer() {
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '1. Imported "Customizer Settings"  - ' . date("h:i:s") );
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '---' );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '1. Imported "Customizer Settings"  - ' . self::current_time() );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '---' );
 		}
 
+		/**
+		 * Start XML Import
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		function start_xml() {
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '2. Importing "XML"  - ' . date("h:i:s") );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '2. Importing "XML"  - ' . self::current_time() );
 		}
 
+		/**
+		 * Start Options Import
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		function start_options() {
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '---' );
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '3. Imported "Site Options"  - ' . date("h:i:s") );
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '---' );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '---' );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '3. Imported "Site Options"  - ' . self::current_time() );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '---' );
 		}
 
+		/**
+		 * Start Widgets Import
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		function start_widgets() {
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '4. Importing "Widgets"  - ' . date("h:i:s") );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '4. Importing "Widgets"  - ' . self::current_time() );
 		}
 
+		/**
+		 * End Import Process
+		 *
+		 * @since 1.0.14
+		 * @return void
+		 */
 		function start_end() {
-			Astra_Sites_Importer_Log::add(  PHP_EOL . '---' );
-			Astra_Sites_Importer_Log::add(  PHP_EOL . 'Import Complete!  - ' . date("h:i:s") );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '---' );
+			Astra_Sites_Importer_Log::add( PHP_EOL . 'Import Complete!  - ' . self::current_time() );
 
 			// Delete Log file.
 			delete_option( 'astra_sites_recent_import_log_file' );
 		}
 
-		function widgets_data( $results ) {
+		/**
+		 * Log Widget Import Data.
+		 *
+		 * @since 1.0.14
+		 * @param  array $results Widget import info in array.
+		 * @return void
+		 */
+		function widgets_data( $results = array() ) {
 
-			if( is_array( $results ) ) {
-				foreach ($results as $sidebar_key => $widgets) {
+			if ( is_array( $results ) ) {
+				foreach ( $results as $sidebar_key => $widgets ) {
 					Astra_Sites_Importer_Log::add( 'Sidebar: ' . $sidebar_key );
-					foreach ($widgets['widgets'] as $widget_key => $widget) {
-						if( isset( $widget['name'] ) && isset( $widget['message'] ) ) {
-							Astra_Sites_Importer_Log::add( "\t" . 'Widget: "' . $widget['name'] . '" - ' . $widget['message'] );
+					foreach ( $widgets['widgets'] as $widget_key => $widget ) {
+						if ( isset( $widget['name'] ) && isset( $widget['message'] ) ) {
+							Astra_Sites_Importer_Log::add( 'Widget: "' . $widget['name'] . '" - ' . $widget['message'] );
 						}
 					}
 				}
@@ -171,18 +247,31 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			return $wp_filesystem;
 		}
 
+		/**
+		 * Get Log File
+		 *
+		 * @since 1.0.14
+		 * @return string log file URL.
+		 */
 		public static function get_log_file() {
 			return self::$log_file;
 		}
 
+		/**
+		 * Log file directory
+		 *
+		 * @since 1.0.14
+		 * @param  string $dir_name Directory Name.
+		 * @return array    Uploads directory array.
+		 */
 		public static function log_dir( $dir_name = 'astra-sites' ) {
 
 			$upload_dir  = wp_upload_dir();
 
 			// Build the paths.
 			$dir_info = array(
-				'path'	 => $upload_dir['basedir'] . '/' . $dir_name . '/',
-				'url'	 => $upload_dir['baseurl'] . '/' . $dir_name . '/'
+				'path'   => $upload_dir['basedir'] . '/' . $dir_name . '/',
+				'url'    => $upload_dir['baseurl'] . '/' . $dir_name . '/',
 			);
 
 			// Create the upload dir if it doesn't exist.
@@ -198,6 +287,11 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			return $dir_info;
 		}
 
+		/**
+		 * Set log file
+		 *
+		 * @since 1.0.14
+		 */
 		public static function set_log_file() {
 
 			$upload_dir  = self::log_dir();
@@ -205,7 +299,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			$upload_path = trailingslashit( $upload_dir['path'] );
 
 			// File format e.g. 'import-31-Oct-2017-06-39-12.txt'.
-			self::$log_file = $upload_path . 'import-' . date("d-M-Y-h-i-s") . '.txt';
+			self::$log_file = $upload_path . 'import-' . date( 'd-M-Y-h-i-s' ) . '.txt';
 
 			update_option( 'astra_sites_recent_import_log_file', self::$log_file );
 		}
@@ -213,18 +307,16 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Write content to a file.
 		 *
+		 * @since 1.0.14
 		 * @param string $content content to be saved to the file.
-		 * @param string $file_path file path where the content should be saved.
-		 * @return string|WP_Error path to the saved file or WP_Error object with error message.
 		 */
 		public static function add( $content ) {
 
-			if( get_option( 'astra_sites_recent_import_log_file', false ) ) {
+			if ( get_option( 'astra_sites_recent_import_log_file', false ) ) {
 				$log_file = get_option( 'astra_sites_recent_import_log_file', self::$log_file );
 			} else {
 				$log_file = self::$log_file;
 			}
-
 
 			$existing_data = '';
 			if ( file_exists( $log_file ) ) {
@@ -234,7 +326,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			// Style separator.
 			$separator = PHP_EOL;
 
-			self::get_filesystem()->put_contents( $log_file, $existing_data . $separator .  $content, FS_CHMOD_FILE );
+			self::get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
 		}
 
 	}

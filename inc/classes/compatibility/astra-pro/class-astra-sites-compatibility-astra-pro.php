@@ -83,6 +83,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 		 *
 		 * @since 1.0.0
 		 * @param  array $demo_data Site all data render from API call.
+		 * @param  array $demo_api_uri Demo URL.
 		 */
 		public function import_custom_404( $demo_data = array(), $demo_api_uri = '' ) {
 
@@ -99,6 +100,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 		 *
 		 * @since  1.0.0
 		 * @param  array $demo_data Site all data render from API call.
+		 * @param  array $demo_api_uri Demo URL.
 		 */
 		public function import_enabled_extension( $demo_data = array(), $demo_api_uri = '' ) {
 

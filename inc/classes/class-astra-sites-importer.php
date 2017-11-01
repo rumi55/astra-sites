@@ -85,7 +85,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 				$demo_data = self::get_astra_single_demo( $demo_api_uri );
 
-				if( is_wp_error( $demo_data ) ) {
+				if ( is_wp_error( $demo_data ) ) {
 					wp_send_json_error( $demo_data->get_error_message() );
 				} else {
 					do_action( 'astra_sites_import_start', $demo_data, $demo_api_uri );
