@@ -125,7 +125,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Object) $data Widgets data.
 		 */
-		private function import_widgets( $data ) {
+		public function import_widgets( $data ) {
 
 			// bail if widgets data is not available.
 			if ( null == $data ) {
@@ -143,7 +143,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $options_404 404 Extensions settings from the demo.
 		 */
-		private function import_custom_404_extension_options( $options_404 ) {
+		public function import_custom_404_extension_options( $options_404 ) {
 			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_custom_404', $options_404 );
 			}
@@ -156,7 +156,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $options Array of required site options from the demo.
 		 */
-		private function import_site_options( $options ) {
+		public function import_site_options( $options ) {
 			$options_importer = Astra_Site_Options_Import::instance();
 			$options_importer->import_options( $options );
 		}
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (String) $wxr_url URL of the xml export of the demo to be imported.
 		 */
-		private function import_wxr( $wxr_url ) {
+		public function import_wxr( $wxr_url ) {
 			$wxr_importer = Astra_WXR_Importer::instance();
 			$xml_path     = $wxr_importer->download_xml( $wxr_url );
 			$wxr_importer->import_xml( $xml_path['file'] );
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $customizer_data Customizer data for the demo to be imported.
 		 */
-		private function import_customizer_settings( $customizer_data ) {
+		public function import_customizer_settings( $customizer_data ) {
 			$customizer_import = Astra_Customizer_Import::instance();
 			$customizer_data   = $customizer_import->import( $customizer_data );
 		}
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $saved_extensions Array of enabled extensions.
 		 */
-		private function import_astra_enabled_extension( $saved_extensions ) {
+		public function import_astra_enabled_extension( $saved_extensions ) {
 			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $saved_extensions );
 			}
