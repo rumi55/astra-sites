@@ -41,7 +41,7 @@ defined( 'ABSPATH' ) or exit;
 				<input placeholder="<?php _e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 			</div>
 
-		 </div>
+		</div>
 
 	</div>
 
@@ -159,7 +159,7 @@ defined( 'ABSPATH' ) or exit;
 	<# if ( data ) { #>
 
 		<ul class="{{ data.args.wrapper_class }} {{ data.args.class }}">
-			
+
 			<# if ( data.args.show_all ) { #>
 				<li>
 					<a href="#" data-group="all"> All </a>
@@ -170,7 +170,7 @@ defined( 'ABSPATH' ) or exit;
 				<# if ( data.items[ key ].count ) { #>
 					<li>
 						<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
-							 {{ data.items[ key ].name }}
+							{{ data.items[ key ].name }}
 						</a>
 					</li>
 				<# } #>
@@ -206,7 +206,7 @@ defined( 'ABSPATH' ) or exit;
 
 				<div class="inner">
 				<span class="site-preview" data-href="{{ data.items[ key ]['astra-site-url'] }}?TB_iframe=true&width=600&height=550" data-title="{{ data.items[ key ].title.rendered }}">		
-				
+
 				<div class="theme-screenshot">
 				<# if( '' !== data.items[ key ]['featured-image-url'] ) { #>
 					<img src="{{ data.items[ key ]['featured-image-url'] }}" />

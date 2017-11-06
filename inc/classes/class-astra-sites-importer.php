@@ -54,16 +54,16 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
 			// Import AJAX.
-			add_action( 'wp_ajax_astra-sites-import-start'               , array( $this, 'import_start' ) );
-			add_action( 'wp_ajax_astra-sites-import-customizer-settings' , array( $this, 'import_customizer_settings' ) );
-			add_action( 'wp_ajax_astra-sites-import-xml'                 , array( $this, 'import_xml' ) );
-			add_action( 'wp_ajax_astra-sites-import-options'             , array( $this, 'import_options' ) );
-			add_action( 'wp_ajax_astra-sites-import-widgets'             , array( $this, 'import_widgets' ) );
-			add_action( 'wp_ajax_astra-sites-import-end'                 , array( $this, 'import_end' ) );
+			add_action( 'wp_ajax_astra-sites-import-start', array( $this, 'import_start' ) );
+			add_action( 'wp_ajax_astra-sites-import-customizer-settings', array( $this, 'import_customizer_settings' ) );
+			add_action( 'wp_ajax_astra-sites-import-xml', array( $this, 'import_xml' ) );
+			add_action( 'wp_ajax_astra-sites-import-options', array( $this, 'import_options' ) );
+			add_action( 'wp_ajax_astra-sites-import-widgets', array( $this, 'import_widgets' ) );
+			add_action( 'wp_ajax_astra-sites-import-end', array( $this, 'import_end' ) );
 
 			// Hooks in AJAX.
-			add_action( 'astra_sites_import_complete'                    , array( $this, 'clear_cache' ) );
-			add_action( 'astra_sites_image_import_complete'              , array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_import_complete', array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
 
 		}
 
@@ -143,17 +143,15 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 				if ( $xml_path['success'] ) {
 
-					if( isset( $xml_path['data']['file'] ) ) {
+					if ( isset( $xml_path['data']['file'] ) ) {
 						$wxr_importer->import_xml( $xml_path['data']['file'] );
 						wp_send_json_success();
 					} else {
 						wp_send_json_error( __( 'Not able to download the XML file!', 'astra-sites' ) );
 					}
-
 				} else {
 					wp_send_json_error( $xml_path['data'] );
 				}
-
 			} else {
 				wp_send_json_error( __( 'Invalid site XML file!', 'astra-sites' ) );
 			}

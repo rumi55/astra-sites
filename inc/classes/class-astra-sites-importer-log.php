@@ -148,11 +148,11 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 
 			Astra_Sites_Importer_Log::add( '---------------------------------------------------' . PHP_EOL );
 
-			Astra_Sites_Importer_Log::add( "# Import Site Details: " );
+			Astra_Sites_Importer_Log::add( '# Import Site Details: ' );
 			Astra_Sites_Importer_Log::add( "API URL: \t\t: " . $demo_api_uri );
 
 			Astra_Sites_Importer_Log::add( PHP_EOL );
-			Astra_Sites_Importer_Log::add( "# System Details: " );
+			Astra_Sites_Importer_Log::add( '# System Details: ' );
 			Astra_Sites_Importer_Log::add( "Max Upload Size \t: " . size_format( wp_max_upload_size() ) );
 			Astra_Sites_Importer_Log::add( "Memory Limit \t\t: " . self::get_memory_limit() );
 			Astra_Sites_Importer_Log::add( "Timezone \t\t: " . self::get_timezone() );
@@ -374,6 +374,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 
 			if ( $memory_limit_in_bytes_current < $memory_limit_in_bytes_required ) {
 				return sprintf(
+					/* translators: %1$s Memory Limit, %2$s Recommended memory limit. */
 					_x( 'Current memory limit %1$s. We recommend setting memory to at least %2$s.', 'Recommended Memory Limit', 'astra-sites' ),
 					WP_MEMORY_LIMIT,
 					$required_memory
@@ -388,7 +389,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 *
 		 * @since 1.0.14
 		 * @see https://codex.wordpress.org/Option_Reference/
-		 * 
+		 *
 		 * @return string Current timezone.
 		 */
 		public static function get_timezone() {

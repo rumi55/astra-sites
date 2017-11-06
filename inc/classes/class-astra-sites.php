@@ -243,14 +243,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'importOptionsSuccess'    => __( 'Successfully imported Options!', 'astra-sites' ),
 						'importWidgets'           => __( '4) Importing "Widgets"...', 'astra-sites' ),
 						'importWidgetsSuccess'    => __( 'Successfully imported Widgets!', 'astra-sites' ),
-						'serverConfiguration'     => sprintf( __( 'Your need to upgrade your server configuration. <a target="_blank" href="%1$s">Click here</a>.', 'astra-sites' ) , esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ) ),
+						/* translators: %1$s Upgrade server configuration article link. */
+						'serverConfiguration'     => sprintf( __( 'Your need to upgrade your server configuration. <a target="_blank" href="%1$s">Click here</a>.', 'astra-sites' ), esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ) ),
 						'success'                 => __( 'Site imported successfully! visit : ', 'astra-sites' ),
-						'gettingData'             => __( 'Getting Import Data...' , 'astra-sites' ),
-						'importingCustomizer'     => __( 'Importing Customizer...' , 'astra-sites' ),
-						'importingXML'            => __( 'Importing XML...' , 'astra-sites' ),
-						'importingOptions'        => __( 'Importing Site Options...' , 'astra-sites' ),
-						'importingWidgets'        => __( 'Importing Widgets...' , 'astra-sites' ),
-						'importComplete'          => __( 'Importing Complete...' , 'astra-sites' ),
+						'gettingData'             => __( 'Getting Import Data...', 'astra-sites' ),
+						'importingCustomizer'     => __( 'Importing Customizer...', 'astra-sites' ),
+						'importingXML'            => __( 'Importing XML...', 'astra-sites' ),
+						'importingOptions'        => __( 'Importing Site Options...', 'astra-sites' ),
+						'importingWidgets'        => __( 'Importing Widgets...', 'astra-sites' ),
+						'importComplete'          => __( 'Importing Complete...', 'astra-sites' ),
 						'preview'                 => __( 'Previewing ', 'astra-sites' ),
 						'importLogText'           => __( 'Import Log: ', 'astra-sites' ),
 					),
@@ -350,8 +351,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 					/**
 					 * Has Pro Version Support?
-					  * And
-					  * Is Pro Version Installed?
+					 * And
+					 * Is Pro Version Installed?
 					 */
 					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
 					if ( $plugin_pro ) {
