@@ -146,12 +146,6 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			// Set log file.
 			self::set_log_file();
 
-			Astra_Sites_Importer_Log::add( '---------------------------------------------------' . PHP_EOL );
-
-			Astra_Sites_Importer_Log::add( '# Import Site Details: ' );
-			Astra_Sites_Importer_Log::add( "API URL: \t\t: " . $demo_api_uri );
-
-			Astra_Sites_Importer_Log::add( PHP_EOL );
 			Astra_Sites_Importer_Log::add( '# System Details: ' );
 			Astra_Sites_Importer_Log::add( "Max Upload Size \t: " . size_format( wp_max_upload_size() ) );
 			Astra_Sites_Importer_Log::add( "Memory Limit \t\t: " . self::get_memory_limit() );
@@ -164,8 +158,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			Astra_Sites_Importer_Log::add( "PHP Max Input Vars \t: " . self::get_php_max_input_vars() );
 			Astra_Sites_Importer_Log::add( "PHP Max Post Size \t: " . self::get_php_max_post_size() );
 			Astra_Sites_Importer_Log::add( "PHP Extension GD \t: " . self::get_php_extension_gd() );
-
-			Astra_Sites_Importer_Log::add( PHP_EOL . '---------------------------------------------------' . PHP_EOL );
+			Astra_Sites_Importer_Log::add( PHP_EOL . '-----' . PHP_EOL );
 			Astra_Sites_Importer_Log::add( 'Importing Started! - ' . self::current_time() );
 
 		}
