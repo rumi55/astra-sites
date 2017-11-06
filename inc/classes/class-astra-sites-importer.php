@@ -54,16 +54,16 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
 			// Import AJAX.
-			add_action( 'wp_ajax_astra-sites-import-start', array( $this, 'import_start' ) );
-			add_action( 'wp_ajax_astra-sites-import-customizer-settings', array( $this, 'import_customizer_settings' ) );
-			add_action( 'wp_ajax_astra-sites-import-xml', array( $this, 'import_xml' ) );
-			add_action( 'wp_ajax_astra-sites-import-options', array( $this, 'import_options' ) );
-			add_action( 'wp_ajax_astra-sites-import-widgets', array( $this, 'import_widgets' ) );
-			add_action( 'wp_ajax_astra-sites-import-end', array( $this, 'import_end' ) );
+			add_action( 'wp_ajax_astra-sites-import-start'               , array( $this, 'import_start' ) );
+			add_action( 'wp_ajax_astra-sites-import-customizer-settings' , array( $this, 'import_customizer_settings' ) );
+			add_action( 'wp_ajax_astra-sites-import-xml'                 , array( $this, 'import_xml' ) );
+			add_action( 'wp_ajax_astra-sites-import-options'             , array( $this, 'import_options' ) );
+			add_action( 'wp_ajax_astra-sites-import-widgets'             , array( $this, 'import_widgets' ) );
+			add_action( 'wp_ajax_astra-sites-import-end'                 , array( $this, 'import_end' ) );
 
 			// Hooks in AJAX.
-			add_action( 'astra_sites_import_complete', array( $this, 'clear_cache' ) );
-			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_import_complete'                    , array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_image_import_complete'              , array( $this, 'clear_cache' ) );
 
 		}
 
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		function import_start() {
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You have not "customize" access to import the astra site.', 'astra-sites' ) );
+				wp_send_json_error( __( 'You have not "customize" access to import the Astra site.', 'astra-sites' ) );
 			}
 
 			$demo_api_uri = isset( $_POST['api_url'] ) ? esc_url( $_POST['api_url'] ) : '';
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				wp_send_json_success( $demo_data );
 
 			} else {
-				wp_send_json_error( __( 'Site API URL is empty!', 'astra-sites' ) );
+				wp_send_json_error( __( 'Request site API URL is empty. Try again!', 'astra-sites' ) );
 			}
 
 		}
@@ -135,15 +135,25 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			$wxr_url = ( isset( $_POST['wxr_url'] ) ) ? urldecode( $_POST['wxr_url'] ) : '';
 
 			if ( isset( $wxr_url ) ) {
+
 				$wxr_importer = Astra_WXR_Importer::instance();
-				$xml_path     = $wxr_importer->download_xml( $wxr_url );
+
+				// Download XML file.
+				$xml_path = Astra_Sites_Helper::download_file( $wxr_url );
 
 				if ( $xml_path['success'] ) {
-					$wxr_importer->import_xml( $xml_path['file'] );
-					wp_send_json_success( $wxr_url );
+
+					if( isset( $xml_path['data']['file'] ) ) {
+						$wxr_importer->import_xml( $xml_path['data']['file'] );
+						wp_send_json_success();
+					} else {
+						wp_send_json_error( __( 'Not able to download the XML file!', 'astra-sites' ) );
+					}
+
 				} else {
-					wp_send_json_error( $xml_path );
+					wp_send_json_error( $xml_path['data'] );
 				}
+
 			} else {
 				wp_send_json_error( __( 'Invalid site XML file!', 'astra-sites' ) );
 			}
@@ -189,7 +199,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				$status           = $widgets_importer->import_widgets_data( $widgets_data );
 				wp_send_json_success( $widgets_data );
 			} else {
-				wp_send_json_error( __( 'Site options are empty!', 'astra-sites' ) );
+				wp_send_json_error( __( 'Widget data is empty!', 'astra-sites' ) );
 			}
 
 		}
@@ -211,7 +221,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				do_action( 'astra_sites_import_complete', $demo_data );
 				wp_send_json_success( $demo_data );
 			} else {
-				wp_send_json_error( __( 'Site Import data not found!', 'astra-sites' ) );
+				wp_send_json_error( __( 'Site import data missing while import process!', 'astra-sites' ) );
 			}
 		}
 

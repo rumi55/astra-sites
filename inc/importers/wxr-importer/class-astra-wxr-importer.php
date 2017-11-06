@@ -96,27 +96,4 @@ class Astra_WXR_Importer {
 		$result = $importer->import( $path );
 	}
 
-	/**
-	 * Download and save XML file to uploads directory.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @param  (String) $url URL of the xml file.
-	 *
-	 * @return (Array)      Attachment array of the downloaded xml file.
-	 */
-	public function download_xml( $url ) {
-
-		// Download XML file.
-		$response = Astra_Sites_Helper::download_file( $url );
-
-		// Is Success?
-		if ( $response['success'] ) {
-			return $response['data'];
-		}
-
-		return $response;
-
-	}
-
 }

@@ -148,7 +148,11 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 
 			Astra_Sites_Importer_Log::add( '---------------------------------------------------' . PHP_EOL );
 
-			Astra_Sites_Importer_Log::add( "Site API URL: \t\t: " . $demo_api_uri );
+			Astra_Sites_Importer_Log::add( "# Import Site Details: " );
+			Astra_Sites_Importer_Log::add( "API URL: \t\t: " . $demo_api_uri );
+
+			Astra_Sites_Importer_Log::add( PHP_EOL );
+			Astra_Sites_Importer_Log::add( "# System Details: " );
 			Astra_Sites_Importer_Log::add( "Max Upload Size \t: " . size_format( wp_max_upload_size() ) );
 			Astra_Sites_Importer_Log::add( "Memory Limit \t\t: " . self::get_memory_limit() );
 			Astra_Sites_Importer_Log::add( "Timezone \t\t: " . self::get_timezone() );
@@ -346,7 +350,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * Debug Mode
 		 *
 		 * @since 1.0.14
-		 * return string Enabled for Debug mode ON and Disabled for Debug mode Off.
+		 * @return string Enabled for Debug mode ON and Disabled for Debug mode Off.
 		 */
 		public static function get_debug_mode() {
 			if ( WP_DEBUG ) {
@@ -360,7 +364,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * Memory Limit
 		 *
 		 * @since 1.0.14
-		 * return string Memory limit.
+		 * @return string Memory limit.
 		 */
 		public static function get_memory_limit() {
 
@@ -383,10 +387,13 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * Timezone
 		 *
 		 * @since 1.0.14
-		 * return string Current timezone.
+		 * @see https://codex.wordpress.org/Option_Reference/
+		 * 
+		 * @return string Current timezone.
 		 */
 		public static function get_timezone() {
 			$timezone = get_option( 'timezone_string' );
+
 			if ( ! $timezone ) {
 				return get_option( 'gmt_offset' );
 			}
@@ -398,7 +405,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * Operating System
 		 *
 		 * @since 1.0.14
-		 * return string Current Operating System.
+		 * @return string Current Operating System.
 		 */
 		public static function get_os() {
 			return PHP_OS;
@@ -408,7 +415,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * Server Software
 		 *
 		 * @since 1.0.14
-		 * return string Current Server Software.
+		 * @return string Current Server Software.
 		 */
 		public static function get_software() {
 			return $_SERVER['SERVER_SOFTWARE'];
@@ -418,7 +425,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * MySql Version
 		 *
 		 * @since 1.0.14
-		 * return string Current MySql Version.
+		 * @return string Current MySql Version.
 		 */
 		public static function get_mysql_version() {
 			global $wpdb;
@@ -429,7 +436,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * PHP Version
 		 *
 		 * @since 1.0.14
-		 * return string Current PHP Version.
+		 * @return string Current PHP Version.
 		 */
 		public static function get_php_version() {
 			if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
@@ -442,7 +449,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * PHP Max Input Vars
 		 *
 		 * @since 1.0.14
-		 * return string Current PHP Max Input Vars
+		 * @return string Current PHP Max Input Vars
 		 */
 		public static function get_php_max_input_vars() {
 			return ini_get( 'max_input_vars' );
@@ -452,7 +459,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * PHP Max Post Size
 		 *
 		 * @since 1.0.14
-		 * return string Current PHP Max Post Size
+		 * @return string Current PHP Max Post Size
 		 */
 		public static function get_php_max_post_size() {
 			return ini_get( 'post_max_size' );
@@ -462,7 +469,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * PHP GD Extension
 		 *
 		 * @since 1.0.14
-		 * return string Current PHP GD Extension
+		 * @return string Current PHP GD Extension
 		 */
 		public static function get_php_extension_gd() {
 			if ( extension_loaded( 'gd' ) ) {
@@ -480,7 +487,3 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 	Astra_Sites_Importer_Log::set_instance();
 
 endif;
-
-
-
-
