@@ -141,7 +141,7 @@ var AstraSitesAjaxQueue = (function() {
 					name    = data.data.log_file.name || '',
 					url     = decodeURIComponent( data.data.log_file.url ) || '';
 
-				$('.install-theme-info').prepend('<div class="notice notice-info"><p>Import Log: <a target="_blank" href="'+url+'">'+name+'</a></p></div>')
+				$('.install-theme-info').prepend('<div class="notice notice-info"><p>'+astraSitesAdmin.log.importLogText+'<a target="_blank" href="'+url+'">'+name+'</a></p></div>')
 			}
 
 			$('.astra-demo-import').removeClass('updating-message installing')
@@ -571,7 +571,7 @@ var AstraSitesAjaxQueue = (function() {
 			AstraSitesAdmin._log( astraSitesAdmin.log.api + ' : ' + apiURL );
 			AstraSitesAdmin._log( astraSitesAdmin.log.importing );
 
-			$('.button-hero.astra-demo-import').text( 'Getting Import Data...' );
+			$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.gettingData );
 
 			// 1. Request Site Import
 			$.ajax({
@@ -597,7 +597,7 @@ var AstraSitesAjaxQueue = (function() {
 
 					// 1. Pass - Request Site Import
 					AstraSitesAdmin._log( astraSitesAdmin.log.processingRequest );
-					$('.button-hero.astra-demo-import').text( 'Importing Customizer...' );
+					$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingCustomizer );
 
 					var customizer_data = JSON.stringify( demo_data.data['astra-site-customizer-data'] ) || '',
 						wxr_url         = encodeURI( demo_data.data['astra-site-wxr-path'] ) || '',
@@ -631,7 +631,7 @@ var AstraSitesAjaxQueue = (function() {
 
 							// 2. Pass - Import Customizer Options.
 							AstraSitesAdmin._log( astraSitesAdmin.log.importCustomizerSuccess );
-							$('.button-hero.astra-demo-import').text( 'Importing XML...' );
+							$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingXML );
 							
 							// 3. Import XML.
 							$.ajax({
@@ -661,7 +661,7 @@ var AstraSitesAjaxQueue = (function() {
 
 									// 3. Pass - Import XML.
 									AstraSitesAdmin._log( astraSitesAdmin.log.importXMLSuccess );
-									$('.button-hero.astra-demo-import').text( 'Importing Site Options...' );
+									$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingOptions );
 									
 									// 4. Import Options.
 									$.ajax({
@@ -691,7 +691,7 @@ var AstraSitesAjaxQueue = (function() {
 
 											// 4. Pass - Import Options.
 											AstraSitesAdmin._log( astraSitesAdmin.log.importOptionsSuccess );
-											$('.button-hero.astra-demo-import').text( 'Importing Widgets...' );
+											$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingWidgets );
 											
 											// 5. Import Widgets.
 											$.ajax({
@@ -720,7 +720,7 @@ var AstraSitesAjaxQueue = (function() {
 													
 													// 5. Pass - Import Widgets.
 													AstraSitesAdmin._log( astraSitesAdmin.log.importWidgetsSuccess );
-													$('.button-hero.astra-demo-import').text( 'Importing Complete...' );
+													$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importComplete );
 
 													// 6. Import Complete.
 													$.ajax({
