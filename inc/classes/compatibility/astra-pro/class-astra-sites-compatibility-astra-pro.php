@@ -45,9 +45,9 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 		 * @since 1.0.0
 		 */
 		public function __construct() {
-			add_action( 'astra_sites_after_plugin_activation' , array( $this, 'astra_pro' ), 10, 2 );
-			add_action( 'astra_sites_import_start'            , array( $this, 'import_enabled_extension' ), 10, 2 );
-			add_action( 'astra_sites_import_start'            , array( $this, 'import_custom_404' ), 10, 2 );
+			add_action( 'astra_sites_after_plugin_activation', array( $this, 'astra_pro' ), 10, 2 );
+			add_action( 'astra_sites_import_start', array( $this, 'import_enabled_extension' ), 10, 2 );
+			add_action( 'astra_sites_import_start', array( $this, 'import_custom_404' ), 10, 2 );
 		}
 
 		/**

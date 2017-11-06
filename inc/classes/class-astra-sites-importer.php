@@ -21,7 +21,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 * @since  1.0.0
 		 * @var (Object) Class object
 		 */
-		public static $_instance     = null;
+		public static $_instance = null;
 
 		/**
 		 * Set Instance
@@ -54,16 +54,16 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
 			// Import AJAX.
-			add_action( 'wp_ajax_astra-sites-import-start'               , array( $this, 'import_start' ) );
-			add_action( 'wp_ajax_astra-sites-import-customizer-settings' , array( $this, 'import_customizer_settings' ) );
-			add_action( 'wp_ajax_astra-sites-import-xml'                 , array( $this, 'import_xml' ) );
-			add_action( 'wp_ajax_astra-sites-import-options'             , array( $this, 'import_options' ) );
-			add_action( 'wp_ajax_astra-sites-import-widgets'             , array( $this, 'import_widgets' ) );
-			add_action( 'wp_ajax_astra-sites-import-end'                 , array( $this, 'import_end' ) );
+			add_action( 'wp_ajax_astra-sites-import-start', array( $this, 'import_start' ) );
+			add_action( 'wp_ajax_astra-sites-import-customizer-settings', array( $this, 'import_customizer_settings' ) );
+			add_action( 'wp_ajax_astra-sites-import-xml', array( $this, 'import_xml' ) );
+			add_action( 'wp_ajax_astra-sites-import-options', array( $this, 'import_options' ) );
+			add_action( 'wp_ajax_astra-sites-import-widgets', array( $this, 'import_widgets' ) );
+			add_action( 'wp_ajax_astra-sites-import-end', array( $this, 'import_end' ) );
 
 			// Hooks in AJAX.
-			add_action( 'astra_sites_import_complete'                    , array( $this, 'clear_cache' ) );
-			add_action( 'astra_sites_image_import_complete'              , array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_import_complete', array( $this, 'clear_cache' ) );
+			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
 
 		}
 
@@ -138,13 +138,12 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				$wxr_importer = Astra_WXR_Importer::instance();
 				$xml_path     = $wxr_importer->download_xml( $wxr_url );
 
-				if( $xml_path['success'] ) {
+				if ( $xml_path['success'] ) {
 					$wxr_importer->import_xml( $xml_path['file'] );
 					wp_send_json_success( $wxr_url );
 				} else {
 					wp_send_json_error( $xml_path );
 				}
-
 			} else {
 				wp_send_json_error( __( 'Invalid site XML file!', 'astra-sites' ) );
 			}
@@ -187,7 +186,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			if ( isset( $widgets_data ) ) {
 				$widgets_importer = Astra_Widget_Importer::instance();
-				$status = $widgets_importer->import_widgets_data( $widgets_data );
+				$status           = $widgets_importer->import_widgets_data( $widgets_data );
 				wp_send_json_success( $widgets_data );
 			} else {
 				wp_send_json_error( __( 'Site options are empty!', 'astra-sites' ) );
@@ -259,7 +258,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			// API Call.
 			$response = wp_remote_get( $demo_api_uri, $api_args );
 
-			if ( is_wp_error( $response ) || (isset( $response->status ) && 0 == $response->status ) ) {
+			if ( is_wp_error( $response ) || ( isset( $response->status ) && 0 == $response->status ) ) {
 				if ( isset( $response->status ) ) {
 					$data = json_decode( $response, true );
 				} else {

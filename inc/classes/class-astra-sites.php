@@ -57,14 +57,14 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$this->includes();
 
-			add_action( 'admin_notices',                                    array( $this, 'add_notice' ), 1 );
-			add_action( 'admin_notices',                                    array( $this, 'admin_notices' ) );
-			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
-			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
+			add_action( 'admin_notices', array( $this, 'add_notice' ), 1 );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue' ) );
 
 			// AJAX.
-			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
-			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
+			add_action( 'wp_ajax_astra-required-plugins', array( $this, 'required_plugin' ) );
+			add_action( 'wp_ajax_astra-required-plugin-activate', array( $this, 'required_plugin_activate' ) );
 		}
 
 		/**
@@ -74,12 +74,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			Astra_Sites_Notices::add_notice(
 				array(
-					'type'              => 'error',
-					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					'type'             => 'error',
+					'show_if'          => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
-					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
-					'dismissible'       => true,
-					'dismissible-time'  => MINUTE_IN_SECONDS,
+					'message'          => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
+					'dismissible'      => true,
+					'dismissible-time' => MINUTE_IN_SECONDS,
 				)
 			);
 
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			add_action( 'plugin_action_links_' . ASTRA_SITES_BASE,    array( $this, 'action_links' ) );
+			add_action( 'plugin_action_links_' . ASTRA_SITES_BASE, array( $this, 'action_links' ) );
 		}
 
 		/**
@@ -159,14 +159,14 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			wp_enqueue_script( 'astra-sites-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery' ), ASTRA_SITES_VER, true );
 
 			$data = array(
-				'ApiURL' => self::$api_url,
+				'ApiURL'  => self::$api_url,
 				'filters' => array(
 					'page_builder' => array(
 						'title'   => __( 'Page Builder', 'astra-sites' ),
 						'slug'    => 'astra-site-page-builder',
 						'trigger' => 'astra-api-category-loaded',
 					),
-					'categories' => array(
+					'categories'   => array(
 						'title'   => __( 'Categories', 'astra-sites' ),
 						'slug'    => 'astra-site-category',
 						'trigger' => 'astra-api-category-loaded',
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'            => __( 'Active', 'astra-sites' ),
-						'importAgain'           => __( 'Import Again!', 'astra-sites' ),
+						'importAgain'          => __( 'Import Again!', 'astra-sites' ),
 						'importDemo'           => __( 'Import This Site', 'astra-sites' ),
 						'importingDemo'        => __( 'Importing Demo', 'astra-sites' ),
 						'DescExpand'           => __( 'Read more', 'astra-sites' ) . '&hellip;',
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 						'searchNoFound'        => __( 'No Demos found, Try a different search.', 'astra-sites' ),
 						'importWarning'        => __( "Executing Demo Import will make your site similar as ours. Please bear in mind -\n\n1. It is recommended to run import on a fresh WordPress installation.\n\n2. Importing site does not delete any pages or posts. However, it can overwrite your existing content.\n\n3. Copyrighted media will not be imported. Instead it will be replaced with placeholders.", 'astra-sites' ),
 					),
-					'log' => array(
+					'log'             => array(
 						'installingPlugin'        => __( 'Installing plugin ', 'astra-sites' ),
 						'installed'               => __( 'Successfully plugin installed!', 'astra-sites' ),
 						'installError'            => __( 'Error! While Installing plugin ', 'astra-sites' ),

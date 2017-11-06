@@ -45,8 +45,8 @@ class Astra_WXR_Importer {
 	private function __construct() {
 		$this->includes();
 
-		add_filter( 'upload_mimes',                     array( $this, 'custom_upload_mimes' ) );
-		add_filter( 'wxr_importer.pre_process.user',    '__return_false' );
+		add_filter( 'upload_mimes', array( $this, 'custom_upload_mimes' ) );
+		add_filter( 'wxr_importer.pre_process.user', '__return_false' );
 	}
 
 	/**
