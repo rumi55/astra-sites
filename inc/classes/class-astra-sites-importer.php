@@ -137,8 +137,14 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			if ( isset( $wxr_url ) ) {
 				$wxr_importer = Astra_WXR_Importer::instance();
 				$xml_path     = $wxr_importer->download_xml( $wxr_url );
-				$wxr_importer->import_xml( $xml_path['file'] );
-				wp_send_json_success( $wxr_url );
+
+				if( $xml_path['success'] ) {
+					$wxr_importer->import_xml( $xml_path['file'] );
+					wp_send_json_success( $wxr_url );
+				} else {
+					wp_send_json_error( $xml_path );
+				}
+
 			} else {
 				wp_send_json_error( __( 'Invalid site XML file!', 'astra-sites' ) );
 			}

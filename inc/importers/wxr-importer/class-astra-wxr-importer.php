@@ -115,6 +115,8 @@ class Astra_WXR_Importer {
 			return $response['data'];
 		}
 
+		return $response;
+
 	}
 
 }

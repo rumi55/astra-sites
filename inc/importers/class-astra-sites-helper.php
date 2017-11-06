@@ -108,8 +108,9 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 			// WP Error.
 			if ( is_wp_error( $temp_file ) ) {
 				return array(
-					'success' => false,
-					'data'    => $temp_file->get_error_message(),
+					'success'  => false,
+					'data'     => $temp_file->get_error_message(),
+					'response' => $temp_file,
 				);
 			}
 
@@ -144,15 +145,17 @@ if ( ! class_exists( 'Astra_Sites_Helper' ) ) :
 
 			if ( isset( $results['error'] ) ) {
 				return array(
-					'success' => false,
-					'data'    => $results,
+					'success'  => false,
+					'data'     => $results,
+					'response' => $results,
 				);
 			}
 
 			// Success!
 			return array(
-				'success' => true,
-				'data'    => $results,
+				'success'  => true,
+				'data'     => $results,
+				'response' => $results,
 			);
 		}
 
