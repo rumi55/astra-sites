@@ -57,14 +57,14 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$this->includes();
 
-			add_action( 'admin_notices',                                    array( $this, 'add_notice' ), 1 );
-			add_action( 'admin_notices',                                    array( $this, 'admin_notices' ) );
-			add_action( 'plugins_loaded',                                   array( $this, 'load_textdomain' ) );
-			add_action( 'admin_enqueue_scripts',                            array( $this, 'admin_enqueue' ) );
+			add_action( 'admin_notices', array( $this, 'add_notice' ), 1 );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue' ) );
 
 			// AJAX.
-			add_action( 'wp_ajax_astra-required-plugins',                   array( $this, 'required_plugin' ) );
-			add_action( 'wp_ajax_astra-required-plugin-activate',           array( $this, 'required_plugin_activate' ) );
+			add_action( 'wp_ajax_astra-required-plugins', array( $this, 'required_plugin' ) );
+			add_action( 'wp_ajax_astra-required-plugin-activate', array( $this, 'required_plugin_activate' ) );
 		}
 
 		/**
@@ -74,12 +74,48 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			Astra_Sites_Notices::add_notice(
 				array(
-					'type'              => 'error',
-					'show_if'           => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
+					'id'               => 'theme-activation-nag',
+					'type'             => 'error',
+					'show_if'          => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
-					'message'           => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
-					'dismissible'       => true,
-					'dismissible-time'  => MINUTE_IN_SECONDS,
+					'message'          => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
+					'dismissible'      => true,
+					'dismissible-time' => MINUTE_IN_SECONDS,
+				)
+			);
+
+			Astra_Sites_Notices::add_notice(
+				array(
+					'id'               => 'batch-import-complete',
+					'type'             => 'info',
+					'dismissible'      => true,
+					'dismissible-meta' => 'transient',
+					'dismissible-time' => WEEK_IN_SECONDS,
+					'show_if'          => ( get_option( 'astra-site-import-complete', 0 ) ) ? true : false,
+					/* translators: %1$s white label plugin name and %2$s deactivation link */
+					'message'          => sprintf( __( 'Successfully imported Astra site. You can replace all the images which are still served from on your server. Click on <a href="%1$s">Replace all imported images</a>.', 'astra-sites' ), esc_url( admin_url( 'themes.php?page=astra-sites&batch-import=true' ) ) ),
+				)
+			);
+
+			Astra_Sites_Notices::add_notice(
+				array(
+					'type'             => 'success',
+					'id'               => 'demo-import-complete',
+					'dismissible'      => true,
+					'dismissible-meta' => 'user',
+					'show_if'          => ( get_option( 'astra-site-import-complete', 0 ) && get_option( 'batch-import', 0 ) ) ? true : false,
+					'message'          => __( 'Congratulation! Astra sites imported demo images are downloaded though batch processing.', 'astra-sites' ),
+				)
+			);
+
+			Astra_Sites_Notices::add_notice(
+				array(
+					'id'               => 'batch-import-started',
+					'type'             => 'warning',
+					'dismissible'      => true,
+					'dismissible-meta' => 'user',
+					'show_if'          => ( isset( $_GET['batch-import'] ) && get_option( 'astra-site-import-complete', 0 ) && ! get_option( 'batch-import', 0 ) ) ? true : false,
+					'message'          => __( 'Batch import started! We will show the notice once batch import process complete.', 'astra-sites' ),
 				)
 			);
 
@@ -106,7 +142,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
-			add_action( 'plugin_action_links_' . ASTRA_SITES_BASE,    array( $this, 'action_links' ) );
+			add_action( 'plugin_action_links_' . ASTRA_SITES_BASE, array( $this, 'action_links' ) );
 		}
 
 		/**
@@ -159,14 +195,14 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			wp_enqueue_script( 'astra-sites-render-grid', ASTRA_SITES_URI . 'inc/assets/js/render-grid.js', array( 'wp-util', 'astra-sites-api', 'imagesloaded', 'jquery' ), ASTRA_SITES_VER, true );
 
 			$data = array(
-				'ApiURL' => self::$api_url,
+				'ApiURL'  => self::$api_url,
 				'filters' => array(
 					'page_builder' => array(
 						'title'   => __( 'Page Builder', 'astra-sites' ),
 						'slug'    => 'astra-site-page-builder',
 						'trigger' => 'astra-api-category-loaded',
 					),
-					'categories' => array(
+					'categories'   => array(
 						'title'   => __( 'Categories', 'astra-sites' ),
 						'slug'    => 'astra-site-category',
 						'trigger' => 'astra-api-category-loaded',
@@ -316,8 +352,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 					/**
 					 * Has Pro Version Support?
-					  * And
-					  * Is Pro Version Installed?
+					 * And
+					 * Is Pro Version Installed?
 					 */
 					$plugin_pro = self::pro_plugin_exist( $plugin['init'] );
 					if ( $plugin_pro ) {

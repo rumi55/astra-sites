@@ -78,7 +78,57 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			self::$process_all = new WP_Background_Process_Astra();
 
 			// Start image importing after site import complete.
-			add_action( 'astra_sites_import_complete',  array( $this, 'start_process' ) );
+			add_filter( 'astra_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
+			add_action( 'admin_head', array( $this, 'batch_import' ) );
+		}
+
+		/**
+		 * Skip Image from Batch Processing.
+		 *
+		 * @since 1.0.14
+		 *
+		 * @param  boolean $can_process Batch process image status.
+		 * @param  array   $attachment  Batch process image input.
+		 * @return boolean
+		 */
+		function skip_image( $can_process, $attachment ) {
+
+			if ( isset( $attachment['url'] ) && ! empty( $attachment['url'] ) ) {
+				if (
+					strpos( $attachment['url'], 'sites.wpastra.com' ) !== false ||
+					strpos( $attachment['url'], 'sites-wpastra.sharkz.in' ) !== false
+				) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/**
+		 * Process Batch Import on User Request.
+		 *
+		 * @since 1.0.14
+		 *
+		 * @return void
+		 */
+		public function batch_import() {
+
+			if ( ! isset( $_GET['batch-import'] ) || 'true' !== $_GET['batch-import'] ) {
+				return;
+			}
+
+			// Site import not complete?
+			if ( ! get_option( 'astra-site-import-complete', 0 ) ) {
+				return;
+			}
+
+			// Already processed batch import?
+			if ( get_option( 'batch-import', 0 ) ) {
+				return;
+			}
+
+			$this->start_process();
 		}
 
 		/**
@@ -86,10 +136,9 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 *
 		 * @since 1.0.14
 		 *
-		 * @param  array $data Site API Data.
 		 * @return void
 		 */
-		public function start_process( $data ) {
+		public function start_process() {
 
 			// Add "widget" in import [queue].
 			if ( class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) {
@@ -126,7 +175,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		public static function get_pages() {
 
 			$args = array(
-				'post_type'    => 'page',
+				'post_type'     => 'page',
 
 				// Query performance optimization.
 				'fields'        => 'ids',

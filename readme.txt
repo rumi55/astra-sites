@@ -47,6 +47,7 @@ https://sites.wpastra.com/law-free/
 == Changelog ==
 
 v1.0.14 - Unreleased
+* New: Added batch import support in which we replace all the images from Astra sites.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017

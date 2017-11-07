@@ -106,6 +106,14 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 		 */
 		private function get_saved_image( $attachment ) {
 
+			if ( apply_filters( 'astra_sites_image_importer_skip_image', false, $attachment ) ) {
+
+				// @Debug Log.
+				Astra_Sites_Image_Importer::log( 'Skip Image : ' . $attachment['url'] );
+
+				return $attachment;
+			}
+
 			global $wpdb;
 
 			// Already imported? Then return!
@@ -155,7 +163,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			}
 
 			if ( $post_id ) {
-				$new_attachment = array(
+				$new_attachment                                  = array(
 					'id'  => $post_id,
 					'url' => wp_get_attachment_url( $post_id ),
 				);

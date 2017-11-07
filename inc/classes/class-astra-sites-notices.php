@@ -53,9 +53,9 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		 */
 		public function __construct() {
 
-			add_action( 'admin_notices',            array( $this, 'show_notices' ) );
-			add_action( 'admin_enqueue_scripts',    array( $this, 'enqueue_scripts' ) );
-			add_action( 'wp_ajax_astra-notices',    array( $this, 'dismiss' ) );
+			add_action( 'admin_notices', array( $this, 'show_notices' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'wp_ajax_astra-notices', array( $this, 'dismiss' ) );
 
 		}
 
@@ -118,16 +118,17 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		function show_notices() {
 
 			$defaults = array(
-				'type' => 'info',
-				'show_if' => true,
-				'message' => '',
-				'class' => 'ast-active-notice',
+				'id'               => '',
+				'type'             => 'info',
+				'show_if'          => true,
+				'message'          => '',
+				'class'            => 'astra-active-notice',
 
-				'dismissible' => false,
+				'dismissible'      => false,
 				'dismissible-meta' => 'user',
-				'dismissible-time' => MINUTE_IN_SECONDS,
+				'dismissible-time' => WEEK_IN_SECONDS,
 
-				'data' => '',
+				'data'             => '',
 			);
 
 			foreach ( self::$notices as $key => $notice ) {
@@ -150,15 +151,20 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 				}
 
 				// Notice ID.
-				$notice_id = 'astra-sites-notices-id-' . $key;
-				$notice['id'] = $notice_id;
+				if ( ! isset( $notice['id'] ) ) {
+					$notice_id    = 'astra-sites-notices-id-' . $key;
+					$notice['id'] = $notice_id;
+				} else {
+					$notice_id = $notice['id'];
+				}
+
 				$notice['classes'] = implode( ' ', $classes );
 
 				// User meta.
-				$notice['data'] = ' dismissible-meta=' . esc_attr( $notice['dismissible-meta'] ) . ' ';
+				$notice['data'] .= ' dismissible-meta=' . esc_attr( $notice['dismissible-meta'] ) . ' ';
 				if ( 'user' === $notice['dismissible-meta'] ) {
 					$expired = get_user_meta( get_current_user_id(), $notice_id, true );
-				} else {
+				} elseif ( 'transient' === $notice['dismissible-meta'] ) {
 					$expired = get_transient( $notice_id );
 				}
 
