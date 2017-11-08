@@ -84,41 +84,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				)
 			);
 
-			Astra_Sites_Notices::add_notice(
-				array(
-					'id'               => 'batch-import-complete',
-					'type'             => 'info',
-					'dismissible'      => true,
-					'dismissible-meta' => 'transient',
-					'dismissible-time' => WEEK_IN_SECONDS,
-					'show_if'          => ( get_option( 'astra-site-import-complete', 0 ) ) ? true : false,
-					/* translators: %1$s white label plugin name and %2$s deactivation link */
-					'message'          => sprintf( __( 'Successfully imported Astra site. You can replace all the images which are still served from on your server. Click on <a href="%1$s">Replace all imported images</a>.', 'astra-sites' ), esc_url( admin_url( 'themes.php?page=astra-sites&batch-import=true' ) ) ),
-				)
-			);
-
-			Astra_Sites_Notices::add_notice(
-				array(
-					'type'             => 'success',
-					'id'               => 'demo-import-complete',
-					'dismissible'      => true,
-					'dismissible-meta' => 'user',
-					'show_if'          => ( get_option( 'astra-site-import-complete', 0 ) && get_option( 'batch-import', 0 ) ) ? true : false,
-					'message'          => __( 'Congratulation! Astra sites imported demo images are downloaded though batch processing.', 'astra-sites' ),
-				)
-			);
-
-			Astra_Sites_Notices::add_notice(
-				array(
-					'id'               => 'batch-import-started',
-					'type'             => 'warning',
-					'dismissible'      => true,
-					'dismissible-meta' => 'user',
-					'show_if'          => ( isset( $_GET['batch-import'] ) && get_option( 'astra-site-import-complete', 0 ) && ! get_option( 'batch-import', 0 ) ) ? true : false,
-					'message'          => __( 'Batch import started! We will show the notice once batch import process complete.', 'astra-sites' ),
-				)
-			);
-
 		}
 
 		/**

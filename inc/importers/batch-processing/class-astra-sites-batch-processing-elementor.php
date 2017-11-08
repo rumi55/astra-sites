@@ -272,8 +272,7 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 	 */
 	public function import() {
 
-		// @Debug Log.
-		\Astra_Sites_Image_Importer::log( '=================== ELEMENTOR - START ===================' );
+		\Astra_Sites_Image_Importer::log( '---- Processing WordPress Posts / Pages - for Elementor ----' );
 
 		$post_ids = \Astra_Sites_Batch_Processing::get_pages();
 		if ( is_array( $post_ids ) ) {
@@ -281,10 +280,6 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 				$this->import_single_post( $post_id );
 			}
 		}
-
-		// @Debug Log.
-		\Astra_Sites_Image_Importer::log( '=================== ELEMENTOR - END ===================-' );
-
 	}
 
 	/**
@@ -296,8 +291,7 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 	 */
 	public function import_single_post( $post_id = 0 ) {
 
-		// @Debug Log.
-		\Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
+		\Astra_Sites_Image_Importer::log( 'Post ID: ' . $post_id );
 
 		if ( ! empty( $post_id ) ) {
 
@@ -324,9 +318,6 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 				}
 			}
 		}
-
-		// @Debug Log.
-		\Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
 
 	}
 }

@@ -55,8 +55,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			add_action( 'wp_ajax_astra-import-demo', array( $this, 'demo_ajax_import' ) );
 			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
-			add_action( 'astra_sites_image_import_complete', array( $this, 'batch_import_complete' ) );
-			add_action( 'astra_sites_import_complete', array( $this, 'set_import_complete_option' ) );
 
 		}
 
@@ -282,24 +280,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			if ( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
 				FLBuilderModel::delete_asset_cache_for_all_posts();
 			}
-		}
-
-		/**
-		 * Set Import Complete Option
-		 *
-		 * @since  1.0.14
-		 */
-		public function set_import_complete_option() {
-			update_option( 'astra-site-import-complete', 1 );
-		}
-
-		/**
-		 * Batch Import Complete
-		 *
-		 * @since  1.0.14
-		 */
-		public function batch_import_complete() {
-			update_option( 'batch-import', 1 );
 		}
 
 	}

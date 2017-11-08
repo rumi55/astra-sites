@@ -65,8 +65,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 
 			$data = get_option( 'widget_media_image', null );
 
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '------------------------- WIDGETS - START -----------------------------' );
+			Astra_Sites_Image_Importer::log( '---- Processing images from Widgets -----' );
 
 			foreach ( $data as $key => $value ) {
 
@@ -74,9 +73,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 					isset( $value['url'] ) &&
 					isset( $value['attachment_id'] )
 				) {
-
-					// @Debug Log.
-					Astra_Sites_Image_Importer::log( 'BG_IMAGE' . $value['attachment_id'] . ' : ' . $value['url'] );
 
 					$image = array(
 						'url' => $value['url'],
@@ -89,9 +85,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 					$data[ $key ]['attachment_id'] = $downloaded_image['id'];
 				}
 			}
-
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '------------------------- WIDGETS - END -----------------------------' );
 
 			update_option( 'widget_media_image', $data );
 		}

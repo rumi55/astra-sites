@@ -74,8 +74,8 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			self::$process_all = new WP_Background_Process_Astra();
 
 			// Start image importing after site import complete.
-			add_filter( 'astra_sites_image_importer_skip_image' , array( $this, 'skip_image' ), 10, 2 );
-			add_action( 'admin_head'                            , array( $this, 'batch_import' ) );
+			add_filter( 'astra_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
+			add_action( 'astra_sites_import_complete', array( $this, 'start_process' ) );
 		}
 
 		/**
@@ -102,32 +102,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		}
 
 		/**
-		 * Process Batch Import on User Request.
-		 *
-		 * @since 1.0.14
-		 *
-		 * @return void
-		 */
-		public function batch_import() {
-
-			if ( ! isset( $_GET['batch-import'] ) || 'true' !== $_GET['batch-import'] ) {
-				return;
-			}
-
-			// Site import not complete?
-			if ( ! get_option( 'astra-site-import-complete', 0 ) ) {
-				return;
-			}
-
-			// Already processed batch import?
-			if ( get_option( 'batch-import', 0 ) ) {
-				return;
-			}
-
-			$this->start_process();
-		}
-
-		/**
 		 * Start Image Import
 		 *
 		 * @since 1.0.14
@@ -135,6 +109,8 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 * @return void
 		 */
 		public function start_process() {
+
+			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::set_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images ===================' );
 
 			// Add "widget" in import [queue].
 			if ( class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) {
@@ -165,7 +141,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		}
 
 		/**
-		 * Get Page IDs
+		 * Get all post id's
 		 *
 		 * @since 1.0.14
 		 *
@@ -174,7 +150,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		public static function get_pages() {
 
 			$args = array(
-				'post_type'     => 'page',
+				'post_type'     => 'any',
 
 				// Query performance optimization.
 				'fields'        => 'ids',
@@ -190,7 +166,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 				return $query->posts;
 
 			endif;
-
 			return null;
 		}
 
@@ -202,5 +177,3 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 	Astra_Sites_Batch_Processing::set_instance();
 
 endif;
-
-

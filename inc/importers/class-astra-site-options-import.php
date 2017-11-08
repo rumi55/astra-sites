@@ -135,7 +135,7 @@ class Astra_Site_Options_Import {
 	}
 
 	/**
-	 * Update Page ID
+	 * Update post option
 	 *
 	 * @since 1.0.2
 	 *

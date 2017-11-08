@@ -108,8 +108,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 
 			if ( apply_filters( 'astra_sites_image_importer_skip_image', false, $attachment ) ) {
 
-				// @Debug Log.
-				Astra_Sites_Image_Importer::log( 'Skip Image : ' . $attachment['url'] );
+				Astra_Sites_Image_Importer::log( 'Download (✕) Replace (✕) - ' . $attachment['url'] );
 
 				return $attachment;
 			}
@@ -119,8 +118,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			// Already imported? Then return!
 			if ( isset( $this->already_imported_ids[ $attachment['id'] ] ) ) {
 
-				// @Debug Log
-				Astra_Sites_Image_Importer::log( 'Already Processed Image ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Importer::log( 'Download (✓) Replace (✓) - ' . $attachment['url'] );
 
 				return $this->already_imported_ids[ $attachment['id'] ];
 			}
@@ -153,21 +151,17 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 					)
 				);
 
-				// @Debug Log
-				Astra_Sites_Image_Importer::log( 'Imported from XML. ' . basename( $attachment['url'] ) );
-
-			} else {
-
-				// @Debug Log
-				Astra_Sites_Image_Importer::log( 'Imported from Batch Import Process. ' . basename( $attachment['url'] ) );
+				Astra_Sites_Image_Importer::log( 'Download (✓) Replace (✓) - ' . $attachment['url'] );
 			}
 
 			if ( $post_id ) {
-				$new_attachment = array(
+				$new_attachment                                  = array(
 					'id'  => $post_id,
 					'url' => wp_get_attachment_url( $post_id ),
 				);
 				$this->already_imported_ids[ $attachment['id'] ] = $new_attachment;
+
+				Astra_Sites_Image_Importer::log( 'Download (✓) Replace (✓) - ' . $attachment['url'] );
 
 				return $new_attachment;
 			}
@@ -190,12 +184,12 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			}
 
 			$file_content = wp_remote_retrieve_body( wp_safe_remote_get( $attachment['url'] ) );
-		
+
 			// Empty file content?
 			if ( empty( $file_content ) ) {
 
-				// @Debug Log.
-				Astra_Sites_Image_Importer::log( 'Image not downloaded though wp_remote_retrieve_body() : ' . $attachment['url'] );
+				Astra_Sites_Image_Importer::log( 'Download (✕) Replace (✕) - ' . $attachment['url'] );
+				Astra_Sites_Image_Importer::log( 'Error: Failed wp_remote_retrieve_body().' );
 
 				return $attachment;
 			}

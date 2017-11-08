@@ -54,8 +54,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 */
 		public function import() {
 
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '=================== BEAVER BUILDER - START ===================' );
+			Astra_Sites_Image_Importer::log( '---- Processing WordPress Posts / Pages - for Beaver Builder ----' );
 
 			$post_ids = Astra_Sites_Batch_Processing::get_pages();
 			if ( is_array( $post_ids ) ) {
@@ -63,10 +62,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					$this->import_single_post( $post_id );
 				}
 			}
-
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '=================== BEAVER BUILDER - END ===================-' );
-
 		}
 
 		/**
@@ -77,8 +72,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 */
 		public function import_single_post( $post_id = 0 ) {
 
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - START -------------------' );
+			Astra_Sites_Image_Importer::log( 'Post ID: ' . $post_id );
 
 			if ( ! empty( $post_id ) ) {
 
@@ -112,9 +106,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					FLBuilderModel::delete_asset_cache_for_all_posts();
 				}
 			}
-
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '------------------ PAGE ID: ' . $post_id . ' - END -------------------' );
 		}
 
 		/**
@@ -194,10 +185,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 			if (
 				( ! empty( $settings->bg_image ) && ! empty( $settings->bg_image_src ) )
 			) {
-
-				// @Debug Log.
-				Astra_Sites_Image_Importer::log( 'BG_IMAGE' . $settings->bg_image . ' : ' . $settings->bg_image_src );
-
 				$image = array(
 					'url' => $settings->bg_image_src,
 					'id'  => $settings->bg_image,
@@ -221,8 +208,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		public static function import_photo( $settings ) {
 
 			if ( ! empty( $settings->photo ) && ! empty( $settings->photo_src ) ) {
-				// @Debug Log.
-				Astra_Sites_Image_Importer::log( 'PHOTO: ' . $settings->photo . ' : ' . $settings->photo_src );
 
 				$image = array(
 					'url' => $settings->photo_src,

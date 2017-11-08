@@ -54,8 +54,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 */
 		protected function complete() {
 
-			// @Debug Log.
-			Astra_Sites_Image_Importer::log( '------------------ COMPLETE -------------------' );
+			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::set_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images Complete ===================' );
 
 			parent::complete();
 
