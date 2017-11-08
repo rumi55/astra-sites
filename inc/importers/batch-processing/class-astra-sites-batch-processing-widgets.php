@@ -65,7 +65,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 
 			$data = get_option( 'widget_media_image', null );
 
-			Astra_Sites_Image_Importer::log( '---- Processing images from Widgets -----' );
+			Astra_Sites_Image_Importer::log( '---- Processing Images from Widgets -----' );
 
 			foreach ( $data as $key => $value ) {
 
