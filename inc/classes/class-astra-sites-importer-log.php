@@ -55,6 +55,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 
 			// Check file read/write permissions.
 			add_action( 'admin_init', array( $this, 'has_file_read_write' ) );
+
 		}
 
 		/**
@@ -82,32 +83,24 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			// Hooks in between the process of import.
 			add_filter( 'wie_import_results', array( $this, 'widgets_data' ) );
 			add_action( 'astra_sites_import_xml_log', array( $this, 'xml_log' ), 10, 3 );
-
-			// Added log file info in JSON.
-			add_filter( 'astra_sites_import_end_data', array( $this, 'add_log_file_url' ) );
 		}
 
 		/**
 		 * Add log file URL in UI response.
 		 *
 		 * @since 1.0.14
-		 * @param array $data Current site API data.
 		 */
-		function add_log_file_url( $data = array() ) {
+		public static function add_log_file_url() {
 
 			$upload_dir   = self::log_dir();
 			$upload_path  = trailingslashit( $upload_dir['url'] );
 			$file_abs_url = get_option( 'astra_sites_recent_import_log_file', self::$log_file );
-			$file_name    = basename( $file_abs_url );
 			$file_url     = $upload_path . basename( $file_abs_url );
 
-			$data['log_file'] = array(
+			return array(
 				'abs_url' => $file_abs_url,
-				'name'    => $file_name,
 				'url'     => $file_url,
 			);
-
-			return $data;
 		}
 
 		/**
@@ -160,6 +153,11 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			Astra_Sites_Importer_Log::add( "PHP Extension GD \t: " . self::get_php_extension_gd() );
 			Astra_Sites_Importer_Log::add( PHP_EOL . '-----' . PHP_EOL );
 			Astra_Sites_Importer_Log::add( 'Importing Started! - ' . self::current_time() );
+
+			Astra_Sites_Importer_Log::add( '---' . PHP_EOL );
+			Astra_Sites_Importer_Log::add( 'WHY IMPORT PROCESS CAN FAIL? READ THIS - ' );
+			Astra_Sites_Importer_Log::add( 'https://wpastra.com/docs/?p=1314&utm_source=demo-import-panel&utm_campaign=import-error&utm_medium=wp-dashboard' . PHP_EOL );
+			Astra_Sites_Importer_Log::add( '---' . PHP_EOL );
 
 		}
 

@@ -78,6 +78,8 @@ var AstraSitesAjaxQueue = (function() {
 
 	AstraSitesAdmin = {
 
+		log_file: '',
+
 		init: function()
 		{
 			this._resetPagedCount();
@@ -135,15 +137,6 @@ var AstraSitesAjaxQueue = (function() {
 		 */
 		_importSuccessMessage: function( data ) {
 
-			if( astraSitesAdmin.debug && 'undefined' !== data.data.log_file.url ) {
-
-				var abs_url = decodeURIComponent( data.data.log_file.abs_url ) || '',
-					name    = data.data.log_file.name || '',
-					url     = decodeURIComponent( data.data.log_file.url ) || '';
-
-				$('.install-theme-info').prepend('<div class="notice notice-info"><p>'+astraSitesAdmin.log.importLogText+'<a target="_blank" href="'+url+'">'+name+'</a></p></div>')
-			}
-
 			$('.astra-demo-import').removeClass('updating-message installing')
 				.removeAttr('data-import')
 				.addClass('view-site')
@@ -159,20 +152,47 @@ var AstraSitesAjaxQueue = (function() {
 		 * 
 		 * @param  {string} data Error message.
 		 */
-		_importFailMessage: function( data ) {
+		_importFailMessage: function( message, from ) {
 
-			$('.astra-demo-import').removeClass('updating-message installing')
+			$('.astra-demo-import')
+				.addClass('go-pro button-primary')
+				.removeClass('updating-message installing')
 				.removeAttr('data-import')
-				.text( astraSitesAdmin.strings.importAgain );
+				.attr('target', '_blank')
+				.append('<i class="dashicons dashicons-external"></i>')
+				.removeClass('astra-demo-import');
+
+			// Add the doc link due to import log file not generated.
+			if( 'undefined' === from ) {
+
+				$('.wp-full-overlay-header .go-pro').text( astraSitesAdmin.strings.importFailedBtnSmall );
+				$('.wp-full-overlay-footer .go-pro').text( astraSitesAdmin.strings.importFailedBtnLarge );
+				$('.go-pro').attr('href', astraSitesAdmin.log.serverConfiguration );
+
+			// Add the import log file link.
+			} else {
+				
+				$('.wp-full-overlay-header .go-pro').text( astraSitesAdmin.strings.importFailBtn );
+				$('.wp-full-overlay-footer .go-pro').text( astraSitesAdmin.strings.importFailBtnLarge )
+				
+				// Add the import log file link.
+				if( 'undefined' !== AstraSitesAdmin.log_file_url ) {
+					$('.go-pro').attr('href', AstraSitesAdmin.log_file_url );
+				} else {
+					$('.go-pro').attr('href', astraSitesAdmin.log.serverConfiguration );
+				}
+			}
 
 			var output  = '<div class="astra-api-error notice notice-error notice-alt is-dismissible">';
-				output += '	<p>'+data+'</p>';
+				output += '	<p>'+message+'</p>';
 				output += '	<button type="button" class="notice-dismiss">';
 				output += '		<span class="screen-reader-text">'+commonL10n.dismiss+'</span>';
 				output += '	</button>';
 				output += '</div>';
 
-			$('.install-theme-info').prepend( output );
+			// Fail Notice.
+			$('.install-theme-info').append( output );
+			
 
 			// !important to add trigger.
 			// Which reinitialize the dismiss error message events.
@@ -583,10 +603,17 @@ var AstraSitesAjaxQueue = (function() {
 				},
 			})
 			.fail(function( jqXHR ){
-				AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-				AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+				AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+				AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 		    })
 			.done(function ( demo_data ) {
+
+				/**
+				 * Set log file URL
+				 */
+				if( astraSitesAdmin.debug && 'undefined' !== demo_data.data.log_file.url ) {
+					AstraSitesAdmin.log_file_url  = decodeURIComponent( demo_data.data.log_file.url ) || '';
+				}
 
 				// 1. Fail - Request Site Import
 				if( false === demo_data.success ) {
@@ -617,8 +644,8 @@ var AstraSitesAjaxQueue = (function() {
 						},
 					})
 					.fail(function( jqXHR ){
-						AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-						AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+						AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+						AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 				    })
 					.done(function ( customizer_data ) {
 
@@ -646,8 +673,8 @@ var AstraSitesAjaxQueue = (function() {
 								},
 							})
 							.fail(function( jqXHR ){
-								AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-								AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+								AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+								AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 						    })
 							.done(function ( wxr_url ) {
 
@@ -676,8 +703,8 @@ var AstraSitesAjaxQueue = (function() {
 										},
 									})
 									.fail(function( jqXHR ){
-										AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-										AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+										AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+										AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 								    })
 									.done(function ( options_data ) {
 
@@ -706,8 +733,8 @@ var AstraSitesAjaxQueue = (function() {
 												},
 											})
 											.fail(function( jqXHR ){
-												AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-												AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+												AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+												AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 										    })
 											.done(function ( widgets_data ) {
 
@@ -732,8 +759,8 @@ var AstraSitesAjaxQueue = (function() {
 														}
 													})
 													.fail(function( jqXHR ){
-														AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
-														AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText + '<br/><br/>' + astraSitesAdmin.log.serverConfiguration );
+														AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
+														AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 												    })
 													.done(function ( demo_data ) {
 
@@ -929,13 +956,28 @@ var AstraSitesAjaxQueue = (function() {
 				// or
 				var $pluginsFilter    = jQuery( '#plugin-filter' ),
 					data 			= {
-										_ajax_nonce		 : astraSitesAdmin._ajax_nonce,
+										action           : 'astra-required-plugins',
+										_ajax_nonce      : astraSitesAdmin._ajax_nonce,
 										required_plugins : requiredPlugins
 									};
 
 				jQuery('.required-plugins').addClass('loading').html('<span class="spinner is-active"></span>');
 
-				wp.ajax.post( 'astra-required-plugins', data ).done( function( response ) {
+			 	// Required Required.
+				$.ajax({
+					url  : astraSitesAdmin.ajaxurl,
+					type : 'POST',
+					data : data,
+				})
+				.fail(function( jqXHR ){
+
+					// Remove loader.
+					jQuery('.required-plugins').removeClass('loading').html('');
+
+					AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText, 'plugins' );
+					AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
+				})
+				.done(function ( response ) {
 
 					// Remove loader.
 					jQuery('.required-plugins').removeClass('loading').html('');
@@ -951,12 +993,12 @@ var AstraSitesAjaxQueue = (function() {
 					 *
 					 * List of not installed required plugins.
 					 */
-					if ( typeof response.notinstalled !== 'undefined' ) {
+					if ( typeof response.data.notinstalled !== 'undefined' ) {
 
 						// Add not have installed plugins count.
-						remaining_plugins += parseInt( response.notinstalled.length );
+						remaining_plugins += parseInt( response.data.notinstalled.length );
 
-						jQuery( response.notinstalled ).each(function( index, plugin ) {
+						jQuery( response.data.notinstalled ).each(function( index, plugin ) {
 
 							var output  = '<div class="plugin-card ';
 								output += ' 		plugin-card-'+plugin.slug+'"';
@@ -982,12 +1024,12 @@ var AstraSitesAjaxQueue = (function() {
 					 *
 					 * List of not inactive required plugins.
 					 */
-					if ( typeof response.inactive !== 'undefined' ) {
+					if ( typeof response.data.inactive !== 'undefined' ) {
 
 						// Add inactive plugins count.
-						remaining_plugins += parseInt( response.inactive.length );
+						remaining_plugins += parseInt( response.data.inactive.length );
 
-						jQuery( response.inactive ).each(function( index, plugin ) {
+						jQuery( response.data.inactive ).each(function( index, plugin ) {
 
 							var output  = '<div class="plugin-card ';
 								output += ' 		plugin-card-'+plugin.slug+'"';
@@ -1013,9 +1055,9 @@ var AstraSitesAjaxQueue = (function() {
 					 *
 					 * List of not active required plugins.
 					 */
-					if ( typeof response.active !== 'undefined' ) {
+					if ( typeof response.data.active !== 'undefined' ) {
 
-						jQuery( response.active ).each(function( index, plugin ) {
+						jQuery( response.data.active ).each(function( index, plugin ) {
 
 							var output  = '<div class="plugin-card ';
 								output += ' 		plugin-card-'+plugin.slug+'"';
@@ -1039,10 +1081,10 @@ var AstraSitesAjaxQueue = (function() {
 					 * Enable Demo Import Button
 					 * @type number
 					 */
-					astraSitesAdmin.requiredPlugins = response;
+					astraSitesAdmin.requiredPlugins = response.data;
 					AstraSitesAdmin._enable_demo_import_button();
 
-				} );
+				});
 
 			} else {
 

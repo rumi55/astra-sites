@@ -88,6 +88,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				if ( is_wp_error( $demo_data ) ) {
 					wp_send_json_error( $demo_data->get_error_message() );
 				} else {
+					$demo_data['log_file'] = Astra_Sites_Importer_Log::add_log_file_url();
 					do_action( 'astra_sites_import_start', $demo_data, $demo_api_uri );
 				}
 
@@ -213,7 +214,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			do_action( 'astra_sites_import_end' );
 
 			$demo_data = ( isset( $_POST['demo_data'] ) ) ? (array) json_decode( stripcslashes( $_POST['demo_data'] ), 1 ) : '';
-			$demo_data = apply_filters( 'astra_sites_import_end_data', $demo_data );
 
 			if ( ! empty( $demo_data ) ) {
 				do_action( 'astra_sites_import_complete', $demo_data );
