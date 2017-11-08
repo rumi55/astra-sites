@@ -150,10 +150,13 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			}
 
 			// Add "elementor" in import [queue].
-			if ( is_plugin_active( 'elementor/elementor.php' ) ) {
-				if ( class_exists( '\Elementor\TemplateLibrary\Astra_Sites_Batch_Processing_Elementor' ) ) {
-					$import = new \Elementor\TemplateLibrary\Astra_Sites_Batch_Processing_Elementor();
-					self::$process_all->push_to_queue( $import );
+			// @todo Remove required `allow_url_fopen` support.
+			if ( ini_get( 'allow_url_fopen' ) ) {
+				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+					if ( class_exists( '\Elementor\TemplateLibrary\Astra_Sites_Batch_Processing_Elementor' ) ) {
+						$import = new \Elementor\TemplateLibrary\Astra_Sites_Batch_Processing_Elementor();
+						self::$process_all->push_to_queue( $import );
+					}
 				}
 			}
 
