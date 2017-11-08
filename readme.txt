@@ -38,7 +38,7 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 == Changelog ==
 
 v1.0.14 - Unreleased
-* Improvement: Loading 10 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
+* Improvement: Loading 15 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
