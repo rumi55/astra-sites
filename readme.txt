@@ -18,11 +18,20 @@ This plugin is an add-on for the Astra WordPress Theme. It offers a library of r
 2. Pick a site you like.
 3. Install required plugins in one click
 4. Import the site data.
-5. Done ;)
+5. Done!
 
-Use this imported site as a base for your project and don't waste time starting from scratch!
+Use this imported site as a base for your project and don't waste time starting from scratch.
 
-_<a href="https://wpastra.com/ready-websites/">See list of all available sites to import »</a>_
+Some of the currently available sites for import:
+
+https://sites.wpastra.com/gardener-free/
+https://sites.wpastra.com/hotel-free/
+https://sites.wpastra.com/agency-free/
+https://sites.wpastra.com/restaurant-free/
+https://sites.wpastra.com/construction-free/
+https://sites.wpastra.com/makeup-artist-free/
+https://sites.wpastra.com/electrician-free
+https://sites.wpastra.com/law-free/
 
 == Installation ==
 
