@@ -51,8 +51,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
-			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
-			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
+			add_action( 'wp_ajax_astra-import-demo', array( $this, 'demo_ajax_import' ) );
+			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
 
 		}
 
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 
-				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				if ( ! isset( $result['code'] ) ) {
 					$remote_args['id']                         = $result['id'];
