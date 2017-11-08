@@ -53,10 +53,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 */
 		public function __construct() {
 
-			if ( ! ini_get( 'allow_url_fopen' ) ) {
-				return;
-			}
-
 			// Core Helpers - Image.
 			// @todo 	This file is required for Elementor.
 			// Once we implement our logic for updating elementor data then we'll delete this file.
@@ -78,8 +74,8 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			self::$process_all = new WP_Background_Process_Astra();
 
 			// Start image importing after site import complete.
-			add_filter( 'astra_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
-			add_action( 'admin_head', array( $this, 'batch_import' ) );
+			add_filter( 'astra_sites_image_importer_skip_image' , array( $this, 'skip_image' ), 10, 2 );
+			add_action( 'admin_head'                            , array( $this, 'batch_import' ) );
 		}
 
 		/**

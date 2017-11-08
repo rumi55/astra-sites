@@ -163,7 +163,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			}
 
 			if ( $post_id ) {
-				$new_attachment                                  = array(
+				$new_attachment = array(
 					'id'  => $post_id,
 					'url' => wp_get_attachment_url( $post_id ),
 				);
@@ -189,27 +189,19 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 				return $saved_image;
 			}
 
-			// Extract the file name and extension from the URL.
-			$filename = basename( $attachment['url'] );
-
-			if ( function_exists( 'file_get_contents' ) ) {
-				$options = array(
-					'http' => array(
-						'user_agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686 on x86_64; rv:49.0) Gecko/20100101 Firefox/49.0',
-					),
-				);
-
-				$context = stream_context_create( $options );
-
-				$file_content = file_get_contents( $attachment['url'], false, $context );
-			} else {
-				$file_content = wp_remote_retrieve_body( wp_safe_remote_get( $attachment['url'] ) );
-			}
-
+			$file_content = wp_remote_retrieve_body( wp_safe_remote_get( $attachment['url'] ) );
+		
 			// Empty file content?
 			if ( empty( $file_content ) ) {
-				return false;
+
+				// @Debug Log.
+				Astra_Sites_Image_Importer::log( 'Image not downloaded though wp_remote_retrieve_body() : ' . $attachment['url'] );
+
+				return $attachment;
 			}
+
+			// Extract the file name and extension from the URL.
+			$filename = basename( $attachment['url'] );
 
 			$upload = wp_upload_bits(
 				$filename,
