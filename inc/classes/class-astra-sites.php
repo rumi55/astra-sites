@@ -80,7 +80,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					/* translators: 1: theme.php file*/
 					'message'          => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'      => true,
-					'dismissible-time' => MINUTE_IN_SECONDS,
+					'dismissible-time' => WEEK_IN_SECONDS,
 				)
 			);
 
@@ -216,7 +216,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra_sites_api_params', array(
 					'purchase_key' => '',
 					'site_url'     => '',
-					'par-page'     => 6,
+					'par-page'     => 15,
 				)
 			);
 

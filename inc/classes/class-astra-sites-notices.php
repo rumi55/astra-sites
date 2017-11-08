@@ -123,7 +123,6 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 				'show_if'          => true,
 				'message'          => '',
 				'class'            => 'astra-active-notice',
-
 				'dismissible'      => false,
 				'dismissible-meta' => 'user',
 				'dismissible-time' => WEEK_IN_SECONDS,

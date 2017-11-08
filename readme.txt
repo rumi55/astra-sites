@@ -27,18 +27,19 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/astra-sites` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
-3. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
+1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
 
 == Screenshots ==
 1. Select the demo you want to import.
-2. Install and activate the required plugins.
-3. Import the demo.
+1. Install and activate the required plugins.
+1. Import the demo.
 
 == Changelog ==
 
 v1.0.14 - Unreleased
 * New: Added batch import support in which we replace all the images from Astra sites.
+* Improvement: Loading 15 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
