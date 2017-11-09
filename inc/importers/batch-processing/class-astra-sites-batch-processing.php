@@ -110,7 +110,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 */
 		public function start_process() {
 
-			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::set_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images for Blog name \'' .get_bloginfo( 'name' ). '\' ('.get_current_blog_id().') ===================' );
+			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::set_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ') ===================' );
 
 			// Add "widget" in import [queue].
 			if ( class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) {

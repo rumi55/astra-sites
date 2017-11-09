@@ -192,10 +192,9 @@ class Astra_Site_Options_Import {
 
 		if ( ! is_wp_error( $data ) ) {
 
-			if( isset( $data->attachment_id ) && ! empty( $data->attachment_id ) ) {
+			if ( isset( $data->attachment_id ) && ! empty( $data->attachment_id ) ) {
 				set_theme_mod( 'custom_logo', $data->attachment_id );
 			}
-
 		}
 	}
 
