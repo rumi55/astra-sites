@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -51,8 +51,10 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
 
-			add_action( 'wp_ajax_astra-import-demo',                        array( $this, 'demo_ajax_import' ) );
-			add_action( 'astra_sites_image_import_complete',                array( $this, 'clear_cache' ) );
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing.php';
+
+			add_action( 'wp_ajax_astra-import-demo', array( $this, 'demo_ajax_import' ) );
+			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
 
 		}
 
@@ -125,7 +127,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Object) $data Widgets data.
 		 */
-		private function import_widgets( $data ) {
+		public function import_widgets( $data ) {
 
 			// bail if widgets data is not available.
 			if ( null == $data ) {
@@ -143,7 +145,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $options_404 404 Extensions settings from the demo.
 		 */
-		private function import_custom_404_extension_options( $options_404 ) {
+		public function import_custom_404_extension_options( $options_404 ) {
 			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_custom_404', $options_404 );
 			}
@@ -156,7 +158,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $options Array of required site options from the demo.
 		 */
-		private function import_site_options( $options ) {
+		public function import_site_options( $options ) {
 			$options_importer = Astra_Site_Options_Import::instance();
 			$options_importer->import_options( $options );
 		}
@@ -168,7 +170,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (String) $wxr_url URL of the xml export of the demo to be imported.
 		 */
-		private function import_wxr( $wxr_url ) {
+		public function import_wxr( $wxr_url ) {
 			$wxr_importer = Astra_WXR_Importer::instance();
 			$xml_path     = $wxr_importer->download_xml( $wxr_url );
 			$wxr_importer->import_xml( $xml_path['file'] );
@@ -181,7 +183,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $customizer_data Customizer data for the demo to be imported.
 		 */
-		private function import_customizer_settings( $customizer_data ) {
+		public function import_customizer_settings( $customizer_data ) {
 			$customizer_import = Astra_Customizer_Import::instance();
 			$customizer_data   = $customizer_import->import( $customizer_data );
 		}
@@ -193,7 +195,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @param  (Array) $saved_extensions Array of enabled extensions.
 		 */
-		private function import_astra_enabled_extension( $saved_extensions ) {
+		public function import_astra_enabled_extension( $saved_extensions ) {
 			if ( is_callable( 'Astra_Admin_Helper::update_admin_settings_option' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $saved_extensions );
 			}
@@ -244,7 +246,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 
-				$result                                     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$result = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				if ( ! isset( $result['code'] ) ) {
 					$remote_args['id']                         = $result['id'];
@@ -283,8 +285,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Importer::set_instance();
+	Astra_Sites_Importer::get_instance();
 
 endif;

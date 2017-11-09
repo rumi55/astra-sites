@@ -41,7 +41,7 @@ defined( 'ABSPATH' ) or exit;
 				<input placeholder="<?php _e( 'Search Sites...', 'astra-sites' ); ?>" type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
 			</div>
 
-		 </div>
+		</div>
 
 	</div>
 
@@ -119,6 +119,21 @@ defined( 'ABSPATH' ) or exit;
 					<span class="collapse-sidebar-arrow"></span>
 					<span class="collapse-sidebar-label"><?php esc_html_e( 'Collapse', 'astra-sites' ); ?></span>
 				</button>
+
+				<div class="devices-wrapper">
+					<div class="devices">
+						<button type="button" class="preview-desktop active" aria-pressed="true" data-device="desktop">
+							<span class="screen-reader-text"><?php _e( 'Enter desktop preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-tablet" aria-pressed="false" data-device="tablet">
+							<span class="screen-reader-text"><?php _e( 'Enter tablet preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-mobile" aria-pressed="false" data-device="mobile">
+							<span class="screen-reader-text"><?php _e( 'Enter mobile preview mode', 'astra-sites' ); ?></span>
+						</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<div class="wp-full-overlay-main">
@@ -137,14 +152,14 @@ defined( 'ABSPATH' ) or exit;
 		<?php
 
 		/* translators: %1$s & %2$s are a Demo API URL */
-		printf( __( '<p> It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-sites' ) , esc_url( Astra_Sites::$api_url ), esc_url( Astra_Sites::$api_url ) );
+		printf( __( '<p> It seems the demo data server, <i><a href="%1$s">%2$s</a></i> is unreachable from your site.</p>', 'astra-sites' ), esc_url( Astra_Sites::$api_url ), esc_url( Astra_Sites::$api_url ) );
 
 		_e( '<p class="left-margin"> 1. Sometimes, simple page reload fixes any temporary issues. No kidding!</p>', 'astra-sites' );
 
 		_e( '<p class="left-margin"> 2. If that does not work, you will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
 
 		/* translators: %1$s is a support link */
-		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
+		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=api-request-failed' ) );
 		?>
 	</div>
 </script>
@@ -159,7 +174,7 @@ defined( 'ABSPATH' ) or exit;
 	<# if ( data ) { #>
 
 		<ul class="{{ data.args.wrapper_class }} {{ data.args.class }}">
-			
+
 			<# if ( data.args.show_all ) { #>
 				<li>
 					<a href="#" data-group="all"> All </a>
@@ -170,7 +185,7 @@ defined( 'ABSPATH' ) or exit;
 				<# if ( data.items[ key ].count ) { #>
 					<li>
 						<a href="#" data-group='{{ data.items[ key ].id }}' class="{{ data.items[ key ].name }}">
-							 {{ data.items[ key ].name }}
+							{{ data.items[ key ].name }}
 						</a>
 					</li>
 				<# } #>
@@ -204,16 +219,12 @@ defined( 'ABSPATH' ) or exit;
 				<input type="hidden" class="astra-site-options" value="{{ JSON.stringify(data.items[ key ]['astra-site-options-data'] ) }}" />
 				<input type="hidden" class="astra-enabled-extensions" value="{{ JSON.stringify(data.items[ key ]['astra-enabled-extensions'] ) }}" />
 
-			<!-- <div class="theme astra-theme site-single" data-groups=["{{ data.items[ key ].tags }}"]> -->
 				<div class="inner">
 				<span class="site-preview" data-href="{{ data.items[ key ]['astra-site-url'] }}?TB_iframe=true&width=600&height=550" data-title="{{ data.items[ key ].title.rendered }}">		
-				
+
 				<div class="theme-screenshot">
 				<# if( '' !== data.items[ key ]['featured-image-url'] ) { #>
-					<img class="lazy" data-src="{{ data.items[ key ]['featured-image-url'] }}" />
-						<noscript>
-							<img src="{{ data.items[ key ]['featured-image-url'] }}" />
-						</noscript>
+					<img src="{{ data.items[ key ]['featured-image-url'] }}" />
 				<# } #>
 				</div>
 
@@ -236,6 +247,32 @@ defined( 'ABSPATH' ) or exit;
 			</div>
 		<# } #>
 	<# } else { #>
-		<p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?> </p>
+		<p class="no-themes" style="display:block;">
+			<?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?>
+			<span class="description">
+				<?php
+				/* translators: %1$s External Link */
+				printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+				?>
+			</span>
+		</p>
 	<# } #>
+</script>
+
+<?php
+/**
+ * TMPL - List
+ */
+?>
+<script type="text/template" id="tmpl-astra-sites-suggestions">
+	<div class="theme astra-theme site-single astra-sites-suggestions">
+		<div class="inner">
+			<p>
+			<?php
+			/* translators: %1$s External Link */
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+			?>
+			</p>
+		</div>
+	</div>
 </script>

@@ -42,7 +42,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 *
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -56,10 +56,10 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 */
 		public function __construct() {
 
-			add_filter( 'all_plugins'                    , array( $this, 'plugins_page' ) );
-			add_filter( 'astra_addon_branding_options'   , __CLASS__ . '::settings' );
-			add_action( 'astra_pro_white_label_add_form' , __CLASS__ . '::add_white_lavel_form' );
-			add_filter( 'astra_sites_menu_page_title'    , array( $this, 'page_title' ) );
+			add_filter( 'all_plugins', array( $this, 'plugins_page' ) );
+			add_filter( 'astra_addon_branding_options', __CLASS__ . '::settings' );
+			add_action( 'astra_pro_white_label_add_form', __CLASS__ . '::add_white_lavel_form' );
+			add_filter( 'astra_sites_menu_page_title', array( $this, 'page_title' ) );
 
 			// Display the link with the plugin meta.
 			if ( is_admin() ) {
@@ -155,8 +155,8 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		public static function settings( $settings = array() ) {
 
 			$settings['astra-sites'] = array(
-				'name'          => '',
-				'description'   => '',
+				'name'        => '',
+				'description' => '',
 			);
 
 			return $settings;
@@ -201,8 +201,8 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_White_Label::set_instance();
+	Astra_Sites_White_Label::get_instance();
 
 endif;
