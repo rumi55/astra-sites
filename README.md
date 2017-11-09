@@ -38,11 +38,11 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 ## Changelog ##
 
 v1.0.14 - 9-Nov-2017
-* New: Added suggestion box at the end of the sites for getting user suggestions.
-* New: Added site responsive preview buttons for testing responsiveness of sites.
-* New: Added batch import support in which we replace all the images whcih are downloaded from the Astra sites.
-* Improvement: Empty the search input only click on category filter not on page builder filter.
-* Improvement: Loading 15 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
+* New: All the linked images on the Astra Sites will be downloaded to your site, No more loading images from external URLs.
+* New: Added suggestion box at as the last column in when listing sites so that you can add a suggest the sites you want.
+* New: Added site responsive preview buttons.
+* Improvement: Search string will not be removed when switching the page builder when scrolling through sites.
+* Improvement: Loading 15 sites instead of 6 Astra sites in the first load.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
