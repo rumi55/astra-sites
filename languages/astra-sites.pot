@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Astra Sites - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites - Lite 1.0.13\n"
+"Project-Id-Version: Astra Sites - Lite 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-10-09 14:55:13+00:00\n"
+"POT-Creation-Date: 2017-11-09 09:45:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,11 +28,11 @@ msgstr ""
 msgid "Astra Sites"
 msgstr ""
 
-#: inc/classes/class-astra-sites-importer.php:72
+#: inc/classes/class-astra-sites-importer.php:74
 msgid "You have not \"customize\" access to import the astra site."
 msgstr ""
 
-#: inc/classes/class-astra-sites-importer.php:80
+#: inc/classes/class-astra-sites-importer.php:82
 msgid "Demo Imported Successfully."
 msgstr ""
 
@@ -45,78 +45,78 @@ msgstr ""
 msgid "%1$s Branding"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:80
+#: inc/classes/class-astra-sites.php:81
 #. translators: 1: theme.php file
 msgid ""
 "Astra Theme needs to be active for you to use currently installed \"%1$s\" "
 "plugin. <a href=\"%2$s\">Install & Activate Now</a>"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:120
+#: inc/classes/class-astra-sites.php:121
 msgid "See Library"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:168
+#: inc/classes/class-astra-sites.php:166
 msgid "Page Builder"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:173
+#: inc/classes/class-astra-sites.php:171
 msgid "Categories"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:205
+#: inc/classes/class-astra-sites.php:203
 msgid "Purchase"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:207
+#: inc/classes/class-astra-sites.php:205
 msgid "Upgrade"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:212
+#: inc/classes/class-astra-sites.php:210
 msgid "Error!"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:213
+#: inc/classes/class-astra-sites.php:211
 msgid "Error! Read Possibilities."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:215
+#: inc/classes/class-astra-sites.php:213
 msgid "Done! View Site"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:216
+#: inc/classes/class-astra-sites.php:214
 msgid "Activating"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:217
+#: inc/classes/class-astra-sites.php:215
 msgid "Active"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:218
+#: inc/classes/class-astra-sites.php:216
 msgid "Import This Site"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:219
+#: inc/classes/class-astra-sites.php:217
 msgid "Importing Demo"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:220 inc/includes/admin-page.php:102
+#: inc/classes/class-astra-sites.php:218 inc/includes/admin-page.php:102
 msgid "Read more"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:221
+#: inc/classes/class-astra-sites.php:219
 msgid "Hide"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:222
+#: inc/classes/class-astra-sites.php:220
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:223 inc/includes/admin-page.php:240
+#: inc/classes/class-astra-sites.php:221 inc/includes/admin-page.php:250
 msgid "No Demos found, Try a different search."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:224
+#: inc/classes/class-astra-sites.php:222
 msgid ""
 "Executing Demo Import will make your site similar as ours. Please bear in "
 "mind -\n"
@@ -130,19 +130,19 @@ msgid ""
 "placeholders."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:259
+#: inc/classes/class-astra-sites.php:257
 msgid "No plugin specified"
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:288
+#: inc/classes/class-astra-sites.php:286
 msgid "Plugin Successfully Activated"
 msgstr ""
 
-#: inc/classes/compatibility/elementor/class-astra-sites-source-remote.php:58
+#: inc/importers/batch-processing/class-astra-sites-batch-processing-elementor.php:58
 msgid "Remote"
 msgstr ""
 
-#: inc/classes/vendor/wp-background-process.php:426
+#: inc/importers/batch-processing/helpers/class-wp-background-process.php:433
 msgid "Every %d Minutes"
 msgstr ""
 
@@ -353,31 +353,43 @@ msgstr ""
 msgid "Collapse"
 msgstr ""
 
-#: inc/includes/admin-page.php:125 inc/includes/admin-page.php:234
+#: inc/includes/admin-page.php:126
+msgid "Enter desktop preview mode"
+msgstr ""
+
+#: inc/includes/admin-page.php:129
+msgid "Enter tablet preview mode"
+msgstr ""
+
+#: inc/includes/admin-page.php:132
+msgid "Enter mobile preview mode"
+msgstr ""
+
+#: inc/includes/admin-page.php:140 inc/includes/admin-page.php:244
 msgid "Preview"
 msgstr ""
 
-#: inc/includes/admin-page.php:140
+#: inc/includes/admin-page.php:155
 #. translators: %1$s & %2$s are a Demo API URL
 msgid ""
 "<p> It seems the demo data server, <i><a href=\"%1$s\">%2$s</a></i> is "
 "unreachable from your site.</p>"
 msgstr ""
 
-#: inc/includes/admin-page.php:142
+#: inc/includes/admin-page.php:157
 msgid ""
 "<p class=\"left-margin\"> 1. Sometimes, simple page reload fixes any "
 "temporary issues. No kidding!</p>"
 msgstr ""
 
-#: inc/includes/admin-page.php:144
+#: inc/includes/admin-page.php:159
 msgid ""
 "<p class=\"left-margin\"> 2. If that does not work, you will need to talk "
 "to your server administrator and check if demo server is being blocked by "
 "the firewall!</p>"
 msgstr ""
 
-#: inc/includes/admin-page.php:147
+#: inc/includes/admin-page.php:162
 #. translators: %1$s is a support link
 msgid ""
 "<p>If that does not help, please open up a <a href=\"%1$s\" "
@@ -385,8 +397,15 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: inc/includes/admin-page.php:222
+#: inc/includes/admin-page.php:232
 msgid "Details &amp; Preview"
+msgstr ""
+
+#: inc/includes/admin-page.php:265
+#. translators: %1$s External Link
+msgid ""
+"Don't see a site that you would like to import?<br>Please suggest <a "
+"target=\"_blank\" href=\"%1$s\">tell us</a>!"
 msgstr ""
 
 #: inc/includes/white-label.php:23

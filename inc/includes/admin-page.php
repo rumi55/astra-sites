@@ -262,7 +262,7 @@ defined( 'ABSPATH' ) or exit;
 			<p>
 			<?php
 			/* translators: %1$s External Link */
-			printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest one</a>!', 'astra-sites' ), esc_url( '#' ) );
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( '#' ) );
 			?>
 			</p>
 		</div>

@@ -107,6 +107,9 @@ var AstraSitesAjaxQueue = (function() {
 			$( document ).on('wp-plugin-install-success' , AstraSitesAdmin._installSuccess);
 		},
 
+		/**
+		 * Preview Device
+		 */
 		_previewDevice: function( event ) {
 			var device = $( event.currentTarget ).data( 'device' );
 
@@ -118,6 +121,9 @@ var AstraSitesAjaxQueue = (function() {
 			AstraSitesAdmin._tooglePreviewDeviceButtons( device );
 		},
 
+		/**
+		 * Toggle Preview Buttons
+		 */
 		_tooglePreviewDeviceButtons: function( newDevice ) {
 			var $devices = $( '.wp-full-overlay-footer .devices' );
 
