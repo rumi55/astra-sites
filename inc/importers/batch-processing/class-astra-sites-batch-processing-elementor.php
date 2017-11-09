@@ -280,6 +280,7 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 				$this->import_single_post( $post_id );
 			}
 		}
+
 	}
 
 	/**
