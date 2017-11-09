@@ -18,6 +18,8 @@
 	<exclude-pattern>*/inc/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/wxr-importer/class-logger.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/class-widgets-importer.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/batch-processing/helpers/class-wp-async-request.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/batch-processing/helpers/class-wp-background-process.php</exclude-pattern>
 
 	<rule ref="Squiz.PHP.DisallowMultipleAssignments.Found">
 		<!-- See https://github.com/squizlabs/PHP_CodeSniffer/issues/1277 -->
