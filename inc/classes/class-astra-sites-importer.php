@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -285,8 +285,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Importer::set_instance();
+	Astra_Sites_Importer::get_instance();
 
 endif;

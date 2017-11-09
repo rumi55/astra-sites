@@ -38,7 +38,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -403,8 +403,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites::set_instance();
+	Astra_Sites::get_instance();
 
 endif;

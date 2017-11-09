@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 						'id'  => $value['attachment_id'],
 					);
 
-					$downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
+					$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
 
 					$data[ $key ]['url']           = $downloaded_image['url'];
 					$data[ $key ]['attachment_id'] = $downloaded_image['id'];
@@ -91,8 +91,8 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Batch_Processing_Widgets::set_instance();
+	Astra_Sites_Batch_Processing_Widgets::get_instance();
 
 endif;

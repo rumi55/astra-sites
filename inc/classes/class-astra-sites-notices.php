@@ -39,7 +39,7 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		 * @since 1.0.8
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -209,8 +209,8 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Notices::set_instance();
+	Astra_Sites_Notices::get_instance();
 
 endif;

@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					'id'  => $settings->bg_image,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
+				$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
 
 				$settings->bg_image_src = $downloaded_image['url'];
 				$settings->bg_image     = $downloaded_image['id'];
@@ -214,7 +214,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					'id'  => $settings->photo,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
+				$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
 
 				$settings->photo_src = $downloaded_image['url'];
 				$settings->photo     = $downloaded_image['id'];
@@ -227,9 +227,9 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Batch_Processing_Beaver_Builder::set_instance();
+	Astra_Sites_Batch_Processing_Beaver_Builder::get_instance();
 
 endif;
 

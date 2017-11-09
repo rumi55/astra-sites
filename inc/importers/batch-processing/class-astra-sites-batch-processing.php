@@ -39,7 +39,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -110,18 +110,18 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		 */
 		public function start_process() {
 
-			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::set_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ') ===================' );
+			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::get_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ') ===================' );
 
 			// Add "widget" in import [queue].
 			if ( class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) {
-				self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Widgets::set_instance() );
+				self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Widgets::get_instance() );
 			}
 
 			// Add "bb-plugin" in import [queue].
 			// Add "beaver-builder-lite-version" in import [queue].
 			if ( is_plugin_active( 'beaver-builder-lite-version/fl-builder.php' ) || is_plugin_active( 'bb-plugin/fl-builder.php' ) ) {
 				if ( class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) {
-					self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Beaver_Builder::set_instance() );
+					self::$process_all->push_to_queue( Astra_Sites_Batch_Processing_Beaver_Builder::get_instance() );
 				}
 			}
 
@@ -174,8 +174,8 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Batch_Processing::set_instance();
+	Astra_Sites_Batch_Processing::get_instance();
 
 endif;

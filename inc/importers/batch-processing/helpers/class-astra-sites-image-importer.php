@@ -9,7 +9,7 @@
  *      'id'  => '<image-id>',
  *  );
  *
- *  $downloaded_image = Astra_Sites_Image_Importer::set_instance()->import( $image );
+ *  $downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
  *
  * @package Astra Sites
  * @since 1.0.14
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 		 * @since 1.0.14
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -256,8 +256,8 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Image_Importer::set_instance();
+	Astra_Sites_Image_Importer::get_instance();
 
 endif;
