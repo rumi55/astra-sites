@@ -38,6 +38,7 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 == Changelog ==
 
 v1.0.14 - Unreleased
+* New: Added batch import support in which we replace all the images from Astra sites.
 * Improvement: Loading 15 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 

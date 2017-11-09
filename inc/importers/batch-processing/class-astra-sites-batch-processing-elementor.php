@@ -1,9 +1,9 @@
 <?php
 /**
- * Elementor Images
+ * Elementor Images Batch Processing
  *
  * @package Astra Sites
- * @since 1.0.11
+ * @since 1.0.0
  */
 
 namespace Elementor;
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Astra Source Remote
  */
-class Astra_Sites_Source_Remote extends Source_Base {
+class Astra_Sites_Batch_Processing_Elementor extends Source_Base {
 
 	/**
 	 * Get ID
@@ -265,12 +265,34 @@ class Astra_Sites_Source_Remote extends Source_Base {
 	}
 
 	/**
+	 * Import
+	 *
+	 * @since 1.0.14
+	 * @return void
+	 */
+	public function import() {
+
+		\Astra_Sites_Image_Importer::log( '---- Processing WordPress Posts / Pages - for Elementor ----' );
+
+		$post_ids = \Astra_Sites_Batch_Processing::get_pages();
+		if ( is_array( $post_ids ) ) {
+			foreach ( $post_ids as $post_id ) {
+				$this->import_single_post( $post_id );
+			}
+		}
+
+	}
+
+	/**
 	 * Update post meta.
 	 *
+	 * @since 1.0.14
 	 * @param  integer $post_id Post ID.
 	 * @return void
 	 */
-	public function hotlink_images( $post_id = 0 ) {
+	public function import_single_post( $post_id = 0 ) {
+
+		\Astra_Sites_Image_Importer::log( 'Post ID: ' . $post_id );
 
 		if ( ! empty( $post_id ) ) {
 

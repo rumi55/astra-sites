@@ -44,20 +44,12 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 		 */
 		public function __construct() {
 
-			// Background Processing.
-			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-async-request.php';
-			require_once ASTRA_SITES_DIR . 'inc/classes/vendor/wp-background-process.php';
-
 			// Plugin - Astra Pro.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/astra-pro/class-astra-sites-compatibility-astra-pro.php';
 
 			// Plugin - Site Origin Widgets.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/so-widgets-bundle/class-astra-sites-compatibility-so-widgets.php';
-
-			// Plugin - Elementor.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/elementor/class-astra-sites-compatibility-elementor.php';
 		}
-
 
 	}
 
@@ -67,3 +59,5 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 	Astra_Sites_Compatibility::instance();
 
 endif;
+
+

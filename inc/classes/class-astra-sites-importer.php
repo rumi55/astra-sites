@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -50,6 +50,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-customizer-import.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-astra-wxr-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/importers/class-astra-site-options-import.php';
+
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing.php';
 
 			add_action( 'wp_ajax_astra-import-demo', array( $this, 'demo_ajax_import' ) );
 			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
@@ -283,8 +285,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Importer::set_instance();
+	Astra_Sites_Importer::get_instance();
 
 endif;
