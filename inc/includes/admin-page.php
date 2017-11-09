@@ -252,7 +252,7 @@ defined( 'ABSPATH' ) or exit;
 			<span class="description">
 				<?php
 				/* translators: %1$s External Link */
-				printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+				printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
 				?>
 			</span>
 		</p>
@@ -270,7 +270,7 @@ defined( 'ABSPATH' ) or exit;
 			<p>
 			<?php
 			/* translators: %1$s External Link */
-			printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
 			?>
 			</p>
 		</div>
