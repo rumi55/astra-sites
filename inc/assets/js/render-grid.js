@@ -64,11 +64,15 @@
 			$(this).addClass('current');
 
 			// Prepare Before Search.
+			$('.no-more-demos').addClass('hide-me');
+			$('.astra-sites-suggestions').remove();
+
 			// Empty the search input only click on category filter not on page builder filter.
 			if( $(this).parents('.filter-links').hasClass('astra-site-category') ) {
 				$('#wp-filter-search-input').val('');
 			}
 			$('#astra-sites').hide().css('height', '');
+
 			$('body').addClass('loading-content');
 			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
@@ -91,6 +95,9 @@
 
 			// Prepare Before Search.
 			$('#astra-sites').hide().css('height', '');			
+			$('.no-more-demos').addClass('hide-me');
+			$('.astra-sites-suggestions').remove();
+
 			$('body').addClass('loading-content');
 			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
@@ -419,6 +426,9 @@
 
 			if( data.items_count <= 0 ) {
 				$('#astra-sites-admin').find('.spinner').removeClass('is-active');
+				$('.no-more-demos').addClass('hide-me');
+				$('.astra-sites-suggestions').remove();
+
 			} else {
 				$('body').removeClass('listed-all-sites');
 			}
@@ -452,6 +462,12 @@
 		 */
 		_apiFailed: function() {
 			$('#astra-sites-admin').find('.spinner').removeClass('is-active').addClass('hide-me');
+
+			$('#astra-sites-admin').find('.no-more-demos').removeClass('hide-me');
+			var template = wp.template('astra-sites-suggestions');
+			if( ! $( '.astra-sites-suggestions').length ) {
+				$('#astra-sites').append( template );
+			}
 		},
 
 		/**

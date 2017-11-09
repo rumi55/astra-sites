@@ -236,6 +236,42 @@
 #astra-sites-admin {
     height: 100vh;
 }
+
+.astra-sites-suggestions:before {
+    border: 5px dashed #ccc;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0px;
+}
+
+.astra-sites-suggestions {
+    min-height: 280px;
+    border: none !important;
+}
+
+.astra-sites-suggestions a {
+    border: none;
+    outline: none;
+}
+
+.astra-sites-suggestions .inner {
+    border: 5px dashed #ccc !important;
+    padding: 27% 10% 50% 10%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.astra-sites-suggestions p {
+    font-size: 1rem;
+    margin: 0;
+}
+
 .astra-notice {
     margin: 2em 2em 0em 0em;
 }
