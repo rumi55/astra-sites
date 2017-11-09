@@ -119,6 +119,21 @@ defined( 'ABSPATH' ) or exit;
 					<span class="collapse-sidebar-arrow"></span>
 					<span class="collapse-sidebar-label"><?php esc_html_e( 'Collapse', 'astra-sites' ); ?></span>
 				</button>
+
+				<div class="devices-wrapper">
+					<div class="devices">
+						<button type="button" class="preview-desktop active" aria-pressed="true" data-device="desktop">
+							<span class="screen-reader-text"><?php _e( 'Enter desktop preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-tablet" aria-pressed="false" data-device="tablet">
+							<span class="screen-reader-text"><?php _e( 'Enter tablet preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-mobile" aria-pressed="false" data-device="mobile">
+							<span class="screen-reader-text"><?php _e( 'Enter mobile preview mode', 'astra-sites' ); ?></span>
+						</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<div class="wp-full-overlay-main">
