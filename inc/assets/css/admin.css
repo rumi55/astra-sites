@@ -80,7 +80,7 @@
 }
 
 .expanded .wp-full-overlay-footer {
-    height: 100px;
+    height: 111px;
 }
 
 .wp-full-overlay-footer .view-site,
@@ -270,4 +270,8 @@
 .astra-sites-suggestions p {
     font-size: 1rem;
     margin: 0;
+}
+
+.astra-notice {
+    margin: 2em 2em 0em 0em;
 }

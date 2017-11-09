@@ -13,7 +13,7 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 	 *
 	 * @since 1.0.11
 	 */
-	class Astra_Elementor_Image_Importer_Process extends WP_Background_Process {
+	class WP_Background_Process_Astra extends WP_Background_Process {
 
 		/**
 		 * Image Process
@@ -32,13 +32,14 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 *
 		 * @since 1.0.11
 		 *
-		 * @param mixed $post_id Queue item to iterate over.
+		 * @param object $process Queue item object.
 		 * @return mixed
 		 */
-		protected function task( $post_id ) {
+		protected function task( $process ) {
 
-			$import = new \Elementor\TemplateLibrary\Astra_Sites_Source_Remote();
-			$import->hotlink_images( $post_id );
+			if ( method_exists( $process, 'import' ) ) {
+				$process->import();
+			}
 
 			return false;
 		}
@@ -52,6 +53,8 @@ if ( class_exists( 'WP_Background_Process' ) ) :
 		 * @since 1.0.11
 		 */
 		protected function complete() {
+
+			Astra_Sites_Image_Importer::log( '=================== ' . Astra_Sites_White_Label::get_instance()->page_title( ASTRA_SITES_NAME ) . ' - Importing Images Complete ===================' );
 
 			parent::complete();
 

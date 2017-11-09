@@ -39,7 +39,7 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		 * @since 1.0.8
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -118,14 +118,14 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 		function show_notices() {
 
 			$defaults = array(
+				'id'               => '',
 				'type'             => 'info',
 				'show_if'          => true,
 				'message'          => '',
-				'class'            => 'ast-active-notice',
-
+				'class'            => 'astra-active-notice',
 				'dismissible'      => false,
 				'dismissible-meta' => 'user',
-				'dismissible-time' => MINUTE_IN_SECONDS,
+				'dismissible-time' => WEEK_IN_SECONDS,
 
 				'data'             => '',
 			);
@@ -150,15 +150,20 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 				}
 
 				// Notice ID.
-				$notice_id         = 'astra-sites-notices-id-' . $key;
-				$notice['id']      = $notice_id;
+				if ( ! isset( $notice['id'] ) ) {
+					$notice_id    = 'astra-sites-notices-id-' . $key;
+					$notice['id'] = $notice_id;
+				} else {
+					$notice_id = $notice['id'];
+				}
+
 				$notice['classes'] = implode( ' ', $classes );
 
 				// User meta.
-				$notice['data'] = ' dismissible-meta=' . esc_attr( $notice['dismissible-meta'] ) . ' ';
+				$notice['data'] .= ' dismissible-meta=' . esc_attr( $notice['dismissible-meta'] ) . ' ';
 				if ( 'user' === $notice['dismissible-meta'] ) {
 					$expired = get_user_meta( get_current_user_id(), $notice_id, true );
-				} else {
+				} elseif ( 'transient' === $notice['dismissible-meta'] ) {
 					$expired = get_transient( $notice_id );
 				}
 
@@ -204,8 +209,8 @@ if ( ! class_exists( 'Astra_Sites_Notices' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Notices::set_instance();
+	Astra_Sites_Notices::get_instance();
 
 endif;

@@ -64,10 +64,14 @@
 			$(this).addClass('current');
 
 			// Prepare Before Search.
-			$('#wp-filter-search-input').val('');
-			$('#astra-sites').hide().css('height', '');			
-			$('.no-more-demos').addClass('hide-me')
+			$('.no-more-demos').addClass('hide-me');
 			$('.astra-sites-suggestions').remove();
+
+			// Empty the search input only click on category filter not on page builder filter.
+			if( $(this).parents('.filter-links').hasClass('astra-site-category') ) {
+				$('#wp-filter-search-input').val('');
+			}
+			$('#astra-sites').hide().css('height', '');
 
 			$('body').addClass('loading-content');
 			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');

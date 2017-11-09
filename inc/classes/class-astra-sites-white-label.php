@@ -42,7 +42,7 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 		 *
 		 * @return object initialized object of class.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new self;
 			}
@@ -201,8 +201,8 @@ if ( ! class_exists( 'Astra_Sites_White_Label' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_White_Label::set_instance();
+	Astra_Sites_White_Label::get_instance();
 
 endif;

@@ -135,7 +135,7 @@ class Astra_Site_Options_Import {
 	}
 
 	/**
-	 * Update Page ID
+	 * Update post option
 	 *
 	 * @since 1.0.2
 	 *
@@ -188,12 +188,13 @@ class Astra_Site_Options_Import {
 	 */
 	private function insert_logo( $image_url = '' ) {
 
-		$data = Astra_Sites_Helper::_sideload_image( $image_url );
+		$data = (object) Astra_Sites_Helper::_sideload_image( $image_url );
 
 		if ( ! is_wp_error( $data ) ) {
 
-			set_theme_mod( 'custom_logo', $data->attachment_id );
-
+			if ( isset( $data->attachment_id ) && ! empty( $data->attachment_id ) ) {
+				set_theme_mod( 'custom_logo', $data->attachment_id );
+			}
 		}
 	}
 
