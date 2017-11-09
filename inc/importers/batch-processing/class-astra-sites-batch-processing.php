@@ -91,8 +91,9 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			if ( isset( $attachment['url'] ) && ! empty( $attachment['url'] ) ) {
 				if (
-					strpos( $attachment['url'], 'sites.wpastra.com' ) !== false ||
-					strpos( $attachment['url'], 'sites-wpastra.sharkz.in' ) !== false
+					strpos( $attachment['url'], 'brainstormforce.com' ) !== false ||
+					strpos( $attachment['url'], 'wpastra.com' ) !== false ||
+					strpos( $attachment['url'], 'sharkz.in' ) !== false
 				) {
 					return false;
 				}
