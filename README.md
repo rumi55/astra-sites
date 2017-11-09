@@ -38,12 +38,10 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 ## Changelog ##
 
 v1.0.14 - Unreleased
-<<<<<<< HEAD
 * Improvement: Empty the search input only click on category filter not on page builder filter.
-=======
+* New: Added site responsive preview buttons for testing sites.
 * New: Added batch import support in which we replace all the images from Astra sites.
 * Improvement: Loading 15 sites instead of 6 Astra sites. On large screen it looks like we have only 6 sites.
->>>>>>> 7c1d9dcb277ac6dc6cfbf9e35b6593a48d07f4c2
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
