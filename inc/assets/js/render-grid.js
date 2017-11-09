@@ -155,7 +155,7 @@
 
 		_apiAddParam_per_page: function() {
 			// Add 'per_page'
-			var per_page_val = 3;
+			var per_page_val = 15;
 			if( astraRenderGrid.sites && astraRenderGrid.sites["par-page"] ) {
 				per_page_val = parseInt( astraRenderGrid.sites["par-page"] );
 			}

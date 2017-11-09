@@ -16,7 +16,6 @@
 				cache: false,
 			};
 
-			// Set API Request Header.
 			if( astraRenderGrid.headers ) {
 				data.headers = astraRenderGrid.headers;
 			}
