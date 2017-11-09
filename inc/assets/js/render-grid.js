@@ -33,7 +33,8 @@
 		 */
 		_bind: function()
 		{
-			$( document ).on('astra-sites-api-request-fail'    , AstraRender._apiFailed );
+			$( document ).on('astra-sites-api-request-error'   , AstraRender._addSuggestionBox );
+			$( document ).on('astra-sites-api-request-fail'    , AstraRender._addSuggestionBox );
 			$( document ).on('astra-api-post-loaded-on-scroll' , AstraRender._reinitGridScrolled );
 			$( document ).on('astra-api-post-loaded'           , AstraRender._reinitGrid );
 			$( document ).on('astra-api-category-loaded'       , AstraRender._addFilters );
@@ -458,9 +459,9 @@
 		},
 
 		/**
-		 * API Request Failed/Not found any demos.
+		 * Add Suggestion Box
 		 */
-		_apiFailed: function() {
+		_addSuggestionBox: function() {
 			$('#astra-sites-admin').find('.spinner').removeClass('is-active').addClass('hide-me');
 
 			$('#astra-sites-admin').find('.no-more-demos').removeClass('hide-me');

@@ -247,7 +247,15 @@ defined( 'ABSPATH' ) or exit;
 			</div>
 		<# } #>
 	<# } else { #>
-		<p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?> </p>
+		<p class="no-themes" style="display:block;">
+			<?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?>
+			<span class="description">
+				<?php
+				/* translators: %1$s External Link */
+				printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+				?>
+			</span>
+		</p>
 	<# } #>
 </script>
 
