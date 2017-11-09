@@ -209,7 +209,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'strings'         => array(
 						'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
 						'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
-						'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314' ),
+						'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314&utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=import-failed' ),
 						'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'            => __( 'Active', 'astra-sites' ),

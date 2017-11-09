@@ -159,7 +159,7 @@ defined( 'ABSPATH' ) or exit;
 		_e( '<p class="left-margin"> 2. If that does not work, you will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
 
 		/* translators: %1$s is a support link */
-		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
+		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=api-request-failed' ) );
 		?>
 	</div>
 </script>
@@ -262,7 +262,7 @@ defined( 'ABSPATH' ) or exit;
 			<p>
 			<?php
 			/* translators: %1$s External Link */
-			printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( '#' ) );
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please suggest <a target="_blank" href="%1$s">tell us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
 			?>
 			</p>
 		</div>
