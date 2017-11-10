@@ -74,6 +74,56 @@ var AstraSitesAjaxQueue = (function() {
 	};
 
 }());
+
+(function ($) {
+	var wxrImport = {
+		complete: {
+			posts: 0,
+			media: 0,
+			users: 0,
+			comments: 0,
+			terms: 0,
+		},
+
+		updateDelta: function (type, delta) {
+			this.complete[ type ] += delta;
+
+			var self = this;
+			requestAnimationFrame(function () {
+				self.render();
+			});
+		},
+		updateProgress: function ( type, complete, total ) {
+			var text = complete + '/' + total;
+			// document.getElementById( 'completed-' + type ).innerHTML = text;
+			console.log('completed: ' + text);
+			total = parseInt( total, 10 );
+			if ( 0 === total || isNaN( total ) ) {
+				total = 1;
+			}
+			var percent = parseInt( complete, 10 ) / total;
+			document.getElementById( 'progress-' + type ).innerHTML = Math.round( percent * 100 ) + '%';
+			document.getElementById( 'progressbar-' + type ).value = percent * 100;
+		},
+		render: function () {
+			var types = Object.keys( this.complete );
+			var complete = 0;
+			var total = 0;
+
+			for (var i = types.length - 1; i >= 0; i--) {
+				var type = types[i];
+				this.updateProgress( type, this.complete[ type ], this.data.count[ type ] );
+
+				complete += this.complete[ type ];
+				total += this.data.count[ type ];
+			}
+
+			this.updateProgress( 'total', complete, total );
+		}
+	};
+})(jQuery);
+
+
 (function($){
 
 	AstraSitesAdmin = {
@@ -676,7 +726,53 @@ var AstraSitesAjaxQueue = (function() {
 								AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.responseText );
 								AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.responseText );
 						    })
-							.done(function ( wxr_url ) {
+							.done(function ( xml_data ) {
+
+								console.log('xml_data: ' + JSON.stringify( xml_data ));
+
+								wxrImport.data = xml_data; // wxrImportData;
+								wxrImport.render();
+
+								var evtSource = new EventSource( wxrImport.data.url );
+								evtSource.onmessage = function ( message ) {
+									var data = JSON.parse( message.data );
+									switch ( data.action ) {
+										case 'updateDelta':
+											console.log( 'Importing ' + data.type + ' ' + data.delta );
+											wxrImport.updateDelta( data.type, data.delta );
+											break;
+
+										case 'complete':
+											evtSource.close();
+											console.log( '----- COMPLETE -----' );
+											// var import_status_msg = jQuery('#import-status-message');
+											// import_status_msg.text( wxrImport.data.strings.complete );
+											// import_status_msg.removeClass('notice-info');
+											// import_status_msg.addClass('notice-success');
+											break;
+									}
+								};
+								evtSource.addEventListener( 'log', function ( message ) {
+									var data = JSON.parse( message.data );
+									var row = document.createElement('tr');
+
+									var date = document.createElement( 'td' );
+									date.appendChild( document.createTextNode( Date() ) );
+									row.appendChild( date );
+									
+									var level = document.createElement( 'td' );
+									level.appendChild( document.createTextNode( data.level ) );
+									row.appendChild( level );
+
+									var message = document.createElement( 'td' );
+									message.appendChild( document.createTextNode( data.message ) );
+									row.appendChild( message );
+
+									jQuery('#import-log').append( row );
+								});
+
+								return;
+								// wxr_url
 
 								// 3. Fail - Import XML.
 								if( false === wxr_url.success ) {

@@ -3,8 +3,8 @@ Contributors: brainstormforce
 Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
-Tested up to: 4.8.1
-Stable tag: 1.0.13
+Tested up to: 4.9
+Stable tag: 1.0.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,20 +18,15 @@ This plugin is an add-on for the Astra WordPress Theme. It offers a library of r
 2. Pick a site you like.
 3. Install required plugins in one click
 4. Import the site data.
-5. Done!
+5. Done ;)
 
-Use this imported site as a base for your project and don't waste time starting from scratch.
 
-Some of the currently available sites for import:
+Use this imported site as a base for your project and don't waste time starting from scratch!
 
-https://sites.wpastra.com/gardener-free/
-https://sites.wpastra.com/hotel-free/
-https://sites.wpastra.com/agency-free/
-https://sites.wpastra.com/restaurant-free/
-https://sites.wpastra.com/construction-free/
-https://sites.wpastra.com/makeup-artist-free/
-https://sites.wpastra.com/electrician-free
-https://sites.wpastra.com/law-free/
+_<a href="https://wpastra.com/ready-websites/">See list of all available sites to import Â»</a>_
+
+#### Video walkthrough by Adam from WPCrafter:
+[youtube https://www.youtube.com/watch?v=zYbz-jxE9_Q]
 
 == Installation ==
 
@@ -39,15 +34,31 @@ https://sites.wpastra.com/law-free/
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
 
+== Frequently Asked Questions ==
+
+= A question that someone might have =
+
+An answer to that question.
+
+= What about foo bar? =
+
+Answer to foo bar dilemma.
+
+
 == Screenshots ==
+
 1. Select the demo you want to import.
 2. Install and activate the required plugins.
 3. Import the demo.
 
 == Changelog ==
 
-v1.0.14 - Unreleased
-* New: Categorized AJAX calls while importing Astra Site.
+v1.0.14 - 9-Nov-2017
+* New: All the linked images on the Astra Sites will be downloaded to your site, No more loading images from external URLs.
+* New: Added suggestion box at as the last column in when listing sites so that you can add a suggest the sites you want.
+* New: Added site responsive preview buttons.
+* Improvement: Search string will not be removed when switching the page builder when scrolling through sites.
+* Improvement: Loading 15 sites instead of 6 Astra sites in the first load.
 * Improvement: Removed LazyLoad which is not useful in admin back-end for showing Astra Sites.
 
 v1.0.13 - 9-Oct-2017
@@ -112,4 +123,4 @@ v1.0.1 - 04-Aug-2017
 
 v1.0.0
 * Initial release
-
+== Upgrade Notice ==

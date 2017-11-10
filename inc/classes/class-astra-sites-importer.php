@@ -145,8 +145,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				if ( $xml_path['success'] ) {
 
 					if ( isset( $xml_path['data']['file'] ) ) {
-						$wxr_importer->import_xml( $xml_path['data']['file'] );
-						wp_send_json_success();
+						$data = $wxr_importer->import_xml( $xml_path['data']['file'] );
+						wp_send_json_success( $data );
 					} else {
 						wp_send_json_error( __( 'Not able to download the XML file!', 'astra-sites' ) );
 					}
