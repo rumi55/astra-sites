@@ -3,7 +3,7 @@
 **Donate link:** https://wpastra.com/pro/  
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
-**Tested up to:** 4.8.1  
+**Tested up to:** 4.9.0  
 **Stable tag:** 1.0.14  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -20,15 +20,33 @@ This plugin is an add-on for the Astra WordPress Theme. It offers a library of r
 4. Import the site data.
 5. Done ;)
 
+
 Use this imported site as a base for your project and don't waste time starting from scratch!
 
-_<a href="https://wpastra.com/ready-websites/">See list of all available sites to import »</a>_
+_<a href="https://wpastra.com/ready-websites/">See list of all available sites to import Â»</a>_
+
+#### Video Walkthrough by Adam from WPCrafter:
+[youtube https://www.youtube.com/watch?v=zYbz-jxE9_Q]
 
 ## Installation ##
 
 1. Upload the plugin files to the `/wp-content/plugins/astra-sites` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Appearance->Astra->Astra Free Sites to select the page to be displayed as header and footer.
+
+## Frequently Asked Questions ##
+
+### Is this really free? ###
+
+Yup, we have dozens of free websites ready to import! We have a premium version as well that is required for importing premium sites.
+
+Learn More: https://wpastra.com/agency/
+
+### Can I suggest new websites that you I add? ###
+
+Sure. We love suggestions! Please submit them here -
+https://wpastra.com/sites-suggestions/
+
 
 ## Screenshots ##
 1. Select the demo you want to import.
