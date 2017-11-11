@@ -757,6 +757,13 @@ var AstraSitesAjaxQueue = (function() {
 									AstraSSEImport.data = xml_data.data;
 									AstraSSEImport.render();
 
+									console.log('astraSitesAdmin.is_IE: ' + astraSitesAdmin.is_IE);
+
+									// Add IE support.
+									// if( astraSitesAdmin.is_IE ) {
+									// } else {
+									// }
+
 									var evtSource = new EventSource( AstraSSEImport.data.url );
 									evtSource.onmessage = function ( message ) {
 										var data = JSON.parse( message.data );
@@ -1210,7 +1217,9 @@ var AstraSitesAjaxQueue = (function() {
 		/**
 		 * Enable Demo Import Button.
 		 */
-		_enable_demo_import_button: function( type = 'free' ) {
+		_enable_demo_import_button: function( type ) {
+
+			type = ( undefined !== type ) ? type : 'free';
 
 			switch( type ) {
 
