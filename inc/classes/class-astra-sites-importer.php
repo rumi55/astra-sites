@@ -133,7 +133,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			do_action( 'astra_sites_import_xml' );
 
-			$wxr_url = ( isset( $_POST['wxr_url'] ) ) ? urldecode( $_POST['wxr_url'] ) : '';
+			$wxr_url = ( isset( $_REQUEST['wxr_url'] ) ) ? urldecode( $_REQUEST['wxr_url'] ) : '';
 
 			if ( isset( $wxr_url ) ) {
 
@@ -146,6 +146,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 					if ( isset( $xml_path['data']['file'] ) ) {
 						$data = $wxr_importer->import_xml( $xml_path['data']['file'] );
+						$data['xml'] = $xml_path['data'];
 						wp_send_json_success( $data );
 					} else {
 						wp_send_json_error( __( 'Not able to download the XML file!', 'astra-sites' ) );

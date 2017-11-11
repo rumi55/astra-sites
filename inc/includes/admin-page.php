@@ -14,6 +14,7 @@
 defined( 'ABSPATH' ) or exit;
 
 ?>
+
 <div class="wrap" id="astra-sites-admin">
 
 	<div id="astra-sites-filters" class="wp-filter hide-if-no-js">
@@ -178,6 +179,102 @@ defined( 'ABSPATH' ) or exit;
 
 		</ul>
 	<# } #>
+</script>
+
+<?php
+/**
+ * TMPL - XML Import
+ */
+?>
+<script type="text/template" id="tmpl-astra-site-xml-import">
+
+	<!-- <style>
+	.completed {
+	    display: none;
+	}
+	</style> -->
+	<div class="astra-sse-importer">
+	    <h2>Importing</h2>
+
+	    <table class="import-status">
+	        <thead>
+	            <tr>
+	                <th>Summary</th>
+	                <th>Progress</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td>
+	                    <span class="dashicons dashicons-admin-post"></span> {{ data.posts }} posts</td>
+	                <td>
+	                    <div id="completed-posts" class="completed">0/0</div>
+	                    <progress id="progressbar-posts" max="100" value="0"></progress>
+	                    <span id="progress-posts" class="progress">0%</span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <span class="dashicons dashicons-admin-media"></span> {{ data.media }} media</td>
+	                <td>
+	                    <span id="completed-media" class="completed">0/0</span>
+	                    <progress id="progressbar-media" max="100" value="0"></progress>
+	                    <span id="progress-media" class="progress">0%</span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <span class="dashicons dashicons-admin-users"></span> {{ data.users }} user </td>
+	                <td>
+	                    
+	                    <progress id="progressbar-users" max="100" value="0"></progress>
+	                    <span id="progress-users" class="progress">0%</span>
+	                <span id="completed-users" class="completed">0/0</span></td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <span class="dashicons dashicons-admin-comments"></span> {{ data.comments }} comments </td>
+	                <td>
+	                    <span id="completed-comments" class="completed">0/0</span>
+	                    <progress id="progressbar-comments" max="100" value="0"></progress>
+	                    <span id="progress-comments" class="progress">0%</span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <span class="dashicons dashicons-category"></span> {{ data.terms }} terms </td>
+	                <td>
+	                    <span id="completed-terms" class="completed">0/0</span>
+	                    <progress id="progressbar-terms" max="100" value="0"></progress>
+	                    <span id="progress-terms" class="progress">0%</span>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <div class="import-status-indicator">
+	    <hr>
+	        <span class="progress">
+	            <progress id="progressbar-total" max="100" value="0"></progress>
+	        </span>
+	        <span class="status">
+	            <span id="completed-total" class="completed">0/0</span>
+	            <span id="progress-total" class="progress">0%</span>
+	        </span>
+	    </div>
+	    
+	    <table id="import-log" class="widefat">
+			<thead>
+				<tr>
+					<th id="import-log-time"><?php esc_html_e( 'Time', 'astra-sites' ) ?></th>
+					<th id="import-log-type"><?php esc_html_e( 'Type', 'astra-sites' ) ?></th>
+					<th id="import-log-message"><?php esc_html_e( 'Message', 'astra-sites' ) ?></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
 </script>
 
 <?php
