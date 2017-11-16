@@ -773,10 +773,10 @@ var AstraSitesAjaxQueue = (function() {
 							.done(function ( xml_data ) {
 
 								// 3. Fail - Import XML.
-								if( false === wxr_url.success ) {
-									AstraSitesAdmin._log( wxr_url );
-									AstraSitesAdmin._importFailMessage( wxr_url.data );
-									AstraSitesAdmin._log( wxr_url.data );
+								if( false === xml_data.success ) {
+									AstraSitesAdmin._log( xml_data );
+									AstraSitesAdmin._importFailMessage( xml_data.data );
+									AstraSitesAdmin._log( xml_data.data );
 
 								} else {
 

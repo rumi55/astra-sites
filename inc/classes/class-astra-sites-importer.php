@@ -136,7 +136,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			do_action( 'astra_sites_import_xml' );
 
-			$wxr_url = ( isset( $_REQUEST['wxr_url'] ) ) ? urldecode( $_REQUEST['wxr_url'] ) : '';
+			$wxr_url = ( isset( $_REQUEST['wxr_url'] ) ) ? urldecode( $_REQUEST['wxr_url'] ) : '';			
 
 			if ( isset( $wxr_url ) ) {
 
@@ -287,7 +287,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				$remote_args['astra-site-widgets-data']    = json_decode( $data['astra-site-widgets-data'] );
 				$remote_args['astra-site-customizer-data'] = $data['astra-site-customizer-data'];
 				$remote_args['astra-site-options-data']    = $data['astra-site-options-data'];
-				$remote_args['astra-site-wxr-path']        = 'http://aiweb.cs.washington.edu/research/projects/xmltk/xmldata/data/SwissProt/SwissProt.xml'; // $data['astra-site-wxr-path'];
+				$remote_args['astra-site-wxr-path']        = $data['astra-site-wxr-path'];
 				$remote_args['astra-enabled-extensions']   = $data['astra-enabled-extensions'];
 				$remote_args['astra-custom-404']           = $data['astra-custom-404'];
 				$remote_args['required-plugins']           = $data['required-plugins'];

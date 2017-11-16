@@ -140,9 +140,6 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			self::set_log_file();
 
 			Astra_Sites_Importer_Log::add( '# System Details: ' );
-			Astra_Sites_Importer_Log::add( "Max Upload Size \t: " . size_format( wp_max_upload_size() ) );
-			Astra_Sites_Importer_Log::add( "Memory Limit \t\t: " . self::get_memory_limit() );
-			Astra_Sites_Importer_Log::add( "Timezone \t\t: " . self::get_timezone() );
 			Astra_Sites_Importer_Log::add( "Debug Mode \t\t: " . self::get_debug_mode() );
 			Astra_Sites_Importer_Log::add( "Operating System \t: " . self::get_os() );
 			Astra_Sites_Importer_Log::add( "Software \t\t: " . self::get_software() );
@@ -151,6 +148,10 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			Astra_Sites_Importer_Log::add( "PHP Max Input Vars \t: " . self::get_php_max_input_vars() );
 			Astra_Sites_Importer_Log::add( "PHP Max Post Size \t: " . self::get_php_max_post_size() );
 			Astra_Sites_Importer_Log::add( "PHP Extension GD \t: " . self::get_php_extension_gd() );
+			Astra_Sites_Importer_Log::add( "PHP Max Execution Time \t: " . self::get_max_execution_time() );
+			Astra_Sites_Importer_Log::add( "Max Upload Size \t: " . size_format( wp_max_upload_size() ) );
+			Astra_Sites_Importer_Log::add( "Memory Limit \t\t: " . self::get_memory_limit() );
+			Astra_Sites_Importer_Log::add( "Timezone \t\t: " . self::get_timezone() );
 			Astra_Sites_Importer_Log::add( PHP_EOL . '-----' . PHP_EOL );
 			Astra_Sites_Importer_Log::add( 'Importing Started! - ' . self::current_time() );
 
@@ -455,6 +456,16 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 */
 		public static function get_php_max_post_size() {
 			return ini_get( 'post_max_size' );
+		}
+
+		/**
+		 * PHP Max Execution Time
+		 *
+		 * @since 1.0.14
+		 * @return string Current Max Execution Time
+		 */
+		public static function get_max_execution_time() {
+			return ini_get( 'max_execution_time' );
 		}
 
 		/**
