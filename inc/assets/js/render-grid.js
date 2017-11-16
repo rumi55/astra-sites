@@ -33,7 +33,8 @@
 		 */
 		_bind: function()
 		{
-			$( document ).on('astra-sites-api-request-fail'    , AstraRender._apiFailed );
+			$( document ).on('astra-sites-api-request-error'   , AstraRender._addSuggestionBox );
+			$( document ).on('astra-sites-api-request-fail'    , AstraRender._addSuggestionBox );
 			$( document ).on('astra-api-post-loaded-on-scroll' , AstraRender._reinitGridScrolled );
 			$( document ).on('astra-api-post-loaded'           , AstraRender._reinitGrid );
 			$( document ).on('astra-api-category-loaded'       , AstraRender._addFilters );
@@ -64,8 +65,15 @@
 			$(this).addClass('current');
 
 			// Prepare Before Search.
-			$('#wp-filter-search-input').val('');
+			$('.no-more-demos').addClass('hide-me');
+			$('.astra-sites-suggestions').remove();
+
+			// Empty the search input only click on category filter not on page builder filter.
+			if( $(this).parents('.filter-links').hasClass('astra-site-category') ) {
+				$('#wp-filter-search-input').val('');
+			}
 			$('#astra-sites').hide().css('height', '');
+
 			$('body').addClass('loading-content');
 			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
@@ -88,6 +96,9 @@
 
 			// Prepare Before Search.
 			$('#astra-sites').hide().css('height', '');			
+			$('.no-more-demos').addClass('hide-me');
+			$('.astra-sites-suggestions').remove();
+
 			$('body').addClass('loading-content');
 			$('#astra-sites-admin').find('.spinner').removeClass('hide-me');
 
@@ -152,7 +163,7 @@
 
 		_apiAddParam_per_page: function() {
 			// Add 'per_page'
-			var per_page_val = 3;
+			var per_page_val = 15;
 			if( astraRenderGrid.sites && astraRenderGrid.sites["par-page"] ) {
 				per_page_val = parseInt( astraRenderGrid.sites["par-page"] );
 			}
@@ -416,6 +427,9 @@
 
 			if( data.items_count <= 0 ) {
 				$('#astra-sites-admin').find('.spinner').removeClass('is-active');
+				$('.no-more-demos').addClass('hide-me');
+				$('.astra-sites-suggestions').remove();
+
 			} else {
 				$('body').removeClass('listed-all-sites');
 			}
@@ -445,10 +459,16 @@
 		},
 
 		/**
-		 * API Request Failed/Not found any demos.
+		 * Add Suggestion Box
 		 */
-		_apiFailed: function() {
+		_addSuggestionBox: function() {
 			$('#astra-sites-admin').find('.spinner').removeClass('is-active').addClass('hide-me');
+
+			$('#astra-sites-admin').find('.no-more-demos').removeClass('hide-me');
+			var template = wp.template('astra-sites-suggestions');
+			if( ! $( '.astra-sites-suggestions').length ) {
+				$('#astra-sites').append( template );
+			}
 		},
 
 		/**

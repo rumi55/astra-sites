@@ -181,17 +181,18 @@ var AstraSitesAjaxQueue = (function() {
 		 */
 		_bind: function()
 		{
-			$( document ).on('click'                                           , '.theme-browser .theme-screenshot, .theme-browser .more-details, .theme-browser .install-theme-preview', AstraSitesAdmin._preview);
-			$( document ).on('click'                                           , '.next-theme', AstraSitesAdmin._nextTheme);
-			$( document ).on('click'                                           , '.previous-theme', AstraSitesAdmin._previousTheme);
-			$( document ).on('click'                                           , '.collapse-sidebar', AstraSitesAdmin._collapse);
-			$( document ).on('click'                                           , '.astra-demo-import', AstraSitesAdmin._importDemo);
-			$( document ).on('click'                                           , '.install-now', AstraSitesAdmin._installNow);
-			$( document ).on('click'                                           , '.close-full-overlay', AstraSitesAdmin._fullOverlay);
-			$( document ).on('click'                                           , '.activate-now', AstraSitesAdmin._activateNow);
-			$( document ).on('wp-plugin-installing'                            , AstraSitesAdmin._pluginInstalling);
-			$( document ).on('wp-plugin-install-error'                         , AstraSitesAdmin._installError);
-			$( document ).on('wp-plugin-install-success'                       , AstraSitesAdmin._installSuccess);
+			$( document ).on('click'					 , '.devices button', AstraSitesAdmin._previewDevice);
+			$( document ).on('click'                     , '.theme-browser .theme-screenshot, .theme-browser .more-details, .theme-browser .install-theme-preview', AstraSitesAdmin._preview);
+			$( document ).on('click'                     , '.next-theme', AstraSitesAdmin._nextTheme);
+			$( document ).on('click'                     , '.previous-theme', AstraSitesAdmin._previousTheme);
+			$( document ).on('click'                     , '.collapse-sidebar', AstraSitesAdmin._collapse);
+			$( document ).on('click'                     , '.astra-demo-import', AstraSitesAdmin._importDemo);
+			$( document ).on('click'                     , '.install-now', AstraSitesAdmin._installNow);
+			$( document ).on('click'                     , '.close-full-overlay', AstraSitesAdmin._fullOverlay);
+			$( document ).on('click'                     , '.activate-now', AstraSitesAdmin._activateNow);
+			$( document ).on('wp-plugin-installing'      , AstraSitesAdmin._pluginInstalling);
+			$( document ).on('wp-plugin-install-error'   , AstraSitesAdmin._installError);
+			$( document ).on('wp-plugin-install-success' , AstraSitesAdmin._installSuccess);
 		},
 
 		/**
@@ -209,6 +210,35 @@ var AstraSitesAjaxQueue = (function() {
 				.attr('target', '_blank')
 				.append('<i class="dashicons dashicons-external"></i>')
 				.attr('href', astraSitesAdmin.siteURL );
+		},
+
+		/**
+		 * Preview Device
+		 */
+		_previewDevice: function( event ) {
+			var device = $( event.currentTarget ).data( 'device' );
+
+			$('.theme-install-overlay')
+				.removeClass( 'preview-desktop preview-tablet preview-mobile' )
+				.addClass( 'preview-' + device )
+				.data( 'current-preview-device', device );
+
+			AstraSitesAdmin._tooglePreviewDeviceButtons( device );
+		},
+
+		/**
+		 * Toggle Preview Buttons
+		 */
+		_tooglePreviewDeviceButtons: function( newDevice ) {
+			var $devices = $( '.wp-full-overlay-footer .devices' );
+
+			$devices.find( 'button' )
+				.removeClass( 'active' )
+				.attr( 'aria-pressed', false );
+
+			$devices.find( 'button.preview-' + newDevice )
+				.addClass( 'active' )
+				.attr( 'aria-pressed', true );
 		},
 
 		/**

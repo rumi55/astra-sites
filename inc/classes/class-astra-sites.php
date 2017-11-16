@@ -38,7 +38,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -74,12 +74,13 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			Astra_Sites_Notices::add_notice(
 				array(
+					'id'               => 'theme-activation-nag',
 					'type'             => 'error',
 					'show_if'          => ( ! defined( 'ASTRA_THEME_SETTINGS' ) ) ? true : false,
 					/* translators: 1: theme.php file*/
 					'message'          => sprintf( __( 'Astra Theme needs to be active for you to use currently installed "%1$s" plugin. <a href="%2$s">Install & Activate Now</a>', 'astra-sites' ), ASTRA_SITES_NAME, esc_url( admin_url( 'themes.php?theme=astra' ) ) ),
 					'dismissible'      => true,
-					'dismissible-time' => MINUTE_IN_SECONDS,
+					'dismissible-time' => WEEK_IN_SECONDS,
 				)
 			);
 
@@ -180,7 +181,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra_sites_api_params', array(
 					'purchase_key' => '',
 					'site_url'     => '',
-					'par-page'     => 6,
+					'par-page'     => 15,
 				)
 			);
 
@@ -212,6 +213,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'strings'         => array(
 						'importFailedBtnSmall' => __( 'Error!', 'astra-sites' ),
 						'importFailedBtnLarge' => __( 'Error! Read Possibilities.', 'astra-sites' ),
+						'importFailedURL'      => esc_url( 'https://wpastra.com/docs/?p=1314&utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=import-failed' ),
 						'viewSite'             => __( 'Done! View Site', 'astra-sites' ),
 						'btnActivating'        => __( 'Activating', 'astra-sites' ) . '&hellip;',
 						'btnActive'            => __( 'Active', 'astra-sites' ),
@@ -440,8 +442,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites::set_instance();
+	Astra_Sites::get_instance();
 
 endif;

@@ -3,8 +3,8 @@ Contributors: brainstormforce
 Donate link: https://wpastra.com/pro/
 Tags: demo, theme demos, one click import
 Requires at least: 4.4
-Tested up to: 4.9
-Stable tag: 1.0.14
+Tested up to: 4.9.0
+Stable tag: 1.0.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Use this imported site as a base for your project and don't waste time starting 
 
 _<a href="https://wpastra.com/ready-websites/">See list of all available sites to import Â»</a>_
 
-#### Video walkthrough by Adam from WPCrafter:
+#### Video Walkthrough by Adam from WPCrafter:
 [youtube https://www.youtube.com/watch?v=zYbz-jxE9_Q]
 
 == Installation ==
@@ -36,13 +36,16 @@ _<a href="https://wpastra.com/ready-websites/">See list of all available sites t
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Is this really free? =
 
-An answer to that question.
+Yup, we have dozens of free websites ready to import! We have a premium version as well that is required for importing premium sites.
 
-= What about foo bar? =
+Learn More: https://wpastra.com/agency/
 
-Answer to foo bar dilemma.
+= Can I suggest new websites that you I add? =
+
+Sure. We love suggestions! Please submit them here -
+https://wpastra.com/sites-suggestions/
 
 
 == Screenshots ==
@@ -52,6 +55,9 @@ Answer to foo bar dilemma.
 3. Import the demo.
 
 == Changelog ==
+
+v1.0.15 - Unreleased
+* New: Importing Astra sites though SSE to avoid import timeouts.
 
 v1.0.14 - 9-Nov-2017
 * New: All the linked images on the Astra Sites will be downloaded to your site, No more loading images from external URLs.
@@ -123,4 +129,3 @@ v1.0.1 - 04-Aug-2017
 
 v1.0.0
 * Initial release
-== Upgrade Notice ==

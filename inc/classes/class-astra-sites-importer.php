@@ -30,7 +30,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -63,6 +63,9 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 
 			// Hooks in AJAX.
 			add_action( 'astra_sites_import_complete', array( $this, 'clear_cache' ) );
+
+			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing.php';
+
 			add_action( 'astra_sites_image_import_complete', array( $this, 'clear_cache' ) );
 
 		}
@@ -284,7 +287,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				$remote_args['astra-site-widgets-data']    = json_decode( $data['astra-site-widgets-data'] );
 				$remote_args['astra-site-customizer-data'] = $data['astra-site-customizer-data'];
 				$remote_args['astra-site-options-data']    = $data['astra-site-options-data'];
-				$remote_args['astra-site-wxr-path']        = $data['astra-site-wxr-path'];
+				$remote_args['astra-site-wxr-path']        = 'http://aiweb.cs.washington.edu/research/projects/xmltk/xmldata/data/SwissProt/SwissProt.xml'; // $data['astra-site-wxr-path'];
 				$remote_args['astra-enabled-extensions']   = $data['astra-enabled-extensions'];
 				$remote_args['astra-custom-404']           = $data['astra-custom-404'];
 				$remote_args['required-plugins']           = $data['required-plugins'];
@@ -315,8 +318,8 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Importer::set_instance();
+	Astra_Sites_Importer::get_instance();
 
 endif;

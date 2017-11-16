@@ -120,6 +120,21 @@ defined( 'ABSPATH' ) or exit;
 					<span class="collapse-sidebar-arrow"></span>
 					<span class="collapse-sidebar-label"><?php esc_html_e( 'Collapse', 'astra-sites' ); ?></span>
 				</button>
+
+				<div class="devices-wrapper">
+					<div class="devices">
+						<button type="button" class="preview-desktop active" aria-pressed="true" data-device="desktop">
+							<span class="screen-reader-text"><?php _e( 'Enter desktop preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-tablet" aria-pressed="false" data-device="tablet">
+							<span class="screen-reader-text"><?php _e( 'Enter tablet preview mode', 'astra-sites' ); ?></span>
+						</button>
+						<button type="button" class="preview-mobile" aria-pressed="false" data-device="mobile">
+							<span class="screen-reader-text"><?php _e( 'Enter mobile preview mode', 'astra-sites' ); ?></span>
+						</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<div class="wp-full-overlay-main">
@@ -145,7 +160,7 @@ defined( 'ABSPATH' ) or exit;
 		_e( '<p class="left-margin"> 2. If that does not work, you will need to talk to your server administrator and check if demo server is being blocked by the firewall!</p>', 'astra-sites' );
 
 		/* translators: %1$s is a support link */
-		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/' ) );
+		printf( __( '<p>If that does not help, please open up a <a href="%1$s" target="_blank">Support Ticket</a> and we will be glad take a closer look for you.</p>', 'astra-sites' ), esc_url( 'https://wpastra.com/support/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=api-request-failed' ) );
 		?>
 	</div>
 </script>
@@ -329,6 +344,32 @@ defined( 'ABSPATH' ) or exit;
 			</div>
 		<# } #>
 	<# } else { #>
-		<p class="no-themes" style="display:block;"> <?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?> </p>
+		<p class="no-themes" style="display:block;">
+			<?php _e( 'No Demos found, Try a different search.', 'astra-sites' ); ?>
+			<span class="description">
+				<?php
+				/* translators: %1$s External Link */
+				printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+				?>
+			</span>
+		</p>
 	<# } #>
+</script>
+
+<?php
+/**
+ * TMPL - List
+ */
+?>
+<script type="text/template" id="tmpl-astra-sites-suggestions">
+	<div class="theme astra-theme site-single astra-sites-suggestions">
+		<div class="inner">
+			<p>
+			<?php
+			/* translators: %1$s External Link */
+			printf( __( 'Don\'t see a site that you would like to import?<br>Please <a target="_blank" href="%1$s">suggest us</a>!', 'astra-sites' ), esc_url( 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions' ) );
+			?>
+			</p>
+		</div>
+	</div>
 </script>
