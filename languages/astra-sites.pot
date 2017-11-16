@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Astra Sites - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites - Lite 1.0.14\n"
+"Project-Id-Version: Astra Sites - Lite 1.0.14.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-11-09 09:45:20+00:00\n"
+"POT-Creation-Date: 2017-11-16 11:26:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -112,7 +112,7 @@ msgstr ""
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:221 inc/includes/admin-page.php:250
+#: inc/classes/class-astra-sites.php:221 inc/includes/admin-page.php:248
 msgid "No Demos found, Try a different search."
 msgstr ""
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Enter mobile preview mode"
 msgstr ""
 
-#: inc/includes/admin-page.php:140 inc/includes/admin-page.php:244
+#: inc/includes/admin-page.php:140 inc/includes/admin-page.php:240
 msgid "Preview"
 msgstr ""
 
@@ -397,15 +397,15 @@ msgid ""
 "for you.</p>"
 msgstr ""
 
-#: inc/includes/admin-page.php:232
+#: inc/includes/admin-page.php:230
 msgid "Details &amp; Preview"
 msgstr ""
 
-#: inc/includes/admin-page.php:265
+#: inc/includes/admin-page.php:252 inc/includes/admin-page.php:270
 #. translators: %1$s External Link
 msgid ""
-"Don't see a site that you would like to import?<br>Please suggest <a "
-"target=\"_blank\" href=\"%1$s\">tell us</a>!"
+"Don't see a site that you would like to import?<br>Please <a "
+"target=\"_blank\" href=\"%1$s\">suggest us</a>!"
 msgstr ""
 
 #: inc/includes/white-label.php:23

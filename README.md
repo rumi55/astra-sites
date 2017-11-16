@@ -4,7 +4,7 @@
 **Tags:** demo, theme demos, one click import  
 **Requires at least:** 4.4  
 **Tested up to:** 4.9.0  
-**Stable tag:** 1.0.14  
+**Stable tag:** 1.0.14.1  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -54,6 +54,9 @@ https://wpastra.com/sites-suggestions/
 3. Import the demo.
 
 ## Changelog ##
+
+v1.0.14.1 - Unreleased
+* Improvement: Updated Astra sites HTML grid structure for WordPress v4.9 compatibility.
 
 v1.0.14 - 9-Nov-2017
 * New: All the linked images on the Astra Sites will be downloaded to your site, No more loading images from external URLs.
