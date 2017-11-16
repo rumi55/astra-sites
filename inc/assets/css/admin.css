@@ -286,3 +286,25 @@
 .no-themes .description {
     display: block;
 }
+
+/**
+ * Responsive Button UI
+ */
+.astra-sites-preview .wp-full-overlay-footer .devices button.active:before,
+.astra-sites-preview .wp-full-overlay-footer .devices button:hover:before {
+    color: #0073aa;
+}
+.astra-sites-preview .wp-full-overlay-footer .devices button:before {
+    color: #c1c1c1;
+}
+.astra-sites-preview .wp-full-overlay-footer .devices button:hover {
+    background-color: transparent;
+}
+.astra-sites-preview .wp-full-overlay-footer .devices button {
+    border: none;
+}
+.astra-sites-preview .wp-full-overlay-footer .devices button:focus,
+.astra-sites-preview .wp-full-overlay-footer .devices button.active:hover {
+    border-bottom-color: transparent;
+    background-color: transparent;
+}
