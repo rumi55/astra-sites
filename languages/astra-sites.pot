@@ -1,10 +1,10 @@
 # Copyright (C) 2017 Brainstorm Force
-# This file is distributed under the same license as the Astra Sites - Lite package.
+# This file is distributed under the same license as the Astra Starter Sites package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Astra Sites - Lite 1.0.14\n"
+"Project-Id-Version: Astra Starter Sites 1.0.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/astra-sites\n"
-"POT-Creation-Date: 2017-11-09 09:45:20+00:00\n"
+"POT-Creation-Date: 2017-11-16 05:34:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,8 +24,8 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#: astra-sites.php:18 inc/classes/class-astra-sites-page.php:85
-msgid "Astra Sites"
+#. Plugin Name of the plugin/theme
+msgid "Astra Starter Sites"
 msgstr ""
 
 #: inc/classes/class-astra-sites-importer.php:74
@@ -112,7 +112,7 @@ msgstr ""
 msgid "There was a problem receiving a response from server."
 msgstr ""
 
-#: inc/classes/class-astra-sites.php:221 inc/includes/admin-page.php:250
+#: inc/classes/class-astra-sites.php:221 inc/includes/admin-page.php:251
 msgid "No Demos found, Try a different search."
 msgstr ""
 
@@ -401,11 +401,11 @@ msgstr ""
 msgid "Details &amp; Preview"
 msgstr ""
 
-#: inc/includes/admin-page.php:265
+#: inc/includes/admin-page.php:255 inc/includes/admin-page.php:273
 #. translators: %1$s External Link
 msgid ""
-"Don't see a site that you would like to import?<br>Please suggest <a "
-"target=\"_blank\" href=\"%1$s\">tell us</a>!"
+"Don't see a site that you would like to import?<br>Please <a "
+"target=\"_blank\" href=\"%1$s\">suggest us</a>!"
 msgstr ""
 
 #: inc/includes/white-label.php:23
@@ -414,10 +414,6 @@ msgstr ""
 
 #: inc/includes/white-label.php:28
 msgid "Plugin Description:"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Astra Sites - Lite"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
