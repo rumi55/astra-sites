@@ -221,25 +221,25 @@ defined( 'ABSPATH' ) or exit;
 
 				<div class="inner">
 					<span class="site-preview" data-href="{{ data.items[ key ]['astra-site-url'] }}?TB_iframe=true&width=600&height=550" data-title="{{ data.items[ key ].title.rendered }}">
-				        <div class="theme-screenshot">
+						<div class="theme-screenshot">
 						<# if( '' !== data.items[ key ]['featured-image-url'] ) { #>
 							<img src="{{ data.items[ key ]['featured-image-url'] }}" />
 						<# } #>
 						</div>
 					</span>
-				    <span class="more-details"> <?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?> </span>
-			        <# if ( data.items[ key ]['astra-site-type'] ) { #>
+					<span class="more-details"> <?php esc_html_e( 'Details &amp; Preview', 'astra-sites' ); ?> </span>
+					<# if ( data.items[ key ]['astra-site-type'] ) { #>
 						<span class="site-type {{data.items[ key ]['astra-site-type']}}">{{data.items[ key ]['astra-site-type']}}</span>
 					<# } #>
 					<# if ( data.items[ key ].status ) { #>
 						<span class="status {{data.items[ key ].status}}">{{data.items[ key ].status}}</span>
 					<# } #>
-				    <div class="theme-id-container">
-				    	<h3 class="theme-name" id="astra-theme-name"> {{{ data.items[ key ].title.rendered }}} </h3>
+					<div class="theme-id-container">
+						<h3 class="theme-name" id="astra-theme-name"> {{{ data.items[ key ].title.rendered }}} </h3>
 						<div class="theme-actions">
 							<button class="button preview install-theme-preview"><?php esc_html_e( 'Preview', 'astra-sites' ); ?></button>
-				        </div>
-				    </div>
+						</div>
+					</div>
 				</div>
 			</div>
 		<# } #>
