@@ -155,13 +155,11 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			}
 
 			if ( $post_id ) {
-				$new_attachment                                  = array(
+				$new_attachment = array(
 					'id'  => $post_id,
 					'url' => wp_get_attachment_url( $post_id ),
 				);
 				$this->already_imported_ids[ $attachment['id'] ] = $new_attachment;
-
-				Astra_Sites_Image_Importer::log( 'Download (✓) Replace (✓) - ' . $attachment['url'] );
 
 				return $new_attachment;
 			}
@@ -227,6 +225,8 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 				'id'  => $post_id,
 				'url' => $upload['url'],
 			);
+
+			Astra_Sites_Image_Importer::log( 'Download (✓) Replace (✓) - ' . $attachment['url'] );
 
 			$this->already_imported_ids[ $attachment['id'] ] = $new_attachment;
 

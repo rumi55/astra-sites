@@ -149,7 +149,7 @@ class Astra_WXR_Importer {
 	 *
 	 * @param  (String) $path Absolute path to the XML file.
 	 */
-	public function import_xml( $path ) {
+	public function get_xml_data( $path ) {
 
 		$args = array(
 			'action'  => 'astra-wxr-import',
@@ -160,7 +160,7 @@ class Astra_WXR_Importer {
 
 		$data = $this->get_data( $path );
 
-		$script_data = array(
+		return array(
 			'count' => array(
 				'posts' => $data->post_count,
 				'media' => $data->media_count,
@@ -173,8 +173,12 @@ class Astra_WXR_Importer {
 				'complete' => __( 'Import complete!', 'astra-sites' ),
 			),
 		);
+	}
 
-		return $script_data;
+	function import( $url ) {
+		$importer = $this->get_importer();
+
+		$importer->import( $url );
 	}
 
 	function get_data( $url ) {
@@ -187,12 +191,18 @@ class Astra_WXR_Importer {
 	}
 
 	public function get_importer() {
-		$options  = array(
+		$options = array(
 			'fetch_attachments' => true,
 			'default_author'    => get_current_user_id(),
 		);
 		$importer = new WXR_Importer( $options );
-		$logger   = new WP_Importer_Logger_ServerSentEvents();
+
+		global $is_IE;
+		if( $is_IE ) {
+			$logger = new WP_Importer_Logger();
+		} else {
+			$logger = new WP_Importer_Logger_ServerSentEvents();
+		}
 
 		$importer->set_logger( $logger );
 		return $importer;

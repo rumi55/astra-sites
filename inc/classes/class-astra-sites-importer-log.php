@@ -75,7 +75,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 			// Initial AJAX Import Hooks.
 			add_action( 'astra_sites_import_start', array( $this, 'start' ), 10, 2 );
 			add_action( 'astra_sites_import_customizer_settings', array( $this, 'start_customizer' ) );
-			add_action( 'astra_sites_import_xml', array( $this, 'start_xml' ) );
+			add_action( 'astra_sites_import_prepare_xml_data', array( $this, 'start_xml' ) );
 			add_action( 'astra_sites_import_options', array( $this, 'start_options' ) );
 			add_action( 'astra_sites_import_widgets', array( $this, 'start_widgets' ) );
 			add_action( 'astra_sites_import_complete', array( $this, 'start_end' ) );
