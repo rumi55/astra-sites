@@ -795,7 +795,7 @@ var AstraSitesAjaxQueue = (function() {
 		 */
 		_activateAllPlugins: function( activate_plugins ) {
 
-			// Process of cloud templates - (download, remove & fetch).
+			// Activate ALl Plugins.
 			AstraSitesAjaxQueue.stop();
 			AstraSitesAjaxQueue.run();
 

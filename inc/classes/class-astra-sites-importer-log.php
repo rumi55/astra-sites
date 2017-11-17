@@ -2,7 +2,7 @@
 /**
  * Astra Sites Importer Log
  *
- * @since 1.0.14
+ * @since 1.0.15
  * @package Astra Sites
  */
 
@@ -18,7 +18,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Instance
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @var (Object) Class object
 		 */
 		private static $_instance = null;
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Log File
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @var (Object) Class object
 		 */
 		private static $log_file = null;
@@ -34,11 +34,11 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Set Instance
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 *
 		 * @return object Class object.
 		 */
-		public static function set_instance() {
+		public static function get_instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self;
 			}
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Constructor.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 */
 		private function __construct() {
 
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Check file read/write permissions and process.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return null
 		 */
 		function has_file_read_write() {
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Add log file URL in UI response.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 */
 		public static function add_log_file_url() {
 
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * XML Log.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @param  string $level   Level (Debug, Info etc.).
 		 * @param  string $message Message.
 		 * @param  string $context Context.
@@ -119,7 +119,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Current Time for log.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current time with time zone.
 		 */
 		public static function current_time() {
@@ -129,7 +129,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Import Start
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @param  array  $data         Import Data.
 		 * @param  string $demo_api_uri Import site API URL.
 		 * @return void
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Start Customizer Import
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function start_customizer() {
@@ -176,7 +176,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Start XML Import
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function start_xml() {
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Start Options Import
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function start_options() {
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Start Widgets Import
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function start_widgets() {
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * End Import Process
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function start_end() {
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Log Widget Import Data.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @param  array $results Widget import info in array.
 		 * @return void
 		 */
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Get an instance of WP_Filesystem_Direct.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return object A WP_Filesystem_Direct instance.
 		 */
 		static public function get_filesystem() {
@@ -259,7 +259,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Get Log File
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string log file URL.
 		 */
 		public static function get_log_file() {
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Log file directory
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @param  string $dir_name Directory Name.
 		 * @return array    Uploads directory array.
 		 */
@@ -299,7 +299,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Set log file
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 */
 		public static function set_log_file() {
 
@@ -316,7 +316,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Write content to a file.
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @param string $content content to be saved to the file.
 		 */
 		public static function add( $content ) {
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Debug Mode
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Enabled for Debug mode ON and Disabled for Debug mode Off.
 		 */
 		public static function get_debug_mode() {
@@ -355,7 +355,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Memory Limit
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Memory limit.
 		 */
 		public static function get_memory_limit() {
@@ -379,7 +379,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Timezone
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @see https://codex.wordpress.org/Option_Reference/
 		 *
 		 * @return string Current timezone.
@@ -397,7 +397,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Operating System
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current Operating System.
 		 */
 		public static function get_os() {
@@ -407,7 +407,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * Server Software
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current Server Software.
 		 */
 		public static function get_software() {
@@ -417,7 +417,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * MySql Version
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current MySql Version.
 		 */
 		public static function get_mysql_version() {
@@ -428,7 +428,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * PHP Version
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current PHP Version.
 		 */
 		public static function get_php_version() {
@@ -441,7 +441,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * PHP Max Input Vars
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current PHP Max Input Vars
 		 */
 		public static function get_php_max_input_vars() {
@@ -451,7 +451,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * PHP Max Post Size
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current PHP Max Post Size
 		 */
 		public static function get_php_max_post_size() {
@@ -461,7 +461,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * PHP Max Execution Time
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current Max Execution Time
 		 */
 		public static function get_max_execution_time() {
@@ -471,7 +471,7 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		/**
 		 * PHP GD Extension
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return string Current PHP GD Extension
 		 */
 		public static function get_php_extension_gd() {
@@ -485,8 +485,8 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 	}
 
 	/**
-	 * Kicking this off by calling 'set_instance()' method
+	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Astra_Sites_Importer_Log::set_instance();
+	Astra_Sites_Importer_Log::get_instance();
 
 endif;

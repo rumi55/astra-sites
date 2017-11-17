@@ -59,6 +59,11 @@ class Astra_WXR_Importer {
 		add_filter( 'wxr_importer.pre_process.user' , '__return_false' );		
 	}
 
+	/**
+	 * Constructor.
+	 *
+	 * @since  1.0.15
+	 */
 	function sse_import() {
 
 		// Start the event stream.

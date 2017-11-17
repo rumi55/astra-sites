@@ -74,7 +74,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 		/**
 		 * Start Site Import
 		 *
-		 * @since 1.0.14
+		 * @since 1.0.15
 		 * @return void
 		 */
 		function import_start() {
