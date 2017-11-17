@@ -1,13 +1,13 @@
 <?php
 
-if( class_exists('WP_Importer_Logger' ) ) {
+if ( class_exists( 'WP_Importer_Logger' ) ) {
 	class WP_Importer_Logger_ServerSentEvents extends WP_Importer_Logger {
 		/**
 		 * Logs with an arbitrary level.
 		 *
-		 * @param mixed $level
+		 * @param mixed  $level
 		 * @param string $message
-		 * @param array $context
+		 * @param array  $context
 		 * @return null
 		 */
 		public function log( $level, $message, array $context = array() ) {

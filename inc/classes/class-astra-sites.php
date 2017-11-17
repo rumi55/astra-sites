@@ -203,7 +203,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'debug'           => ( ( defined( 'WP_DEBUG' ) && WP_DEBUG ) || isset( $_GET['debug'] ) ) ? true : false,
 					'ajaxurl'         => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'         => site_url(),
-					'is_IE'			  => $is_IE,
+					'is_IE'           => $is_IE,
 					'getProText'      => __( 'Purchase', 'astra-sites' ),
 					'getProURL'       => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
 					'getUpgradeText'  => __( 'Upgrade', 'astra-sites' ),

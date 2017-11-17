@@ -43,7 +43,7 @@ class Astra_WXR_Importer {
 	 * @since  1.0.0
 	 */
 	private function __construct() {
-		
+
 		if ( ! class_exists( 'WP_Importer' ) ) {
 			defined( 'WP_LOAD_IMPORTERS' ) || define( 'WP_LOAD_IMPORTERS', true );
 			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
@@ -54,9 +54,9 @@ class Astra_WXR_Importer {
 		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-importer.php';
 		require_once ASTRA_SITES_DIR . 'inc/importers/wxr-importer/class-wxr-import-info.php';
 
-		add_filter( 'upload_mimes'                  , array( $this, 'custom_upload_mimes' ) );
-		add_action( 'wp_ajax_astra-wxr-import'      , array( $this, 'sse_import' ) );
-		add_filter( 'wxr_importer.pre_process.user' , '__return_false' );		
+		add_filter( 'upload_mimes', array( $this, 'custom_upload_mimes' ) );
+		add_action( 'wp_ajax_astra-wxr-import', array( $this, 'sse_import' ) );
+		add_filter( 'wxr_importer.pre_process.user', '__return_false' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Astra_WXR_Importer {
 		// Start the event stream.
 		header( 'Content-Type: text/event-stream' );
 
-		// Turn off PHP output compression
+		// Turn off PHP output compression.
 		$previous = error_reporting( error_reporting() ^ E_WARNING );
 		ini_set( 'output_buffering', 'off' );
 		ini_set( 'zlib.output_compression', false );
@@ -99,8 +99,8 @@ class Astra_WXR_Importer {
 
 		// Are we allowed to create users?
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
-	
-		// Keep track of our progress
+
+		// Keep track of our progress.
 		add_action( 'wxr_importer.processed.post', array( $this, 'imported_post' ), 10, 2 );
 		add_action( 'wxr_importer.process_failed.post', array( $this, 'imported_post' ), 10, 2 );
 		add_action( 'wxr_importer.process_already_imported.post', array( $this, 'already_imported_post' ), 10, 2 );
@@ -110,9 +110,8 @@ class Astra_WXR_Importer {
 		add_action( 'wxr_importer.processed.term', array( $this, 'imported_term' ) );
 		add_action( 'wxr_importer.process_failed.term', array( $this, 'imported_term' ) );
 		add_action( 'wxr_importer.process_already_imported.term', array( $this, 'imported_term' ) );
-		// add_action( 'wxr_importer.processed.user', array( $this, 'imported_user' ) );
-		// add_action( 'wxr_importer.process_failed.user', array( $this, 'imported_user' ) );
-
+		add_action( 'wxr_importer.processed.user', array( $this, 'imported_user' ) );
+		add_action( 'wxr_importer.process_failed.user', array( $this, 'imported_user' ) );
 		// Flush once more.
 		flush();
 
@@ -122,7 +121,7 @@ class Astra_WXR_Importer {
 		// Let the browser know we're done.
 		$complete = array(
 			'action' => 'complete',
-			'error' => false,
+			'error'  => false,
 		);
 		if ( is_wp_error( $response ) ) {
 			$complete['error'] = $response->get_error_message();
@@ -161,49 +160,72 @@ class Astra_WXR_Importer {
 			'id'      => '1',
 			'xml_url' => $path,
 		);
-		$url = add_query_arg( urlencode_deep( $args ), admin_url( 'admin-ajax.php' ) );
+		$url  = add_query_arg( urlencode_deep( $args ), admin_url( 'admin-ajax.php' ) );
 
 		$data = $this->get_data( $path );
 
 		return array(
-			'count' => array(
-				'posts' => $data->post_count,
-				'media' => $data->media_count,
-				'users' => 0, // count( $data->users ),
+			'count'   => array(
+				'posts'    => $data->post_count,
+				'media'    => $data->media_count,
+				'users'    => count( $data->users ),
 				'comments' => $data->comment_count,
-				'terms' => $data->term_count,
+				'terms'    => $data->term_count,
 			),
-			'url' => $url,
+			'url'     => $url,
 			'strings' => array(
 				'complete' => __( 'Import complete!', 'astra-sites' ),
 			),
 		);
 	}
 
-	function import( $url ) {
-		$importer = $this->get_importer();
+	/**
+	 * Import XML.
+	 *
+	 * @since 1.0.15
+	 * @param  string $url Downloaded XML file absolute URL.
+	 * @return void
+	 */
+	function import( $url = '' ) {
 
-		$importer->import( $url );
+		if ( empty( $url ) ) {
+			$importer = $this->get_importer();
+			$importer->import( $url );
+		}
+
 	}
 
+	/**
+	 * Get XML data.
+	 *
+	 * @since 1.0.15
+	 * @param  string $url Downloaded XML file absolute URL.
+	 * @return array  XML file data.
+	 */
 	function get_data( $url ) {
 		$importer = $this->get_importer();
-	    $data = $importer->get_preliminary_information( $url );
-	    if ( is_wp_error( $data ) ) {
-	        return $data;
-	    }
-	    return $data;
+		$data     = $importer->get_preliminary_information( $url );
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
+		return $data;
 	}
 
+	/**
+	 * Get Importer
+	 *
+	 * @since 1.0.15
+	 * @return object   Importer object.
+	 */
 	public function get_importer() {
-		$options = array(
+		$options  = array(
 			'fetch_attachments' => true,
 			'default_author'    => get_current_user_id(),
 		);
 		$importer = new WXR_Importer( $options );
 
 		global $is_IE;
-		if( $is_IE ) {
+		if ( $is_IE ) {
 			$logger = new WP_Importer_Logger();
 		} else {
 			$logger = new WP_Importer_Logger_ServerSentEvents();
@@ -216,66 +238,85 @@ class Astra_WXR_Importer {
 	/**
 	 * Send message when a post has been imported.
 	 *
-	 * @param int $id Post ID.
+	 * @since 1.0.15
+	 * @param int   $id Post ID.
 	 * @param array $data Post data saved to the DB.
 	 */
 	public function imported_post( $id, $data ) {
-		$this->emit_sse_message( array(
-			'action' => 'updateDelta',
-			'type'   => ( $data['post_type'] === 'attachment' ) ? 'media' : 'posts',
-			'delta'  => 1,
-		));
+		$this->emit_sse_message(
+			array(
+				'action' => 'updateDelta',
+				'type'   => ( 'attachment' === $data['post_type'] ) ? 'media' : 'posts',
+				'delta'  => 1,
+			)
+		);
 	}
 
 	/**
 	 * Send message when a post is marked as already imported.
 	 *
+	 * @since 1.0.15
 	 * @param array $data Post data saved to the DB.
 	 */
 	public function already_imported_post( $data ) {
-		$this->emit_sse_message( array(
-			'action' => 'updateDelta',
-			'type'   => ( $data['post_type'] === 'attachment' ) ? 'media' : 'posts',
-			'delta'  => 1,
-		));
+		$this->emit_sse_message(
+			array(
+				'action' => 'updateDelta',
+				'type'   => ( 'attachment' === $data['post_type'] ) ? 'media' : 'posts',
+				'delta'  => 1,
+			)
+		);
 	}
 
 	/**
 	 * Send message when a comment has been imported.
+	 *
+	 * @since 1.0.15
 	 */
 	public function imported_comment() {
-		$this->emit_sse_message( array(
-			'action' => 'updateDelta',
-			'type'   => 'comments',
-			'delta'  => 1,
-		));
+		$this->emit_sse_message(
+			array(
+				'action' => 'updateDelta',
+				'type'   => 'comments',
+				'delta'  => 1,
+			)
+		);
 	}
 
 	/**
 	 * Send message when a term has been imported.
+	 *
+	 * @since 1.0.15
 	 */
 	public function imported_term() {
-		$this->emit_sse_message( array(
-			'action' => 'updateDelta',
-			'type'   => 'terms',
-			'delta'  => 1,
-		));
+		$this->emit_sse_message(
+			array(
+				'action' => 'updateDelta',
+				'type'   => 'terms',
+				'delta'  => 1,
+			)
+		);
 	}
 
 	/**
 	 * Send message when a user has been imported.
+	 *
+	 * @since 1.0.15
 	 */
 	public function imported_user() {
-		$this->emit_sse_message( array(
-			'action' => 'updateDelta',
-			'type'   => 'users',
-			'delta'  => 1,
-		));
+		$this->emit_sse_message(
+			array(
+				'action' => 'updateDelta',
+				'type'   => 'users',
+				'delta'  => 1,
+			)
+		);
 	}
 
 	/**
 	 * Emit a Server-Sent Events message.
 	 *
+	 * @since 1.0.15
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
 	public function emit_sse_message( $data ) {

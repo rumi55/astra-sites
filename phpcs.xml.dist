@@ -17,6 +17,8 @@
 	<exclude-pattern>*/admin/bsf-core/*</exclude-pattern>
 	<exclude-pattern>*/inc/importers/wxr-importer/class-wxr-importer.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/wxr-importer/class-logger.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/wxr-importer/class-wp-importer-logger-serversentevents.php</exclude-pattern>
+	<exclude-pattern>*/inc/importers/wxr-importer/class-wxr-import-info.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/class-widgets-importer.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/batch-processing/helpers/class-wp-async-request.php</exclude-pattern>
 	<exclude-pattern>*/inc/importers/batch-processing/helpers/class-wp-background-process.php</exclude-pattern>

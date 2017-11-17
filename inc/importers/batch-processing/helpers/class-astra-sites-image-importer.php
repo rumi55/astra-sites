@@ -155,7 +155,7 @@ if ( ! class_exists( 'Astra_Sites_Image_Importer' ) ) :
 			}
 
 			if ( $post_id ) {
-				$new_attachment = array(
+				$new_attachment                                  = array(
 					'id'  => $post_id,
 					'url' => wp_get_attachment_url( $post_id ),
 				);
