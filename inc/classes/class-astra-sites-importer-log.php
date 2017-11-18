@@ -72,6 +72,9 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 				return;
 			}
 
+			// Set log file.
+			self::set_log_file();
+
 			// Initial AJAX Import Hooks.
 			add_action( 'astra_sites_import_start', array( $this, 'start' ), 10, 2 );
 			add_action( 'astra_sites_import_customizer_settings', array( $this, 'start_customizer' ) );
@@ -135,9 +138,6 @@ if ( ! class_exists( 'Astra_Sites_Importer_Log' ) ) :
 		 * @return void
 		 */
 		function start( $data = array(), $demo_api_uri = '' ) {
-
-			// Set log file.
-			self::set_log_file();
 
 			Astra_Sites_Importer_Log::add( '# System Details: ' );
 			Astra_Sites_Importer_Log::add( "Debug Mode \t\t: " . self::get_debug_mode() );
