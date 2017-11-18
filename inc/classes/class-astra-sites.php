@@ -151,6 +151,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				return;
 			}
 
+			global $is_IE;
+
+			if( $is_IE ) {
+				wp_enqueue_script( 'astra-sites-eventsource', ASTRA_SITES_URI . 'inc/assets/js/eventsource.min.js', array( 'jquery', 'wp-util', 'updates' ), ASTRA_SITES_VER, true );
+			}
+	
 			// API.
 			wp_register_script( 'astra-sites-api', ASTRA_SITES_URI . 'inc/assets/js/astra-sites-api.js', array( 'jquery' ), ASTRA_SITES_VER, true );
 
@@ -195,15 +201,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			wp_localize_script( 'astra-sites-render-grid', 'astraRenderGrid', $data );
 
-			global $is_IE;
-
 			$data = apply_filters(
 				'astra_sites_localize_vars',
 				array(
 					'debug'           => ( ( defined( 'WP_DEBUG' ) && WP_DEBUG ) || isset( $_GET['debug'] ) ) ? true : false,
 					'ajaxurl'         => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'siteURL'         => site_url(),
-					'is_IE'           => $is_IE,
 					'getProText'      => __( 'Purchase', 'astra-sites' ),
 					'getProURL'       => esc_url( 'https://wpastra.com/agency/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
 					'getUpgradeText'  => __( 'Upgrade', 'astra-sites' ),

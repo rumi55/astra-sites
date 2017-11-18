@@ -57,7 +57,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 			add_action( 'wp_ajax_astra-sites-import-set-site-data', array( $this, 'import_start' ) );
 			add_action( 'wp_ajax_astra-sites-import-customizer-settings', array( $this, 'import_customizer_settings' ) );
 			add_action( 'wp_ajax_astra-sites-import-prepare-xml', array( $this, 'prepare_xml_data' ) );
-			add_action( 'wp_ajax_astra-sites-import-xml', array( $this, 'import_xml' ) );
 			add_action( 'wp_ajax_astra-sites-import-options', array( $this, 'import_options' ) );
 			add_action( 'wp_ajax_astra-sites-import-widgets', array( $this, 'import_widgets' ) );
 			add_action( 'wp_ajax_astra-sites-import-end', array( $this, 'import_end' ) );
@@ -125,21 +124,6 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) :
 				wp_send_json_error( __( 'Customizer data is empty!', 'astra-sites' ) );
 			}
 
-		}
-
-		/**
-		 * Import XML.
-		 *
-		 * @since 1.0.14
-		 * @return void
-		 */
-		function import_xml() {
-			do_action( 'astra_sites_import_xml' );
-
-			$local_xml_url = ( isset( $_REQUEST['local_xml_url'] ) ) ? urldecode( $_REQUEST['local_xml_url'] ) : '';
-
-			Astra_WXR_Importer::instance()->import( $local_xml_url );
-			wp_send_json_success();
 		}
 
 		/**

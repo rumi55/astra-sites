@@ -348,69 +348,37 @@ var AstraSitesAjaxQueue = (function() {
 					// 2. Pass - Prepare XML Data.
 					AstraSitesAdmin._log( astraSitesAdmin.log.importXMLPrepareSuccess );
 
-					// Is IE browser?
-					if( astraSitesAdmin.is_IE ) {
+					// Import XML though Event Source.
+					AstraSSEImport.data = xml_data.data;
+					AstraSSEImport.render();
 
-						// Import XML though AJAX.
-						$.ajax({
-							url  : astraSitesAdmin.ajaxurl,
-							type : 'POST',
-							data : {
-								action        : 'astra-sites-import-xml',
-								local_xml_url : xml_data.data.xml.file,
-							},
-							beforeSend: function() {
-								AstraSitesAdmin._log( astraSitesAdmin.log.importXML )
-								$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingXML );
-							},
-						})
-						.fail(function( jqXHR ){
-							AstraSitesAdmin._importFailMessage( jqXHR.status + ' ' + jqXHR.statusText );
-							AstraSitesAdmin._log( jqXHR.status + ' ' + jqXHR.statusText );
-					    })
-						.done(function ( xml_data ) {
+					AstraSitesAdmin._log( astraSitesAdmin.log.importXML );
+					$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingXML );
+					
+					var evtSource = new EventSource( AstraSSEImport.data.url );
+					evtSource.onmessage = function ( message ) {
+						var data = JSON.parse( message.data );
+						switch ( data.action ) {
+							case 'updateDelta':
+									AstraSSEImport.updateDelta( data.type, data.delta );
+								break;
 
-							// 2. Pass - Import XML though "AJAX".
-							AstraSitesAdmin._log( astraSitesAdmin.log.importXMLSuccess );
-							AstraSitesAdmin._log( '----- AJAX - XML import Complete -----' );
+							case 'complete':
+								evtSource.close();
 
-							$(document).trigger( 'astra-sites-import-xml-done' );
-						});
+								// 2. Pass - Import XML though "Source Event".
+								AstraSitesAdmin._log( astraSitesAdmin.log.importXMLSuccess );
+								AstraSitesAdmin._log( '----- SSE - XML import Complete -----' );
 
-					} else {
+								$(document).trigger( 'astra-sites-import-xml-done' );
 
-						// Import XML though Event Source.
-						AstraSSEImport.data = xml_data.data;
-						AstraSSEImport.render();
-
-						AstraSitesAdmin._log( astraSitesAdmin.log.importXML );
-						$('.button-hero.astra-demo-import').text( astraSitesAdmin.log.importingXML );
-						
-						var evtSource = new EventSource( AstraSSEImport.data.url );
-						evtSource.onmessage = function ( message ) {
-							var data = JSON.parse( message.data );
-							switch ( data.action ) {
-								case 'updateDelta':
-										AstraSSEImport.updateDelta( data.type, data.delta );
-									break;
-
-								case 'complete':
-									evtSource.close();
-
-									// 2. Pass - Import XML though "Source Event".
-									AstraSitesAdmin._log( astraSitesAdmin.log.importXMLSuccess );
-									AstraSitesAdmin._log( '----- SSE - XML import Complete -----' );
-
-									$(document).trigger( 'astra-sites-import-xml-done' );
-
-									break;
-							}
-						};
-						evtSource.addEventListener( 'log', function ( message ) {
-							var data = JSON.parse( message.data );
-							AstraSitesAdmin._log( data.level + ' ' + data.message );
-						});
-					}
+								break;
+						}
+					};
+					evtSource.addEventListener( 'log', function ( message ) {
+						var data = JSON.parse( message.data );
+						AstraSitesAdmin._log( data.level + ' ' + data.message );
+					});
 				}
 			});
 		},
@@ -962,7 +930,7 @@ var AstraSitesAjaxQueue = (function() {
 				/**
 				 * Set log file URL
 				 */
-				if( astraSitesAdmin.debug && 'undefined' !== demo_data.data.log_file.url ) {
+				if( astraSitesAdmin.debug && ( undefined !== demo_data.data.log_file.abs_url || null !== demo_data.data.log_file.abs_url ) ) {
 					AstraSitesAdmin.log_file_url  = decodeURIComponent( demo_data.data.log_file.url ) || '';
 				}
 
