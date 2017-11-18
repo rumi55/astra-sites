@@ -75,8 +75,6 @@ var AstraSitesAjaxQueue = (function() {
 
 }());
 
-	
-
 (function($){
 
 	var AstraSSEImport = {
@@ -100,27 +98,13 @@ var AstraSitesAjaxQueue = (function() {
 			var text = complete + '/' + total;
 
 			if( 'undefined' !== type && 'undefined' !== text ) {
-				// console.log('completed-type: ' + type);
-				// console.log('completed: ' + text);
-				// document.getElementById( 'completed-' + type ).innerHTML = text;
 				total = parseInt( total, 10 );
 				if ( 0 === total || isNaN( total ) ) {
 					total = 1;
 				}
 				var percent = parseInt( complete, 10 ) / total;
-				// console.log('completed: ' + text);
-				// console.log('progress-type: ' + type);
 				var progress     = Math.round( percent * 100 ) + '%';
 				var progress_bar = percent * 100;
-
-				// console.log('progress: ' + progress);
-				if( 'NaN%' !== progress ) {
-					// console.log('Math.round( percent * 100 ) + %' + Math.round( percent * 100 ) + '%' );
-					// document.getElementById( 'progress-' + type ).innerHTML = progress;
-					// document.getElementById( 'progressbar-' + type ).value  = progress_bar;
-					// console.log('progress: ' + progress);
-					// console.log('progress_bar: ' + progress_bar);
-				}
 			}
 		},
 		render: function () {
