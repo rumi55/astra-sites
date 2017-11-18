@@ -207,8 +207,8 @@ class Astra_WXR_Importer {
 			'default_author'    => get_current_user_id(),
 		);
 		$importer = new WXR_Importer( $options );
-		$logger = new WP_Importer_Logger_ServerSentEvents();
-	
+		$logger   = new WP_Importer_Logger_ServerSentEvents();
+
 		$importer->set_logger( $logger );
 		return $importer;
 	}
